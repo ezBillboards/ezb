@@ -7,7 +7,9 @@ $(document).ready(function(){
 			$("#profile-mobile").text(profile.mobile);
 			$("#profile-work").text(profile.work);
 			$("#profile-company").text(profile.company);
-			$("#profile-address").text(profile.address);
+			$("#profile-address1").text(profile.address1);
+			$("#profile-address2").text(profile.address2);
+			$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipCode);
 			$("#profile-url").text(profile.url);
 			$("#profile-facebook").attr("href",profile.facebookURL);
 			$("#profile-instagram").attr("href",profile.instagramURL);
