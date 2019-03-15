@@ -1,0 +1,140 @@
+/* Approver Requests View CSS */
+
+body {
+	background-color: #E0E0E0;
+}
+
+hr {
+	border-top: 1px solid #BDBDBD;
+}
+
+.navbar-text-color {
+	color: #03A9F4 !important;
+}
+
+.selected {
+	color: white !important;
+	background-color: gray;
+}
+
+.navbar-border {
+	border-bottom: 1px solid #BDBDBD;
+}
+
+.navbar-height {
+	height: 85px;
+}
+
+.ezb-logo {
+	width:245px;
+	height:66px;
+}
+
+.user-dropdown {
+	color: gray;
+}
+
+.profile-dropdown {
+	font-size: 25px;
+}
+
+.checkbox-text {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.image-info-text {
+	padding:0.5%;
+	margin:0;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.contents-height {
+	height: 550px;
+}
+
+.request-queue-images {
+	width: 100px;
+	height: 69px;
+}
+
+.profile-button {
+	color: white;
+	background-color: gray;
+}
+
+.image-row {
+	display: flex;
+	align-items: center;
+}
+
+.profile-email {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.profile-modal-body {
+	background-color: #BDBDBD;
+	padding-top: 0.5% !important;
+}
+
+.profile-modal-user {
+	font-size: 40px;
+	color: #666666;
+}
+
+.profile-modal-header {
+	display: flex;
+	align-items: center;
+}
+
+.profile-modal-ok {
+	color: white;
+	background-color: #616161;
+}
+
+.profile-modal-remove {
+	font-size: 30px;
+	color: black;
+}
+
+.profile-modal-body-headers {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.profile-modal-body-info {
+	font-size: 16px;
+	color: #616161;
+}
+
+.profile-modal-facebook {
+	font-size: 35px;
+	color: #3B5998;
+}
+
+.profile-modal-instagram {
+	font-size: 35px;
+	color: #E95950;
+}
+
+.profile-modal-twitter {
+	font-size: 35px;
+	color: #33CCFF;
+}
+
+.profile-modal-footer {
+	display: flex;
+	align-items: center;
+}
+
+.request-queue-info {
+	display: flex;
+	align-items: center;
+}
+
+li>a:hover {
+  background-color: gray !important;
+  color: white;
+}
