@@ -30,7 +30,7 @@ if (mysqli_num_rows($result) > 0) {
         $profile['address2'] = $row['address2'];
         $profile['city'] = $row['city'];
         $profile['state'] = $row['state'];
-        $profile['zipCode'] = $row['zipCode'];
+        $profile['zipcode'] = $row['zipcode'];
     }
 } else {
     echo "No results";

@@ -9,7 +9,7 @@ $(document).ready(function(){
 			$("#profile-company").text(profile.company);
 			$("#profile-address1").text(profile.address1);
 			$("#profile-address2").text(profile.address2);
-			$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipCode);
+			$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipcode);
 			$("#profile-url").text(profile.url);
 			$("#profile-facebook").attr("href",profile.facebookURL);
 			$("#profile-instagram").attr("href",profile.instagramURL);
