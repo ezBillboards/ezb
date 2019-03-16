@@ -13,23 +13,23 @@ if($conn === false){
 
 $sql = "CALL getRequests()";
 $result = mysqli_query($conn,$sql);
-$index = 0;
+$requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-        $requests[index][0] = $row['request_ID'];
-        $requests[index][1] = $row['requestDate'];
-        $requests[index][2] = $row['billboardName'];
-        $requests[index][3] = $row['firstName'];
-        $requests[index][4] = $row['lastName'];
-        $requests[index][5] = $row['displayPerCycle'];
-        $requests[index][6] = $row['artworkName'];
-        $requests[index][7] = $row['artworkURL'];
-        $requests[index][8] = $row['extension'];
-        $requests[index][9] = $row['width'];
-        $requests[index][10] = $row['height'];
-        $requests[index][10] = $row['size'];
-        index++;
+        $request['id'] = $row['request_ID'];
+        $request['date'] = $row['requestDate'];
+        $request['billboard'] = $row['billboardName'];
+        $request['firstName'] = $row['firstName'];
+        $request['lastName'] = $row['lastName'];
+        $request['displayPerCycle'] = $row['displayPerCycle'];
+        $request['artworkName'] = $row['artworkName'];
+        $request['artworkURL'] = $row['artworkURL'];
+        $request['extension'] = $row['extension'];
+        $request['width'] = $row['width'];
+        $request['height'] = $row['height'];
+        $request['size'] = $row['size'];
+        array_push($requests,$request);
     }
 } else {
     echo "No results";
