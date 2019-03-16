@@ -1,3 +1,7 @@
+var requests;
+
+getRequests();
+
 $(document).ready(function(){
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", function(data, status){
@@ -18,3 +22,10 @@ $(document).ready(function(){
 		});
 	});
 });
+
+function getRequests(){
+	$.get("../server/approver-requests.php", function(data, status){
+		requests = JSON.parse(data);
+		console.log(requests);
+	});
+}
