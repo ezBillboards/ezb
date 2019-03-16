@@ -1,5 +1,7 @@
 var requests;
 
+getRequests();
+
 $(document).ready(function(){
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", function(data, status){
@@ -18,10 +20,6 @@ $(document).ready(function(){
 			$("#profile-twitter").attr("href",profile.twitterURL);
 			console.log(profile);
 		});
-	});
-
-	$("#requests").click(function(){
-		getRequests();
 	});
 });
 

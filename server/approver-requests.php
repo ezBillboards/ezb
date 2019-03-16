@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$sql = "CALL getRequests()";
+$sql = "CALL getRequest()";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
