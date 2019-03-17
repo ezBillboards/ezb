@@ -23,6 +23,19 @@ $(document).ready(function(){
 		});
 	});
 
+	$(".clickable-image").click(function(){
+		$("#" + currentRequestIndex + "request").removeClass("active");
+		var currentRequestIndex = parseInt($(this).attr("id"));
+		$("#" + currentRequestIndex + "request").addClass("active");
+		$("#request-image").carousel(currentRequestIndex);
+		$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
+		$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+		$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+		$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+		$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
+		$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+	});
+
 	$(".carousel-control-prev").click(function(){
 
 	});
@@ -36,7 +49,7 @@ function getRequests(){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		for (var i = 0; i < requests.length; i++) {
-			var request = "<a id=\"request" + i + "\" class=\"list-group-item " + ((i == 0) ? "active":"") + "\">" +
+			var request = "<a id=\"" + i + "request\" class=\"list-group-item clickable-image " + ((i == 0) ? "active":"") + "\">" +
 			"<div class=\"row request-queue-info\">" +
 			"<div class=\"col-lg-3\">" +
 			"<img src=\"" + requests[i].artworkURL + "\" class=\"img-rounded request-queue-images\" alt=\"" + requests[i].artworkName + "\">" +
@@ -72,6 +85,7 @@ function getRequests(){
 		}
 
 		$("#download-btn").attr("href",requests[0].artworkURL);
+		$("#download-btn").attr("download",requests[0].artworkName + "." + requests[0].extension);
 		$("#image-name").text("Image: " + requests[0].artworkName + "." + requests[0].extension);
 		$("#image-resolution").text("Resolution: " + requests[0].width + " X " + requests[0].height + " pixels");
 		$("#image-extension").text("Item Type: " + requests[0].extension + " File");
