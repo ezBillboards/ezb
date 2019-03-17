@@ -26,11 +26,11 @@ $(document).ready(function(){
 function getRequests(){
 	$.get("../server/approver-requests.php", function(data, status){
 		requests = JSON.parse(data);
-		for (var i = 0; i < 0; i++) {
-			var request = "<a href=\"#\" class=\"list-group-item\">" +
+		for (var i = 0; i < requests.length; i++) {
+			var request = "<a id=\"request" + i + "\" class=\"list-group-item " + ((i == 0) ? "active":"") + "\">" +
         					"<div class=\"row request-queue-info\">" +
           						"<div class=\"col-lg-3\">" +
-            						"<img src=\"pepsi.jpg\" class=\"img-rounded request-queue-images\" alt=\"Pepsi\">" +
+            						"<img src=\"" + requests[i].artworkURL + "\" class=\"img-rounded request-queue-images\" alt=\"" + requests[i].artworkName + "\">" +
           						"</div>" +
           						"<div class=\"col-lg-9\">" +
             						"<div class=\"row request-queue-info\">" +
@@ -38,17 +38,17 @@ function getRequests(){
                 							"<h4 class=\"list-group-item-heading text-right\" style=\"font-weight:bold;\">Request ID: </h4>" +
               							"</div>" +
               							"<div class=\"col-lg-6 text-left\" style=\"padding-left: 0.5%;\">" +
-                							"<h4 class=\"list-group-item-heading checkbox-text\" style=\"font-weight:normal;\"> 20190305080323</h4>" +
+                							"<h4 class=\"list-group-item-heading checkbox-text\" style=\"font-weight:normal;\"> " + requests[i].id + "</h4>" +
               							"</div>" +
             						"</div>" +
             						"<div class=\"row\">" +
               							"<div class=\"col-lg-7\">" +
-                							"<p class=\"list-group-item-text\">Main Entrance Billboard</p>" +
-                							"<p class=\"list-group-item-text\">Pedro Rivera</p>" +
+                							"<p class=\"list-group-item-text\">" + requests[i].billboard + "</p>" +
+                							"<p class=\"list-group-item-text\">" + requests[i].firstName + " " + requests[i].lastName + "</p>" +
               							"</div>" +
               							"<div class=\"col-lg-5\">" +
-                							"<p class=\"list-group-item-text\">Every 4 minutes</p>" +
-                							"<p class=\"list-group-item-text\">3/5/2019</p>" +
+                							"<p class=\"list-group-item-text\">" + requests[i].displayPerCycle + "</p>" +
+                							"<p class=\"list-group-item-text\">" + requests[i].date + "</p>" +
               							"</div>" +
             						"</div>" +
           						"</div>" +
