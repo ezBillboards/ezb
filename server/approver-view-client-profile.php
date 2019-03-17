@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$sql = "CALL getUserInfo(4)";
+$sql = "CALL getUserInfo(" + $_GET['id'] + ")";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {

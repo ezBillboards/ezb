@@ -5,7 +5,7 @@ getRequests();
 
 $(document).ready(function(){
 	$("#view-profile").click(function(){
-		$.get("../server/approver-view-client-profile.php", function(data, status){
+		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
 			var profile = JSON.parse(data);
 			$("#profile-name").text(profile.firstName + " " + profile.lastName);
 			$("#profile-email").text(profile.email);
@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 	$(".clickable-image").click(function(){
 		$("#" + currentRequestIndex + "request").removeClass("active");
-		var currentRequestIndex = parseInt($(this).attr("id"));
+		currentRequestIndex = parseInt($(this).attr("id"));
 		$("#" + currentRequestIndex + "request").addClass("active");
 		$("#request-image").carousel(currentRequestIndex);
 		$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -37,10 +37,32 @@ $(document).ready(function(){
 	});
 
 	$(".carousel-control-prev").click(function(){
-
+		if(currentRequestIndex != 0) {
+			$("#" + currentRequestIndex + "request").removeClass("active");
+			currentRequestIndex--;
+			$("#" + currentRequestIndex + "request").addClass("active");
+			$("#request-image").carousel(currentRequestIndex);
+			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
+			$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+			$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
+			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+		}
 	});
 	$(".carousel-control-next").click(function(){
-		
+		if(currentRequestIndex != requests.length - 1) {
+			$("#" + currentRequestIndex + "request").removeClass("active");
+			currentRequestIndex++;
+			$("#" + currentRequestIndex + "request").addClass("active");
+			$("#request-image").carousel(currentRequestIndex);
+			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
+			$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+			$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
+			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+		}
 	});
 });
 
