@@ -4,6 +4,8 @@
   height:66px;
 }
 
+
+
 #related{
 background-color: white;
 width:50%;
@@ -71,5 +73,10 @@ h2{
 margin-left: auto;
 margin-right: auto;
 }
+
+.glyphicon {
+  font-size: 50px;
+}
+
 
 
