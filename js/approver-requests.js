@@ -36,7 +36,7 @@ $(document).ready(function(){
 		$("#image-size").text("Size: " + requests[currentRequestIndex].size);
 	});
 
-	$(".carousel-control-prev").click(function(){
+	$(".left").click(function(){
 		if(currentRequestIndex != 0) {
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex--;
@@ -50,7 +50,7 @@ $(document).ready(function(){
 			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
 		}
 	});
-	$(".carousel-control-next").click(function(){
+	$(".right").click(function(){
 		if(currentRequestIndex != requests.length - 1) {
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex++;
