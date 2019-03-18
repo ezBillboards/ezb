@@ -15,7 +15,7 @@ $id = $_POST['id'];
 $status = $_POST['status'];
 $comments = $_POST['comments'];
 
-$sql = "CALL putStatusApprover($id, 1, $status, $comments)";
+$sql = "CALL putStatusApprover($id, 1, $status, '$comments')";
 
 if (mysqli_query($conn, $sql)) {
     echo "Record updated successfully";

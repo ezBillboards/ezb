@@ -71,7 +71,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".rejections").click(function(){
+	$("#rejections").on("click", ".rejections", function(){
 		$("#comment").val($(this).text());
 		$("#no").removeClass("disabled");
 	});
@@ -84,7 +84,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$("input[type='checkbox']").click(function(){
+	$("#regulations").on("click", ".regulations", function(){
 		console.log("change");
 		if ($("input[type='checkbox']:checked").length == $("input[type='checkbox']").length) {
 			$("#yes").removeClass("disabled");
@@ -104,7 +104,7 @@ $(document).ready(function(){
 		{
 			id:requests[currentRequestIndex].id,
 			status:decision,
-			comments:$("#comment").val();
+			comments:$("#comment").val()
 		},
 		function(data, status){
 			console.log(data);
@@ -171,7 +171,7 @@ function getRegulations(){
 		var regulations = JSON.parse(data);
 		var regulation = "";
 		for (var i = 0; i < regulations.length; i++) {
-			regulation += "<div class=\"form-check\">" +
+			regulation += "<div class=\"form-check regulations\">" +
 			"<label class=\"form-check-label checkbox-text\">" +
 			"<input type=\"checkbox\" class=\"form-check-input\"> " + regulations[i] +
 			"</label>" +
