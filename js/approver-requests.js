@@ -26,6 +26,7 @@ $(document).ready(function(){
 	$(".clickable-image").click(function(){
 		$("#" + currentRequestIndex + "request").removeClass("active");
 		currentRequestIndex = parseInt($(this).attr("id"));
+		getRegulations();
 		$("#" + currentRequestIndex + "request").addClass("active");
 		$("#request-image").carousel(currentRequestIndex);
 		$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -40,6 +41,7 @@ $(document).ready(function(){
 		if(currentRequestIndex != 0) {
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex--;
+			getRegulations();
 			$("#" + currentRequestIndex + "request").addClass("active");
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -54,6 +56,7 @@ $(document).ready(function(){
 		if(currentRequestIndex != requests.length - 1) {
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex++;
+			getRegulations();
 			$("#" + currentRequestIndex + "request").addClass("active");
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -119,10 +122,11 @@ function getRequests(){
 }
 
 function getRegulations(){
-	$.get("../server/approver-regulations.php", function(data, status){
+	$.get("../server/approver-regulations.php",{billboard_ID:requests[currentRequestIndex].billboard_ID}, function(data, status){
 	var regulations = JSON.parse(data);
+	var regulation = "";
 	for (var i = 0; i < regulations.length; i++) {
-		var regulation += "<div class=\"form-check\">" +
+		regulation += "<div class=\"form-check\">" +
             				"<label class=\"form-check-label checkbox-text\">" +
               					"<input type=\"checkbox\" class=\"form-check-input\">" + regulations[i] +
             				"</label>" +

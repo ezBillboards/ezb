@@ -11,8 +11,8 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-//$id = $_GET['billboard_ID'];
-$sql = "CALL getRegulations(3)";
+$id = $_GET['billboard_ID'];
+$sql = "CALL getRegulations($id)";
 $result = mysqli_query($conn,$sql);
 $regulations = array();
 
