@@ -107,6 +107,13 @@ $(document).ready(function(){
 			comments:$("#comment").val()
 		},
 		function(data, status){
+			if(status === "success"){
+				requests.splice(currentRequestIndex, 1);
+				$("#" + currentRequestIndex + "request").remove();
+				$("#" + currentRequestIndex + "request").addClass("active");
+			} else {
+				alert("Error in the decision!");
+			}
 			console.log(data);
 			console.log(status);
 		});
