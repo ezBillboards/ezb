@@ -2,10 +2,6 @@ var requests;
 var currentRequestIndex;
 
 getRequests();
-$.get("../server/approver-regulations.php", function(data, status){
-	var regulations = JSON.parse(data);
-	console.log(regulations);
-});
 
 $(document).ready(function(){
 	$("#view-profile").click(function(){
@@ -74,6 +70,7 @@ function getRequests(){
 	$.get("../server/approver-requests.php", function(data, status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
+		getRegulations();
 		for (var i = 0; i < requests.length; i++) {
 			var request = "<a id=\"" + i + "request\" class=\"list-group-item clickable-image " + ((i == 0) ? "active":"") + "\">" +
 			"<div class=\"row request-queue-info\">" +
@@ -116,6 +113,23 @@ function getRequests(){
 		$("#image-resolution").text("Resolution: " + requests[0].width + " X " + requests[0].height + " pixels");
 		$("#image-extension").text("Item Type: " + requests[0].extension + " File");
 		$("#image-size").text("Size: " + requests[0].size);
+
 		console.log(requests);
 	});
+}
+
+function getRegulations(){
+	$.get("../server/approver-regulations.php", function(data, status){
+	var regulations = JSON.parse(data);
+	for (var i = 0; i < regulations.length; i++) {
+		var regulation += "<div class=\"form-check\">" +
+            				"<label class=\"form-check-label checkbox-text\">" +
+              					"<input type=\"checkbox\" class=\"form-check-input\">" + regulations[i] +
+            				"</label>" +
+          				 "</div>";
+	}
+	$("#regulations").empty();
+	$("#regulations").append(regulation);
+	console.log(regulations);
+});
 }
