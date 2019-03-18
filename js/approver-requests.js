@@ -27,6 +27,7 @@ $(document).ready(function(){
 		$("#" + currentRequestIndex + "request").removeClass("active");
 		currentRequestIndex = parseInt($(this).attr("id"));
 		getRegulations();
+		getRejections();
 		$("#" + currentRequestIndex + "request").addClass("active");
 		$("#request-image").carousel(currentRequestIndex);
 		$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -42,6 +43,7 @@ $(document).ready(function(){
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex--;
 			getRegulations();
+			getRejections();
 			$("#" + currentRequestIndex + "request").addClass("active");
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -57,6 +59,7 @@ $(document).ready(function(){
 			$("#" + currentRequestIndex + "request").removeClass("active");
 			currentRequestIndex++;
 			getRegulations();
+			getRejections();
 			$("#" + currentRequestIndex + "request").addClass("active");
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
@@ -74,6 +77,7 @@ function getRequests(){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		getRegulations();
+		getRejections();
 		for (var i = 0; i < requests.length; i++) {
 			var request = "<a id=\"" + i + "request\" class=\"list-group-item clickable-image " + ((i == 0) ? "active":"") + "\">" +
 			"<div class=\"row request-queue-info\">" +
@@ -123,17 +127,30 @@ function getRequests(){
 
 function getRegulations(){
 	$.get("../server/approver-regulations.php",{billboard_ID:requests[currentRequestIndex].billboard_ID}, function(data, status){
-	var regulations = JSON.parse(data);
-	var regulation = "";
-	for (var i = 0; i < regulations.length; i++) {
-		regulation += "<div class=\"form-check\">" +
-            				"<label class=\"form-check-label checkbox-text\">" +
-              					"<input type=\"checkbox\" class=\"form-check-input\">" + regulations[i] +
-            				"</label>" +
-          				 "</div>";
-	}
-	$("#regulations").empty();
-	$("#regulations").append(regulation);
-	console.log(regulations);
-});
+		var regulations = JSON.parse(data);
+		var regulation = "";
+		for (var i = 0; i < regulations.length; i++) {
+			regulation += "<div class=\"form-check\">" +
+			"<label class=\"form-check-label checkbox-text\">" +
+			"<input type=\"checkbox\" class=\"form-check-input\">" + regulations[i] +
+			"</label>" +
+			"</div>";
+		}
+		$("#regulations").empty();
+		$("#regulations").append(regulation);
+		console.log(regulations);
+	});
+}
+
+function getRejections(){
+	$.get("../server/approver-rejections.php",{billboard_ID:requests[currentRequestIndex].billboard_ID}, function(data, status){
+		var rejections = JSON.parse(data);
+		var rejection = "";
+		for (var i = 0; i < rejections.length; i++) {
+			rejection += "<li><a>" + rejections[i] + "</a></li>";
+		}
+		$("#rejections").empty();
+		$("#rejections").append(rejection);
+		console.log(rejections);
+	});
 }
