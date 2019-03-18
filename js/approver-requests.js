@@ -2,6 +2,10 @@ var requests;
 var currentRequestIndex;
 
 getRequests();
+$.get("../server/approver-regulations.php", function(data, status){
+	var regulations = JSON.parse(data);
+	console.log(regulations);
+});
 
 $(document).ready(function(){
 	$("#view-profile").click(function(){
@@ -100,8 +104,8 @@ function getRequests(){
 			"</a>";
 
 			var requestImages = "<div class=\"item " + ((i == 0) ? "active":"") + "\">" +
-            						"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;\">" +
-            					"</div>";
+			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;\">" +
+			"</div>";
 			$("#request-queue").append(request);
 			$("#request-images").append(requestImages);	
 		}

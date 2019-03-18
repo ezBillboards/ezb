@@ -19,6 +19,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['request_ID'];
         $request['date'] = $row['requestDate'];
+        $request['billboard_ID'] = $row['billboard_ID'];
         $request['billboard'] = $row['billboardName'];
         $request['firstName'] = $row['firstName'];
         $request['lastName'] = $row['lastName'];

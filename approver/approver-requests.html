@@ -86,102 +86,113 @@
           <h4 id="image-size" class="text-center image-info-text"></h4>
         </div>
       </div>
-      <div class="form-group">
-        <label for="comment">Comment:</label>
-        <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-      </div>
-    </div>
-    <div class="col-lg-2">
-      <div class="contents-height">
-        <h2 class="text-center">Regulations</h2>
-        <div class="form-check">
-          <label class="form-check-label checkbox-text" for="check1">
-            <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked> No alcohol
-          </label>
+      <div class="dropup">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Most Common Rejection Reasons
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li class="divider"></li>
+            <li><a href="#">About Us</a></li>
+          </ul>
         </div>
-        <div class="form-check">
-          <label class="form-check-label checkbox-text" for="check2">
-            <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something"> No animations
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label checkbox-text">
-            <input type="checkbox" class="form-check-input"> Appropriate vocabulary
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label checkbox-text">
-            <input type="checkbox" class="form-check-input"> No conflicting theme
-          </label>
+        <br>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Comments" rows="5" id="comment" name="text"></textarea>
         </div>
       </div>
-      <hr>
-      <h2 class="text-center">Approve</h2>
-      <button type="button" class="btn btn-success btn-block disabled">Yes</button>
-      <button type="button" class="btn btn-danger btn-block active">No</button>
+      <div class="col-lg-2">
+        <div class="contents-height">
+          <h2 class="text-center">Regulations</h2>
+          <div class="form-check">
+            <label class="form-check-label checkbox-text" for="check1">
+              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked> No alcohol
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label checkbox-text" for="check2">
+              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something"> No animations
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label checkbox-text">
+              <input type="checkbox" class="form-check-input"> Appropriate vocabulary
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label checkbox-text">
+              <input type="checkbox" class="form-check-input"> No conflicting theme
+            </label>
+          </div>
+        </div>
+        <hr>
+        <h2 class="text-center">Approve</h2>
+        <button type="button" class="btn btn-success btn-block disabled">Yes</button>
+        <button type="button" class="btn btn-danger btn-block active">No</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="row profile-modal-header">
-          <div class="col-lg-1">
-            <span class="glyphicon glyphicon-user profile-modal-user"></span>
-          </div>
-          <div class="col-lg-4">
-            <h3 id="profile-name" class="modal-title"></h3>
-          </div>
-          <div class="col-lg-7">
-            <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-body text-center profile-modal-body">
-        <h3>Contact Information</h3>
-        <div class="row">
-          <div class="col-lg-6">
-            <h4 class="profile-modal-body-headers">Email</h4>
-            <h4 id="profile-email" class="profile-modal-body-info"></h4>
-            <h4 class="profile-modal-body-headers">Mobile Phone</h4>
-            <h4 id="profile-mobile" class="profile-modal-body-info"></h4>
-            <h4 class="profile-modal-body-headers">Work Phone</h4>
-            <h4 id="profile-work" class="profile-modal-body-info"></h4>
-          </div>
-          <div class="col-lg-6">
-            <h4 class="profile-modal-body-headers">Company Name</h4>
-            <h4 id="profile-company" class="profile-modal-body-info"></h4>
-            <h4 class="profile-modal-body-headers">Address</h4>
-            <h4 id="profile-address1" class="profile-modal-body-info"></h4>
-            <h4 id="profile-address2" class="profile-modal-body-info"></h4>
-            <h4 id="profile-city-state-zipcode" class="profile-modal-body-info"></h4>
-            <h4 class="profile-modal-body-headers">URL</h4>
-            <h4 id="profile-url" class="profile-modal-body-info"></h4>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="row profile-modal-header">
+            <div class="col-lg-1">
+              <span class="glyphicon glyphicon-user profile-modal-user"></span>
+            </div>
+            <div class="col-lg-4">
+              <h3 id="profile-name" class="modal-title"></h3>
+            </div>
+            <div class="col-lg-7">
+              <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row profile-modal-footer">
-          <div class="col-lg-1">
-            <a id="profile-facebook" class=" profile-modal-facebook"><i class="fa fa-facebook-official"></i></a>
+        <div class="modal-body text-center profile-modal-body">
+          <h3>Contact Information</h3>
+          <div class="row">
+            <div class="col-lg-6">
+              <h4 class="profile-modal-body-headers">Email</h4>
+              <h4 id="profile-email" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Mobile Phone</h4>
+              <h4 id="profile-mobile" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Work Phone</h4>
+              <h4 id="profile-work" class="profile-modal-body-info"></h4>
+            </div>
+            <div class="col-lg-6">
+              <h4 class="profile-modal-body-headers">Company Name</h4>
+              <h4 id="profile-company" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Address</h4>
+              <h4 id="profile-address1" class="profile-modal-body-info"></h4>
+              <h4 id="profile-address2" class="profile-modal-body-info"></h4>
+              <h4 id="profile-city-state-zipcode" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">URL</h4>
+              <h4 id="profile-url" class="profile-modal-body-info"></h4>
+            </div>
           </div>
-          <div class="col-lg-1">
-            <a id="profile-instagram" class=" profile-modal-instagram"><i class="fa fa-instagram"></i></a>
-          </div>
-          <div class="col-lg-1">
-            <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
-          </div>
-          <div class="col-lg-9 text-right">
-            <button type="button" class="btn btn-md profile-modal-ok" data-dismiss="modal">OK</button>
+        </div>
+        <div class="modal-footer">
+          <div class="row profile-modal-footer">
+            <div class="col-lg-1">
+              <a id="profile-facebook" class=" profile-modal-facebook"><i class="fa fa-facebook-official"></i></a>
+            </div>
+            <div class="col-lg-1">
+              <a id="profile-instagram" class=" profile-modal-instagram"><i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="col-lg-1">
+              <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
+            </div>
+            <div class="col-lg-9 text-right">
+              <button type="button" class="btn btn-md profile-modal-ok" data-dismiss="modal">OK</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 </body>
