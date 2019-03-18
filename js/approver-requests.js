@@ -70,6 +70,47 @@ $(document).ready(function(){
 			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
 		}
 	});
+
+	$(".rejections").click(function(){
+		$("#comment").val($(this).text());
+		$("#no").removeClass("disabled");
+	});
+
+	$('#comment').bind('input propertychange', function() {
+		if(this.value.length){
+			$("#no").removeClass("disabled");
+		} else{
+			$("#no").addClass("disabled");
+		}
+	});
+
+	$("input[type='checkbox']").click(function(){
+		console.log("change");
+		if ($("input[type='checkbox']:checked").length == $("input[type='checkbox']").length) {
+			$("#yes").removeClass("disabled");
+		} else{
+			$("#yes").addClass("disabled");
+		}
+	});
+
+	$(".decision").click(function(){
+		var decision;
+		if($(this).attr("id") === "yes"){
+			decision = 2;
+		} else{
+			decision = 3;
+		}
+		$.post("../server/approver-decision.php",
+		{
+			id:requests[currentRequestIndex].id,
+			status:decision,
+			comments:$("#comment").val();
+		},
+		function(data, status){
+			console.log(data);
+			console.log(status);
+		});
+	});
 });
 
 function getRequests(){
@@ -132,7 +173,7 @@ function getRegulations(){
 		for (var i = 0; i < regulations.length; i++) {
 			regulation += "<div class=\"form-check\">" +
 			"<label class=\"form-check-label checkbox-text\">" +
-			"<input type=\"checkbox\" class=\"form-check-input\">" + regulations[i] +
+			"<input type=\"checkbox\" class=\"form-check-input\"> " + regulations[i] +
 			"</label>" +
 			"</div>";
 		}
@@ -147,7 +188,7 @@ function getRejections(){
 		var rejections = JSON.parse(data);
 		var rejection = "";
 		for (var i = 0; i < rejections.length; i++) {
-			rejection += "<li><a>" + rejections[i] + "</a></li>";
+			rejection += "<li><a class=\"rejections\">" + rejections[i] + "</a></li>";
 		}
 		$("#rejections").empty();
 		$("#rejections").append(rejection);

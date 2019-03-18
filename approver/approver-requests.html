@@ -20,9 +20,8 @@
         <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
       </a>
       <ul class="nav navbar-nav navbar-right navbar-text">
-        <li><a class="selected" href="#">Requests</a></li>
-        <li><a class="navbar-text-color" href="#">Approved</a></li>
-        <li><a class="navbar-text-color" href="#">History</a></li>
+        <li><a class="selected" href="#">Pending Requests</a></li>
+        <li><a class="navbar-text-color" href="#">Processed Requests</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -90,7 +89,7 @@
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Most Common Rejection Reasons
           <span class="caret"></span></button>
           <ul id="rejections" class="dropdown-menu">
-            
+
           </ul>
         </div>
         <br>
@@ -101,13 +100,12 @@
       <div class="col-lg-2">
         <h2 class="text-center">Regulations</h2>
         <div id="regulations" class="contents-height">
-          
-          
+
         </div>
         <hr>
         <h2 class="text-center">Approve</h2>
-        <button type="button" class="btn btn-success btn-block disabled">Yes</button>
-        <button type="button" class="btn btn-danger btn-block active">No</button>
+        <button id="yes" type="button" class="btn btn-success btn-block disabled decision">Yes</button>
+        <button id="no" type="button" class="btn btn-danger btn-block disabled decision">No</button>
       </div>
     </div>
   </div>
