@@ -11,11 +11,30 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for procedure ezbdev.getRegulations
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRegulations`(
+	IN `billboard_ID_IN` BIGINT
+)
+BEGIN
+	Select regulation from tblbillboardregulation
+	where billboard_ID = billboard_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getRejections
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRejections`()
+BEGIN
+	Select rejection from tblcommonrejections;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequest`()
 BEGIN
-	Select request_ID,requestDate, billboardName,firstName, lastName,displayPerCycle,
+	Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
 	artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
 	join tblusers on tblusers.user_ID = tbladrequest.user_ID
 	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
@@ -29,13 +48,17 @@ DELIMITER ;
 -- Dumping structure for procedure ezbdev.getUserInfo
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
-	IN `user_ID_IN` BIGINT
+	IN `request_ID_IN` BIGINT
+
 
 
 )
 BEGIN
-	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
-	FROM tblusers where tblusers.user_ID = user_ID_IN;
+	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, 
+	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
+	FROM tblusers join tbladrequest
+	on tblusers.user_ID = tbladrequest.user_ID
+	 where tbladrequest.request_ID = request_ID_IN;
 END//
 DELIMITER ;
 
@@ -316,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladrequest: ~5 rows (approximately)
+-- Dumping data for table ezbdev.tbladrequest: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
 INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `publisher_ID`, `publishDate`) VALUES
 	(1, 1, 21, 1, 5, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL),
@@ -352,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `tblapprovers` (
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblapprovers: ~3 rows (approximately)
+-- Dumping data for table ezbdev.tblapprovers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tblapprovers` DISABLE KEYS */;
 INSERT INTO `tblapprovers` (`approver_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
 	(1, 'example@example.com', 'Felix', 'Gonzalez', 'bbf2dead374654cbb32a917afd236656', NULL),
@@ -376,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `tblartwork` (
   CONSTRAINT `user_ID` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblartwork: ~26 rows (approximately)
+-- Dumping data for table ezbdev.tblartwork: ~24 rows (approximately)
 /*!40000 ALTER TABLE `tblartwork` DISABLE KEYS */;
 INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, `extension`, `width`, `height`, `Size`) VALUES
 	(1, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
@@ -399,13 +422,37 @@ INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, 
 	(18, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
 	(19, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
 	(20, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(21, 1, '../../img/requests/1.jpg', 'image', '.jpg', 10, 12, 14),
-	(22, 1, '../../img/requests/2.jpg', 'image', '.jpg', 10, 12, 14),
-	(23, 1, '../../img/requests/3.jpg', 'image', '.jpg', 10, 12, 14),
+	(21, 1, '../../img/requests/1.jpg', 'Coca Cola', 'jpg', 20, 10, 15),
+	(22, 1, '../../img/requests/2.jpg', 'BURGERTOWN', 'jpg', 80, 40, 33),
+	(23, 1, '../../img/requests/3.jpg', 'PEPSI', 'jpg', 40, 20, 25),
 	(24, 1, 'image.jpg', 'image', '.jpg', 10, 12, 14),
 	(25, 2, 'image.jpg', 'image', '.jpg', 10, 12, 14),
 	(26, 2, '../../img/requests/6.jpg', 'image', '.jpg', 10, 12, 14);
 /*!40000 ALTER TABLE `tblartwork` ENABLE KEYS */;
+
+-- Dumping structure for table ezbdev.tblbillboardregulation
+CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
+  `reg_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `billboard_ID` bigint(20) NOT NULL,
+  `regulation` varchar(200) NOT NULL,
+  PRIMARY KEY (`reg_ID`),
+  KEY `regBillboard` (`billboard_ID`),
+  CONSTRAINT `regBillboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblbillboardregulation: ~9 rows (approximately)
+/*!40000 ALTER TABLE `tblbillboardregulation` DISABLE KEYS */;
+INSERT INTO `tblbillboardregulation` (`reg_ID`, `billboard_ID`, `regulation`) VALUES
+	(1, 3, 'No alcohol'),
+	(2, 3, 'No animations'),
+	(3, 3, 'Appropriate vocabulary'),
+	(4, 3, 'No conflicting theme'),
+	(5, 6, 'No alcohol'),
+	(6, 6, 'No animations'),
+	(7, 6, 'Appropriate vocabulary'),
+	(8, 7, 'No alcohol'),
+	(9, 7, 'No animations');
+/*!40000 ALTER TABLE `tblbillboardregulation` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblbillboards
 CREATE TABLE IF NOT EXISTS `tblbillboards` (
@@ -429,7 +476,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblbillboards: ~8 rows (approximately)
+-- Dumping data for table ezbdev.tblbillboards: ~7 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
 INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`) VALUES
 	(1, 'Main Entrance', 'Main Entrance4 UPRM', NULL, 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
@@ -441,6 +488,34 @@ INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescript
 	(7, 'Main Entrance Billboard', 'Main Entrance Billboard UPRM', NULL, 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
 	(8, 'Main Entrance Billboard', 'Main Entrance Billboard UPRM', NULL, 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400);
 /*!40000 ALTER TABLE `tblbillboards` ENABLE KEYS */;
+
+-- Dumping structure for table ezbdev.tblcommonrejections
+CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
+  `reject_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `billboard_ID` bigint(20) NOT NULL,
+  `rejection` varchar(100) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`reject_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblcommonrejections: ~4 rows (approximately)
+/*!40000 ALTER TABLE `tblcommonrejections` DISABLE KEYS */;
+INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VALUES
+	(1, 3, 'Animated image'),
+	(2, 3, 'Alcohol reference'),
+	(3, 3, 'Inappropriate language'),
+	(4, 3, 'Conflict of interest');
+/*!40000 ALTER TABLE `tblcommonrejections` ENABLE KEYS */;
+
+-- Dumping structure for table ezbdev.tblconfig
+CREATE TABLE IF NOT EXISTS `tblconfig` (
+  `config_Key` int(11) NOT NULL,
+  `config_Value` varchar(50) NOT NULL,
+  PRIMARY KEY (`config_Key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblconfig: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tblconfig` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tblconfig` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblpackage
 CREATE TABLE IF NOT EXISTS `tblpackage` (
@@ -476,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `tblpublishers` (
   PRIMARY KEY (`publisher_ID`,`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblpublishers: ~1 rows (approximately)
+-- Dumping data for table ezbdev.tblpublishers: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblpublishers` DISABLE KEYS */;
 INSERT INTO `tblpublishers` (`publisher_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
 	(1, 'example@publisher.com', 'Carlos', 'Rodriguez', '52aded165360352a0f5857571d96d68f', NULL);
@@ -1267,12 +1342,12 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblusers: ~3 rows (approximately)
+-- Dumping data for table ezbdev.tblusers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`) VALUES
-	(1, 'exam@ple.com', 'Benito', 'Martinez', NULL, NULL, 'x100pre', NULL, 'https://www.facebook.com', 'https://www.facebook.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00'),
-	(2, 'example@billboards.com', 'Rafael', 'Taraza', NULL, NULL, NULL, NULL, 'https://www.facebook.com', 'https://www.facebook.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00'),
-	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.facebook.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00');
+	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00'),
+	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00'),
+	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00');
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
