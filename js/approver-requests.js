@@ -112,9 +112,25 @@ $(document).ready(function(){
 				requests.splice(currentRequestIndex, 1);
 				var index = 0;
 				$("#request-queue").children("a").each(function() {
-    				$(this).attr("id", index + "request");
-    				index++;
+					$(this).attr("id", index + "request");
+					index++;
 				});
+				index = 0;
+				$("#request-images").children("div").each(function() {
+					$(this).attr("id", index + "image");
+					$("this").children("img").attr("src", requests[i].artworkURL);
+					$("this").children("img").attr("alt", requests[i].artworkName);
+					index++;
+				});
+				getRegulations();
+				getRejections();
+				$("#request-image").carousel(currentRequestIndex);
+				$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
+				$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+				$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+				$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+				$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
+				$("#image-size").text("Size: " + requests[currentRequestIndex].size);
 				$("#" + currentRequestIndex + "request").addClass("active");
 			} else {
 				alert("Error in the decision!");
@@ -160,7 +176,7 @@ function getRequests(){
 			"</div>" +
 			"</a>";
 
-			var requestImages = "<div class=\"item " + ((i == 0) ? "active":"") + "\">" +
+			var requestImages = "<div class=\"item " + i + "image " + ((i == 0) ? "active":"") + "\">" +
 			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;\">" +
 			"</div>";
 			$("#request-queue").append(request);
