@@ -108,8 +108,13 @@ $(document).ready(function(){
 		},
 		function(data, status){
 			if(status === "success"){
-				requests.splice(currentRequestIndex, 1);
 				$("#" + currentRequestIndex + "request").remove();
+				requests.splice(currentRequestIndex, 1);
+				var index = 0;
+				$("#request-queue").children("a").each(function() {
+    				$(this).attr("id", index + "request");
+    				index++;
+				});
 				$("#" + currentRequestIndex + "request").addClass("active");
 			} else {
 				alert("Error in the decision!");
