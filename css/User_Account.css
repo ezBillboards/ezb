@@ -1,0 +1,73 @@
+
+
+#OfficeHours{
+    color: white;
+
+}
+
+.ezb-logo {
+    width:245px;
+    height:66px;
+}
+
+.navbar-height {
+    height: 85px;
+}
+
+.navbar-text-color {
+    color: #03A9F4 !important;
+}
+
+.row{
+    background:#bdbdbd;
+    width: 70%;
+    margin-left: auto;
+  margin-right: auto;
+}
+
+p{
+    color: white;
+}
+
+h4{
+    color: black;
+    font-size: 22px;
+}
+
+tittle{
+    color: white;
+}
+
+#numbers{
+    color: white;
+}
+
+strong{
+    margin-left: 120px;
+}
+
+.container{
+    color: #bdbdbd;
+}
+
+.navbar{
+    background:white;
+}
+
+
+#related{
+background-color: white;
+width:50%;
+float: left;
+float: left;
+}
+
+.btn{
+    background-color:#5bc0de;
+}
+
+#AccountText{
+    background-color: white;
+}
+
+
