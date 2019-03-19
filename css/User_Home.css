@@ -1,8 +1,10 @@
 
 .ezb-logo {
-	width:245px;
-	height:66px;
+  width:245px;
+  height:66px;
 }
+
+
 
 #related{
 background-color: white;
@@ -12,58 +14,68 @@ float: left;
 }
 
 .navbar-height {
-	height: 85px;
+  height: 85px;
 }
 
 .navbar{
-	background:white;
+  background:white;
 }
 
 .active {
-  background-color: #03A9F4;
-  color: white;
+background-color: #03A9F4;
+color: white;
 }
 
 .btn{
-  background-color: #03A9F4;
-  padding: 10px 10px;
-  font-size: 15px;
-  border-radius: 8px;
+background-color: #03A9F4;
+padding: 10px 10px;
+font-size: 15px;
+border-radius: 8px;
 }
 
 .navbar-text-color {
-	color: #03A9F4 !important;
+  color: #03A9F4 !important;
 }
 
 .well {
-   background-color: rgba(245, 245, 300, 0.4);
+ background-color: rgba(245, 245, 300, 0.4);
 }
 
 .jumbotron{
-  background: rgba(0, 0, 0, 0.60)!important;
-  width: 500px;
+background: rgba(0, 0, 0, 0.60)!important;
+width: 500px;
 }
 
 .container2 {
-  position: relative;
-  text-align: center;
-  color: white;
+position: relative;
+text-align: center;
+color: white;
 
 
+}
+
+#Support_text{
+          margin-left: 105px;
 }
 
 .centered {
-  position: absolute;
-   top: 50%;
-   left: 80%;
-   transform: translate(-50%, -50%);
+position: absolute;
+ top: 50%;
+ left: 80%;
+ transform: translate(-50%, -50%);
 }
 
 strong{
-	margin-left: 120px;
+  margin-left: 120px;
 }
 
 h2{
-  margin-left: auto;
-  margin-right: auto;
+margin-left: auto;
+margin-right: auto;
 }
+
+.glyphicon {
+  font-size: 50px;
+}
+
+
