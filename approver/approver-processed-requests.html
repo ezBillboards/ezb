@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Processed Requests</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/approver-processed-requests.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../js/approver-processed-requests.js"></script>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default navbar-border navbar-height">
+    <div class="container-fluid">
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<a class="navbar-brand" href="EZBillboardsLogo.png" target="_blank">
+				<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+			</a>
+			<ul class="nav navbar-nav navbar-right navbar-text">
+				<li><a class="navbar-text-color" href="approver-requests.html">Pending Requests</a></li>
+				<li><a class="selected" href="approver-processed-requests.html">Processed Requests</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Account</a></li>
+						<li><a href="#">Logout</a></li>
+					</ul>
+				</li>
+				<li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<h2>Dynamic Tabs</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#Approved">Approved</a></li>
+    <li><a href="#Denied">Denied</a></li>
+    <li><a href="#Cancelled">Cancelled</a></li>
+    <li><input id="mySearch" type="text" placeholder="Search.."></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="Approved" class="tab-pane fade in active">
+      <h3>APPROVED REQUESTS</h3>
+	  <div class="table-responsive">          
+	  <table class="table table-striped">
+		<thead>
+		  <tr>
+			<th>Artwork</th>
+			<th>Request Information</th>
+			<th>Approver Information</th>
+			<th>Actions</th>
+			
+		  </tr>
+		</thead>
+		<tbody id = "approved-requests">
+		 
+		</tbody>
+	  </table>
+	  </div>
+    </div>
+    <div id="Denied" class="tab-pane fade">
+      <h3>DENIED REQUESTS</h3>
+      <div class="table-responsive">          
+	  <table class="table table-striped">
+		<thead>
+		  <tr>
+			<th>Artwork</th>
+			<th>Request Information</th>
+			<th>Approver Information</th>
+			<th>Actions</th>
+			
+		  </tr>
+		</thead>
+		<tbody id = "denied-requests">
+		  <tr>
+			<td><img src= "../../img/requests/3.jpg" class="img-rounded processed-requests-images"></img></td>
+			<td>
+				<div>Request ID: 123124124</div>
+				<div>Requested Date: 3/27/2020</div>
+				<div>Requested by: Felix Gonzalez</div>
+				<div>Image: CocaCola.jpg </div>
+			</td>
+			<td>
+				<div>Denied Date: 3/28/2020</div>
+				<div>Approved by: Harry Hernandez</div>
+				<div>Comments: Harry Hernandez</div>
+			</td>
+			<td>
+				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>View client profile</button>
+			</td>
+			
+		  </tr>
+		</tbody>
+	  </table>
+	  </div>
+    </div>
+    <div id="Cancelled" class="tab-pane fade">
+      <h3>CANCELLED REQUESTS</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+  
+  
+
+</body>
+</html>
