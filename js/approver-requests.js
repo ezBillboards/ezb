@@ -108,9 +108,7 @@ $(document).ready(function(){
 		},
 		function(data, status){
 			if(status === "success"){
-				requests.splice(currentRequestIndex, 1);
-				$("#" + currentRequestIndex + "request").remove();
-				$("#" + currentRequestIndex + "request").addClass("active");
+				location.reload();
 			} else {
 				alert("Error in the decision!");
 			}
@@ -155,7 +153,7 @@ function getRequests(){
 			"</div>" +
 			"</a>";
 
-			var requestImages = "<div class=\"item " + ((i == 0) ? "active":"") + "\">" +
+			var requestImages = "<div class=\"item " + i + "image " + ((i == 0) ? "active":"") + "\">" +
 			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;\">" +
 			"</div>";
 			$("#request-queue").append(request);
