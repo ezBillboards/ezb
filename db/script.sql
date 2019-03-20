@@ -11,6 +11,28 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for procedure ezbdev.getProcessedRequest
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
+	IN `status_ID_IN` INT
+
+
+
+)
+BEGIN
+	Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle,
+	artworkName,extension,artworkURL,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
+	approveDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+	join tblusers on tblusers.user_ID = tbladrequest.user_ID
+	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+	join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+	join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+	left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
+	where tbladrequest.status_ID = status_ID_IN
+	order by requestDate asc;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getRegulations
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRegulations`(
@@ -24,9 +46,12 @@ DELIMITER ;
 
 -- Dumping structure for procedure ezbdev.getRejections
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRejections`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRejections`(
+	IN `billboard_ID_IN` BIGINT
+)
 BEGIN
-	Select rejection from tblcommonrejections;
+	Select rejection from tblcommonrejections
+	where billboard_ID = billboard_ID_IN;
 END//
 DELIMITER ;
 
@@ -96,12 +121,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 
 
 
+
 )
 BEGIN
 	Declare packageDuration int;
 	Declare packageDisplayPerCycle smallint;
 	DECLARE requestEndDate DATE;
-	SELECT @packageDuration := duration, @packageDisplayPerCycle := displayPerCycle from tblPackage where package_ID = package_ID_IN;
+	SELECT @packageDuration := duration, @packageDisplayPerCycle := displayPerCycle from tblpackage where package_ID = package_ID_IN;
 	SET requestEndDate = DATE_ADD(startDate_IN,INTERVAL @packageDuration DAY);
 	Insert Into tblartwork (user_ID, artworkURL,artworkName,extension,width,height,size) 
 	values (user_ID_IN,artwork_URL_IN,artworkName_IN,extension_IN,width_IN,height_IN,size_IN);
@@ -278,16 +304,19 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putApproveRequest
+-- Dumping structure for procedure ezbdev.putStatusApprover
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `putApproveRequest`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusApprover`(
 	IN `request_ID_IN` BIGINT,
 	IN `approver_ID_IN` BIGINT
 
+,
+	IN `status_ID_IN` INT,
+	IN `comments_IN` VARCHAR(200)
 )
 BEGIN
 	Update tbladrequest
-	SET status_ID = 2,approver_ID = approver_ID_IN, approveDate = curdate()
+	SET status_ID = status_ID_IN,approver_ID = approver_ID_IN,comments = comments_IN ,approveDate = curdate()
 	where request_ID = request_ID_IN;	
 END//
 DELIMITER ;
@@ -323,6 +352,7 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   `approveDate` datetime DEFAULT NULL,
   `publisher_ID` bigint(20) DEFAULT NULL,
   `publishDate` datetime DEFAULT NULL,
+  `comments` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`request_ID`),
   UNIQUE KEY `request_ID` (`request_ID`),
   KEY `status` (`status_ID`),
@@ -341,12 +371,12 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
 
 -- Dumping data for table ezbdev.tbladrequest: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
-INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `publisher_ID`, `publishDate`) VALUES
-	(1, 1, 21, 1, 5, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL),
-	(2, 1, 22, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL),
-	(3, 1, 23, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL),
-	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL),
-	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL);
+INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `publisher_ID`, `publishDate`, `comments`) VALUES
+	(1, 1, 21, 1, 5, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(2, 1, 22, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(3, 1, 23, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL),
+	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tbladvertisement
@@ -495,15 +525,20 @@ CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
   `billboard_ID` bigint(20) NOT NULL,
   `rejection` varchar(100) NOT NULL DEFAULT '0',
   PRIMARY KEY (`reject_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblcommonrejections: ~4 rows (approximately)
+-- Dumping data for table ezbdev.tblcommonrejections: ~9 rows (approximately)
 /*!40000 ALTER TABLE `tblcommonrejections` DISABLE KEYS */;
 INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VALUES
 	(1, 3, 'Animated image'),
 	(2, 3, 'Alcohol reference'),
 	(3, 3, 'Inappropriate language'),
-	(4, 3, 'Conflict of interest');
+	(4, 3, 'Conflict of interest'),
+	(5, 6, 'Use of alcohol'),
+	(6, 6, 'Animated image'),
+	(7, 6, 'Too much colors'),
+	(8, 7, 'Drug related'),
+	(9, 7, 'Conflict of interest');
 /*!40000 ALTER TABLE `tblcommonrejections` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblconfig
