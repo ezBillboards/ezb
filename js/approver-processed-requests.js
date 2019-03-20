@@ -1,13 +1,22 @@
 /*approver processes requests JavaScript*/
 var requests;
+var tab;
 getApprovedRequests();
 getDeniedRequests();
+
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
+	tab = $(this).text();
+  });
+  
+  $("#mySearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#"+ tab +" tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
   });
 });
-
 
 
 function getApprovedRequests(){
@@ -75,8 +84,6 @@ function getDeniedRequests(){
 			"</td> " +
 			"<td>" +
 			"<button type=\"button\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
-			"</button>" +
-			"<button type=\"button\" class=\"btn btn-danger\">Cancel Request" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
