@@ -1,6 +1,7 @@
 /*approver processes requests JavaScript*/
 var requests;
 getApprovedRequests();
+getDeniedRequests();
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
@@ -45,12 +46,47 @@ function getApprovedRequests(){
 		}
 	});
 }
-/*
+
 function getDeniedRequests(){
-	
+	$.get("../server/approver-denied-requests.php",function(data,status){
+		requests = JSON.parse(data);
+		currentRequestIndex = 0;
+		for(var i = 0; i < requests.length; i++){
+			var request = "<tr>" +
+			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
+			"</td> " +
+			"<td>" +
+			"<div>Request ID:" + requests[i].id + "" +
+			"</div>" +
+			"<div>Request Date: " + requests[i].reqDate +"" +
+			"</div>" +
+			"<div>Requested by: " + requests[i].firstName + " " + requests[i].lastName +"" +
+			"</div>" +
+			"<div>Image: "  + requests[i].artworkName + "." + requests[i].extension + ""+
+			"</div>" +
+			"</td> " +
+			"<td>" +
+			"<div>Denied Date: " + requests[i].deniedDate +"" +
+			"</div>" +
+			"<div>Denied by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
+			"</div>" +
+			"<div>Comments: " + requests[i].comments +"" +
+			"</div>" +
+			"</td> " +
+			"<td>" +
+			"<button type=\"button\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
+			"</button>" +
+			"<button type=\"button\" class=\"btn btn-danger\">Cancel Request" +
+			"</button>" +
+			"</td> " +
+			"</tr>";
+			$("#denied-requests").append(request);
+			
+		}
+	});
 }
 
 function getCancelledRequests(){
 	
 } 
-*/
+
