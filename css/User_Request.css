@@ -1,9 +1,8 @@
 
 .ezb-logo {
-    width:245px;
-    height:66px;
+  width:245px;
+  height:66px;
 }
-
 
 
 #related{
@@ -14,88 +13,118 @@ float: left;
 }
 
 .navbar-height {
-    height: 85px;
+  height: 85px;
 }
 
 .navbar{
-    background:white;
+  background:white;
 }
 
 .active {
-  background-color: #03A9F4;
-  color: white;
+background-color: #03A9F4;
+color: white;
 }
 
 .btn{
-  background-color: #03A9F4;
-  padding: 10px 10px;
-  font-size: 15px;
-  border-radius: 8px;
+background-color: #616161;
+  color: white;
+
 }
 
+.request{
+background-color: #4caf50;
+}
+
+.register{
+    background-color: #03A9F4;
+      padding: 10px 10px;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+
 .navbar-text-color {
-    color: #03A9F4 !important;
+  color: #03A9F4 !important;
 }
 
 .well {
-   background-color: rgba(245, 245, 300, 0.4);
+ background-color: rgba(245, 245, 300, 0.4);
 }
 
 body {
-  font-family: Arial;
+font-family: Arial;
 }
 
 * {
-  box-sizing: border-box;
+box-sizing: border-box;
 }
 
 form.example input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 76%;
-  background: white;
+padding: 10px;
+font-size: 17px;
+border: 1px solid grey;
+float: left;
+width: 76%;
+background: #white;
 }
 
 form.example button {
-  float: left;
-  width: 5%;
-  padding: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
+float: left;
+width: 5%;
+padding: 10px;
+background: #2196F3;
+color: white;
+font-size: 17px;
+border: 1px solid grey;
+border-left: none;
+cursor: pointer;
 }
 
 form.example button:hover {
-  background: #0b7dda;
+background: #0b7dda;
 }
 
 form.example::after {
-  content: "";
-  clear: both;
-  display: table;
+content: "";
+clear: both;
+display: table;
 }
 
 .glyphicon{
-  color: green;
-  font-size: 250%;
+color: green;
+font-size: 250%;
 }
 
 .glyphicon-info-sign{
-  color: #14268b;
-  
+color: #14268b;
+
 }
 
 p{
-  font-size: 20px;
+font-size: 20px;
 }
 
 strong{
-    margin-left: 120px;
+  margin-left: 120px;
 }
+
+.rotate {
+
+/* Safari */
+-webkit-transform: rotate(-90deg);
+
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+float: left;
+
+}
+
 
 
