@@ -6,9 +6,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="User_Request.css">
+    <link rel="stylesheet" href="User_Request.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
@@ -23,7 +27,7 @@
         <li><a class="navbar-text-color" href="#">About</a></li>
             <li><a class="navbar-text-color" href="#">Contact</a></li>
         <li><a class="navbar-text-color" href="#">Log in</a></li>
-        <button type="button" class="btn btn-info">Register</button>
+        <button type="button" class="register btn btn-info">Register</button>
       </ul>
     </div>
   </div>
@@ -61,10 +65,50 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Info</h4>
+                        <h1 class="modal-title">Main Entrance Billboard</h1>
                       </div>
                       <div class="modal-body">
-                        <p>Information of table example 1</p>
+                        <img src="../Icons/BackgroundHome.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+                          <table class="table table-bordered">
+                             <tbody>
+                             <tr>
+                                <td>Width</td>
+                                <td>20ft</td>
+                              </tr>
+                              <tr>
+                                <td>Height</td>
+                                <td>14ft</td>
+                              </tr>
+                              <tr>
+                                <td>Latitud</td>
+                                <td>42.144279</td>
+                              </tr>
+                              <tr>
+                                <td>Longitud</td>
+                                <td>-71.066898</td>
+                              </tr>
+                              <tr>
+                                <td>Read Time</td>
+                                <td>8 seconds</td>
+                              </tr>
+                              <tr>
+                                <td>Impressions</td>
+                                <td>7,582 daily</td>
+                              </tr>
+                              <tr>
+                                <td>Traffic</td>
+                                <td>42,125 daily</td>
+                              </tr>
+                              <tr>
+                                <td>Minimum Resolution</td>
+                                <td>560x288</td>
+                              </tr>
+                              <tr>
+                                <td>Maximun Resolution</td>
+                                <td>1120x576</td>
+                              </tr>
+                            </tbody>
+                          </table>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -81,71 +125,78 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Request</h4>
+                  <h1 class="modal-title">Request</h1>
                 </div>
                 <div class="modal-body">
-                  <p>Table of prices example 1</p>
+                  <img src="../Icons/BackgroundHome.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+
+                  <div class="row">
+                      <div class="col-lg-12 text-center">
+                      <table class="table table-bordered">
+                       <tbody>
+                       <tr>
+                          <td>Frecuency</td>
+                        </tr>
+                      </tbody>
+                    </div>
+                  </div>
+
+
+                    <table class="table table-bordered">
+                      <div class="row">
+                          <div class="col-lg text-center">
+                          <table class="table table-bordered">
+                           <tbody>
+                           <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>Every 4 min.</td>
+                                <td>Every 2 min.</td>
+                                <td>Every min.</td>
+                            </tr>
+                          </tbody>
+                        </div>
+                      </div>
+                       <tbody>
+                           <td>   </td>
+                          <td>1 Day</td>
+                          <td>$15.25</td>
+                          <td>$30.50</td>
+                          <td>$61.00</td>
+                        </tr>
+                        <tr>
+                          <td colspan="1" style="width:10%"><p class = "rotate">Duration</p></td>
+                          <td>1 Week</td>
+                          <td>$106.25</td>
+                          <td>$210.50</td>
+                          <td>$425.00</td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                          <td>2 weeks</td>
+                          <td>$212.50</td>
+                          <td>$425.00</td>
+                          <td>$850.00</td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                          <td>4 weeks</td>
+                          <td>$425.00</td>
+                          <td>$850.00</td>
+                          <td>$1,700.00</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id ="closeBtn">Close</button>
+                    <button type="button" class="request btn btn-default">Request</button>
                 </div>
               </div>
             </div>
           </div>
         </div></td>
-
-<!--Modal test 1-->
-
-        <tr>
-          <td><div class="col-lg-8 text-center">
-            <a href="#"><span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#infoModal"><br><p>Information</p></span></a>
-
-            <!-- Info Modal -->
-                    <div class="modal fade" id="infoModal" role="dialog">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Info</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Information of table example 2</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-            <a href="#"><span class="glyphicon glyphicon-shopping-cart" data-toggle="modal" data-target="#requestModal"><br><p>Request</p></span></a>
-      <!-- Request Modal -->
-              <div class="modal fade" id="requestModal" role="dialog">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Request</h4>
-                    </div>
-                    <div class="modal-body">
-                      <p>Table of prices example 2</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div></td>
-
-
-
-
-
-
-
-    </tr>
   </tbody>
 </table>
 
