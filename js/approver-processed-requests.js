@@ -1,6 +1,12 @@
 /*approver processes requests JavaScript*/
 var requests;
+<<<<<<< HEAD
 var tab = 'Approved';
+=======
+currentRequestIndex
+var tab;
+
+>>>>>>> 32d7eedec8b52929c97872549722df0cafbca527
 getApprovedRequests();
 getDeniedRequests();
 getCancelledRequests();
