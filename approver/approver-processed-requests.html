@@ -90,7 +90,7 @@
 				<div>Comments: Harry Hernandez</div>
 			</td>
 			<td>
-				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>View client profile</button>
+				<button id="view-profile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span>View client profile</button>
 			</td>
 			
 		  </tr>
@@ -100,12 +100,83 @@
     </div>
     <div id="Cancelled" class="tab-pane fade">
       <h3>CANCELLED REQUESTS</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+       <div class="table-responsive">          
+	  <table class="table table-striped">
+		<thead>
+		  <tr>
+			<th>Artwork</th>
+			<th>Request Information</th>
+			<th>Approver Information</th>
+			<th>Actions</th>
+			
+		  </tr>
+		</thead>
+		<tbody id = "approved-requests">
+		 
+		</tbody>
+	  </table>
+	  </div>
     </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+	
+	 <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="row profile-modal-header">
+            <div class="col-lg-1">
+              <span class="glyphicon glyphicon-user profile-modal-user"></span>
+            </div>
+            <div class="col-lg-4">
+              <h3 id="profile-name" class="modal-title"></h3>
+            </div>
+            <div class="col-lg-7">
+              <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body text-center profile-modal-body">
+          <h3>Contact Information</h3>
+          <div class="row">
+            <div class="col-lg-6">
+              <h4 class="profile-modal-body-headers">Email</h4>
+              <h4 id="profile-email" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Mobile Phone</h4>
+              <h4 id="profile-mobile" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Work Phone</h4>
+              <h4 id="profile-work" class="profile-modal-body-info"></h4>
+            </div>
+            <div class="col-lg-6">
+              <h4 class="profile-modal-body-headers">Company Name</h4>
+              <h4 id="profile-company" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">Address</h4>
+              <h4 id="profile-address1" class="profile-modal-body-info"></h4>
+              <h4 id="profile-address2" class="profile-modal-body-info"></h4>
+              <h4 id="profile-city-state-zipcode" class="profile-modal-body-info"></h4>
+              <h4 class="profile-modal-body-headers">URL</h4>
+              <h4 id="profile-url" class="profile-modal-body-info"></h4>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row profile-modal-footer">
+            <div class="col-lg-1">
+              <a id="profile-facebook" class=" profile-modal-facebook"><i class="fa fa-facebook-official"></i></a>
+            </div>
+            <div class="col-lg-1">
+              <a id="profile-instagram" class=" profile-modal-instagram"><i class="fa fa-instagram"></i></a>
+            </div>
+            <div class="col-lg-1">
+              <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
+            </div>
+            <div class="col-lg-9 text-right">
+              <button type="button" class="btn btn-md profile-modal-ok" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   </div>
   
   
