@@ -50,8 +50,12 @@ width: 500px;
 position: relative;
 text-align: center;
 color: white;
+}
 
 
+.modal-title{
+  font-weight: 200%;
+  color: #03a9f4;
 }
 
 #Support_text{
@@ -76,6 +80,9 @@ margin-right: auto;
 
 .glyphicon {
   font-size: 50px;
+}
+.glyphicon.glyphicon-envelope{
+    font-size: 15px;
 }
 
 
