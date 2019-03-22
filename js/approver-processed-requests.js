@@ -1,7 +1,7 @@
 /*approver processes requests JavaScript*/
 var requests;
+var tab = 'Approved';
 currentRequestIndex
-var tab;
 
 getApprovedRequests();
 getDeniedRequests();
