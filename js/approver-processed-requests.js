@@ -4,13 +4,19 @@ var tab = 'Approved';
 var currentRequestIndex;
 
 getApprovedRequests();
-getDeniedRequests();
-getCancelledRequests();
+
+
 
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
 	tab = $(this).text();
+	if(tab == 'Approved')
+		getApprovedRequests();
+	else if(tab == 'Denied')
+		getDeniedRequests();
+	else
+		getCancelledRequests();
   });
   
   $("#mySearch").on("keyup", function() {
