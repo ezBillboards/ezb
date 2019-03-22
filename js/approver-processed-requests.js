@@ -1,6 +1,8 @@
 /*approver processes requests JavaScript*/
 var requests;
+currentRequestIndex
 var tab;
+
 getApprovedRequests();
 getDeniedRequests();
 getCancelledRequests();
