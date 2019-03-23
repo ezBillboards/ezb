@@ -107,3 +107,68 @@ div.row {
 .table tbody  {
 	background-color: #E0E0E0;
 }
+
+.image-row {
+	display: flex;
+	align-items: center;
+}
+
+.profile-email {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.profile-modal-body {
+	background-color: #BDBDBD;
+	padding-top: 0.5% !important;
+}
+
+.profile-modal-user {
+	font-size: 40px;
+	color: #666666;
+}
+
+.profile-modal-header {
+	display: flex;
+	align-items: center;
+}
+
+.profile-modal-ok {
+	color: white;
+	background-color: #616161;
+}
+
+.profile-modal-remove {
+	font-size: 30px;
+	color: black;
+}
+
+.profile-modal-body-headers {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.profile-modal-body-info {
+	font-size: 16px;
+	color: #616161;
+}
+
+.profile-modal-facebook {
+	font-size: 35px;
+	color: #3B5998;
+}
+
+.profile-modal-instagram {
+	font-size: 35px;
+	color: #E95950;
+}
+
+.profile-modal-twitter {
+	font-size: 35px;
+	color: #33CCFF;
+}
+
+.profile-modal-footer {
+	display: flex;
+	align-items: center;
+}
