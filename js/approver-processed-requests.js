@@ -51,6 +51,7 @@ function getApprovedRequests(){
 	$.get("../server/approver-approved-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
+		$("#approved-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
 			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
@@ -72,7 +73,7 @@ function getApprovedRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
+			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
 			"<button type=\"button\" class=\"btn btn-danger\">Cancel Request" +
 			"</button>" +
@@ -111,7 +112,7 @@ function getDeniedRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
+			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
@@ -148,7 +149,7 @@ function getCancelledRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
+			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
