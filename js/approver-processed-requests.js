@@ -3,15 +3,15 @@ var requests;
 var tab = 'Approved';
 var currentRequestIndex;
 
-/*getApprovedRequests();*/
+getApprovedRequests();
 
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
 	tab = $(this).text();
-	if(tab == 'Approved')
+	if(tab === 'Approved')
 		getApprovedRequests();
-	else if(tab == 'Denied')
+	else if(tab === 'Denied')
 		getDeniedRequests();
 	else
 		getCancelledRequests();
@@ -44,6 +44,7 @@ $(document).ready(function(){
 	});
 	
 	$("#cancel-request").click(function(){
+		console.log('HERE!!! CANCEL REQUEST CLICKED');
 		$.post("../server/approver-cancel-request.php", {id:requests[currentRequestIndex].id},
 		function(data, status){
 			if(status === "success"){
@@ -86,7 +87,7 @@ function getApprovedRequests(){
 			"<td>" +
 			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
-			"<button type=\"button\" id = \"cancel-request\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" id =\"cancel-request\" class=\"btn btn-danger\">Cancel Request" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
@@ -100,6 +101,7 @@ function getDeniedRequests(){
 	$.get("../server/approver-denied-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
+		$("#denied-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
 			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
@@ -137,6 +139,7 @@ function getCancelledRequests(){
 		$.get("../server/approver-denied-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
+		$("#cancelled-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
 			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
@@ -164,7 +167,7 @@ function getCancelledRequests(){
 			"</button>" +
 			"</td> " +
 			"</tr>";
-			$("#denied-requests").append(request);
+			$("#cancelled-requests").append(request);
 			
 		}
 	});
