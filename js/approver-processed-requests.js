@@ -5,8 +5,6 @@ var currentRequestIndex;
 
 /*getApprovedRequests();*/
 
-
-
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
@@ -44,6 +42,19 @@ $(document).ready(function(){
 			console.log(profile);
 		});
 	});
+	
+	$("#cancel-request").click(function(){
+		$.post("../server/approver-cancel-request.php", {id:requests[currentRequestIndex].id},
+		function(data, status){
+			if(status === "success"){
+				location.reload();
+			} else {
+				alert("Error in the decision!");
+			}
+			console.log(data);
+			console.log(status);
+		});
+	});
 });
 
 
@@ -75,7 +86,7 @@ function getApprovedRequests(){
 			"<td>" +
 			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
-			"<button type=\"button\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" id = \"cancel-request\" class=\"btn btn-danger\">Cancel Request" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
