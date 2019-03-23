@@ -3,7 +3,7 @@ var requests;
 var tab = 'Approved';
 var currentRequestIndex;
 
-getApprovedRequests();
+/*getApprovedRequests();*/
 
 
 

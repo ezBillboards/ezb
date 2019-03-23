@@ -95,14 +95,6 @@ li>a:hover {
 	height: 75px;
 }
 
-div.row {
-	padding-top: 5px;
-	border: 1px solid;
-  }
-
-.row + .row {
-   border-top:0;
-}
 
 .table tbody  {
 	background-color: #E0E0E0;
