@@ -44,13 +44,12 @@ $(document).ready(function(){
 	});
 	
 	$("#cancel-request").click(function(){
-		console.log('HERE!!! CANCEL REQUEST CLICKED');
 		$.post("../server/approver-cancel-request.php", {id:requests[currentRequestIndex].id},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
 			} else {
-				alert("Error in the decision!");
+				alert("Error cancelling request!");
 			}
 			console.log(data);
 			console.log(status);
@@ -136,7 +135,7 @@ function getDeniedRequests(){
 }
 
 function getCancelledRequests(){
-		$.get("../server/approver-denied-requests.php",function(data,status){
+		$.get("../server/approver-cancelled-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		$("#cancelled-requests").empty();
