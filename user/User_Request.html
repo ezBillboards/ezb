@@ -7,12 +7,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="User_Request.css">
+  <script src="../Views/User_Request.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
@@ -68,7 +74,8 @@
                         <h1 class="modal-title">Main Entrance Billboard</h1>
                       </div>
                       <div class="modal-body">
-                        <img src="../Icons/BackgroundHome.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+                        <img src="../Icons/BackgroundHome.jpg" class="background img-responsive ezb-logo" alt="EZB Logo">
+                        <br>
                           <table class="table table-bordered">
                              <tbody>
                              <tr>
@@ -128,11 +135,12 @@
                   <h1 class="modal-title">Request</h1>
                 </div>
                 <div class="modal-body">
-                  <img src="../Icons/BackgroundHome.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
-
+                  <img src="../Icons/BackgroundHome.jpg" class="background img-responsive ezb-logo" alt="EZB Logo">
+<br>
                   <div class="row">
                       <div class="col-lg-12 text-center">
                       <table class="table table-bordered">
+                        <i class="material-icons" style="color:blue">looks_one</i>Choose advertisement frequency and duration:
                        <tbody>
                        <tr>
                           <td>Frecuency</td>
@@ -188,7 +196,113 @@
 
                       </tbody>
                     </table>
-                </div>
+
+
+
+                    <i class="material-icons" style="color:blue">looks_two</i>Choose advertisement starting date:
+
+
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg">
+                            <div class="span12">
+                            <table class="table-condensed table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                          <th colspan="7">
+                                            <span class="btn-group">
+                                                <a class="btn"><i class="icon-chevron-left"></i></a>
+                                              <a class="btn active">February 2012</a>
+                                              <a class="btn"><i class="icon-chevron-right"></i></a>
+                                            </span>
+                                          </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Su</th>
+                                            <th>Mo</th>
+                                            <th>Tu</th>
+                                            <th>We</th>
+                                            <th>Th</th>
+                                            <th>Fr</th>
+                                            <th>Sa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="muted">29</td>
+                                            <td class="muted">30</td>
+                                            <td class="muted">31</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                            <td>11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>16</td>
+                                            <td>17</td>
+                                            <td>18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>19</td>
+                                            <td class="btn-primary">20</td>
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>24</td>
+                                            <td>25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>26</td>
+                                            <td>27</td>
+                                            <td>28</td>
+                                            <td>29</td>
+                                            <td class="muted">1</td>
+                                            <td class="muted">2</td>
+                                            <td class="muted">3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
+
+
+
+
+  <i class="material-icons" style="color:blue">looks_3</i>Upload Image:
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col text-center">
+      <div class="container">
+                  <input type="file" id="myFile" name="filename2">
+       </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal" id ="closeBtn">Close</button>
                     <button type="button" class="request btn btn-default">Request</button>
@@ -248,6 +362,5 @@
 
 </body>
 </html>
-
 
 

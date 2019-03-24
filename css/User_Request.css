@@ -20,12 +20,18 @@ float: left;
   background:white;
 }
 
+
+.background{
+height: 245px;
+width: 955px;
+}
+
 .active {
 background-color: #03A9F4;
 color: white;
 }
 
-.btn{
+#closeBtn{
 background-color: #616161;
   color: white;
 
@@ -33,6 +39,7 @@ background-color: #616161;
 
 .request{
 background-color: #4caf50;
+      color: white;
 }
 
 .register{
