@@ -2,7 +2,7 @@
 var requests;
 var currentRequestID;
 
-getPaidRequest();
+getPaidRequests();
 
 function getPaidRequests(){
 	$.get("../server/publisher-paid-requests.php",function(data,status){
