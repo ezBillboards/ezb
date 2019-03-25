@@ -2,6 +2,7 @@
 var requests;
 var tab = 'Approved';
 var currentRequestIndex;
+var currentRequestID;
 
 getApprovedRequests();
 
@@ -25,7 +26,9 @@ $(document).ready(function(){
   });
   
   $("#view-profile").click(function(){
-		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
+		console.log('View Profile clicked');
+		currentRequestID = $(this).attr("value");
+		$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
 			var profile = JSON.parse(data);
 			$("#profile-name").text(profile.firstName + " " + profile.lastName);
 			$("#profile-email").text(profile.email);
@@ -40,19 +43,6 @@ $(document).ready(function(){
 			$("#profile-instagram").attr("href",profile.instagramURL);
 			$("#profile-twitter").attr("href",profile.twitterURL);
 			console.log(profile);
-		});
-	});
-	
-	$("#cancel-request").click(function(){
-		$.post("../server/approver-cancel-request.php", {id:requests[currentRequestIndex].id},
-		function(data, status){
-			if(status === "success"){
-				location.reload();
-			} else {
-				alert("Error cancelling request!");
-			}
-			console.log(data);
-			console.log(status);
 		});
 	});
 });
@@ -84,9 +74,9 @@ function getApprovedRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" id=\"view-profile\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
+			"<button type=\"button\" onclick=\"viewProfile(this)\" id=\""+requests[i].id+"\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
 			"</button>" +
-			"<button type=\"button\" id =\"cancel-request\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" onclick=\"cancelRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
 			"</button>" +
 			"</td> " +
 			"</tr>";
@@ -97,7 +87,8 @@ function getApprovedRequests(){
 }
 
 function getDeniedRequests(){
-	$.get("../server/approver-denied-requests.php",function(data,status){
+		console.log('Denied!!');
+		$.get("../server/approver-denied-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		$("#denied-requests").empty();
@@ -135,6 +126,7 @@ function getDeniedRequests(){
 }
 
 function getCancelledRequests(){
+		console.log('Cancelled');
 		$.get("../server/approver-cancelled-requests.php",function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
@@ -154,9 +146,9 @@ function getCancelledRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<div>Denied Date: " + requests[i].deniedDate +"" +
+			"<div>Cancelled Date: " + requests[i].deniedDate +"" +
 			"</div>" +
-			"<div>Denied by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
+			"<div>Cancelled by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
 			"</div>" +
 			"<div>Comments: " + requests[i].comments +"" +
 			"</div>" +
@@ -172,3 +164,37 @@ function getCancelledRequests(){
 	});
 } 
 
+function viewProfile(item){
+	currentRequestID = $(item).attr("id");
+	$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
+		var profile = JSON.parse(data);
+		$("#profile-name").text(profile.firstName + " " + profile.lastName);
+		$("#profile-email").text(profile.email);
+		$("#profile-mobile").text(profile.mobile);
+		$("#profile-work").text(profile.work);
+		$("#profile-company").text(profile.company);
+		$("#profile-address1").text(profile.address1);
+		$("#profile-address2").text(profile.address2);
+		$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipcode);
+		$("#profile-url").text(profile.url);
+		$("#profile-facebook").attr("href",profile.facebookURL);
+		$("#profile-instagram").attr("href",profile.instagramURL);
+		$("#profile-twitter").attr("href",profile.twitterURL);
+		console.log(profile);
+	});
+}
+
+function cancelRequest(item){
+	currentRequestID = $(item).attr("id");
+	console.log(currentRequestID);
+	$.post("../server/approver-cancel-request.php",{id:currentRequestID},
+		function(data, status){
+			if(status === "success"){
+				location.reload();
+			} else {
+				alert("Error cancelling request!");
+			}
+			console.log(data);
+			console.log(status);
+		});
+}
