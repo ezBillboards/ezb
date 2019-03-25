@@ -29,10 +29,11 @@ function getPaidRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" class=\"btn btn-info\" href= \"" + requests[i].artworkURL+"\" download =\"" + requests[i].artworkName + "\".\"" + requests[i].extension + "\"><span class=\"glyphicon glyphicon-user\"></span>Download Image" +
-			"</button>" +
+			"<a href= \"" + requests[i].artworkURL+"\" download =\"" + requests[i].artworkName + "\".\"" + requests[i].extension + "\">" +
+			"<button type=\"button\" class=\"btn btn-info\" ><span class=\"glyphicon glyphicon-user\"></span>Download Image" +
+			"</button> </a>" +
 			"<button type=\"button\" onclick=\"publishRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-success\">Publish Request" +
-			"</button>" +
+			"</button>"
 			"</td> " +
 			"</tr>";
 			$("#paid-requests").append(request);
