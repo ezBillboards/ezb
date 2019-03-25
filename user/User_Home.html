@@ -45,7 +45,7 @@
 
           <div class="row">
 
-              <div class="col-lg-4" >
+              <div class="col-lg-12" >
               <div class="input-group">
                               <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                               <input id="email" type="text" class="form-control" name="email" placeholder="email">
@@ -56,6 +56,12 @@
                              <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
                              <input id="password" type="text" class="form-control" name="password" placeholder="password">
                            </div>
+                           <br>
+
+
+                           <label class="container">Remember me <input type="checkbox" checked="checked"><span class="checkmark"></span></label>
+                           <div>Don't have an account yet?<p class="text-primary" style = "color:#2196f3">Register here</p></div>
+                           <p class="text-primary" style = "color:#2196f3">Forgot Password</p>
 
 
               </div>
@@ -78,13 +84,61 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Register modal</h4>
+          <h4 class="modal-title text-center">Register</h4>
         </div>
         <div class="modal-body">
-          <p>Register Information to login</p>
+          <div class="col-lg-12" >
+          <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                          <input id="firstname" type="text" class="form-control" name="firstname" placeholder="First Name">
+                        </div>
+                       <br>
+
+                       <div class="input-group">
+                         <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+                         <input id="lastname" type="text" class="form-control" name="lastname" placeholder="Last Name">
+                       </div>
+                       <br>
+
+                       <div class="input-group">
+                         <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+                         <input id="username" type="text" class="form-control" name="username" placeholder="User Name">
+                       </div>
+                       <br>
+
+                      <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                       <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                     </div>
+                    <br>
+
+                    <div class="input-group">
+                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                     <input id="phone" type="text" class="form-control" name="phone" placeholder="Mobile Number">
+                   </div>
+                  <br>
+
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+                    <input id="password" type="text" class="form-control" name="password" placeholder="Password">
+                  </div>
+                  <br>
+
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+                    <input id="confirm_password" type="text" class="form-control" name="confirm_password" placeholder="Confirm Password">
+                  </div>
+                  <br>
+
+                       <label class="container">I accept your <p class="text-primary" style = "color:#2196f3">terms and policy privacy</p><input type="checkbox" checked="checked"><span class="checkmark"></span></label>
+                       <div>Already have an account?</div><p class="text-primary" style = "color:#2196f3">Login in here</p>
+
+
+
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-footer center">
+        <button type="button" class="btn btn-default register">Register</button>
         </div>
       </div>
     </div>
@@ -194,5 +248,6 @@
 
 </body>
 </html>
+
 
 
