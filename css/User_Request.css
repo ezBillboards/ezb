@@ -107,6 +107,11 @@ color: #14268b;
 
 }
 
+.glyphicon-calendar{
+    color: gray;
+      font-size: 100%;
+}
+
 p{
 font-size: 20px;
 }
