@@ -29,7 +29,7 @@ function getPaidRequests(){
 			"</div>" +
 			"</td> " +
 			"<td>" +
-			"<button type=\"button\" class=\"btn btn-info\" href= \"" + requests[i].artworkURL+"\" download =\"" requests[i].artworkName + "\".\"" + requests[i].extension "\"><span class=\"glyphicon glyphicon-user\"></span>Download Image" +
+			"<button type=\"button\" class=\"btn btn-info\" href= \"" + requests[i].artworkURL+"\" download =\"" + requests[i].artworkName + "\".\"" + requests[i].extension + "\"><span class=\"glyphicon glyphicon-user\"></span>Download Image" +
 			"</button>" +
 			"<button type=\"button\" onclick=\"publishRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-success\">Publish Request" +
 			"</button>" +
