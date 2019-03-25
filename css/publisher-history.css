@@ -1,0 +1,53 @@
+/* Publisher history View CSS */
+body {
+	background-color: #E0E0E0;
+}
+
+hr {
+	border-top: 1px solid #BDBDBD;
+}
+
+.navbar-text-color {
+	color: #03A9F4 !important;
+}
+
+.selected {
+	color: white !important;
+	background-color: gray;
+}
+
+.navbar-border {
+	border-bottom: 1px solid #BDBDBD;
+}
+
+.navbar-height {
+	height: 85px;
+}
+
+.ezb-logo {
+	width:245px;
+	height:66px;
+}
+
+.user-dropdown {
+	color: gray;
+}
+
+.profile-dropdown {
+	font-size: 25px;
+}
+
+li>a:hover {
+  background-color: gray !important;
+  color: white;
+}
+
+.processed-requests-images {
+	width: 100px;
+	height: 75px;
+}
+
+
+.table tbody  {
+	background-color: #E0E0E0;
+}
