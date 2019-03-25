@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pending Requests</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/publisher-paid-requests.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../js/publisher-paid-requests.js"></script>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default navbar-border navbar-height">
+    <div class="container-fluid">
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<a class="navbar-brand" href="EZBillboardsLogo.png" target="_blank">
+				<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+			</a>
+			<ul class="nav navbar-nav navbar-right navbar-text">
+				<li><a class= "selected" href="">Pending Requests</a></li>
+				<li><a class="navbar-text-color" href="">Published History</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Account</a></li>
+						<li><a href="#">Logout</a></li>
+					</ul>
+				</li>
+				<li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<h3>PENDING REQUESTS</h3>
+	  <div class="table-responsive">          
+	  <table class="table table-striped">
+		<thead>
+		  <tr>
+			<th>Artwork</th>
+			<th>Request Information</th>
+			<th>Approver Information</th>
+			<th>Actions</th>
+			
+		  </tr>
+		</thead>
+		<tbody id = "paid-requests">
+		 
+		</tbody>
+	  </table>
+	  </div>
+
+</body>
+</html>
