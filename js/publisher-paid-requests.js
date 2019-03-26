@@ -45,7 +45,7 @@ function getPaidRequests(){
 function publishRequest(item){
 	currentRequestID = $(item).attr("id");
 	console.log(currentRequestID);
-	$.post("../server/publisher-paid-requests.php",{id:currentRequestID},
+	$.post("../server/publisher-publish-requests.php",{id:currentRequestID},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
