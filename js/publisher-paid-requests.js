@@ -4,6 +4,16 @@ var currentRequestID;
 
 getPaidRequests();
 
+$(document).ready(function(){
+	$("#mySearch").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#tbody tr").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+});
+
+  
 function getPaidRequests(){
 	$.get("../server/publisher-paid-requests.php",function(data,status){
 		requests = JSON.parse(data);
