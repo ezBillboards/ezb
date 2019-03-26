@@ -7,7 +7,7 @@ getPaidRequests();
 $(document).ready(function(){
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
-		$("#publish tbody tr").filter(function() {
+		$("#tbody tr").filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	});
