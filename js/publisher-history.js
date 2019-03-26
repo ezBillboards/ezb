@@ -13,6 +13,16 @@ function getHistory(){
 			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
 			"</td> " +
 			"<td>" +
+			"<div>Billboard Name:" + requests[i].billboard + "" +
+			"</div>" +
+			"<div>Display Per Cycle:" + requests[i].displayPerCycle + "" +
+			"</div>" +
+			"<div>Start Date: " + requests[i].startDate +"" +
+			"</div>" +
+			"<div>End Date: " + requests[i].endDate +"" +
+			"</div>" +
+			"</td> " +
+			"<td>" +
 			"<div>Request ID:" + requests[i].id + "" +
 			"</div>" +
 			"<div>Request Date: " + requests[i].reqDate +"" +
