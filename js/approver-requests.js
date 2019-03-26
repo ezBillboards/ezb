@@ -23,7 +23,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$(".clickable-image").click(function(){
+	$("#request-queue").on("click",".clickable-image",function(){
 		$("#" + currentRequestIndex + "request").removeClass("active");
 		currentRequestIndex = parseInt($(this).attr("id"));
 		getRegulations();
