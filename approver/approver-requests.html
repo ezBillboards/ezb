@@ -10,6 +10,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="../js/approver-requests.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
 
@@ -20,8 +23,8 @@
         <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
       </a>
       <ul class="nav navbar-nav navbar-right navbar-text">
-        <li><a class="selected" href="#">Pending Requests</a></li>
-        <li><a class="navbar-text-color" href="#">Processed Requests</a></li>
+        <li><a class="selected" href="approver-requests.html">Pending Requests</a></li>
+        <li><a class="navbar-text-color" href="approver-processed-requests.html">Processed Requests</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -37,8 +40,14 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div id="request-queue" class="col-lg-3 list-group">
+    <div class="col-lg-3 list-group">
+      <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+        <i class="fa fa-calendar"></i>&nbsp;
+        <span></span> <i class="fa fa-caret-down"></i>
+      </div>
+      <div id="request-queue" class="pre-scrollable">
 
+      </div>
     </div>
     <div class="col-lg-7">
       <div id="request-image" class="carousel slide" data-interval="false">
@@ -89,7 +98,7 @@
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Most Common Rejection Reasons
           <span class="caret"></span></button>
           <ul id="rejections" class="dropdown-menu">
-            
+
           </ul>
         </div>
         <br>
