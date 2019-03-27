@@ -1,8 +1,6 @@
 var requests;
 var currentRequestIndex;
 
-getRequests();
-
 $(document).ready(function(){
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
@@ -74,13 +72,16 @@ $(document).ready(function(){
 	$("#rejections").on("click", ".rejections", function(){
 		$("#comment").val($(this).text());
 		$("#no").removeClass("disabled");
+		$("#no").prop("disabled",false);
 	});
 
 	$('#comment').bind('input propertychange', function() {
 		if(this.value.length){
 			$("#no").removeClass("disabled");
+			$("#no").prop("disabled",false);
 		} else{
 			$("#no").addClass("disabled");
+			$("#no").prop("disabled",true);
 		}
 	});
 
@@ -88,8 +89,10 @@ $(document).ready(function(){
 		console.log("change");
 		if ($("input[type='checkbox']:checked").length == $("input[type='checkbox']").length) {
 			$("#yes").removeClass("disabled");
+			$("#yes").prop("disabled",false);
 		} else{
 			$("#yes").addClass("disabled");
+			$("#yes").prop("disabled",true);
 		}
 	});
 
@@ -116,10 +119,54 @@ $(document).ready(function(){
 			console.log(status);
 		});
 	});
+
+	$(function() {
+
+    		var start = moment().startOf('month');
+    		var end = moment().endOf('month');
+
+    		function updateDate(start, end) {
+			var startStr = start.format('YYYY-MM-DD');
+			var endStr = end.format('YYYY-MM-DD');
+			console.log(startStr);
+			console.log(endStr);
+			if(startStr == "Invalid date" && endStr == "Invalid date"){
+				$("#reportrange span").html("All");
+			} else{
+	        		$("#reportrange span").html(startStr + " to " + endStr);
+			}
+			getRequests(startStr, endStr);
+    		}
+
+    		$('#reportrange').daterangepicker({
+        		startDate: start,
+        		endDate: end,
+        		ranges: {
+           			'Today': [moment(), moment()],
+           			'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           			'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           			'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           			'This Month': [moment().startOf('month'), moment().endOf('month')],
+           			'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+	   			'All': 'All'
+        		}
+    		}, updateDate);
+
+    		updateDate(start, end);
+
+	});
 });
 
-function getRequests(){
-	$.get("../server/approver-requests.php", function(data, status){
+function getRequests(startStr, endStr){
+	$("#request-queue").empty();
+	$("#request-images").empty();
+	$.get("../server/approver-requests.php",
+		{
+			start: startStr,
+			end: endStr
+		}, 
+		function(data, status){
+		console.log(data);
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		getRegulations();

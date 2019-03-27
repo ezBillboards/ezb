@@ -138,3 +138,8 @@ li>a:hover {
   background-color: gray !important;
   color: white;
 }
+
+.pre-scrollable {
+    max-height: 550px;
+    overflow-y: scroll;
+}

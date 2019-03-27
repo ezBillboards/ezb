@@ -18,10 +18,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
 
 
 
+
+
 )
 BEGIN
-	Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle,
-	artworkName,extension,artworkURL,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
+	Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
+	artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
 	approveDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
 	join tblusers on tblusers.user_ID = tbladrequest.user_ID
 	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
@@ -57,16 +59,49 @@ DELIMITER ;
 
 -- Dumping structure for procedure ezbdev.getRequest
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequest`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequest`(
+	IN `requestFrom_IN` DATETIME,
+	IN `requestTo_IN` DATETIME
+)
 BEGIN
-	Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
-	artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
-	join tblusers on tblusers.user_ID = tbladrequest.user_ID
-	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
-	join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
-	join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-	where tbladrequest.status_ID = 1
-	order by requestDate asc;
+	IF requestFrom_IN IS NULL and requestTo_IN IS NULL then
+		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
+		artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		where tbladrequest.status_ID = 1
+		order by requestDate asc;
+	ELSEIF requestTo_IN IS NULL then
+		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
+		artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		where tbladrequest.status_ID = 1 AND requestDate >= requestFrom_IN
+		order by requestDate asc;
+	ELSEIF requestFrom_IN IS NULL then
+		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
+		artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		where tbladrequest.status_ID = 1 AND requestDate <= requestTo_IN
+		order by requestDate asc;
+	ELSE
+		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
+		artworkName,artworkURL,extension,tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		where tbladrequest.status_ID = 1 AND requestDate >= requestFrom_IN AND requestDate <= requestTo_IN
+		order by requestDate asc;
+	END IF;
+	
 END//
 DELIMITER ;
 
@@ -122,6 +157,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 
 
 
+
 )
 BEGIN
 	Declare packageDuration int;
@@ -132,7 +168,7 @@ BEGIN
 	Insert Into tblartwork (user_ID, artworkURL,artworkName,extension,width,height,size) 
 	values (user_ID_IN,artwork_URL_IN,artworkName_IN,extension_IN,width_IN,height_IN,size_IN);
 	Insert into tbladrequest (user_ID,artwork_ID,status_ID,package_ID,requestDate,startDate,endDate) 
-	values (user_ID_IN,last_insert_id(),1,package_ID_IN,curdate(),startDate_IN,requestEndDate);
+	values (user_ID_IN,last_insert_id(),1,package_ID_IN,current_timestamp(),startDate_IN,requestEndDate);
 
 	
 	Update tblschedule
@@ -304,6 +340,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.putCancelRequest
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putCancelRequest`(
+	IN `request_ID_IN` BIGINT
+)
+BEGIN
+	Update tbladrequest
+	SET status_ID = 4
+	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.putStatusApprover
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusApprover`(
@@ -313,11 +361,37 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusApprover`(
 ,
 	IN `status_ID_IN` INT,
 	IN `comments_IN` VARCHAR(200)
+
 )
 BEGIN
 	Update tbladrequest
-	SET status_ID = status_ID_IN,approver_ID = approver_ID_IN,comments = comments_IN ,approveDate = curdate()
+	SET status_ID = status_ID_IN,approver_ID = approver_ID_IN,comments = comments_IN ,approveDate = current_timestamp()
 	where request_ID = request_ID_IN;	
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putStatusPaid
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusPaid`(
+	IN `request_ID_IN` BIGINT
+)
+BEGIN
+	Update tbladrequest
+	SET status_ID = 5
+	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putStatusPublisher
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusPublisher`(
+	IN `request_ID_IN` BIGINT,
+	IN `publisher_ID_IN` BIGINT
+)
+BEGIN
+	Update tbladrequest
+	SET status_ID = 6,publisher_ID = publisher_ID_IN ,publishDate = current_timestamp()
+	where request_ID = request_ID_IN;
 END//
 DELIMITER ;
 

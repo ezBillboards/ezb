@@ -11,7 +11,16 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$sql = "CALL getRequest(null, null)";
+$start = $_GET['start'];
+$end = $_GET['end'];
+$sql = "";
+
+if($start == "Invalid date" && $end == "Invalid date"){
+	$sql = "CALL getRequest(null, null)";
+} else{
+	$sql = "CALL getRequest('$start','$end')";
+}
+
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
