@@ -26,6 +26,7 @@ background-color: #03A9F4;
 color: white;
 }
 
+
 .btn{
 background-color: #03A9F4;
 padding: 10px 10px;
@@ -44,6 +45,7 @@ border-radius: 8px;
 .jumbotron{
 background: rgba(0, 0, 0, 0.60)!important;
 width: 500px;
+heigth: 300px;
 }
 
 .container2 {
