@@ -11,6 +11,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for procedure ezbdev.getBillboards
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboards`()
+BEGIN
+	Select * from tblBillboards;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getProcessedRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
@@ -62,6 +70,7 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequest`(
 	IN `requestFrom_IN` DATETIME,
 	IN `requestTo_IN` DATETIME
+
 )
 BEGIN
 	IF requestFrom_IN IS NULL and requestTo_IN IS NULL then
@@ -80,7 +89,7 @@ BEGIN
 		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-		where tbladrequest.status_ID = 1 AND requestDate >= requestFrom_IN
+		where tbladrequest.status_ID = 1 AND DATE(requestDate) >= requestFrom_IN
 		order by requestDate asc;
 	ELSEIF requestFrom_IN IS NULL then
 		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
@@ -89,7 +98,7 @@ BEGIN
 		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-		where tbladrequest.status_ID = 1 AND requestDate <= requestTo_IN
+		where tbladrequest.status_ID = 1 AND DATE(requestDate) <= requestTo_IN
 		order by requestDate asc;
 	ELSE
 		Select request_ID,requestDate,tblbillboards.billboard_ID, billboardName,firstName, lastName,displayPerCycle,
@@ -98,7 +107,7 @@ BEGIN
 		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-		where tbladrequest.status_ID = 1 AND requestDate >= requestFrom_IN AND requestDate <= requestTo_IN
+		where tbladrequest.status_ID = 1 AND DATE(requestDate) >= requestFrom_IN AND DATE(requestDate) <= requestTo_IN
 		order by requestDate asc;
 	END IF;
 	
@@ -443,12 +452,12 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladrequest: ~4 rows (approximately)
+-- Dumping data for table ezbdev.tbladrequest: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
 INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `publisher_ID`, `publishDate`, `comments`) VALUES
-	(1, 1, 21, 1, 5, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL),
-	(2, 1, 22, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
-	(3, 1, 23, 1, 4, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(1, 1, 21, 1, 5, '2019-03-14 20:20:20', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(2, 1, 22, 1, 4, '2019-03-13 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(3, 1, 23, 1, 4, '2019-03-12 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
 	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL),
 	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
@@ -479,7 +488,7 @@ CREATE TABLE IF NOT EXISTS `tblapprovers` (
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblapprovers: ~2 rows (approximately)
+-- Dumping data for table ezbdev.tblapprovers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tblapprovers` DISABLE KEYS */;
 INSERT INTO `tblapprovers` (`approver_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
 	(1, 'example@example.com', 'Felix', 'Gonzalez', 'bbf2dead374654cbb32a917afd236656', NULL),
@@ -503,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `tblartwork` (
   CONSTRAINT `user_ID` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblartwork: ~24 rows (approximately)
+-- Dumping data for table ezbdev.tblartwork: ~26 rows (approximately)
 /*!40000 ALTER TABLE `tblartwork` DISABLE KEYS */;
 INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, `extension`, `width`, `height`, `Size`) VALUES
 	(1, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
@@ -580,7 +589,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblbillboards: ~7 rows (approximately)
+-- Dumping data for table ezbdev.tblbillboards: ~8 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
 INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`) VALUES
 	(1, 'Main Entrance', 'Main Entrance4 UPRM', NULL, 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
@@ -660,7 +669,7 @@ CREATE TABLE IF NOT EXISTS `tblpublishers` (
   PRIMARY KEY (`publisher_ID`,`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblpublishers: ~0 rows (approximately)
+-- Dumping data for table ezbdev.tblpublishers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblpublishers` DISABLE KEYS */;
 INSERT INTO `tblpublishers` (`publisher_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
 	(1, 'example@publisher.com', 'Carlos', 'Rodriguez', '52aded165360352a0f5857571d96d68f', NULL);
@@ -1451,7 +1460,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblusers: ~2 rows (approximately)
+-- Dumping data for table ezbdev.tblusers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`) VALUES
 	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00'),
