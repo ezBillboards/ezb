@@ -17,9 +17,9 @@
 
 
 
- <!--  jQuery -->
+ <!--  jQuery 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
+-->
 <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
 <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
@@ -36,7 +36,7 @@
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
       <a class="navbar-brand">
-       <img src="../Icons/EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+       <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
      </a>
      <ul class="nav navbar-nav navbar-right navbar-text">
        <li><a class="navbar-text-color" href="#">Home</a></li>
@@ -166,44 +166,35 @@
   </div>
 </div>
 
-
 <div class="row">
-   <div class="col-lg-12 text-center"><strong><h1>Billboards</h1></strong></div>
+   <div class="col-lg-12 text-center"><h1 class="billboard-header">Billboards</h1></div>
    <div class="col-lg-12 text-center">Take advantage of our billboards! By renting our billboards you will be funding our students and will be helping them achieve their goals. Be part of this exciting initiative and rent your billboard now!</div>
 </div>
 
 <br>
 
-
 <div class="row">
- <div class="col-lg-10 ">
-   <form class="example" action="/action_page.php">
-     <button type="submit"><i class="fa fa-search"></i></button>
-     <input type="text" placeholder="Search.." name="search">
-   </form>
- </div>
+	<div class="col-lg-8 input-group form-group-lg" style="margin:auto;">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		<input id="search" type="text" class="form-control" name="search" placeholder="Search">
+	</div>
 </div>
-
-<table class="table table-bordered responsive">
- <tbody>
-
-   <tr>
-     <td><div class="col-lg-8 text-center">
-
-       <div class="row">
-           <div class="column">
-             <img src="../Icons/Artwork1.jpg" class="img-responsive Artwork1-logo" alt="Artwork1 Logo">
-           </div>
-           <div class="column">
-             <h3>Main Entrance Billboard</h3>
-             This is the main entrance billboard and will allow you to maximize your sells.
-           </div>
-           <div class="column">
-             <a href="#"><span class="glyphicon glyphicon-info-sign"  data-toggle="modal" data-target="#infoModal1"><br><p>Information</p></span></a>
-             <a href="#"><span class="glyphicon glyphicon-shopping-cart" data-toggle="modal" data-target="#requestModal1"><br><p>Request</p></span></a>
-           </div>
-         </div>
-
+<br>
+<div class="row">          
+	<div class="col-lg-10 table-responsive" style="padding-left: 16.66%;">
+     		<table class="table table-striped">
+      			<thead>
+        			<tr>
+         				<th class="text-center">Billboard</th>
+         				<th class="text-center">Actions</th>
+       				</tr>
+     			</thead>
+     			<tbody id="billboards">
+       
+     			</tbody>
+   		</table>
+	</div>
+</div>
 
        <!-- Info Modal -->
                <div class="modal fade" id="infoModal1" role="dialog">
