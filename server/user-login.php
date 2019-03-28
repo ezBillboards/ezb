@@ -1,44 +1,87 @@
 <?php
-
 define('DB_SERVER', 'ezb.uprm.edu');
 define('DB_USERNAME', 'ezb');
 define('DB_PASSWORD', 'ezb');
 define('DB_NAME', 'ezbillboards');
  
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
-if($conn === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
 
-$sql = "CALL getLoginUser('example2@billboards.com')";
-$result = mysqli_query($conn,$sql);
-$requests = array();
+$sql = "call getLoginUser( 'example@publisher.com');";
+$sql .= "call getLoginApprover( 'example@publisher.com');";
+$sql .= "call getLoginPublisher( 'example@publisher.com');";
+$sql .= "call getLoginAdmin( 'example@publisher.com')";
 
-if (mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)) {
-	echo "User Role";
-	/*array_push($requests,$request);*/
-    }
-} else {
-    echo "Not user";
-}
-
-$sql2 = "CALL getLoginPublisher('example@publisher.com')";
-$result2 = mysqli_query($conn,$sql2);
-$requests2 = array();
-
-if (mysqli_num_rows($result2) > 0) {
-    while($row = mysqli_fetch_assoc($result2)) {
-        echo "Publisher Role";
-        /*array_push($requests,$request);*/
-    }
-} else {
-    echo "Not publisher!";
+// Execute multi query
+if (mysqli_multi_query($conn,$sql))
+{
+    // Store first result set
+    if ($result=mysqli_store_result($conn)) {
+		// Fetch one and one row
+		if ($row=mysqli_fetch_row($result))
+		{
+			echo "Found User!!";
+        }
+		else
+		{
+			echo "Not User!!!";
+		}
+		// Free result set
+		mysqli_free_result($result);
+	}
+	mysqli_next_result($conn)
+	// Store first result set
+    if ($result=mysqli_store_result($conn)) {
+		// Fetch one and one row
+		if ($row=mysqli_fetch_row($result))
+		{
+			echo "Found Approver!!";
+        }
+		else
+		{
+			echo "Not Approver!!!";
+		}
+		// Free result set
+		mysqli_free_result($result);
+	}
+	mysqli_next_result($conn)
+	
+	// Store first result set
+    if ($result=mysqli_store_result($conn)) {
+		// Fetch one and one row
+		if ($row=mysqli_fetch_row($result))
+		{
+			echo "Found Publishser!!";
+        }
+		else
+		{
+			echo "Not Publisher!!!";
+		}
+		// Free result set
+		mysqli_free_result($result);
+	}
+	mysqli_next_result($conn)
+	
+	// Store first result set
+    if ($result=mysqli_store_result($conn)) {
+		// Fetch one and one row
+		if ($row=mysqli_fetch_row($result))
+		{
+			echo "Found Admin!!";
+        }
+		else
+		{
+			echo "Not Admin!!!";
+		}
+		// Free result set
+		mysqli_free_result($result);
+	}
+	
 }
 
 mysqli_close($conn);
-
-echo json_encode($requests);
-
 ?>

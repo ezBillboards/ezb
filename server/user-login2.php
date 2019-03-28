@@ -12,7 +12,9 @@ if (mysqli_connect_errno())
   }
 
 $sql = "call getLoginUser( 'example@publisher.com');";
-$sql .= "call getLoginPublisher( 'example@publisher.com')";
+$sql .= "call getLoginPublisher( 'example@publisher.com');";
+$sql .= "call getLoginApprover( 'example@publisher.com');";
+$sql .= "call getLoginAdmin( 'example@publisher.com')";
 
 // Execute multi query
 if (mysqli_multi_query($conn,$sql))
