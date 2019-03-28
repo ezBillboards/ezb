@@ -12,9 +12,10 @@ if (mysqli_connect_errno())
   }
 
 $sql = "call getLoginUser( 'example@publisher.com');";
-$sql .= "call getLoginPublisher( 'example@publisher.com');";
 $sql .= "call getLoginApprover( 'example@publisher.com');";
+$sql .= "call getLoginPublisher( 'example@publisher.com');";
 $sql .= "call getLoginAdmin( 'example@publisher.com')";
+$counter = 1;
 
 // Execute multi query
 if (mysqli_multi_query($conn,$sql))
@@ -26,16 +27,19 @@ if (mysqli_multi_query($conn,$sql))
       // Fetch one and one row
       if ($row=mysqli_fetch_row($result))
         {
-        echo "Found profile!!";
+        $request['id'] = $row['ID'];
+		$request['role_ID'] = $counter
         }else{
 	echo "Not Found!!!";
 	}
       // Free result set
       mysqli_free_result($result);
       }
+	$counter++;
     }
   while (mysqli_next_result($conn));
 }
 
+echo $counter;
 mysqli_close($conn);
 ?>
