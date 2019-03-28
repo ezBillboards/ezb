@@ -13,7 +13,22 @@ $(document).ready(function(){
   };
   date_input.datepicker(options);
 
-  
+  $(".information").click(function(){
+  	var id = $(this).attr("id");
+  	var info = getBillboardInfo(id);
+  	$("#info-header").text(info.name);
+  	$("#info-image").attr("src",info.img);
+  	$("#info-image").attr("alt",info.name);
+  	$("#width").text(info.width + "ft");
+  	$("#height").text(info.height + "ft");
+  	$("#latitude").text(info.latitud);
+  	$("#longitude").text(info.longitude);
+  	$("#read-time").text(info.readTime + "seconds");
+  	$("#impressions").text(info.impressions + "daily");
+  	$("#traffic").text(info.traffic + "daily");
+  	$("#min-res").text(info.minWidth + "x" + info.minHeight);
+  	$("#max-res").text(info.maxWidth + "x" + info.maxHeight);
+  });
   
 });
 
@@ -22,8 +37,6 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
-
-
 
 function getBillboards(){
 	$.get("../server/user-billboards.php", function(data, status){
@@ -40,8 +53,8 @@ function getBillboards(){
 					"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 				"</div>" +
 			"</div></td>" +
-			"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span class=\"glyphicon glyphicon-info-sign actions\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
-			"<span class=\"glyphicon glyphicon-shopping-cart actions\" data-toggle=\"modal\" data-target=\"#requestModal1\"><br><p>Request</p></span>" +
+			"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
+			"<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-shopping-cart actions request\" data-toggle=\"modal\" data-target=\"#requestModal1\"><br><p>Request</p></span>" +
 			"</td>" +
 			"</tr>";
 			console.log(billboard);
@@ -49,5 +62,13 @@ function getBillboards(){
 		$("#billboards").empty();
 		$("#billboards").append(billboard);
 		console.log(billboards);
+	});
+}
+
+function getBillboardInfo(billboardID){
+	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
+		var info = JSON.parse(data);
+		console.log(info);
+		return info;
 	});
 }
