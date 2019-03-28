@@ -87,16 +87,12 @@ margin-right: auto;
     font-size: 15px;
 }
 
-.glyphicon.glyphicon-user{
-    font-size: 15px;
-}
-
-.glyphicon.glyphicon-phone{
+.glyphicon.glyphicon-user.glyphicon.glyphicon-envelope{
     font-size: 15px;
 }
 
 /* The container */
-.container {
+.Checkcontainer {
 display: block;
 position: relative;
 padding-left: 35px;
@@ -110,7 +106,7 @@ user-select: none;
 }
 
 /* Hide the browser's default checkbox */
-.container input {
+.Checkcontainer input {
 position: absolute;
 opacity: 0;
 cursor: pointer;
@@ -129,12 +125,12 @@ background-color: #eee;
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.Checkcontainer:hover input ~ .checkmark {
 background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.Checkcontainer input:checked ~ .checkmark {
 background-color: #2196F3;
 }
 
@@ -146,12 +142,12 @@ display: none;
 }
 
 /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.Checkcontainer input:checked ~ .checkmark:after {
 display: block;
 }
 
 /* Style the checkmark/indicator */
-.container .checkmark:after {
+.Checkcontainer .checkmark:after {
 left: 9px;
 top: 5px;
 width: 5px;
@@ -162,6 +158,5 @@ border-width: 0 3px 3px 0;
 -ms-transform: rotate(45deg);
 transform: rotate(45deg);
 }
-
 
 
