@@ -11,17 +11,30 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$sql = "CALL getLoginInfo('example2@billboards.com')";
+$sql = "CALL getLoginUser('example2@billboards.com')";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-        echo $row['publisher_ID_OUT'];
+	echo "User Role";
+	/*array_push($requests,$request);*/
+    }
+} else {
+    echo "Not user";
+}
+
+$sql2 = "CALL getLoginPublisher('example@publisher.com')";
+$result2 = mysqli_query($conn,$sql2);
+$requests2 = array();
+
+if (mysqli_num_rows($result2) > 0) {
+    while($row = mysqli_fetch_assoc($result2)) {
+        echo "Publisher Role";
         /*array_push($requests,$request);*/
     }
 } else {
-    echo "No results";
+    echo "Not publisher!";
 }
 
 mysqli_close($conn);

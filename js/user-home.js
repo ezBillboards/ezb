@@ -3,7 +3,7 @@
 Login();
 
 function Login(){
-	$.get("../servers/user-login.php",
+	$.get("../server/user-login.php",
 		function(data, status){
 			if(status === "success"){
 				location.reload();

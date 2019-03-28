@@ -11,8 +11,8 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-$sql .= "call getLoginUser( 'example@publisher.com');";
-$sql = "call getLoginPublisher( 'example@publisher.com')";
+$sql = "call getLoginUser( 'example@publisher.com');";
+$sql .= "call getLoginPublisher( 'example@publisher.com')";
 
 // Execute multi query
 if (mysqli_multi_query($conn,$sql))
@@ -24,12 +24,10 @@ if (mysqli_multi_query($conn,$sql))
       // Fetch one and one row
       if ($row=mysqli_fetch_row($result))
         {
-        echo "Found profile!!"
-        }
-		else
-		{
-		echo "Not Found!!!"
-		}
+        echo "Found profile!!";
+        }else{
+	echo "Not Found!!!";
+	}
       // Free result set
       mysqli_free_result($result);
       }
@@ -37,5 +35,5 @@ if (mysqli_multi_query($conn,$sql))
   while (mysqli_next_result($conn));
 }
 
-mysqli_close($con);
+mysqli_close($conn);
 ?>
