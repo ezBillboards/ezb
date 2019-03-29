@@ -10,15 +10,15 @@ $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-
-$sql = "call getLoginUser( 'example2@billboards.com')";
+$emailAddress = $_GET['emailAddress'];
+$sql = "call getLoginUser( '$emailAddress')";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['user_ID'];
-	array_push($requests,$request);
+		array_push($requests,$request);
     }
 } else {
     echo "No results";
