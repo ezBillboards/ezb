@@ -11,11 +11,80 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping structure for procedure ezbdev.getBillboardInfo
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboardInfo`(
+	IN `billboard_ID_IN` BIGINT
+
+)
+BEGIN
+	Select * from tblbillboards 
+	where billboard_ID = billboard_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getBillboards
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboards`()
 BEGIN
 	Select billboard_ID, billboardName, billboardDescription, billboardImage_URL from tblbillboards;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getLoginAdmin
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginAdmin`(
+	IN `emailAddress_IN` VARCHAR(100)
+
+
+)
+BEGIN
+	Select admin_ID from tbladmin
+	where emailAddress = emailAddress_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getLoginApprover
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginApprover`(
+	IN `emailAddress_IN` VARCHAR(100)
+
+
+
+)
+BEGIN
+	Select approver_ID from tblapprovers
+	where emailAddress = emailAddress_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getLoginPublisher
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginPublisher`(
+	IN `emailAddress_IN` VARCHAR(100)
+
+
+)
+BEGIN
+	Select publisher_ID from tblpublishers
+	where emailAddress = emailAddress_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getLoginUser
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
+	IN `emailAddress_IN` VARCHAR(100)
+
+
+
+
+
+
+)
+BEGIN
+	Select user_ID from tblusers
+	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
 

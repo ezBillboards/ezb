@@ -11,20 +11,19 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$sql = "call getLoginUser( 'example@publisher.com')";
+$sql = "call getLoginUser( 'example2@billboards.com')";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['user_ID'];
+	array_push($requests,$request);
     }
 } else {
     echo "No results";
 }
 
 mysqli_close($conn);
-
 echo json_encode($requests);
-
 ?>
