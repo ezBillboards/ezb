@@ -3,28 +3,14 @@ var credentials;
 var role;
 var profile_ID;
 var verifiedUser;
+var finish = false;
 
 Login();
 
 function Login(){
 	
-	$.ajax({
-		type:'GET',
-		URL:"../server/user-credentials.php",
-		async: false,
-		data: {emailAddress: 'example2@billboards.com'},
-		success:function(data, status){
-			credentials = JSON.parse(data);
-			if(credentials.length > 0){
-				role = "USER";
-				profile_ID = credentials[0].id;
-				verifiedUser = credentials[0].verified;
-				console.log(data);
-				console.log(status);
-			}
-		}
-	});
-	/*$.get("../server/user-credentials.php",
+
+	$.get("../server/user-credentials.php",
 		{emailAddress: 'example2@billboards.com'},
 		function(data, status){
 			console.log(Object.keys(data).length);
@@ -69,8 +55,10 @@ function Login(){
 				console.log(data);
 				console.log(status);
 			}
-		});*/
-	
+			finished = true;
+		});
+	console.log('Waiting');
+	while(!finished);
 	if (!role){
 		console.log('USER NOT FOUND');
 		//USER NOT FOUND
