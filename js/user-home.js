@@ -3,9 +3,9 @@ var credentials;
 var role;
 var profile_ID;
 var verifiedUser;
-var finish = false;
 
 Login();
+setTimeout(Verify,100);
 
 function Login(){
 	
@@ -55,10 +55,11 @@ function Login(){
 				console.log(data);
 				console.log(status);
 			}
-			finished = true;
+
 		});
-	console.log('Waiting');
-	while(!finished);
+}
+
+function Verify(){
 	if (!role){
 		console.log('USER NOT FOUND');
 		//USER NOT FOUND

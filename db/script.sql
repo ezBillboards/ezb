@@ -31,6 +31,14 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.getContact
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getContact`()
+BEGIN
+	select * from tblcontact;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getLoginAdmin
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginAdmin`(
@@ -704,6 +712,24 @@ CREATE TABLE IF NOT EXISTS `tblconfig` (
 -- Dumping data for table ezbdev.tblconfig: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblconfig` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tblconfig` ENABLE KEYS */;
+
+-- Dumping structure for table ezbdev.tblcontact
+CREATE TABLE IF NOT EXISTS `tblcontact` (
+  `postalAddress` varchar(200) DEFAULT NULL,
+  `physicalAddress` varchar(200) DEFAULT NULL,
+  `phone` varchar(200) DEFAULT NULL,
+  `extensions` varchar(200) DEFAULT NULL,
+  `directPhone` varchar(200) DEFAULT NULL,
+  `fax` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `officeHours` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblcontact: ~1 rows (approximately)
+/*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
+INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
+	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
+/*!40000 ALTER TABLE `tblcontact` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblpackage
 CREATE TABLE IF NOT EXISTS `tblpackage` (
