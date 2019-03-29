@@ -5,7 +5,7 @@ var profile_ID;
 var verifiedUser;
 
 Login();
-setTimeout(Verify,100);
+setTimeout(Verify,200);
 
 function Login(){
 	
