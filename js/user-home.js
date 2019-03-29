@@ -72,8 +72,9 @@ function Verify(){
 		//STEP 2: IF NOT VERIFIED: ENTER CODE OR RESEND CODE
 		//STEP 3: IF VERIFIED: SESSION VARIABLES AND HOME PAGE
 		console.log('USER FOUND');
-		if (verified == 0){
+		if (verifiedUser == 0){
 			console.log('USER NOT VERIFIED!')
+			$('#verifyEmailModal').modal('show');
 		}else{
 			console.log('USER VERIFIED!')
 		}
