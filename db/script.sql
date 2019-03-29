@@ -81,9 +81,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
 
 
 
+
 )
 BEGIN
-	Select user_ID from tblusers
+	Select user_ID, verified from tblusers
 	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
@@ -1524,6 +1525,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `tempsswd` varchar(10) DEFAULT NULL,
   `signupDate` datetime NOT NULL,
   `lastLoginDate` datetime NOT NULL,
+  `verified` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_ID`,`emailAddress`),
   UNIQUE KEY `user_ID` (`user_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
@@ -1531,10 +1533,10 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
 
 -- Dumping data for table ezbdev.tblusers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
-INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`) VALUES
-	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00'),
-	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00'),
-	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00');
+INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`, `verified`) VALUES
+	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 0),
+	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0),
+	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

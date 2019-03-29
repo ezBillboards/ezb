@@ -8,6 +8,10 @@ function Login(){
 	$.get("../server/user-credentials.php",
 		{emailAddress: 'example2@billboards.com'},
 		function(data, status){
+			console.log(Object.keys(data).length);
+			if(JSON.parse(data).length > 0){
+			console.log('Size > 0');
+			}
 			credentials = JSON.parse(data);
 			if(credentials.length > 0){
 				role = "USER";
