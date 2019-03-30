@@ -24,7 +24,6 @@ function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
 		{emailAddress: email_IN},
 		function(data, status){
-			console.log(Object.keys(data).length);
 			if(JSON.parse(data).length > 0){
 				credentials = JSON.parse(data);
 				role = "USER";
@@ -42,6 +41,7 @@ function Login(email_IN,password_IN){
 				credentials = JSON.parse(data);
 				role = "APPROVER";
 				profile_ID = credentials[0].id;
+				sessionStorage.setItem('ID', profile_ID);
 				console.log(data);
 				console.log(status);
 			}
@@ -52,6 +52,7 @@ function Login(email_IN,password_IN){
 			if(JSON.parse(data).length > 0){
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
+				sessionStorage.setItem('ID', profile_ID);
 				role = "PUBLISHER";
 				console.log(data);
 				console.log(status);
@@ -64,6 +65,7 @@ function Login(email_IN,password_IN){
 				credentials = JSON.parse(data);
 				role = "ADMIN";
 				profile_ID = credentials[0].id;
+				sessionStorage.setItem('ID', profile_ID);
 				console.log(data);
 				console.log(status);
 			}
@@ -92,19 +94,20 @@ function Verify(){
 			//SESSION VARIABLES
 			//logged in nav bar
 			console.log('USER VERIFIED!')
+			location.reload();
 		}
 	}
 	else if(role == "APPROVER"){
 		//SESSION VARIABLES
 		//IF APPROVER FOUND --->> APPROVER VIEW
-		//window.location.href = "../approver/approver-requests.html";
-		console.log('APPROVER FOUND');
+		window.location.href = "../approver/approver-requests.html";
+		//console.log('APPROVER FOUND');
 	}
 	else if(role == "PUBLISHER"){
 		//SESSION VARIABLES
 		//IF PUBLISHER FOUND --->> PUBLISHER VIEW
-		//window.location.href = "../publisher/publisher-paid-requests.html";
-		console.log('PUBLISHER FOUND');
+		window.location.href = "../publisher/publisher-paid-requests.html";
+		//console.log('PUBLISHER FOUND');
 	}
 	else if(role == "ADMIN"){
 		//SESSION VARIABLES
