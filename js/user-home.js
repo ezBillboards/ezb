@@ -7,18 +7,9 @@ var confirmPassword;
 var credentials;
 var role;
 var profile_ID;
-var verifiedUser;
-
-
+var verifiedUser;	
 
 $(document).ready(function(){
-	if(!Role){
-		document.getElementById("getStarted").style.display = "inline";
-		document.getElementById("userProfile").style.display = "none";
-	}else{
-		document.getElementById("getStarted").style.display = "none";
-		document.getElementById("userProfile").style.display = "inline";
-	}		
 	
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
