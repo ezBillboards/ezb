@@ -12,8 +12,8 @@ $(document).ready(function(){
 	
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
-		console.log($('emaillogin').val());
-		console.log($('passwordlogin').val());
+		console.log($('#emaillogin').val());
+		console.log($('#passwordlogin').val());
 	});
 });
 function Login(){
