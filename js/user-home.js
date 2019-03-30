@@ -4,9 +4,17 @@ var role;
 var profile_ID;
 var verifiedUser;
 
-Login();
-setTimeout(Verify,200);
 
+
+$(document).ready(function(){
+	//Login();
+	//setTimeout(Verify,400);
+	
+	$(".btnlogin").click(function(){
+		console.log($('emaillogin').val());
+		console.log($('passwordlogin').val());
+	});
+});
 function Login(){
 	
 
