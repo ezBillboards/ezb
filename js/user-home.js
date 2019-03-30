@@ -18,6 +18,7 @@ function Login(){
 				credentials = JSON.parse(data);
 				role = "USER";
 				profile_ID = credentials[0].id;
+				sessionStorage.setItem('ID', profile_ID);
 				verifiedUser = credentials[0].verified;
 				console.log(data);
 				console.log(status);
@@ -74,8 +75,11 @@ function Verify(){
 		console.log('USER FOUND');
 		if (verifiedUser == 0){
 			console.log('USER NOT VERIFIED!')
+			console.log(sessionStorage.getItem('ID'));
 			$('#verifyEmailModal').modal('show');
 		}else{
+			//SESSION VARIABLES
+			//logged in nav bar
 			console.log('USER VERIFIED!')
 		}
 	}
