@@ -106,8 +106,8 @@ function Verify(){
 		}else{
 			//SESSION VARIABLES
 			//logged in nav bar
-			document.getElementById("getStarted").style.display = "none";
-			document.getElementById("userProfile").style.display = "inline";
+			document.getElementByClassName("getStarted").style.display = "none";
+			document.getElementByClassName("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
 			$('#loginModal').modal('hide');
 		}
