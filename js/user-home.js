@@ -1,6 +1,9 @@
 /*user home view JavaScript*/
+var firstName;
+var lastName;
 var email;
 var password;
+var confirmPassword;
 var credentials;
 var role;
 var profile_ID;
@@ -19,6 +22,12 @@ $(document).ready(function(){
 		Login(email,password);
 		setTimeout(Verify,500);
 	});
+	
+	$("#btnregister").click(function(){
+		console.log('btnregister clicked!!');
+		email = $('#emailreg').val();
+		password = $('#passwordreg').val();
+	});
 });
 function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
@@ -29,6 +38,8 @@ function Login(email_IN,password_IN){
 				role = "USER";
 				profile_ID = credentials[0].id;
 				sessionStorage.setItem('ID', profile_ID);
+				sessionStorage.setItem('email', email_IN);
+				sessionStorage.setItem('role', role);
 				verifiedUser = credentials[0].verified;
 				console.log(data);
 				console.log(status);
@@ -42,6 +53,8 @@ function Login(email_IN,password_IN){
 				role = "APPROVER";
 				profile_ID = credentials[0].id;
 				sessionStorage.setItem('ID', profile_ID);
+				sessionStorage.setItem('email', email_IN);
+				sessionStorage.setItem('role', role);
 				console.log(data);
 				console.log(status);
 			}
@@ -53,6 +66,8 @@ function Login(email_IN,password_IN){
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
 				sessionStorage.setItem('ID', profile_ID);
+				sessionStorage.setItem('email', email_IN);
+				sessionStorage.setItem('role', role);
 				role = "PUBLISHER";
 				console.log(data);
 				console.log(status);
@@ -66,6 +81,8 @@ function Login(email_IN,password_IN){
 				role = "ADMIN";
 				profile_ID = credentials[0].id;
 				sessionStorage.setItem('ID', profile_ID);
+				sessionStorage.setItem('email', email_IN);
+				sessionStorage.setItem('role', role);
 				console.log(data);
 				console.log(status);
 			}
