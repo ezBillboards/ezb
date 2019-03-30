@@ -1,4 +1,6 @@
 /*user home view JavaScript*/
+var email;
+var password;
 var credentials;
 var role;
 var profile_ID;
@@ -12,15 +14,15 @@ $(document).ready(function(){
 	
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
-		console.log($('#emaillogin').val());
-		console.log($('#passwordlogin').val());
+		email = $('#emaillogin').val();
+		password = $('#passwordlogin').val();
+		Login(email,password);
+		setTimeout(Verify,500);
 	});
 });
-function Login(){
-	
-
+function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
-		{emailAddress: 'example2@billboards.com'},
+		{emailAddress: email_IN},
 		function(data, status){
 			console.log(Object.keys(data).length);
 			if(JSON.parse(data).length > 0){
@@ -34,7 +36,7 @@ function Login(){
 			}
 		});
 	$.get("../server/approver-credentials.php",
-		{emailAddress: 'example2@billboards.com'},
+		{emailAddress: email_IN},
 		function(data, status){
 			if(JSON.parse(data).length > 0){
 				credentials = JSON.parse(data);
@@ -45,7 +47,7 @@ function Login(){
 			}
 		});
 	$.get("../server/publisher-credentials.php",
-		{emailAddress: 'example2@billboards.com'},
+		{emailAddress: email_IN},
 		function(data, status){
 			if(JSON.parse(data).length > 0){
 				credentials = JSON.parse(data);
@@ -56,7 +58,7 @@ function Login(){
 			}
 		});
 	$.get("../server/admin-credentials.php",
-		{emailAddress: 'example2@billboards.com'},
+		{emailAddress: email_IN},
 		function(data, status){
 			if(JSON.parse(data).length > 0){
 				credentials = JSON.parse(data);
@@ -95,15 +97,18 @@ function Verify(){
 	else if(role == "APPROVER"){
 		//SESSION VARIABLES
 		//IF APPROVER FOUND --->> APPROVER VIEW
-		window.location.href = "../approver/approver-requests.html";
+		//window.location.href = "../approver/approver-requests.html";
+		console.log('APPROVER FOUND');
 	}
 	else if(role == "PUBLISHER"){
 		//SESSION VARIABLES
 		//IF PUBLISHER FOUND --->> PUBLISHER VIEW
-		window.location.href = "../publisher/publisher-paid-requests.html";
+		//window.location.href = "../publisher/publisher-paid-requests.html";
+		console.log('PUBLISHER FOUND');
 	}
 	else if(role == "ADMIN"){
 		//SESSION VARIABLES
 		//IF ADMIN FOUND --->> ADMIN VIEW
+		console.log('ADMIN FOUND');
 	}
 }
