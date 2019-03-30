@@ -12,8 +12,13 @@ var verifiedUser;
 
 
 $(document).ready(function(){
-	//Login();
-	//setTimeout(Verify,400);
+	if(!Role){
+		document.getElementById("getStarted").style.display = "inline";
+		document.getElementById("userProfile").style.display = "none";
+	}else{
+		document.getElementById("getStarted").style.display = "none";
+		document.getElementById("userProfile").style.display = "inline";
+	}		
 	
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
@@ -113,7 +118,7 @@ function Verify(){
 			document.getElementById("getStarted").style.display = "none";
 			document.getElementById("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
-			location.reload();
+			$('#loginModal').modal('hide');
 		}
 	}
 	else if(role == "APPROVER"){
