@@ -3,8 +3,8 @@ var requests;
 var currentRequestID;
 
 getPaidRequests();
-console.log(sessionStorage.getItem('ID'));
-console.log(sessionStorage.getItem('email'));
+//console.log(sessionStorage.getItem('ID'));
+//console.log(sessionStorage.getItem('email'));
 $(document).ready(function(){
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();

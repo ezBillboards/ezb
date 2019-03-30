@@ -110,6 +110,8 @@ function Verify(){
 		}else{
 			//SESSION VARIABLES
 			//logged in nav bar
+			document.getElementById("getStarted").style.display = "none";
+			document.getElementById("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
 			location.reload();
 		}
