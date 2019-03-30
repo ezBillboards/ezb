@@ -10,7 +10,8 @@ $(document).ready(function(){
 	//Login();
 	//setTimeout(Verify,400);
 	
-	$(".btnlogin").click(function(){
+	$("#btnlogin").click(function(){
+		console.log('btnlogin clicked!!');
 		console.log($('emaillogin').val());
 		console.log($('passwordlogin').val());
 	});
