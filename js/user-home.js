@@ -26,6 +26,13 @@ $(document).ready(function(){
 		password = $('#passwordreg').val();
 		
 	});
+	
+	$("#btnlogout").click(function(){
+		console.log('btnlogout clicked!!');
+		sessionStorage.removeItem('ID');
+		sessionStorage.removeItem('email');
+		sessionStorage.removeItem('role');
+	});
 });
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,workPhone_IN,companyName_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
