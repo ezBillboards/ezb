@@ -32,6 +32,7 @@ $(document).ready(function(){
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
+		Session();
 	});
 });
 
