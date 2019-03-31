@@ -59,7 +59,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				password :password_IN,
 				random: random_IN
 			},function(data,status){
-				if(status === success){
+				if(status === "success"){
 					console.log('USER REGISTERED!!')
 					role = "USER";
 					sessionStorage.setItem('role', role);
