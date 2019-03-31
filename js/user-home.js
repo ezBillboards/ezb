@@ -4,13 +4,14 @@ var lastName;
 var email;
 var password;
 var confirmPassword;
+var mobilePhone;
 var credentials;
 var role;
 var profile_ID;
 var verifiedUser;	
 
 $(document).ready(function(){
-	
+	Session();
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
 		email = $('#emaillogin').val();
@@ -23,8 +24,34 @@ $(document).ready(function(){
 		console.log('btnregister clicked!!');
 		email = $('#emailreg').val();
 		password = $('#passwordreg').val();
+		
 	});
 });
+
+function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,workPhone_IN,companyName_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
+	address1_IN,address2_IN,city_IN,state_IN,zipcode_IN,password_IN){
+	$.post("../server/user-registration.php",
+			{
+				email: email_IN,
+				firstName: firstName_IN,
+				lastName : lastName_IN,
+				mobilePhone: mobilePhone_IN,
+				workPhone : workPhone_IN,
+				companyName : companyName_IN,
+				facebookURL : facebookURL_IN,
+				instagramURL : instagramURL_IN,
+				twitterURL : twitterURL_IN,
+				address1 : address1_IN,
+				address2 : address2_IN,
+				city : city_IN,
+				state : state_IN,
+				zipcode : zipcode_IN,
+				password :password_IN,
+			},function(data,status){
+				
+		});
+}
+
 function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
 		{emailAddress: email_IN},
@@ -106,8 +133,10 @@ function Verify(){
 		}else{
 			//SESSION VARIABLES
 			//logged in nav bar
-			document.getElementByClassName("getStarted").style.display = "none";
-			document.getElementByClassName("userProfile").style.display = "inline";
+			document.getElementById("getStartedLog").style.display = "none";
+			document.getElementById("getStartedReg").style.display = "none";
+			document.getElementById("getStartedMes").style.display = "none";
+			//document.getElementById("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
 			$('#loginModal').modal('hide');
 		}
@@ -129,4 +158,19 @@ function Verify(){
 		//IF ADMIN FOUND --->> ADMIN VIEW
 		console.log('ADMIN FOUND');
 	}
+}
+
+function Session(){
+		if (sessionStorage.getItem('ID') !== null){
+			console.log('Session exists!!!');
+			document.getElementById("getStartedLog").style.display = "none";
+			document.getElementById("getStartedReg").style.display = "none";
+			document.getElementById("getStartedMes").style.display = "none";
+		}else{
+			console.log('Session doesn\'t exists!!!');
+			document.getElementById("getStartedLog").style.display = "inline";
+			document.getElementById("getStartedReg").style.display = "inline";
+			document.getElementById("getStartedMes").style.display = "inline";
+			
+		}
 }
