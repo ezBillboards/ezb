@@ -136,6 +136,8 @@ function Verify(){
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
 			document.getElementById("getStartedMes").style.display = "none";
+			document.getElementById("profileDropdown").style.display = "inline";
+			document.getElementById("profileEmail").style.display = "inline";
 			//document.getElementById("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
 			$('#loginModal').modal('hide');
@@ -166,11 +168,14 @@ function Session(){
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
 			document.getElementById("getStartedMes").style.display = "none";
+			document.getElementById("profileDropdown").style.display = "inline";
+			document.getElementById("profileEmail").style.display = "inline";
 		}else{
 			console.log('Session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
 			document.getElementById("getStartedMes").style.display = "inline";
-			
+			document.getElementById("profileDropdown").style.display = "none";
+			document.getElementById("profileEmail").style.display = "none";
 		}
 }
