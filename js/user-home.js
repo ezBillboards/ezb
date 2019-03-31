@@ -22,8 +22,11 @@ $(document).ready(function(){
 	
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
-		email = $('#emailreg').val();
-		password = $('#passwordreg').val();
+		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
+			var random = Math.floor((Math.random() * 1000) + 1);
+			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
+		}
+		
 		
 	});
 	
@@ -36,27 +39,35 @@ $(document).ready(function(){
 	});
 });
 
-function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,workPhone_IN,companyName_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_IN,city_IN,state_IN,zipcode_IN,password_IN){
+function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	$.post("../server/user-registration.php",
 			{
 				email: email_IN,
 				firstName: firstName_IN,
 				lastName : lastName_IN,
 				mobilePhone: mobilePhone_IN,
-				workPhone : workPhone_IN,
-				companyName : companyName_IN,
-				facebookURL : facebookURL_IN,
-				instagramURL : instagramURL_IN,
-				twitterURL : twitterURL_IN,
-				address1 : address1_IN,
-				address2 : address2_IN,
-				city : city_IN,
-				state : state_IN,
-				zipcode : zipcode_IN,
+				workPhone : null,
+				companyName : null,
+				facebookURL : null,
+				instagramURL : null,
+				twitterURL : null,
+				address1 : null,
+				address2 : null,
+				city : null,
+				state : null,
+				zipcode : null,
 				password :password_IN,
+				random: random_IN
 			},function(data,status){
-				
+				if(status === success){
+					console.log('USER REGISTERED!!')
+					role = "USER";
+					sessionStorage.setItem('role', role);
+					sessionStorage.setItem('email', email_IN);
+					$('#verifyEmailModal').modal('show');
+				}else{
+					console.log('Error registering user!!');
+				}
 		});
 }
 
