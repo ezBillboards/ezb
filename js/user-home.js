@@ -40,11 +40,14 @@ $(document).ready(function(){
 		Session();
 	});
 	
-	$('#btnverify').click(function(){
-		var codeInput = $('#verificationCode').val();
+	$("#btnverify").click(function(){
+		//var codeInput = $('#verificationCode').val();
 		if( $('#verificationCode').val() == sessionStorage.getItem('ID')){
 			console.log('Verified user email');
 			$('#verifyEmailModal').modal('hide');
+		}
+		else{
+			console.log('Code was incorrect!!');
 		}
 	});
 	
