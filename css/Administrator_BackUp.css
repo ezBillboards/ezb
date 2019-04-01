@@ -1,0 +1,65 @@
+
+.well{
+    background:#bdbdbd;
+    width: 30%;
+  height: 45%;
+    margin-left: auto;
+  margin-right: auto;
+
+}
+.ezb-logo {
+    width:245px;
+    height:66px;
+}
+
+.jumbotron{
+  height:370px;
+}
+
+.navbar{
+    background:white;
+}
+
+.navbar-height {
+    height: 85px;
+}
+
+.navbar{
+    background:white;
+}
+
+.active {
+  background-color: #03A9F4;
+  color: white;
+}
+
+
+.navbar-text-color {
+    color: #03A9F4 !important;
+}
+
+.btn.btn-default.dropdown-toggle{
+  width: 90%;
+}
+
+
+.jumbotron { padding: 20px 5px 20px 15px;
+margin-bottom: 10px;
+margin-top: 10px;
+margin-left: 5px;
+margin-right: 5px;
+font-size: 18px;
+font-weight: 200;
+line-height: inherit;
+outline-width: thin;
+outline-style: solid;
+border-radius: 6px;
+outline-color: #eeeeee;
+color: #ffffff;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}
+
+
+
