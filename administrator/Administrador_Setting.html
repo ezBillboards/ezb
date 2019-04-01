@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="Administrator_Setting.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-border navbar-height">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="myNavbar">
+         <a class="navbar-brand">
+          <img src="../Icons/EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+        </a>
+        <ul class="nav navbar-nav navbar-right navbar-text">
+          <li><a class="navbar-text-color" href="#">Settings</a></li>
+          <li><a class="navbar-text-color" href="#">Accounts</a></li>
+          <li><a class="navbar-text-color" href="#">Billboards</a></li>
+          <li><a class="navbar-text-color" href="#">Logs</a></li>
+              <li><a class="navbar-text-color" href="#">Backups</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Account</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+<div class="row">
+    <div class="col-lg-12" style="background-color:white;">
+    <h1 class="text-center"><strong>Setting</strong></h1>
+     </div>
+</div>
+
+
+
+<div class="well well-lg text-center">
+   <div class="row">
+   <br>
+
+   <!-- Data configuration -->
+     <div class="jumbotron col-lg-3" style="background-color:#607d8b;">Database Configuration
+       <br>
+       <br>
+             <div class="input-group">
+               <span class="input-group-addon"><i class="fa fa-server"></i></span>
+               <input id="server" type="text" class="form-control" name="server" placeholder="Server">
+             </div>
+       <br>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-database"></i></span>
+                <input id="database" type="text" class="form-control" name="database" placeholder="Database">
+              </div>
+       <br>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="user" type="text" class="form-control" name="user" placeholder="User">
+              </div>
+       <br>
+               <div class="input-group">
+                 <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                 <input id="password" type="text" class="form-control" name="password" placeholder="Password">
+               </div>
+       <br>
+       <div class="row">
+           <div class="col-lg-12 text-center" >
+           <button type="button" class="btn btn-info">Save</button>
+           </div>
+         </div>
+     </div>
+
+
+<!-- Mail Server -->
+     <div class="jumbotron col-lg-3" style="background-color:#607d8b;">Mail Server Configuration
+       <br>
+       <br>
+       <br>
+       <br>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                <input id="serverIp" type="text" class="form-control" name="serverIp" placeholder="Server ip">
+              </div>
+       <br>
+               <div class="input-group">
+                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                 <input id="port" type="text" class="form-control" name="port" placeholder="Port">
+               </div>
+       <br>
+  <div class="row">
+    <div class="col-lg-12 text-center" >
+    <button type="button" class="btn btn-info">Save</button>
+    </div>
+  </div>
+  </div>
+<!-- Back Up Path -->
+
+<div>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+         <div class="jumbotron col-lg-12" style="background-color:#607d8b; height:150px;">Back up Path
+           <br>
+
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
+                    <input id="backup" type="text" class="form-control" name="backup" placeholder="Backup Path">
+                  </div>
+<br>
+
+                <div class="row">
+                  <div class="col-lg-12 text-center" >
+                  <button type="button" class="btn btn-info">Save</button>
+                  </div>
+                </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+         <div class="jumbotron col-lg-12" style="background-color:#607d8b; height:150px">Image Path
+           <br>
+
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
+                    <input id="image" type="text" class="form-control" name="image" placeholder="Image Path">
+                  </div>
+           <br>
+
+                <div class="row">
+                  <div class="col-lg-12 text-center" >
+                  <button type="button" class="btn btn-info">Save</button>
+                  </div>
+                </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+<!-- Contact Edit text -->
+    <div class="Contactcontainer">
+      <form action="/action_page.php">
+        <div class="form-group">
+          <label for="contact">Contact:</label>
+          <textarea class="form-control" rows="5" id="Contact" name="text"></textarea>
+        </div>
+        <button type="save" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+<!-- About Edit text -->
+    <div class="Aboutcontainer">
+      <form action="/action_page.php">
+        <div class="form-group">
+          <label for="about">About:</label>
+          <textarea class="form-control" rows="5" id="about" name="text"></textarea>
+        </div>
+        <button type="save" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+
+  <!-- Terms Edit text -->
+    <div class="Aboutcontainer">
+      <form action="/action_page.php">
+        <div class="form-group">
+          <label for="termAndPolicy">Terms and Privacy Policy:</label>
+          <textarea class="form-control" rows="5" id="termAndPolicy" name="text"></textarea>
+        </div>
+        <button type="save" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+
+
+  <br>
+  <br>
+  <br>
+
+  <div class="Tablecontainer">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Link</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Finance Office</td>
+          <td>https://www.uprm.edu/finanzas/</td>
+          <td>
+            <div class="column">
+              <a href="#"><span class="glyphicon glyphicon-pencil"><br></span></a>
+              <a href="#"><span class="glyphicon glyphicon-trash"><br></span></a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Revenue Office</td>
+          <td>https://www.uprm.edu/finanzas/recaudaciones/</td>
+          <td>
+            <div class="column">
+              <a href="#"><span class="glyphicon glyphicon-pencil"><br></span></a>
+              <a href="#"><span class="glyphicon glyphicon-trash"><br></span></a>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+</div>
+
+</body>
+</html>
+
+
+
