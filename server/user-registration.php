@@ -16,6 +16,7 @@ $lastName = $_POST['lastName'];
 $mobilePhone = $_POST['mobilePhone'];
 $workPhone = $_POST['workPhone'];
 $companyName = $_POST['companyName'];
+$companyURL = $_POST['companyURL'];
 $facebookURL = $_POST['facebookURL'];
 $instagramURL = $_POST['instagramURL'];
 $twitterURL = $_POST['twitterURL'];
@@ -27,7 +28,7 @@ $zipcode = $_POST['zipcode'];
 $password = $_POST['password'];
 $random = $_POST['random'];
 
-$sql = "CALL postUser($email,$firstName,$lastName,$mobilePhone,$workPhone,$companyName,$facebookURL,$instagramURL,$twitterURL,$address1,$address2,$city,$state,$zipcode,$password,$random)";
+$sql = "CALL postUser($email,$firstName,$lastName,$mobilePhone,$workPhone,$companyName,$companyURL,$facebookURL,$instagramURL,$twitterURL,$address1,$address2,$city,$state,$zipcode,$password,$random)";
 
 if (mysqli_query($conn, $sql)) {
     echo "Record updated successfully";

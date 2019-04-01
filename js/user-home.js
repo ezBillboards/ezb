@@ -23,7 +23,7 @@ $(document).ready(function(){
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
 		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
-			var random = Math.floor((Math.random() * 1000) + 1);
+			var random = Math.floor((Math.random() * 10000) + 1);
 			console.log(random);
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
@@ -50,6 +50,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				mobilePhone: mobilePhone_IN,
 				workPhone : null,
 				companyName : null,
+				companyURL : null,
 				facebookURL : null,
 				instagramURL : null,
 				twitterURL : null,
