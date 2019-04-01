@@ -43,6 +43,7 @@ $(document).ready(function(){
 	$("#btnverify").click(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
+			VerifyEmail();
 			$('#verifyEmailModal').modal('hide');
 		}
 		else{
@@ -209,7 +210,18 @@ function VerifyRole(){
 }
 
 function VerifyEmail(){
-	
+	$.post("../server/user-verified.php",
+			{
+				email: sessionStorage.getItem('email'),
+			},function(data,status){
+				
+				if(status === "success"){
+					console.log(data);
+				console.log(status);
+				}else{
+					console.log('Error on user verification!!');
+				}
+		});
 }
 
 function Session(){
