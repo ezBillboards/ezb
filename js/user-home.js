@@ -17,7 +17,7 @@ $(document).ready(function(){
 		email = $('#emaillogin').val();
 		password = $('#passwordlogin').val();
 		Login(email,password);
-		setTimeout(Verify,500);
+		setTimeout(VerifyRole,500);
 	});
 	
 	$("#btnregister").click(function(){
@@ -38,6 +38,14 @@ $(document).ready(function(){
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
 		Session();
+	});
+	
+	$('btnverify').click(function(){
+		var codeInput = $('#verificationCode').val();
+		if( $('#verificationCode').val() == sessionStorage.getItem('ID')){
+			console.log('Verified user email');
+			$('#verifyEmailModal').modal('hide');
+		}
 	});
 	
 	$("#btnlogout").click(function(){
@@ -78,6 +86,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					role = "USER";
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
+					sessionStorage.setItem('verificationCode', random_IN);
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
@@ -147,7 +156,7 @@ function Login(email_IN,password_IN){
 		});
 }
 
-function Verify(){
+function VerifyRole(){
 	if (!role){
 		console.log('USER NOT FOUND');
 		//USER NOT FOUND
@@ -195,6 +204,10 @@ function Verify(){
 		//IF ADMIN FOUND --->> ADMIN VIEW
 		console.log('ADMIN FOUND');
 	}
+}
+
+function VerifyEmail(){
+	
 }
 
 function Session(){
