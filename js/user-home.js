@@ -32,6 +32,14 @@ $(document).ready(function(){
 		
 	});
 	
+	$("#closeVerModal").click(function(){
+		console.log('closeVerModal clicked!!');
+		sessionStorage.removeItem('ID');
+		sessionStorage.removeItem('email');
+		sessionStorage.removeItem('role');
+		Session();
+	});
+	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
@@ -155,6 +163,7 @@ function Verify(){
 		if (verifiedUser == 0){
 			console.log('USER NOT VERIFIED!')
 			console.log(sessionStorage.getItem('ID'));
+			$('#loginModal').modal('hide');
 			$('#verifyEmailModal').modal('show');
 		}else{
 			//SESSION VARIABLES
