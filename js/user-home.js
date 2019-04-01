@@ -90,6 +90,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
 					sessionStorage.setItem('verificationCode', random_IN);
+					sendVerificationCode();
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
@@ -207,6 +208,21 @@ function VerifyRole(){
 		//IF ADMIN FOUND --->> ADMIN VIEW
 		console.log('ADMIN FOUND');
 	}
+}
+
+function sendVerificationCode(){
+	$.post("../server/mail-verification-code.php",
+			{
+				random: sessionStorage.getItem('verificationCode')
+			},function(data,status){
+				
+				if(status === "success"){
+					console.log(data);
+				console.log(status);
+				}else{
+					console.log('Error on user verification!!');
+				}
+		});
 }
 
 function VerifyEmail(){

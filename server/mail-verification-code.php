@@ -1,7 +1,7 @@
 <?php
 
 
-$email = $_POST['email'];
+//$email = $_POST['email'];
 $random = $_POST['random'];
 //The message
 $msg = "Your verification code is: " + $random + " ";
