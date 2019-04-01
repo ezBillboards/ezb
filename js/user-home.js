@@ -29,8 +29,6 @@ $(document).ready(function(){
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
-		
-		
 	});
 	
 	$("#closeVerModal").click(function(){
@@ -39,6 +37,11 @@ $(document).ready(function(){
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
 		Session();
+	});
+	
+	$("#btnforgotpsswd").click(function(){
+		console.log('btnforgotpsswd clicked!!');
+		console.log(generatePassword());
 	});
 	
 	$("#btnverify").click(function(){
@@ -234,10 +237,10 @@ function VerifyEmail(){
 			{
 				email: sessionStorage.getItem('email')
 			},function(data,status){
-				
 				if(status === "success"){
 					console.log(data);
-				console.log(status);
+					console.log(status);
+					Session();
 				}else{
 					console.log('Error on user verification!!');
 				}
@@ -260,4 +263,14 @@ function Session(){
 			document.getElementById("profileDropdown").style.display = "none";
 			document.getElementById("profileEmail").style.display = "none";
 		}
+}
+
+function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
 }
