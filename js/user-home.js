@@ -8,7 +8,8 @@ var mobilePhone;
 var credentials;
 var role;
 var profile_ID;
-var verifiedUser;	
+var verifiedUser;
+var random;	
 
 $(document).ready(function(){
 	Session();
@@ -23,7 +24,7 @@ $(document).ready(function(){
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
 		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
-			var random = Math.floor((Math.random() * 10000) + 1);
+			random = Math.floor((Math.random() * 10000) + 1);
 			console.log(random);
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
@@ -175,7 +176,10 @@ function VerifyRole(){
 		console.log('USER FOUND');
 		if (verifiedUser == 0){
 			console.log('USER NOT VERIFIED!')
-			console.log(sessionStorage.getItem('ID'));
+			//console.log(sessionStorage.getItem('ID'));
+			random = Math.floor((Math.random() * 10000) + 1);
+			sessionStorage.setItem('verificationCode', random);
+			sendVerificationCode();
 			$('#loginModal').modal('hide');
 			$('#verifyEmailModal').modal('show');
 		}else{
