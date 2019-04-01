@@ -24,6 +24,7 @@ $(document).ready(function(){
 		console.log('btnregister clicked!!');
 		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
 			var random = Math.floor((Math.random() * 1000) + 1);
+			console.log(random);
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
 		
@@ -40,6 +41,7 @@ $(document).ready(function(){
 });
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
+	console.log('Register function');
 	$.post("../server/user-registration.php",
 			{
 				email: email_IN,
@@ -59,11 +61,13 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				password :password_IN,
 				random: random_IN
 			},function(data,status){
+				console.log(status);
 				if(status === "success"){
 					console.log('USER REGISTERED!!')
 					role = "USER";
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
+					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
 					console.log('Error registering user!!');
