@@ -28,10 +28,11 @@ $zipcode = $_POST['zipcode'];
 $password = $_POST['password'];
 $random = $_POST['random'];
 
-$sql = "CALL postUser($email,$firstName,$lastName,$mobilePhone,$workPhone,$companyName,$companyURL,$facebookURL,$instagramURL,$twitterURL,$address1,$address2,$city,$state,$zipcode,$password,$random)";
+$sql = "CALL postUser('$email','$firstName','$lastName','$mobilePhone','$workPhone','$companyName','$companyURL','$facebookURL','$instagramURL','$twitterURL','$address1','$address2','$city','$state','$zipcode','$password',$random)";
 
 if (mysqli_query($conn, $sql)) {
     echo "Record updated successfully";
+    echo "Email: " + $email;
 } else {
     echo "Error updating record: " . mysqli_error($conn);
 }

@@ -25,6 +25,7 @@ $(document).ready(function(){
 		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
 			var random = Math.floor((Math.random() * 10000) + 1);
 			console.log(random);
+			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
 		
@@ -62,6 +63,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				password :password_IN,
 				random: random_IN
 			},function(data,status){
+				console.log(data);
 				console.log(status);
 				if(status === "success"){
 					console.log('USER REGISTERED!!')
