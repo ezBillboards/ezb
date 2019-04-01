@@ -41,8 +41,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnverify").click(function(){
-		//var codeInput = $('#verificationCode').val();
-		if( $('#verificationCode').val() == sessionStorage.getItem('ID')){
+		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
 			$('#verifyEmailModal').modal('hide');
 		}
