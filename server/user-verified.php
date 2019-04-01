@@ -13,7 +13,7 @@ if($conn === false){
 
 $email = $_POST['email'];
 
-$sql = "CALL putVerified('$email');
+$sql = "CALL putVerified('$email')";
 
 if (mysqli_query($conn, $sql)) {
     echo "Record updated successfully";

@@ -212,7 +212,7 @@ function VerifyRole(){
 function VerifyEmail(){
 	$.post("../server/user-verified.php",
 			{
-				email: sessionStorage.getItem('email'),
+				email: sessionStorage.getItem('email')
 			},function(data,status){
 				
 				if(status === "success"){
