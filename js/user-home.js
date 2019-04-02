@@ -48,8 +48,6 @@ $(document).ready(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
 			VerifyEmail();
-			RegisteredUserID();
-			setTimeout(Session,500);
 			$('#verifyEmailModal').modal('hide');
 		}
 		else{
@@ -91,6 +89,12 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				console.log(data);
 				console.log(status);
 				if(status === "success"){
+					if(JSON.parse(data).length > 0){
+					credentials = JSON.parse(data);
+						profile_ID = credentials[0].id;
+						console.log(profile_ID);
+						console.log(status);
+					}
 					console.log('USER REGISTERED!!')
 					role = "USER";
 					sessionStorage.setItem('role', role);
@@ -240,7 +244,8 @@ function VerifyEmail(){
 				email: sessionStorage.getItem('email')
 			},function(data,status){
 				if(status === "success"){
-					console.log(data);
+					sessionStorage.setItem('ID', profile_ID);
+					console.log(profile_ID);
 					console.log(status);
 					Session();
 				}else{
