@@ -48,6 +48,8 @@ $(document).ready(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
 			VerifyEmail();
+			RegisteredUserID()
+			Session();
 			$('#verifyEmailModal').modal('hide');
 		}
 		else{
@@ -244,6 +246,20 @@ function VerifyEmail(){
 				}else{
 					console.log('Error on user verification!!');
 				}
+		});
+}
+
+function RegisteredUserID(){
+	$.get("../server/user-id.php",
+		{email: sessionStorage.getItem('email')},
+		function(data, status){
+			if(JSON.parse(data).length > 0){
+				credentials = JSON.parse(data);
+				profile_ID = credentials[0].id;
+				sessionStorage.setItem('ID', credentials[0].id);
+				console.log(data);
+				console.log(status);
+			}
 		});
 }
 
