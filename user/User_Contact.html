@@ -4,63 +4,55 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="contact.css">
-            <link rel="stylesheet" href="relatedLinks.css">
+  <link rel="stylesheet" href="../css/User_Contact.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../js/user-contact.js"></script>  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<nav class="navbar navbar-inverse" style = "background-color:White">
-  <div class="container-fluid" >
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-       <img src="C:\Users\elvin\OneDrive\Documents\Capstone\Icons\EZBillboardsLogo.jpg" class="img-responsive" alt="EZBillboards Logo" width="250" height="60">
-    </div>
-    <div class="collapse navbar-collapse" style = "background-color:White" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-      <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Billboards</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-      </ul>
-    </div>
-  </div>
+<nav class="navbar navbar-default navbar-border navbar-height">
+   <div class="container-fluid">
+     <div class="collapse navbar-collapse" id="myNavbar">
+      <a class="navbar-brand">
+       <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+     </a>
+     <ul class="nav navbar-nav navbar-right navbar-text">
+       <li><a class="navbar-text-color" href="#">Home</a></li>
+       <li><a class="navbar-text-color" href="#">Billboard</a></li>
+       <li><a class="navbar-text-color" href="#">About</a></li>
+       <li><a class="navbar-text-color" href="#">Contact</a></li>
+       <li><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
+       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button>
+     </ul>
+   </div>
+ </div>
 </nav>
 
-<img src="C:\Users\elvin\OneDrive\Documents\Capstone\Icons\Map.jpg" class="img-responsive" alt="EZBillboards Logo" width="2500" height="60">
-
+<img src="../../img/ezb/Map.jpg" class="img-responsive" alt="EZBillboards Logo" width="2500" height="60">
+<br>
 <div class="container">
-  <div class="well well-lg-12 text-center"><h4 id="OfficeHours">Office Hours: M – F  7:45 a.m. to 11:45 a.m., 1:00 p.m. to 4:30 p.m.</h4></div>
+  <div id="office-hours-well" class="well well-lg-12 text-center"><h4 id="office-hours"></h4></div>
   
 
  
  <div class="row">
     <div class="col-lg-6" style="background-color:#9e9e9e;">
     <h4>Postal Address:</h4>
-    <tittle>Oficina de la Rectora</tittle>
-    <p>Call Box 9000, Mayagüez PR 00681-9000</p>
+    <p id="postal"></p>
     <h4>Physical Address:</h4>
-    <tittle>Boulevard Alfonso Valdés 259</tittle>
-    <p>Edificio de Diego #201</p></div>
+    <p id="physical"></p>
+</div>
     
     
   <div class="col-lg-6" style="background-color:#9e9e9e;">
     
-    <p><h4>Phone: <small id = "numbers">(787) 832-4040</small></h4></p>
-    <p><h4>Extensions: <small id = "numbers">3131, 3135, 3139</small></h4></p>
-    <p><h4>Direct Phone: <small id = "numbers">(787) 265-3878</small></h4></p> 
-    <p><h4>Fax: <small id = "numbers">(787) 834-3031</small></h4></p>
+    <p><h4>Phone: <small id="phone" class="numbers"></small></h4></p>
+    <p><h4>Extensions: <small id="extension" class="numbers"></small></h4></p>
+    <p><h4>Direct Phone: <small id="direct-phone" class="numbers"></small></h4></p> 
+    <p><h4>Fax: <small id="fax" class="numbers"></small></h4></p>
 
-    <p><h4>Email: <small id = "numbers">rectora.uprm@upr.edu</small></h4></p>  
+    <p><h4>Email: <small id="email" class="numbers"></small></h4></p>  
   </div>
 </div>
 </div>

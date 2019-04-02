@@ -97,6 +97,17 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.getPassword
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPassword`(
+	IN `user_ID_IN` BIGINT
+)
+BEGIN
+	Select psswd from tblusers
+	where user_ID = user_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getProcessedRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
@@ -192,10 +203,44 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.getSettings
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSettings`()
+BEGIN
+	Select * from tblsettings
+	where sett_ID = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getUserAccount
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserAccount`(
+	IN `user_ID_IN` BIGINT
+
+)
+BEGIN
+	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, 
+	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
+	FROM tblusers WHERE user_ID = user_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getUserID
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID`(
+	IN `emailAddress_IN` VARCHAR(100)
+)
+BEGIN
+	Select user_ID from tblusers
+	where emailAddress = emailAddress_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getUserInfo
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
 	IN `request_ID_IN` BIGINT
+
 
 
 
@@ -205,7 +250,34 @@ BEGIN
 	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
 	FROM tblusers join tbladrequest
 	on tblusers.user_ID = tbladrequest.user_ID
-	 where tbladrequest.request_ID = request_ID_IN;
+	where tbladrequest.request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.getUserRequest
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserRequest`(
+	IN `user_ID_IN` BIGINT,
+	IN `status_ID_IN` INT
+
+
+
+)
+BEGIN
+	Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,billboardDescription,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
+	artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
+	tblpublishers.firstName as publisherFirstName, tblpublishers.lastName as publisherLastName,approveDate,publishDate,
+	tblartwork.width,tblartwork.height,tblartwork.size, tblartwork.artworkName,
+	tblpackage.duration, tblpackage.displayPerCycle,tblpackage.price
+	from tbladrequest
+	join tblusers on tblusers.user_ID = tbladrequest.user_ID
+	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+	join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+	join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+	left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
+	left join tblpublishers on tblpublishers.publisher_ID = tbladrequest.publisher_ID
+	where tbladrequest.status_ID = status_ID_IN and tblusers.user_ID = user_ID_IN
+	order by requestDate asc;
 END//
 DELIMITER ;
 
@@ -416,14 +488,45 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 
 
 
+,
+	IN `verificationCode_IN` INT
 )
 BEGIN
 	insert into tblusers(emailAddress,firstName,lastName,mobilePhone,
 	workPhone,companyName, companyURL,facebookURL, instagramURL,twitterURL,
-	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
+	address1,address2,city,state,zipCode,psswd,verificationCode,signupDate,lastLoginDate) 
 	values (emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,curdate(),curdate());
+	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,verificationCode_IN,curdate(),curdate());
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putAccount
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
+	IN `user_ID_IN` BIGINT,
+	IN `firstName_IN` VARCHAR(50),
+	IN `lastName_IN` VARCHAR(50),
+	IN `emailAddress_IN` VARCHAR(50),
+	IN `mobilePhone_IN` VARCHAR(50),
+	IN `workPhone_IN` VARCHAR(50),
+	IN `companyName_IN` VARCHAR(50),
+	IN `address1_IN` VARCHAR(50),
+	IN `address2_IN` VARCHAR(50),
+	IN `state_IN` VARCHAR(50),
+	IN `city_IN` VARCHAR(50),
+	IN `zipcode_IN` VARCHAR(50),
+	IN `companyURL_IN` VARCHAR(50),
+	IN `fb_IN` VARCHAR(50),
+	IN `tw_IN` VARCHAR(50),
+	IN `inst_IN` VARCHAR(50)
+)
+BEGIN
+	update tblusers
+	set firstName = firstName_IN,lastName = lastName_IN,emailAddress = emailAddress_IN,mobilePhone = mobilePhone_IN,workPhone = workPhone_IN,
+	companyName = companyName_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
+	 facebookURL = fb_IN, instagramURL = inst_IN, twitterURL = tw_IN 
+	where user_ID = user_ID_IN;
 END//
 DELIMITER ;
 
@@ -436,6 +539,19 @@ BEGIN
 	Update tbladrequest
 	SET status_ID = 4
 	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putPassword
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putPassword`(
+	IN `user_ID_IN` BIGINT,
+	IN `psswd_IN` VARCHAR(100)
+)
+BEGIN
+update tblusers 
+set tblusers.psswd = psswd_IN
+where user_ID = user_ID_IN;
 END//
 DELIMITER ;
 
@@ -479,6 +595,18 @@ BEGIN
 	Update tbladrequest
 	SET status_ID = 6,publisher_ID = publisher_ID_IN ,publishDate = current_timestamp()
 	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putVerified
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putVerified`(
+	IN `emailAddress_IN` VARCHAR(100)
+)
+BEGIN
+	 update tblusers
+	 set verified = 1
+	 where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -702,17 +830,6 @@ INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VAL
 	(9, 7, 'Conflict of interest');
 /*!40000 ALTER TABLE `tblcommonrejections` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblconfig
-CREATE TABLE IF NOT EXISTS `tblconfig` (
-  `config_Key` int(11) NOT NULL,
-  `config_Value` varchar(50) NOT NULL,
-  PRIMARY KEY (`config_Key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbdev.tblconfig: ~0 rows (approximately)
-/*!40000 ALTER TABLE `tblconfig` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tblconfig` ENABLE KEYS */;
-
 -- Dumping structure for table ezbdev.tblcontact
 CREATE TABLE IF NOT EXISTS `tblcontact` (
   `postalAddress` varchar(200) DEFAULT NULL,
@@ -725,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `tblcontact` (
   `officeHours` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblcontact: ~1 rows (approximately)
+-- Dumping data for table ezbdev.tblcontact: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
 INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
 	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
@@ -1529,6 +1646,19 @@ INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `sch
 	(720, 8, 10, '2019-09-09');
 /*!40000 ALTER TABLE `tblschedule` ENABLE KEYS */;
 
+-- Dumping structure for table ezbdev.tblsettings
+CREATE TABLE IF NOT EXISTS `tblsettings` (
+  `sett_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `about` varchar(2000) NOT NULL,
+  PRIMARY KEY (`sett_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblsettings: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
+INSERT INTO `tblsettings` (`sett_ID`, `about`) VALUES
+	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor');
+/*!40000 ALTER TABLE `tblsettings` ENABLE KEYS */;
+
 -- Dumping structure for table ezbdev.tblusers
 CREATE TABLE IF NOT EXISTS `tblusers` (
   `user_ID` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -1542,27 +1672,29 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `facebookURL` varchar(100) DEFAULT NULL,
   `instagramURL` varchar(100) DEFAULT NULL,
   `twitterURL` varchar(100) DEFAULT NULL,
-  `address1` varchar(200) NOT NULL,
-  `address2` varchar(200) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  `zipcode` varchar(5) NOT NULL,
+  `address1` varchar(200) DEFAULT NULL,
+  `address2` varchar(200) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `zipcode` varchar(5) DEFAULT NULL,
   `psswd` varchar(255) NOT NULL,
   `tempsswd` varchar(10) DEFAULT NULL,
   `signupDate` datetime NOT NULL,
   `lastLoginDate` datetime NOT NULL,
-  `verified` tinyint(4) NOT NULL DEFAULT 0,
+  `verified` tinyint(1) NOT NULL DEFAULT 0,
+  `verificationCode` mediumint(6) DEFAULT NULL,
   PRIMARY KEY (`user_ID`,`emailAddress`),
   UNIQUE KEY `user_ID` (`user_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblusers: ~2 rows (approximately)
+-- Dumping data for table ezbdev.tblusers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
-INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`, `verified`) VALUES
-	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '0dae7275d5c5e3fc14892c486c7ca483', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 0),
-	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0),
-	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', 'f0d1db5d5d760f621a482cf77b85e65f', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0);
+INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`, `verified`, `verificationCode`) VALUES
+	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, NULL),
+	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, NULL),
+	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, NULL),
+	(4, 'asd@asdf.com', 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 12345);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

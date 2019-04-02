@@ -1,9 +1,40 @@
-#OfficeHours{
+.ezb-logo {
+  width:245px;
+  height:66px;
+}
+
+.navbar-text-color {
+        color: #03A9F4 !important;
+}
+
+.selected {
+        color: white !important;
+        background-color: gray;
+}
+
+.navbar-border {
+        border-bottom: 1px solid #BDBDBD;
+}
+
+.navbar-alignment {
+        display: flex;
+        align-items: center;
+}
+
+.navbar-height {
+  height: 85px;
+}
+
+.navbar{
+  background:white;
+}
+
+#office-hours{
     color: white;
     
 }
 
-.well{
+#office-hours-well {
     background:#9e9e9e;
     width: 70%;
     margin-left: auto;
@@ -30,12 +61,11 @@ tittle{
     color: white;
 }
 
-#numbers{
-    color: white;
-}
-
 strong{
     margin-left: 120px;
 }
 
+.numbers {
+    color: white;
+}
 

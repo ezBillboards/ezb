@@ -4,6 +4,19 @@
     height:66px;
 }
 
+.selected {
+        color: white !important;
+        background-color: gray;
+}
+
+.navbar-border {
+        border-bottom: 1px solid #BDBDBD;
+}
+
+.navbar-alignment {
+        display: flex;
+        align-items: center;
+}
 
 #related{
 background-color: white;
@@ -25,9 +38,6 @@ float: left;
 height: 245px;
 width: 955px;
 }
-
-
-
 
 #closeBtn{
   background-color: #616161;
@@ -107,44 +117,6 @@ form.example::after {
   clear: both;
   display: table;
 }
-
-.glyphicon{
-  color: green;
-  font-size: 250%;
-
-}
-
-.glyphicon-info-sign{
-  color: #14268b;
-    padding-right: 20px;
-
-}
-
-.glyphicon-calendar{
-      color: gray;
-        font-size: 100%;
-}
-
-.glyphicon.glyphicon-envelope{
-      font-size: 15px;
-        color: gray;
-}
-
-.glyphicon.glyphicon-phone{
-    font-size: 15px;
-    color: gray;
-}
-
-.glyphicon.glyphicon-user{
-      font-size: 15px;
-        color: gray;
-}
-
-.glyphicon.glyphicon-phone{
-      font-size: 15px;
-        color: gray;
-}
-
 
 .img-responsive.Artwork1-logo{
     width: 60%;
@@ -325,3 +297,13 @@ body {
   .searchnav input[type=text] {
     border: 1px solid #ccc;
   }
+}
+
+.requests-header {
+        font-size: 56px;
+}
+
+.request-images {
+	width: 139px;
+	height: 82px;
+}

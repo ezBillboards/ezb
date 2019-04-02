@@ -1,17 +1,41 @@
-
-
-#OfficeHours{
-    color: white;
-
-}
-
 .ezb-logo {
     width:245px;
     height:66px;
 }
 
+.selected {
+        color: white !important;
+        background-color: gray;
+}
+
+.navbar-border {
+        border-bottom: 1px solid #BDBDBD;
+}
+
+.navbar-alignment {
+        display: flex;
+        align-items: center;
+}
+
+#related{
+background-color: white;
+width:50%;
+float: left;
+float: left;
+}
+
 .navbar-height {
     height: 85px;
+}
+
+.navbar{
+    background:white;
+}
+
+
+#OfficeHours{
+    color: white;
+
 }
 
 .navbar-text-color {
@@ -49,11 +73,6 @@ strong{
 .container{
     color: #bdbdbd;
 }
-
-.navbar{
-    background:white;
-}
-
 
 #related{
 background-color: white;

@@ -12,7 +12,7 @@ if($conn === false){
 }
 
 $id = $_GET['id'];
-$sql = "CALL getBillboardsInfo($id)";
+$sql = "CALL getBillboardInfo($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {
