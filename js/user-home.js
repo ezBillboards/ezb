@@ -48,8 +48,8 @@ $(document).ready(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
 			VerifyEmail();
-			setTimeout(RegisteredUserID,500);
-			Session();
+			RegisteredUserID();
+			setTimeout(Session,500);
 			$('#verifyEmailModal').modal('hide');
 		}
 		else{
