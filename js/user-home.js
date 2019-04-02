@@ -48,7 +48,7 @@ $(document).ready(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			console.log('Verified user email');
 			VerifyEmail();
-			RegisteredUserID()
+			setTimeout(RegisteredUserID,500);
 			Session();
 			$('#verifyEmailModal').modal('hide');
 		}
