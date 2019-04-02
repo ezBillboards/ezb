@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $emailAddress = $_GET['emailAddress'];
-$sql = "call getUserID( '$emailAddress')";
+$sql = "call getUserID('$emailAddress')";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 

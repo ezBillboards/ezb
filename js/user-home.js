@@ -257,7 +257,7 @@ function RegisteredUserID(){
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
 				sessionStorage.setItem('ID', credentials[0].id);
-				console.log(data);
+				console.log(profile_ID);
 				console.log(status);
 			}
 		});
