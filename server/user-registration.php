@@ -31,8 +31,7 @@ $random = $_POST['random'];
 $sql = "CALL postUser('$email','$firstName','$lastName','$mobilePhone','$workPhone','$companyName','$companyURL','$facebookURL','$instagramURL','$twitterURL','$address1','$address2','$city','$state','$zipcode','$password',$random)";
 
 if (mysqli_query($conn, $sql)) {
-    echo "Record updated successfully";
-    echo "Email: " + $email;
+
 } else {
     echo "Error updating record: " . mysqli_error($conn);
 }
@@ -52,7 +51,7 @@ $requests = array();
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['user_ID'];
-		array_push($requests,$request);
+	array_push($requests,$request);
     }
 } else {
     echo "No results";

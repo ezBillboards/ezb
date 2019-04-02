@@ -96,6 +96,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 						console.log(status);
 					}
 					console.log('USER REGISTERED!!')
+					console.log(data);
 					role = "USER";
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
