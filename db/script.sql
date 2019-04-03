@@ -90,9 +90,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
 
 
 
+
 )
 BEGIN
-	Select user_ID, verified from tblusers
+	Select user_ID, verified, statusTemp from tblusers
 	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
@@ -488,16 +489,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 
 
 
-,
-	IN `verificationCode_IN` INT
+
 )
 BEGIN
 	insert into tblusers(emailAddress,firstName,lastName,mobilePhone,
 	workPhone,companyName, companyURL,facebookURL, instagramURL,twitterURL,
-	address1,address2,city,state,zipCode,psswd,verificationCode,signupDate,lastLoginDate) 
+	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
 	values (emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,verificationCode_IN,curdate(),curdate());
+	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,curdate(),curdate());
 END//
 DELIMITER ;
 
@@ -547,10 +547,11 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPassword`(
 	IN `user_ID_IN` BIGINT,
 	IN `psswd_IN` VARCHAR(100)
+
 )
 BEGIN
 update tblusers 
-set tblusers.psswd = psswd_IN
+set tblusers.psswd = psswd_IN, tblusers.statusTemp = 0
 where user_ID = user_ID_IN;
 END//
 DELIMITER ;
@@ -595,6 +596,21 @@ BEGIN
 	Update tbladrequest
 	SET status_ID = 6,publisher_ID = publisher_ID_IN ,publishDate = current_timestamp()
 	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putTempPsswd
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putTempPsswd`(
+	IN `emailAddress_IN` VARCHAR(100),
+	IN `tempPsswd_IN` VARCHAR(10)
+
+
+)
+BEGIN
+	update tblusers
+	set tempPsswd = tempPsswd_IN, statusTemp = 1, psswd = null
+	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -1678,23 +1694,23 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `state` varchar(50) DEFAULT NULL,
   `zipcode` varchar(5) DEFAULT NULL,
   `psswd` varchar(255) NOT NULL,
-  `tempsswd` varchar(10) DEFAULT NULL,
+  `tempPsswd` varchar(10) DEFAULT NULL,
   `signupDate` datetime NOT NULL,
   `lastLoginDate` datetime NOT NULL,
   `verified` tinyint(1) NOT NULL DEFAULT 0,
-  `verificationCode` mediumint(6) DEFAULT NULL,
+  `statusTemp` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_ID`,`emailAddress`),
   UNIQUE KEY `user_ID` (`user_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblusers: ~3 rows (approximately)
+-- Dumping data for table ezbdev.tblusers: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
-INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempsswd`, `signupDate`, `lastLoginDate`, `verified`, `verificationCode`) VALUES
-	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, NULL),
-	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, NULL),
-	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, NULL),
-	(4, 'asd@asdf.com', 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 12345);
+INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`) VALUES
+	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, 0),
+	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, 0),
+	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, 0),
+	(4, 'asd@asdf.com', 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 0);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

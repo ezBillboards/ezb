@@ -41,23 +41,23 @@ $(document).ready(function(){
 	});
 	
 	$("#btnforgotpsswd").click(function(){
-		forgot-password();
+		forgotPassword();
 	});
 	
 	$("#btnchangepassword").click(function(){
 		console.log('btnchangepassword clicked!!');
-		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
-			
-		}
+		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
+                        changePassword();
+                }
+                else{
+                        console.log('password values not the same');
+                }
 	});
 	
 	$("#btnverify").click(function(){
-		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-			changePassword();
-		}
-		else{
-			console.log('password values not the same');
-		}
+		 if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
+                        VerifyEmail();
+                }
 	});
 	
 	$("#btnlogout").click(function(){
