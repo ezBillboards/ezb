@@ -284,7 +284,7 @@ function Session(){
 function forgotPassword(){
 	$.post("../server/forgot-password.php",
 			{
-				emailAddress = $('#emailforgot').val(),
+				emailAddress : $('#emailforgot').val(),
 				tempPassword: generatePassword()
 			},function(data,status){
 				if(status === "success"){
@@ -300,7 +300,7 @@ function forgotPassword(){
 function changePassword(){
 	$.post("../server/change-password.php",
 			{
-				userID = sessionStorage.getItem('ID'),
+				userID : sessionStorage.getItem('ID'),
 				newPassword: $('#passwordchange').val()
 			},function(data,status){
 				if(status === "success"){
