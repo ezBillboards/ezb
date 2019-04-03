@@ -197,6 +197,8 @@ function VerifyRole(){
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
 			$('#verifyEmailModal').modal('show');
+		}else if(verifiedUser == 0 && statusTemp == 1){
+			$('#changePasswordModal').modal('show');
 		}
 		else if(verifiedUser == 1 && statusTemp == 1){
 			$('#changePasswordModal').modal('show');
