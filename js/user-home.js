@@ -9,6 +9,7 @@ var credentials;
 var role;
 var profile_ID;
 var verifiedUser;
+var statusTemp;
 var random;	
 
 $(document).ready(function(){
@@ -40,18 +41,22 @@ $(document).ready(function(){
 	});
 	
 	$("#btnforgotpsswd").click(function(){
-		console.log('btnforgotpsswd clicked!!');
-		console.log(generatePassword());
+		forgot-password();
+	});
+	
+	$("#btnchangepassword").click(function(){
+		console.log('btnchangepassword clicked!!');
+		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
+			
+		}
 	});
 	
 	$("#btnverify").click(function(){
-		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
-			console.log('Verified user email');
-			VerifyEmail();
-			$('#verifyEmailModal').modal('hide');
+		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
+			changePassword();
 		}
 		else{
-			console.log('Code was incorrect!!');
+			console.log('password values not the same');
 		}
 	});
 	
@@ -84,7 +89,6 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				state : null,
 				zipcode : null,
 				password :password_IN,
-				random: random_IN
 			},function(data,status){
 				console.log(data);
 				console.log(status);
@@ -122,6 +126,7 @@ function Login(email_IN,password_IN){
 				sessionStorage.setItem('email', email_IN);
 				sessionStorage.setItem('role', role);
 				verifiedUser = credentials[0].verified;
+				statusTemp = credentials[0].statusTemp;
 				console.log(data);
 				console.log(status);
 			}
@@ -184,7 +189,7 @@ function VerifyRole(){
 		//STEP 2: IF NOT VERIFIED: ENTER CODE OR RESEND CODE
 		//STEP 3: IF VERIFIED: SESSION VARIABLES AND HOME PAGE
 		console.log('USER FOUND');
-		if (verifiedUser == 0){
+		if (verifiedUser == 0 && statusTemp == 0){
 			console.log('USER NOT VERIFIED!')
 			//console.log(sessionStorage.getItem('ID'));
 			random = Math.floor((Math.random() * 10000) + 1);
@@ -192,6 +197,9 @@ function VerifyRole(){
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
 			$('#verifyEmailModal').modal('show');
+		}
+		else if(verifiedUser == 1 && statusTemp == 1){
+			$('#changePasswordModal').modal('show');
 		}else{
 			//SESSION VARIABLES
 			//logged in nav bar
@@ -255,20 +263,6 @@ function VerifyEmail(){
 		});
 }
 
-function RegisteredUserID(){
-	$.get("../server/user-id.php",
-		{email: sessionStorage.getItem('email')},
-		function(data, status){
-			if(JSON.parse(data).length > 0){
-				credentials = JSON.parse(data);
-				profile_ID = credentials[0].id;
-				sessionStorage.setItem('ID', credentials[0].id);
-				console.log(profile_ID);
-				console.log(status);
-			}
-		});
-}
-
 function Session(){
 		if (sessionStorage.getItem('ID') !== null){
 			console.log('Session exists!!!');
@@ -285,6 +279,38 @@ function Session(){
 			document.getElementById("profileDropdown").style.display = "none";
 			document.getElementById("profileEmail").style.display = "none";
 		}
+}
+
+function forgotPassword(){
+	$.post("../server/forgot-password.php",
+			{
+				emailAddress = $('#emailforgot').val(),
+				tempPassword: generatePassword()
+			},function(data,status){
+				if(status === "success"){
+					console.log(data);
+					$('#forgotPasswordModal').modal('hide');
+				console.log(status);
+				}else{
+					console.log('Error on forgot password!!');
+				}
+		});
+}
+
+function changePassword(){
+	$.post("../server/change-password.php",
+			{
+				userID = sessionStorage.getItem('ID'),
+				newPassword: $('#passwordchange').val()
+			},function(data,status){
+				if(status === "success"){
+					console.log(data);
+					$('#changePasswordModal').modal('hide');
+				console.log(status);
+				}else{
+					console.log('Error changing password!!');
+				}
+		});
 }
 
 function generatePassword() {

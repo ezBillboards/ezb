@@ -19,6 +19,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['user_ID'];
 		$request['verified'] = $row['verified'];
+		$request['statusTemp'] = $row['statusTemp'];
 		array_push($requests,$request);
     }
 } else {
