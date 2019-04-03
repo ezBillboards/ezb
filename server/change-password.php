@@ -11,8 +11,8 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $userID = $_POST['userID'];
-$newPasswd = $_POST['psswd'];
-$sql = "CALL putPassword($userID, '$newPasswd')";
+$newPassword = $_POST['newPassword'];
+$sql = "CALL putPassword($userID, '$newPassword')";
 
 if (mysqli_query($conn, $sql)) {
 		echo "Record updated successfully";
