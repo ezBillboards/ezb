@@ -11,7 +11,7 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
- <script src="../js/Administrator_Billboards.js"></script>
+ <script src="../js/dministrator-billboards.js"></script>
 
 
 
@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
          <a class="navbar-brand">
-          <img src="../Icons/EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
         </a>
         <ul class="nav navbar-nav navbar-right navbar-text">
           <li><a class="navbar-text-color" href="#">Home</a></li>
@@ -200,7 +200,7 @@
                 <div class="Aboutcontainer">
                 <form action="/action_page.php">
                   <div class="form-group">
-                    <label for="about">Comments:</label>
+                    <label for="about">Billboard Description:</label>
                     <textarea class="form-control" rows="5" id="about" name="text"></textarea>
                   </div>
                 </form>
@@ -219,7 +219,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="add-package">
                 <tr>
                   <td>1 Day</td>
                   <td>Every 4 min.</td>
@@ -450,7 +450,7 @@
             </div>
 
         <div class="col-sm-6 text-center">
-          <label for="about">Payment Packages <button type="button" class="btn btn-info">Add</button></label>
+          <label for="about">Payment Packages <button id="btnaddpackage" type="button" class="btn btn-info">Add</button></label>
           <div class="Tablecontainer">
             <table class="table table-bordered">
               <thead>
