@@ -304,3 +304,19 @@ function cancelRequest(item){
 			console.log(status);
 		});
 }
+
+function payment(item){
+        currentRequestID = $(item).attr("id");
+        console.log(currentRequestID);
+        $.post("../server/user-pay-request.php",{id:currentRequestID},
+                function(data, status){
+                        if(status === "success"){
+                                location.reload();
+                        } else {
+                                alert("Error payment request!");
+                        }
+                        console.log(data);
+                        console.log(status);
+        });
+}
+

@@ -98,6 +98,36 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.getPackages
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackages`(
+	IN `billboard_ID_IN` BIGINT,
+	IN `Date_IN` DATE
+
+
+
+
+
+)
+BEGIN
+	Select *,
+	CASE
+		WHEN count(schedule_ID) = duration and displayPerCycle <= remainingSlots then TRUE
+		ELSE FALSE
+	END as availability
+	 from 
+	(select package_ID, tblpackage.billboard_ID as packBill, displayPerCycle, duration,price,schedule_ID,
+	tblschedule.billboard_ID as schedBill,remainingSlots, scheduleDate from tblpackage 
+	join tblschedule
+	on tblpackage.billboard_ID = tblschedule.billboard_ID
+	where scheduleDate >= Date_IN and scheduleDate < DATE_ADD(Date_IN,INTERVAL duration DAY)
+	and tblschedule.billboard_ID = billboard_ID_In
+	group by package_ID,schedule_ID) as availability
+	group by package_ID
+	order by duration asc, displayPerCycle;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.getPassword
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPassword`(
@@ -118,18 +148,32 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
 
 
 
+
 )
 BEGIN
-	Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
-	artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
-	approveDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
-	join tblusers on tblusers.user_ID = tbladrequest.user_ID
-	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
-	join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
-	join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-	left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
-	where tbladrequest.status_ID = status_ID_IN
-	order by requestDate asc;
+	IF status_ID_IN = 5 THEN
+		Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
+		artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
+		approveDate, paymentDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
+		where tbladrequest.status_ID = status_ID_IN
+		order by paymentDate asc;
+	ELSE
+		Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
+		artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
+		approveDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
+		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
+		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
+		left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
+		where tbladrequest.status_ID = status_ID_IN
+		order by requestDate asc;
+	END IF;
 END//
 DELIMITER ;
 
@@ -361,6 +405,7 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 	IN `billboardName_IN` VARCHAR(50),
 	IN `billboardDescription_IN` VARCHAR(255),
+	IN `billboardImageURL_IN` VARCHAR(100),
 	IN `width_IN` INT,
 	IN `height_IN` INT,
 	IN `latitude_IN` DOUBLE,
@@ -390,12 +435,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 
 
 
+
+
 )
 BEGIN
 	DECLARE seconds int default 60;
 	declare slots int;
-	Insert into tblbillboards (billboardName, billboardDescription, width, height, latitude,longitude,minWidthRes,maxWidthRes,minHeightRes,maxHeightRes, readTime, impressions, traffic, cycle)
-	values(billboardName_IN, billboardDescription_IN, width_IN, height_IN, latitude_IN,longitude_IN, minWidthRes_IN, maxWidthRes_IN, readTime_IN, minHeightRes_IN,maxHeightRes_IN, impressions_IN, traffic_IN, cycle_IN);
+	Insert into tblbillboards (billboardName, billboardDescription,billboardImage_URL, width, height, latitude,longitude,
+	minWidthRes,maxWidthRes,minHeightRes,maxHeightRes, readTime, impressions, traffic, cycle)
+	values(billboardName_IN, billboardDescription_IN,billboardImageURL_IN, width_IN, height_IN, latitude_IN,longitude_IN,
+	 minWidthRes_IN, maxWidthRes_IN, readTime_IN, minHeightRes_IN,maxHeightRes_IN, impressions_IN, traffic_IN, cycle_IN);
 	/*SET slots = cycle*seconds/readTime;*/
 	call postSchedule(last_insert_ID(),10);
 END//
@@ -490,6 +539,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 
 
 
+
 )
 BEGIN
 	insert into tblusers(emailAddress,firstName,lastName,mobilePhone,
@@ -497,7 +547,7 @@ BEGIN
 	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
 	values (emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,curdate(),curdate());
+	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,current_timestamp(),current_timestamp());
 END//
 DELIMITER ;
 
@@ -542,16 +592,30 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbdev.putPaidRequest
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putPaidRequest`(
+	IN `request_ID_IN` BIGINT
+
+)
+BEGIN
+	Update tbladrequest
+	SET status_ID = 5,paymentDate = current_timestamp()
+	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbdev.putPassword
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPassword`(
 	IN `user_ID_IN` BIGINT,
 	IN `psswd_IN` VARCHAR(100)
 
+
 )
 BEGIN
 update tblusers 
-set tblusers.psswd = psswd_IN, tblusers.statusTemp = 0
+set tblusers.psswd = psswd_IN, tblusers.tempPsswd = null,tblusers.statusTemp = 0
 where user_ID = user_ID_IN;
 END//
 DELIMITER ;
@@ -655,9 +719,10 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   `endDate` datetime NOT NULL,
   `approver_ID` bigint(20) DEFAULT NULL,
   `approveDate` datetime DEFAULT NULL,
+  `comments` varchar(500) DEFAULT NULL,
   `publisher_ID` bigint(20) DEFAULT NULL,
   `publishDate` datetime DEFAULT NULL,
-  `comments` varchar(500) DEFAULT NULL,
+  `paymentDate` datetime DEFAULT NULL,
   PRIMARY KEY (`request_ID`),
   UNIQUE KEY `request_ID` (`request_ID`),
   KEY `status` (`status_ID`),
@@ -674,14 +739,14 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladrequest: ~4 rows (approximately)
+-- Dumping data for table ezbdev.tbladrequest: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
-INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `publisher_ID`, `publishDate`, `comments`) VALUES
-	(1, 1, 21, 1, 5, '2019-03-14 20:20:20', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL),
-	(2, 1, 22, 1, 4, '2019-03-13 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
-	(3, 1, 23, 1, 4, '2019-03-12 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL),
-	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL),
-	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `comments`, `publisher_ID`, `publishDate`, `paymentDate`) VALUES
+	(1, 1, 21, 1, 5, '2019-03-14 20:20:20', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(2, 1, 22, 1, 4, '2019-03-13 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 1, 23, 1, 4, '2019-03-12 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL, NULL),
+	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tbladvertisement
@@ -809,9 +874,9 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   `Cycle` int(11) NOT NULL,
   PRIMARY KEY (`billboard_ID`),
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblbillboards: ~7 rows (approximately)
+-- Dumping data for table ezbdev.tblbillboards: ~11 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
 INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`) VALUES
 	(1, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
@@ -821,7 +886,10 @@ INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescript
 	(5, 'Student Center Billboard', 'This is the Student Center Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
 	(6, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
 	(7, 'Chardon Billboard', 'This is the Chardon Billboard', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(8, 'Monson Billboard', 'This is the Monson Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400);
+	(8, 'Monson Billboard', 'This is the Monson Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
+	(9, 'West Side Entrance', 'West Side Entrance Billboard UPRM', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 100000, 200000, 4),
+	(10, 'East Side Entrance', 'East Side Entrance Billboard UPRM', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 50000, 10000, 8),
+	(11, 'North Side Entrance', 'North Side Entrance Billboard UPRM', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 1000, 2000, 16);
 /*!40000 ALTER TABLE `tblbillboards` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblcommonrejections
@@ -875,16 +943,33 @@ CREATE TABLE IF NOT EXISTS `tblpackage` (
   UNIQUE KEY `package_ID` (`package_ID`),
   KEY `billboard_Package` (`billboard_ID`),
   CONSTRAINT `billboard_Package` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Packages available for a billboard.';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COMMENT='Packages available for a billboard.';
 
--- Dumping data for table ezbdev.tblpackage: ~5 rows (approximately)
+-- Dumping data for table ezbdev.tblpackage: ~22 rows (approximately)
 /*!40000 ALTER TABLE `tblpackage` DISABLE KEYS */;
 INSERT INTO `tblpackage` (`package_ID`, `billboard_ID`, `displayPerCycle`, `duration`, `price`) VALUES
 	(1, 1, 4, 28, 1700.00),
 	(3, 3, 4, 28, 1700.00),
 	(4, 3, 4, 28, 1700.00),
 	(5, 6, 4, 14, 900.00),
-	(6, 7, 4, 14, 900.00);
+	(6, 7, 4, 14, 900.00),
+	(7, 9, 1, 7, 100.00),
+	(8, 9, 2, 7, 200.00),
+	(9, 9, 4, 7, 400.00),
+	(10, 9, 1, 14, 400.00),
+	(11, 9, 2, 14, 800.00),
+	(12, 9, 4, 14, 1600.00),
+	(13, 10, 1, 7, 50.00),
+	(14, 10, 2, 7, 100.00),
+	(15, 10, 4, 7, 200.00),
+	(16, 10, 8, 7, 400.00),
+	(17, 11, 1, 14, 10.00),
+	(18, 11, 2, 14, 20.00),
+	(19, 11, 4, 14, 40.00),
+	(20, 11, 8, 14, 80.00),
+	(21, 11, 4, 28, 1000.00),
+	(22, 11, 8, 28, 2000.00),
+	(23, 11, 16, 28, 2000.00);
 /*!40000 ALTER TABLE `tblpackage` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblpublishers
@@ -935,9 +1020,9 @@ CREATE TABLE IF NOT EXISTS `tblschedule` (
   UNIQUE KEY `schedule_ID` (`schedule_ID`),
   KEY `billboard` (`billboard_ID`),
   CONSTRAINT `billboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=721 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1261 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblschedule: ~720 rows (approximately)
+-- Dumping data for table ezbdev.tblschedule: ~1,260 rows (approximately)
 /*!40000 ALTER TABLE `tblschedule` DISABLE KEYS */;
 INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `scheduleDate`) VALUES
 	(1, 5, 10, '2019-03-14'),
@@ -1659,7 +1744,547 @@ INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `sch
 	(717, 8, 10, '2019-09-06'),
 	(718, 8, 10, '2019-09-07'),
 	(719, 8, 10, '2019-09-08'),
-	(720, 8, 10, '2019-09-09');
+	(720, 8, 10, '2019-09-09'),
+	(721, 9, 10, '2019-04-04'),
+	(722, 9, 10, '2019-04-05'),
+	(723, 9, 10, '2019-04-06'),
+	(724, 9, 10, '2019-04-07'),
+	(725, 9, 10, '2019-04-08'),
+	(726, 9, 10, '2019-04-09'),
+	(727, 9, 10, '2019-04-10'),
+	(728, 9, 10, '2019-04-11'),
+	(729, 9, 10, '2019-04-12'),
+	(730, 9, 10, '2019-04-13'),
+	(731, 9, 10, '2019-04-14'),
+	(732, 9, 10, '2019-04-15'),
+	(733, 9, 10, '2019-04-16'),
+	(734, 9, 10, '2019-04-17'),
+	(735, 9, 10, '2019-04-18'),
+	(736, 9, 10, '2019-04-19'),
+	(737, 9, 10, '2019-04-20'),
+	(738, 9, 10, '2019-04-21'),
+	(739, 9, 10, '2019-04-22'),
+	(740, 9, 10, '2019-04-23'),
+	(741, 9, 10, '2019-04-24'),
+	(742, 9, 10, '2019-04-25'),
+	(743, 9, 10, '2019-04-26'),
+	(744, 9, 10, '2019-04-27'),
+	(745, 9, 10, '2019-04-28'),
+	(746, 9, 10, '2019-04-29'),
+	(747, 9, 10, '2019-04-30'),
+	(748, 9, 10, '2019-05-01'),
+	(749, 9, 10, '2019-05-02'),
+	(750, 9, 10, '2019-05-03'),
+	(751, 9, 10, '2019-05-04'),
+	(752, 9, 10, '2019-05-05'),
+	(753, 9, 10, '2019-05-06'),
+	(754, 9, 10, '2019-05-07'),
+	(755, 9, 10, '2019-05-08'),
+	(756, 9, 10, '2019-05-09'),
+	(757, 9, 10, '2019-05-10'),
+	(758, 9, 10, '2019-05-11'),
+	(759, 9, 10, '2019-05-12'),
+	(760, 9, 10, '2019-05-13'),
+	(761, 9, 10, '2019-05-14'),
+	(762, 9, 10, '2019-05-15'),
+	(763, 9, 10, '2019-05-16'),
+	(764, 9, 10, '2019-05-17'),
+	(765, 9, 10, '2019-05-18'),
+	(766, 9, 10, '2019-05-19'),
+	(767, 9, 10, '2019-05-20'),
+	(768, 9, 10, '2019-05-21'),
+	(769, 9, 10, '2019-05-22'),
+	(770, 9, 10, '2019-05-23'),
+	(771, 9, 10, '2019-05-24'),
+	(772, 9, 10, '2019-05-25'),
+	(773, 9, 10, '2019-05-26'),
+	(774, 9, 10, '2019-05-27'),
+	(775, 9, 10, '2019-05-28'),
+	(776, 9, 10, '2019-05-29'),
+	(777, 9, 10, '2019-05-30'),
+	(778, 9, 10, '2019-05-31'),
+	(779, 9, 10, '2019-06-01'),
+	(780, 9, 10, '2019-06-02'),
+	(781, 9, 10, '2019-06-03'),
+	(782, 9, 10, '2019-06-04'),
+	(783, 9, 10, '2019-06-05'),
+	(784, 9, 10, '2019-06-06'),
+	(785, 9, 10, '2019-06-07'),
+	(786, 9, 10, '2019-06-08'),
+	(787, 9, 10, '2019-06-09'),
+	(788, 9, 10, '2019-06-10'),
+	(789, 9, 10, '2019-06-11'),
+	(790, 9, 10, '2019-06-12'),
+	(791, 9, 10, '2019-06-13'),
+	(792, 9, 10, '2019-06-14'),
+	(793, 9, 10, '2019-06-15'),
+	(794, 9, 10, '2019-06-16'),
+	(795, 9, 10, '2019-06-17'),
+	(796, 9, 10, '2019-06-18'),
+	(797, 9, 10, '2019-06-19'),
+	(798, 9, 10, '2019-06-20'),
+	(799, 9, 10, '2019-06-21'),
+	(800, 9, 10, '2019-06-22'),
+	(801, 9, 10, '2019-06-23'),
+	(802, 9, 10, '2019-06-24'),
+	(803, 9, 10, '2019-06-25'),
+	(804, 9, 10, '2019-06-26'),
+	(805, 9, 10, '2019-06-27'),
+	(806, 9, 10, '2019-06-28'),
+	(807, 9, 10, '2019-06-29'),
+	(808, 9, 10, '2019-06-30'),
+	(809, 9, 10, '2019-07-01'),
+	(810, 9, 10, '2019-07-02'),
+	(811, 9, 10, '2019-07-03'),
+	(812, 9, 10, '2019-07-04'),
+	(813, 9, 10, '2019-07-05'),
+	(814, 9, 10, '2019-07-06'),
+	(815, 9, 10, '2019-07-07'),
+	(816, 9, 10, '2019-07-08'),
+	(817, 9, 10, '2019-07-09'),
+	(818, 9, 10, '2019-07-10'),
+	(819, 9, 10, '2019-07-11'),
+	(820, 9, 10, '2019-07-12'),
+	(821, 9, 10, '2019-07-13'),
+	(822, 9, 10, '2019-07-14'),
+	(823, 9, 10, '2019-07-15'),
+	(824, 9, 10, '2019-07-16'),
+	(825, 9, 10, '2019-07-17'),
+	(826, 9, 10, '2019-07-18'),
+	(827, 9, 10, '2019-07-19'),
+	(828, 9, 10, '2019-07-20'),
+	(829, 9, 10, '2019-07-21'),
+	(830, 9, 10, '2019-07-22'),
+	(831, 9, 10, '2019-07-23'),
+	(832, 9, 10, '2019-07-24'),
+	(833, 9, 10, '2019-07-25'),
+	(834, 9, 10, '2019-07-26'),
+	(835, 9, 10, '2019-07-27'),
+	(836, 9, 10, '2019-07-28'),
+	(837, 9, 10, '2019-07-29'),
+	(838, 9, 10, '2019-07-30'),
+	(839, 9, 10, '2019-07-31'),
+	(840, 9, 10, '2019-08-01'),
+	(841, 9, 10, '2019-08-02'),
+	(842, 9, 10, '2019-08-03'),
+	(843, 9, 10, '2019-08-04'),
+	(844, 9, 10, '2019-08-05'),
+	(845, 9, 10, '2019-08-06'),
+	(846, 9, 10, '2019-08-07'),
+	(847, 9, 10, '2019-08-08'),
+	(848, 9, 10, '2019-08-09'),
+	(849, 9, 10, '2019-08-10'),
+	(850, 9, 10, '2019-08-11'),
+	(851, 9, 10, '2019-08-12'),
+	(852, 9, 10, '2019-08-13'),
+	(853, 9, 10, '2019-08-14'),
+	(854, 9, 10, '2019-08-15'),
+	(855, 9, 10, '2019-08-16'),
+	(856, 9, 10, '2019-08-17'),
+	(857, 9, 10, '2019-08-18'),
+	(858, 9, 10, '2019-08-19'),
+	(859, 9, 10, '2019-08-20'),
+	(860, 9, 10, '2019-08-21'),
+	(861, 9, 10, '2019-08-22'),
+	(862, 9, 10, '2019-08-23'),
+	(863, 9, 10, '2019-08-24'),
+	(864, 9, 10, '2019-08-25'),
+	(865, 9, 10, '2019-08-26'),
+	(866, 9, 10, '2019-08-27'),
+	(867, 9, 10, '2019-08-28'),
+	(868, 9, 10, '2019-08-29'),
+	(869, 9, 10, '2019-08-30'),
+	(870, 9, 10, '2019-08-31'),
+	(871, 9, 10, '2019-09-01'),
+	(872, 9, 10, '2019-09-02'),
+	(873, 9, 10, '2019-09-03'),
+	(874, 9, 10, '2019-09-04'),
+	(875, 9, 10, '2019-09-05'),
+	(876, 9, 10, '2019-09-06'),
+	(877, 9, 10, '2019-09-07'),
+	(878, 9, 10, '2019-09-08'),
+	(879, 9, 10, '2019-09-09'),
+	(880, 9, 10, '2019-09-10'),
+	(881, 9, 10, '2019-09-11'),
+	(882, 9, 10, '2019-09-12'),
+	(883, 9, 10, '2019-09-13'),
+	(884, 9, 10, '2019-09-14'),
+	(885, 9, 10, '2019-09-15'),
+	(886, 9, 10, '2019-09-16'),
+	(887, 9, 10, '2019-09-17'),
+	(888, 9, 10, '2019-09-18'),
+	(889, 9, 10, '2019-09-19'),
+	(890, 9, 10, '2019-09-20'),
+	(891, 9, 10, '2019-09-21'),
+	(892, 9, 10, '2019-09-22'),
+	(893, 9, 10, '2019-09-23'),
+	(894, 9, 10, '2019-09-24'),
+	(895, 9, 10, '2019-09-25'),
+	(896, 9, 10, '2019-09-26'),
+	(897, 9, 10, '2019-09-27'),
+	(898, 9, 10, '2019-09-28'),
+	(899, 9, 10, '2019-09-29'),
+	(900, 9, 10, '2019-09-30'),
+	(901, 10, 10, '2019-04-04'),
+	(902, 10, 10, '2019-04-05'),
+	(903, 10, 10, '2019-04-06'),
+	(904, 10, 10, '2019-04-07'),
+	(905, 10, 10, '2019-04-08'),
+	(906, 10, 10, '2019-04-09'),
+	(907, 10, 10, '2019-04-10'),
+	(908, 10, 10, '2019-04-11'),
+	(909, 10, 10, '2019-04-12'),
+	(910, 10, 10, '2019-04-13'),
+	(911, 10, 10, '2019-04-14'),
+	(912, 10, 10, '2019-04-15'),
+	(913, 10, 10, '2019-04-16'),
+	(914, 10, 10, '2019-04-17'),
+	(915, 10, 10, '2019-04-18'),
+	(916, 10, 10, '2019-04-19'),
+	(917, 10, 10, '2019-04-20'),
+	(918, 10, 10, '2019-04-21'),
+	(919, 10, 10, '2019-04-22'),
+	(920, 10, 10, '2019-04-23'),
+	(921, 10, 10, '2019-04-24'),
+	(922, 10, 10, '2019-04-25'),
+	(923, 10, 10, '2019-04-26'),
+	(924, 10, 10, '2019-04-27'),
+	(925, 10, 10, '2019-04-28'),
+	(926, 10, 10, '2019-04-29'),
+	(927, 10, 10, '2019-04-30'),
+	(928, 10, 10, '2019-05-01'),
+	(929, 10, 10, '2019-05-02'),
+	(930, 10, 10, '2019-05-03'),
+	(931, 10, 10, '2019-05-04'),
+	(932, 10, 10, '2019-05-05'),
+	(933, 10, 10, '2019-05-06'),
+	(934, 10, 10, '2019-05-07'),
+	(935, 10, 10, '2019-05-08'),
+	(936, 10, 10, '2019-05-09'),
+	(937, 10, 10, '2019-05-10'),
+	(938, 10, 10, '2019-05-11'),
+	(939, 10, 10, '2019-05-12'),
+	(940, 10, 10, '2019-05-13'),
+	(941, 10, 10, '2019-05-14'),
+	(942, 10, 10, '2019-05-15'),
+	(943, 10, 10, '2019-05-16'),
+	(944, 10, 10, '2019-05-17'),
+	(945, 10, 10, '2019-05-18'),
+	(946, 10, 10, '2019-05-19'),
+	(947, 10, 10, '2019-05-20'),
+	(948, 10, 10, '2019-05-21'),
+	(949, 10, 10, '2019-05-22'),
+	(950, 10, 10, '2019-05-23'),
+	(951, 10, 10, '2019-05-24'),
+	(952, 10, 10, '2019-05-25'),
+	(953, 10, 10, '2019-05-26'),
+	(954, 10, 10, '2019-05-27'),
+	(955, 10, 10, '2019-05-28'),
+	(956, 10, 10, '2019-05-29'),
+	(957, 10, 10, '2019-05-30'),
+	(958, 10, 10, '2019-05-31'),
+	(959, 10, 10, '2019-06-01'),
+	(960, 10, 10, '2019-06-02'),
+	(961, 10, 10, '2019-06-03'),
+	(962, 10, 10, '2019-06-04'),
+	(963, 10, 10, '2019-06-05'),
+	(964, 10, 10, '2019-06-06'),
+	(965, 10, 10, '2019-06-07'),
+	(966, 10, 10, '2019-06-08'),
+	(967, 10, 10, '2019-06-09'),
+	(968, 10, 10, '2019-06-10'),
+	(969, 10, 10, '2019-06-11'),
+	(970, 10, 10, '2019-06-12'),
+	(971, 10, 10, '2019-06-13'),
+	(972, 10, 10, '2019-06-14'),
+	(973, 10, 10, '2019-06-15'),
+	(974, 10, 10, '2019-06-16'),
+	(975, 10, 10, '2019-06-17'),
+	(976, 10, 10, '2019-06-18'),
+	(977, 10, 10, '2019-06-19'),
+	(978, 10, 10, '2019-06-20'),
+	(979, 10, 10, '2019-06-21'),
+	(980, 10, 10, '2019-06-22'),
+	(981, 10, 10, '2019-06-23'),
+	(982, 10, 10, '2019-06-24'),
+	(983, 10, 10, '2019-06-25'),
+	(984, 10, 10, '2019-06-26'),
+	(985, 10, 10, '2019-06-27'),
+	(986, 10, 10, '2019-06-28'),
+	(987, 10, 10, '2019-06-29'),
+	(988, 10, 10, '2019-06-30'),
+	(989, 10, 10, '2019-07-01'),
+	(990, 10, 10, '2019-07-02'),
+	(991, 10, 10, '2019-07-03'),
+	(992, 10, 10, '2019-07-04'),
+	(993, 10, 10, '2019-07-05'),
+	(994, 10, 10, '2019-07-06'),
+	(995, 10, 10, '2019-07-07'),
+	(996, 10, 10, '2019-07-08'),
+	(997, 10, 10, '2019-07-09'),
+	(998, 10, 10, '2019-07-10'),
+	(999, 10, 10, '2019-07-11'),
+	(1000, 10, 10, '2019-07-12'),
+	(1001, 10, 10, '2019-07-13'),
+	(1002, 10, 10, '2019-07-14'),
+	(1003, 10, 10, '2019-07-15'),
+	(1004, 10, 10, '2019-07-16'),
+	(1005, 10, 10, '2019-07-17'),
+	(1006, 10, 10, '2019-07-18'),
+	(1007, 10, 10, '2019-07-19'),
+	(1008, 10, 10, '2019-07-20'),
+	(1009, 10, 10, '2019-07-21'),
+	(1010, 10, 10, '2019-07-22'),
+	(1011, 10, 10, '2019-07-23'),
+	(1012, 10, 10, '2019-07-24'),
+	(1013, 10, 10, '2019-07-25'),
+	(1014, 10, 10, '2019-07-26'),
+	(1015, 10, 10, '2019-07-27'),
+	(1016, 10, 10, '2019-07-28'),
+	(1017, 10, 10, '2019-07-29'),
+	(1018, 10, 10, '2019-07-30'),
+	(1019, 10, 10, '2019-07-31'),
+	(1020, 10, 10, '2019-08-01'),
+	(1021, 10, 10, '2019-08-02'),
+	(1022, 10, 10, '2019-08-03'),
+	(1023, 10, 10, '2019-08-04'),
+	(1024, 10, 10, '2019-08-05'),
+	(1025, 10, 10, '2019-08-06'),
+	(1026, 10, 10, '2019-08-07'),
+	(1027, 10, 10, '2019-08-08'),
+	(1028, 10, 10, '2019-08-09'),
+	(1029, 10, 10, '2019-08-10'),
+	(1030, 10, 10, '2019-08-11'),
+	(1031, 10, 10, '2019-08-12'),
+	(1032, 10, 10, '2019-08-13'),
+	(1033, 10, 10, '2019-08-14'),
+	(1034, 10, 10, '2019-08-15'),
+	(1035, 10, 10, '2019-08-16'),
+	(1036, 10, 10, '2019-08-17'),
+	(1037, 10, 10, '2019-08-18'),
+	(1038, 10, 10, '2019-08-19'),
+	(1039, 10, 10, '2019-08-20'),
+	(1040, 10, 10, '2019-08-21'),
+	(1041, 10, 10, '2019-08-22'),
+	(1042, 10, 10, '2019-08-23'),
+	(1043, 10, 10, '2019-08-24'),
+	(1044, 10, 10, '2019-08-25'),
+	(1045, 10, 10, '2019-08-26'),
+	(1046, 10, 10, '2019-08-27'),
+	(1047, 10, 10, '2019-08-28'),
+	(1048, 10, 10, '2019-08-29'),
+	(1049, 10, 10, '2019-08-30'),
+	(1050, 10, 10, '2019-08-31'),
+	(1051, 10, 10, '2019-09-01'),
+	(1052, 10, 10, '2019-09-02'),
+	(1053, 10, 10, '2019-09-03'),
+	(1054, 10, 10, '2019-09-04'),
+	(1055, 10, 10, '2019-09-05'),
+	(1056, 10, 10, '2019-09-06'),
+	(1057, 10, 10, '2019-09-07'),
+	(1058, 10, 10, '2019-09-08'),
+	(1059, 10, 10, '2019-09-09'),
+	(1060, 10, 10, '2019-09-10'),
+	(1061, 10, 10, '2019-09-11'),
+	(1062, 10, 10, '2019-09-12'),
+	(1063, 10, 10, '2019-09-13'),
+	(1064, 10, 10, '2019-09-14'),
+	(1065, 10, 10, '2019-09-15'),
+	(1066, 10, 10, '2019-09-16'),
+	(1067, 10, 10, '2019-09-17'),
+	(1068, 10, 10, '2019-09-18'),
+	(1069, 10, 10, '2019-09-19'),
+	(1070, 10, 10, '2019-09-20'),
+	(1071, 10, 10, '2019-09-21'),
+	(1072, 10, 10, '2019-09-22'),
+	(1073, 10, 10, '2019-09-23'),
+	(1074, 10, 10, '2019-09-24'),
+	(1075, 10, 10, '2019-09-25'),
+	(1076, 10, 10, '2019-09-26'),
+	(1077, 10, 10, '2019-09-27'),
+	(1078, 10, 10, '2019-09-28'),
+	(1079, 10, 10, '2019-09-29'),
+	(1080, 10, 10, '2019-09-30'),
+	(1081, 11, 10, '2019-04-04'),
+	(1082, 11, 10, '2019-04-05'),
+	(1083, 11, 10, '2019-04-06'),
+	(1084, 11, 10, '2019-04-07'),
+	(1085, 11, 10, '2019-04-08'),
+	(1086, 11, 10, '2019-04-09'),
+	(1087, 11, 10, '2019-04-10'),
+	(1088, 11, 10, '2019-04-11'),
+	(1089, 11, 10, '2019-04-12'),
+	(1090, 11, 10, '2019-04-13'),
+	(1091, 11, 10, '2019-04-14'),
+	(1092, 11, 10, '2019-04-15'),
+	(1093, 11, 10, '2019-04-16'),
+	(1094, 11, 10, '2019-04-17'),
+	(1095, 11, 10, '2019-04-18'),
+	(1096, 11, 10, '2019-04-19'),
+	(1097, 11, 10, '2019-04-20'),
+	(1098, 11, 10, '2019-04-21'),
+	(1099, 11, 10, '2019-04-22'),
+	(1100, 11, 10, '2019-04-23'),
+	(1101, 11, 10, '2019-04-24'),
+	(1102, 11, 10, '2019-04-25'),
+	(1103, 11, 10, '2019-04-26'),
+	(1104, 11, 10, '2019-04-27'),
+	(1105, 11, 10, '2019-04-28'),
+	(1106, 11, 10, '2019-04-29'),
+	(1107, 11, 10, '2019-04-30'),
+	(1108, 11, 10, '2019-05-01'),
+	(1109, 11, 10, '2019-05-02'),
+	(1110, 11, 10, '2019-05-03'),
+	(1111, 11, 10, '2019-05-04'),
+	(1112, 11, 10, '2019-05-05'),
+	(1113, 11, 10, '2019-05-06'),
+	(1114, 11, 10, '2019-05-07'),
+	(1115, 11, 10, '2019-05-08'),
+	(1116, 11, 10, '2019-05-09'),
+	(1117, 11, 10, '2019-05-10'),
+	(1118, 11, 10, '2019-05-11'),
+	(1119, 11, 10, '2019-05-12'),
+	(1120, 11, 10, '2019-05-13'),
+	(1121, 11, 10, '2019-05-14'),
+	(1122, 11, 10, '2019-05-15'),
+	(1123, 11, 10, '2019-05-16'),
+	(1124, 11, 10, '2019-05-17'),
+	(1125, 11, 10, '2019-05-18'),
+	(1126, 11, 10, '2019-05-19'),
+	(1127, 11, 10, '2019-05-20'),
+	(1128, 11, 10, '2019-05-21'),
+	(1129, 11, 10, '2019-05-22'),
+	(1130, 11, 10, '2019-05-23'),
+	(1131, 11, 10, '2019-05-24'),
+	(1132, 11, 10, '2019-05-25'),
+	(1133, 11, 10, '2019-05-26'),
+	(1134, 11, 10, '2019-05-27'),
+	(1135, 11, 10, '2019-05-28'),
+	(1136, 11, 10, '2019-05-29'),
+	(1137, 11, 10, '2019-05-30'),
+	(1138, 11, 10, '2019-05-31'),
+	(1139, 11, 10, '2019-06-01'),
+	(1140, 11, 10, '2019-06-02'),
+	(1141, 11, 10, '2019-06-03'),
+	(1142, 11, 10, '2019-06-04'),
+	(1143, 11, 10, '2019-06-05'),
+	(1144, 11, 10, '2019-06-06'),
+	(1145, 11, 10, '2019-06-07'),
+	(1146, 11, 10, '2019-06-08'),
+	(1147, 11, 10, '2019-06-09'),
+	(1148, 11, 10, '2019-06-10'),
+	(1149, 11, 10, '2019-06-11'),
+	(1150, 11, 10, '2019-06-12'),
+	(1151, 11, 10, '2019-06-13'),
+	(1152, 11, 10, '2019-06-14'),
+	(1153, 11, 10, '2019-06-15'),
+	(1154, 11, 10, '2019-06-16'),
+	(1155, 11, 10, '2019-06-17'),
+	(1156, 11, 10, '2019-06-18'),
+	(1157, 11, 10, '2019-06-19'),
+	(1158, 11, 10, '2019-06-20'),
+	(1159, 11, 10, '2019-06-21'),
+	(1160, 11, 10, '2019-06-22'),
+	(1161, 11, 10, '2019-06-23'),
+	(1162, 11, 10, '2019-06-24'),
+	(1163, 11, 10, '2019-06-25'),
+	(1164, 11, 10, '2019-06-26'),
+	(1165, 11, 10, '2019-06-27'),
+	(1166, 11, 10, '2019-06-28'),
+	(1167, 11, 10, '2019-06-29'),
+	(1168, 11, 10, '2019-06-30'),
+	(1169, 11, 10, '2019-07-01'),
+	(1170, 11, 10, '2019-07-02'),
+	(1171, 11, 10, '2019-07-03'),
+	(1172, 11, 10, '2019-07-04'),
+	(1173, 11, 10, '2019-07-05'),
+	(1174, 11, 10, '2019-07-06'),
+	(1175, 11, 10, '2019-07-07'),
+	(1176, 11, 10, '2019-07-08'),
+	(1177, 11, 10, '2019-07-09'),
+	(1178, 11, 10, '2019-07-10'),
+	(1179, 11, 10, '2019-07-11'),
+	(1180, 11, 10, '2019-07-12'),
+	(1181, 11, 10, '2019-07-13'),
+	(1182, 11, 10, '2019-07-14'),
+	(1183, 11, 10, '2019-07-15'),
+	(1184, 11, 10, '2019-07-16'),
+	(1185, 11, 10, '2019-07-17'),
+	(1186, 11, 10, '2019-07-18'),
+	(1187, 11, 10, '2019-07-19'),
+	(1188, 11, 10, '2019-07-20'),
+	(1189, 11, 10, '2019-07-21'),
+	(1190, 11, 10, '2019-07-22'),
+	(1191, 11, 10, '2019-07-23'),
+	(1192, 11, 10, '2019-07-24'),
+	(1193, 11, 10, '2019-07-25'),
+	(1194, 11, 10, '2019-07-26'),
+	(1195, 11, 10, '2019-07-27'),
+	(1196, 11, 10, '2019-07-28'),
+	(1197, 11, 10, '2019-07-29'),
+	(1198, 11, 10, '2019-07-30'),
+	(1199, 11, 10, '2019-07-31'),
+	(1200, 11, 10, '2019-08-01'),
+	(1201, 11, 10, '2019-08-02'),
+	(1202, 11, 10, '2019-08-03'),
+	(1203, 11, 10, '2019-08-04'),
+	(1204, 11, 10, '2019-08-05'),
+	(1205, 11, 10, '2019-08-06'),
+	(1206, 11, 10, '2019-08-07'),
+	(1207, 11, 10, '2019-08-08'),
+	(1208, 11, 10, '2019-08-09'),
+	(1209, 11, 10, '2019-08-10'),
+	(1210, 11, 10, '2019-08-11'),
+	(1211, 11, 10, '2019-08-12'),
+	(1212, 11, 10, '2019-08-13'),
+	(1213, 11, 10, '2019-08-14'),
+	(1214, 11, 10, '2019-08-15'),
+	(1215, 11, 10, '2019-08-16'),
+	(1216, 11, 10, '2019-08-17'),
+	(1217, 11, 10, '2019-08-18'),
+	(1218, 11, 10, '2019-08-19'),
+	(1219, 11, 10, '2019-08-20'),
+	(1220, 11, 10, '2019-08-21'),
+	(1221, 11, 10, '2019-08-22'),
+	(1222, 11, 10, '2019-08-23'),
+	(1223, 11, 10, '2019-08-24'),
+	(1224, 11, 10, '2019-08-25'),
+	(1225, 11, 10, '2019-08-26'),
+	(1226, 11, 10, '2019-08-27'),
+	(1227, 11, 10, '2019-08-28'),
+	(1228, 11, 10, '2019-08-29'),
+	(1229, 11, 10, '2019-08-30'),
+	(1230, 11, 10, '2019-08-31'),
+	(1231, 11, 10, '2019-09-01'),
+	(1232, 11, 10, '2019-09-02'),
+	(1233, 11, 10, '2019-09-03'),
+	(1234, 11, 10, '2019-09-04'),
+	(1235, 11, 10, '2019-09-05'),
+	(1236, 11, 10, '2019-09-06'),
+	(1237, 11, 10, '2019-09-07'),
+	(1238, 11, 10, '2019-09-08'),
+	(1239, 11, 10, '2019-09-09'),
+	(1240, 11, 10, '2019-09-10'),
+	(1241, 11, 10, '2019-09-11'),
+	(1242, 11, 10, '2019-09-12'),
+	(1243, 11, 10, '2019-09-13'),
+	(1244, 11, 10, '2019-09-14'),
+	(1245, 11, 10, '2019-09-15'),
+	(1246, 11, 10, '2019-09-16'),
+	(1247, 11, 10, '2019-09-17'),
+	(1248, 11, 10, '2019-09-18'),
+	(1249, 11, 10, '2019-09-19'),
+	(1250, 11, 10, '2019-09-20'),
+	(1251, 11, 10, '2019-09-21'),
+	(1252, 11, 10, '2019-09-22'),
+	(1253, 11, 10, '2019-09-23'),
+	(1254, 11, 10, '2019-09-24'),
+	(1255, 11, 10, '2019-09-25'),
+	(1256, 11, 10, '2019-09-26'),
+	(1257, 11, 10, '2019-09-27'),
+	(1258, 11, 10, '2019-09-28'),
+	(1259, 11, 10, '2019-09-29'),
+	(1260, 11, 10, '2019-09-30');
 /*!40000 ALTER TABLE `tblschedule` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblsettings

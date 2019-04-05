@@ -1,23 +1,20 @@
 var billboards;
+var startingDate;
+var packages;
+var currentBillboardID;
+var currentSelectedPackage = null;
+var files;
+var img;
+var fd;
 
 $(document).ready(function(){
+  var start = moment();  
   getBillboards();
-
-  var date_input=$('input[name="date"]'); //our date input has the name "date"
-  var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-  var options={
-    format: 'mm/dd/yyyy',
-    container: container,
-    todayHighlight: true,
-    autoclose: true,
-  };
-  date_input.datepicker(options);
 
   $("table").on("click", "tr .information", function(){
   	var billboardID = $(this).attr("id");
 	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
   		var info = JSON.parse(data);
-		console.log(info);
 		$("#info-header").text(info.name);
   		$("#info-image").attr("src",info.img);
   		$("#info-image").attr("alt",info.name);
@@ -33,13 +30,144 @@ $(document).ready(function(){
 	});
   });
   
+  $("table").on("click", "tr.clickable-package", function(){
+	if($(this).attr("class").includes("open")) {
+		if(currentSelectedPackage != null) currentSelectedPackage.removeClass("selected-package");
+		currentSelectedPackage = $(this);
+		$(this).addClass("selected-package");
+	}
+  });
+
+  $("table").on("click", "tr .request-action", function(){	
+	var index = $(this).attr("id");
+	currentBillboardID = billboards[index].id;
+	$("#request-modal-header").text(billboards[index].name);
+	$("#request-image-header").attr("src", billboards[index].img);
+	$("#upload-image").val("");
+	files = null;
+	img = null;
+	if(currentSelectedPackage != null){
+		currentSelectedPackage.removeClass("selected-package");
+		currentSelectedPackage = null;
+	}
+	start = moment();
+	$('#reportrange span').html(start.format('MMMM D, YYYY'));
+        startingDate = start.format('YYYY-MM-DD');
+        $.get("../server/user-billboard-packages.php",
+		{
+                        billboardID: currentBillboardID,
+                        date: startingDate
+                }, function(data, status){
+                packages = JSON.parse(data);
+                var package = "";
+                for (var i = 0; i < packages.length; i++) {
+                        package += "<tr id=\"" + packages[i].id + "\" class=\"clickable-package " + ((packages[i].availability) ? "open" : "") + "\">" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                                packages[i].duration + " Day(s)" +
+                        "</td>" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                                packages[i].frequency + " Display Per Cycle" +
+                        "</td>" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                                "$" + packages[i].price +
+                        "</td>" +
+                        "</tr>";
+                }
+                $("#billboard-packages").empty();
+                $("#billboard-packages").append(package);
+        });
+  });
+
+  $("#request-btn").click(function(){
+	if(currentSelectedPackage != null && $("#upload-image").val() != ""){
+		$.post("../server/user-make-request.php",
+			{
+				billboardID: currentBillboardID,
+				userID: 1,//Change later.
+				sDate: startingDate,
+				packetID: currentSelectedPackage.attr("id"),
+				fileName: files.name,
+				extension: files.type,
+				size: files.size,
+				width: img.width,
+				height: img.height,
+				ratio: getAspectRatio(img.width, img.height)
+			}, function(data, status){
+			if(status == "success"){
+				console.log(data);
+				$.ajax({
+					url: '../server/user-request-upload.php',
+            		    		type: 'post',
+            		   		data: fd,
+            				mimeType:"multipart/form-data",
+            				contentType: false,
+            				processData: false,
+            				success: function(response){
+                    				console.log(response);
+            				},
+        			});
+			}
+		});
+	} else {
+		alert("Make sure to pick all fields.");
+	}
+  });
+  
+  $("#upload-image").bind('change', function() {
+	fd = new FormData();
+        files = this.files[0];
+        fd.append('upload-image',files);
+
+	var fr = new FileReader;
+    	fr.readAsDataURL(this.files[0]);
+    
+    	fr.onload = function() {
+        	img = new Image;
+               	img.src = fr.result;
+
+        	img.onload = function() {
+        	};
+        
+    	};    
+  });
+  
+  $('#reportrange').daterangepicker({
+	startDate: start,
+	singleDatePicker:true,
+	opens: 'center'
+  }, updateDate);
+
+  //updateDate(start);  
+
 });
 
-// Add the following code if you want the name of the file appear on select
-$(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
+function updateDate(start) {
+	$('#reportrange span').html(start.format('MMMM D, YYYY'));
+	startingDate = start.format('YYYY-MM-DD');
+	$.get("../server/user-billboard-packages.php",
+		{
+			billboardID: currentBillboardID,
+			date: startingDate	
+		}, function(data, status){
+                packages = JSON.parse(data);
+                var package = "";
+                for (var i = 0; i < packages.length; i++) {
+                        package += "<tr id=\"" + packages[i].id + "\" class=\"clickable-package " + ((packages[i].availability) ? "open" : "") + "\">" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                        	packages[i].duration + " Day(s)" +
+			"</td>" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                        	packages[i].frequency + " Display Per Cycle" +
+			"</td>" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+                        	"$" + packages[i].price +
+			"</td>" +
+                        "</tr>";
+                }
+                $("#billboard-packages").empty();
+                $("#billboard-packages").append(package);
+        });
+}
 
 function getBillboards(){
 	$.get("../server/user-billboards.php", function(data, status){
@@ -57,13 +185,24 @@ function getBillboards(){
 				"</div>" +
 			"</div></td>" +
 			"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
-			"<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-shopping-cart actions\" data-toggle=\"modal\" data-target=\"#requestModal1\"><br><p>Request</p></span>" +
+			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +
 			"</td>" +
 			"</tr>";
-			console.log(billboard);
 		}
 		$("#billboards").empty();
 		$("#billboards").append(billboard);
-		console.log(billboards);
 	});
+}
+
+function getAspectRatio(width, height){
+	var remainder;
+	var a = width;
+	var b = height;
+	while ((a % b) > 0)  {
+    		remainder = a % b;
+    		a = b;
+    		b = remainder;
+  	}
+
+	return Math.floor(width/b) + ":" + Math.floor(height/b);
 }

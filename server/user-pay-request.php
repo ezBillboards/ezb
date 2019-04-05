@@ -10,7 +10,7 @@ $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$requestID = $_POST['requestID'];
+$requestID = $_POST['id'];
 $sql = "CALL putPaidRequest($requestID)";
 
 if (mysqli_query($conn, $sql)) {

@@ -12,15 +12,10 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
  <script src="../js/User_Billboards.js"></script>
- <!--  jQuery 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
--->
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-<!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
   <nav class="navbar navbar-default navbar-border navbar-height">
@@ -259,106 +254,52 @@
 </div>
 </div>
 
-<!-- Request Modal -->
-<div class="modal fade" id="requestModal1" role="dialog">
- <div class="modal-dialog modal-lg">
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal">&times;</button>
-       <h1 class="modal-title">Request</h1>
-     </div>
-     <div class="modal-body">
-       <img src="../Icons/BackgroundHome.jpg" class="background img-responsive ezb-logo" alt="EZB Logo">
-       <br>
-       <div class="row">
-         <div class="col-lg-12 text-center">
-           <table class="table table-bordered">
-             <i class="material-icons" style="color:blue">looks_one</i>Choose advertisement frequency and duration:
-             <tbody>
-              <tr>
-               <td>Frecuency</td>
-             </tr>
-           </tbody>
-         </div>
-       </div>
-       <table class="table table-bordered">
-         <div class="row">
-           <div class="col-lg text-center">
-             <table class="table table-bordered">
-              <tbody>
-                <tr>
-                 <td>   </td>
-                 <td>   </td>
-                 <td>Every 4 min.</td>
-                 <td>Every 2 min.</td>
-                 <td>Every min.</td>
-               </tr>
-             </tbody>
-           </div>
-         </div>
-         <tbody>
-          <tr>
-            <td>   </td>
-            <td>1 Day</td>
-            <td>$15.25</td>
-            <td>$30.50</td>
-            <td>$61.00</td>
-          </tr>
-          <tr>
-           <td colspan="1" style="width:10%"><p class = "rotate">Duration</p></td>
-           <td>1 Week</td>
-           <td>$106.25</td>
-           <td>$210.50</td>
-           <td>$425.00</td>
-         </tr>
-         <tr>
-           <td>   </td>
-           <td>2 weeks</td>
-           <td>$212.50</td>
-           <td>$425.00</td>
-           <td>$850.00</td>
-         </tr>
-         <tr>
-           <td>   </td>
-           <td>4 weeks</td>
-           <td>$425.00</td>
-           <td>$850.00</td>
-           <td>$1,700.00</td>
-         </tr>
-       </tbody>
-     </table>
-     <!-- Step 3 -->
-     <i class="material-icons" style="color:blue">looks_two</i>Choose advertisement starting date:
-     <div class="bootstrap-iso">
-      <div class="container-fluid">
-       <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-         <!-- Form code begins -->
-         <form method="post">
-           <div class="form-group text-centered"> <!-- Date input -->
-             <label class="control-label" for="date">Date</label>
-             <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-           </div>
-         </form>
-         <!-- Form code ends -->
-       </div>
-     </div>
-   </div>
- </div>
- <i class="material-icons" style="color:blue">looks_3</i>Upload Image:
- <div class="choose mt-3">
-   <form action="/action_page.php">
-     <input type="file" id="myFile" name="filename2">
-   </form>
- </div>
- <div class="modal-footer">
-   <button type="button" class="btn btn-default" data-dismiss="modal" id ="closeBtn">Close</button>
-   <button type="button" class="request btn btn-default">Request</button>
- </div>
-</div>
-</div>
-</div>
-</div>
+  <!-- Request Modal -->
+  <div class="modal fade" id="requestModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 id="request-modal-header" class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+		<img id="request-image-header" src="" class="img-responsive" alt="">
+		<br>
+		<h5><span class="badge">1</span> Choose advertisement starting date: </h5>
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                </div>
+		<br>
+		<h5><span class="badge">2</span> Choose advertisement frequency and duration: </h5>
+		<table class="table">
+    			<thead>
+      				<tr>
+        				<th class="text-center" style="width: 33.33%;">Duration</th>
+        				<th class="text-center" style="width: 33.33%;">Frequency</th>
+        				<th class="text-center" style="width: 33.33%;">Price</th>
+      				</tr>
+    			</thead>
+    			<tbody id="billboard-packages">
+		        </tbody>
+  		</table>
+		<br>
+		<div class="row">
+			<div class="col-lg-6">
+				<h5><span class="badge">3</span> Upload Image: </h5>
+			</div>
+			<div class="col-lg-6">
+				<input type="file" name="upload-image" id="upload-image" accept=".jpg, .jpeg, .png">
+			</div>
+		</div>
+	</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	  <button id="request-btn" type="button" class="btn btn-success" data-dismiss="modal">Request</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
