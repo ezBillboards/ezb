@@ -25,7 +25,7 @@ $(document).ready(function(){
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
 		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
-			random = Math.floor((Math.random() * 10000) + 1);
+			random = Math.floor((Math.random() * 1000000) + 1);
 			console.log(random);
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
@@ -54,10 +54,14 @@ $(document).ready(function(){
                 }
 	});
 	
+	$("#btnresend").click(function(){
+		
+	});
+	
 	$("#btnverify").click(function(){
-		 if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
-                        VerifyEmail();
-                }
+		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
+			VerifyEmail();	
+		}
 	});
 	
 	$("#btnlogout").click(function(){
@@ -192,7 +196,7 @@ function VerifyRole(){
 		if (verifiedUser == 0 && statusTemp == 0){
 			console.log('USER NOT VERIFIED!')
 			//console.log(sessionStorage.getItem('ID'));
-			random = Math.floor((Math.random() * 10000) + 1);
+			random = Math.floor((Math.random() * 1000000) + 1);
 			sessionStorage.setItem('verificationCode', random);
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
@@ -256,8 +260,8 @@ function VerifyEmail(){
 			},function(data,status){
 				if(status === "success"){
 					sessionStorage.setItem('ID', profile_ID);
+					$('#verifyEmailModal').modal('hide');
 					console.log(profile_ID);
-					console.log(status);
 					Session();
 				}else{
 					console.log('Error on user verification!!');
