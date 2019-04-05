@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 	
-	$("#upload-image").bind('change', function() {
+/*	$("#upload-image").bind('change', function() {
 	fd = new FormData();
         files = this.files[0];
         fd.append('upload-image',files);
@@ -14,7 +14,7 @@ $(document).ready(function(){
         	img.onload = function() {
         	};
 		};    
-	});
+	});*/
   
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
@@ -26,9 +26,9 @@ $(document).ready(function(){
 		"<div class=\"column\">" +
 		"<div class=\"row\">" +
 		"<div class=\"col-lg-6\">" +
-		"<a href=""><span class=\"glyphicon glyphicon-pencil\"><br></span></a></div>" +
-		"<div class=\"col-lg-6\";">" +
-		"<a href=""><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+		"<a><span class=\"glyphicon glyphicon-pencil\"><br></span></a></div>" +
+		"<div class=\"col-lg-6\">" +
+		"<a><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
 		"</div>" +
 		"</div>" +
 		"</td>";
