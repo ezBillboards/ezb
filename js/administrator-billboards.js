@@ -26,9 +26,9 @@ $(document).ready(function(){
 		"<div class=\"column\">" +
 		"<div class=\"row\">" +
 		"<div class=\"col-lg-6\">" +
-		"<a href="#"><span class=\"glyphicon glyphicon-pencil\"><br></span></a></div>" +
+		"<a href=""><span class=\"glyphicon glyphicon-pencil\"><br></span></a></div>" +
 		"<div class=\"col-lg-6\";">" +
-		"<a href="#"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+		"<a href=""><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
 		"</div>" +
 		"</div>" +
 		"</td>";
