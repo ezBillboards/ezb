@@ -1,7 +1,23 @@
 /*Administrator billboards JavaScript*/
 
 $(document).ready(function(){
+	
+	$("#upload-image").bind('change', function() {
+	fd = new FormData();
+        files = this.files[0];
+        fd.append('upload-image',files);
+	var fr = new FileReader;
+    	fr.readAsDataURL(this.files[0]);
+    	fr.onload = function() {
+        	img = new Image;
+               	img.src = fr.result;
+        	img.onload = function() {
+        	};
+		};    
+	});
+  
 	$('#btnaddpackage').click(function(){
+		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
 		"<td>1 Day</td>" +
 		"<td>Every 4 min.</td>" +
@@ -18,4 +34,5 @@ $(document).ready(function(){
 		"</td>";
 		$("#add-package").append(newPackage);
 	});
+	
 });
