@@ -23,6 +23,10 @@ $(document).ready(function(){
 		"</td>";
 		$("#add-package").append(newPackage);
 	});
+	$("#profile-img").change(function(){
+	        readURL(this);
+        	console.log('reading URL of image');
+	});
 });
   
 function readURL(input) {
@@ -35,10 +39,6 @@ function readURL(input) {
 		reader.readAsDataURL(input.files[0]);
 	}
 }
-$("#profile-img").change(function(){
-	readURL(this);
-});
-
 
 (function ($) {
 $('.spinner .btn:first-of-type').on('click', function() {
