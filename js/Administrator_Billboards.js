@@ -23,17 +23,31 @@ $(document).ready(function(){
 		"</td>";
 		$("#add-package").append(newPackage);
 	});
-  });
+});
   
-  
-  (function ($) {
-    $('.spinner .btn:first-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
-    });
-    $('.spinner .btn:last-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
-    });
-  })(jQuery);
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		
+		reader.onload = function (e) {
+			$('#profile-img-tag').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+$("#profile-img").change(function(){
+	readURL(this);
+});
+
+
+(function ($) {
+$('.spinner .btn:first-of-type').on('click', function() {
+  $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
+});
+$('.spinner .btn:last-of-type').on('click', function() {
+  $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
+});
+})(jQuery);
   
   
   
