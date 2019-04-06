@@ -112,13 +112,13 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					}
 					console.log('USER REGISTERED!!')
 					console.log(data);
-					role = "USER";
+					role = 1;
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
 					sessionStorage.setItem('verificationCode', random_IN);
 					sendVerificationCode();
 					$('#registerModal').modal('hide');
-					document.getElementById("verifyEmailModal").reset();
+					//document.getElementById("verifyEmailModal").reset();
 					$('#verifyEmailModal').modal('show');
 				}else{
 					console.log('Error registering user!!');
@@ -158,19 +158,19 @@ function VerifyRole(){
 			sessionStorage.setItem('verificationCode', random);
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
-			document.getElementById("verifyEmailModal").reset();
+			//document.getElementById("verifyEmailModal").reset();
 			$('#verifyEmailModal').modal('show');
 		
 		
 		}else if(verifiedUser == 0 && statusTemp == 1){
 			//$('#loginModal').modal('hide');
-			document.getElementById("changePasswordModal").reset();
+			//document.getElementById("changePasswordModal").reset();
 			$('#changePasswordModal').modal('show');
 		}
 		
 		else if(verifiedUser == 1 && statusTemp == 1){
 			//$('#loginModal').modal('hide');
-			document.getElementById("changePasswordModal").reset();
+			//document.getElementById("changePasswordModal").reset();
 			$('#changePasswordModal').modal('show');
 		
 		
@@ -190,63 +190,32 @@ function VerifyRole(){
 			Session();
 			$('#loginModal').modal('hide');
 		}
-	}
-	
-	/*if (!role){
-		console.log('USER NOT FOUND');
-		//USER NOT FOUND
-		//RELOAD MODAL WITH ERROR MESSAGE OR SOMETHING LIKE THAT....
-		//ERROR MESSAGE AND EMPTY PASSWORD INPUT BOX
-	}
-	else if(role == "USER"){
-		//IF USER IS FOUND 
-		//STEP 1: VERIFIED EMAIL??
-		//STEP 2: IF NOT VERIFIED: ENTER CODE OR RESEND CODE
-		//STEP 3: IF VERIFIED: SESSION VARIABLES AND HOME PAGE
-		console.log('USER FOUND');
-		if (verifiedUser == 0 && statusTemp == 0){
-			console.log('USER NOT VERIFIED!')
-			//console.log(sessionStorage.getItem('ID'));
-			random = Math.floor((Math.random() * 1000000) + 1);
-			sessionStorage.setItem('verificationCode', random);
-			sendVerificationCode();
-			$('#loginModal').modal('hide');
-			$('#verifyEmailModal').modal('show');
-		}else if(verifiedUser == 0 && statusTemp == 1){
-			$('#changePasswordModal').modal('show');
-		}
-		else if(verifiedUser == 1 && statusTemp == 1){
-			$('#changePasswordModal').modal('show');
-		}else{
-			//SESSION VARIABLES
-			//logged in nav bar
-			document.getElementById("getStartedLog").style.display = "none";
-			document.getElementById("getStartedReg").style.display = "none";
-			document.getElementById("getStartedMes").style.display = "none";
-			document.getElementById("profileDropdown").style.display = "inline";
-			document.getElementById("profileEmail").style.display = "inline";
-			//document.getElementById("userProfile").style.display = "inline";
-			console.log('USER VERIFIED!')
-			$('#loginModal').modal('hide');
-		}
-	}
-	else if(role == "APPROVER"){
+	}else if(role == 2){
 		//SESSION VARIABLES
+		sessionStorage.setItem('ID', profile_ID);
+		sessionStorage.setItem('role', role);
 		//IF APPROVER FOUND --->> APPROVER VIEW
 		window.location.href = "../approver/approver-requests.html";
 		//console.log('APPROVER FOUND');
 	}
-	else if(role == "PUBLISHER"){
+	else if(role == 3){
 		//SESSION VARIABLES
+		sessionStorage.setItem('ID', profile_ID);
+		sessionStorage.setItem('role', role);
 		//IF PUBLISHER FOUND --->> PUBLISHER VIEW
 		window.location.href = "../publisher/publisher-paid-requests.html";
-		//console.log('PUBLISHER FOUND');
+		
 	}
-	else if(role == "ADMIN"){
+	else if(role == 4){
 		//SESSION VARIABLES
+		sessionStorage.setItem('ID', profile_ID);
+		sessionStorage.setItem('role', role);
 		//IF ADMIN FOUND --->> ADMIN VIEW
 		console.log('ADMIN FOUND');
-	}*/
+		window.location.href = "../administrator/administrator-logs.html";
+
+		
+	}
 }
 
 function sendVerificationCode(){
