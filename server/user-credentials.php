@@ -24,10 +24,11 @@ if (mysqli_num_rows($result) > 0) {
 		$request['enabled'] = $row['enabled'];
 		array_push($requests,$request);
     }
+	echo json_encode($requests);
 } else {
     echo "No results";
 }
 
 mysqli_close($conn);
-echo json_encode($requests);
+
 ?>

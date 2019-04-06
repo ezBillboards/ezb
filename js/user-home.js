@@ -118,6 +118,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					sessionStorage.setItem('verificationCode', random_IN);
 					sendVerificationCode();
 					$('#registerModal').modal('hide');
+					document.getElementById("verifyEmailModal").reset();
 					$('#verifyEmailModal').modal('show');
 				}else{
 					console.log('Error registering user!!');
@@ -157,16 +158,19 @@ function VerifyRole(){
 			sessionStorage.setItem('verificationCode', random);
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
+			document.getElementById("verifyEmailModal").reset();
 			$('#verifyEmailModal').modal('show');
 		
 		
 		}else if(verifiedUser == 0 && statusTemp == 1){
 			//$('#loginModal').modal('hide');
+			document.getElementById("changePasswordModal").reset();
 			$('#changePasswordModal').modal('show');
 		}
 		
 		else if(verifiedUser == 1 && statusTemp == 1){
 			//$('#loginModal').modal('hide');
+			document.getElementById("changePasswordModal").reset();
 			$('#changePasswordModal').modal('show');
 		
 		
