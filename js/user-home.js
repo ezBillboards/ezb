@@ -191,30 +191,42 @@ function VerifyRole(){
 			$('#loginModal').modal('hide');
 		}
 	}else if(role == 2){
-		//SESSION VARIABLES
-		sessionStorage.setItem('ID', profile_ID);
-		sessionStorage.setItem('role', role);
-		//IF APPROVER FOUND --->> APPROVER VIEW
-		window.location.href = "../approver/approver-requests.html";
-		//console.log('APPROVER FOUND');
+		if(statusTemp == 1){
+			$('#changePasswordModal').modal('show');
+		}
+		else{	
+			//SESSION VARIABLES
+			sessionStorage.setItem('ID', profile_ID);
+			sessionStorage.setItem('role', role);
+			//IF APPROVER FOUND --->> APPROVER VIEW
+			window.location.href = "../approver/approver-requests.html";
+			//console.log('APPROVER FOUND');
+		}
 	}
 	else if(role == 3){
-		//SESSION VARIABLES
-		sessionStorage.setItem('ID', profile_ID);
-		sessionStorage.setItem('role', role);
-		//IF PUBLISHER FOUND --->> PUBLISHER VIEW
-		window.location.href = "../publisher/publisher-paid-requests.html";
-		
+		if(statusTemp == 1){
+			$('#changePasswordModal').modal('show');
+		}
+		else{	
+			//SESSION VARIABLES
+			sessionStorage.setItem('ID', profile_ID);
+			sessionStorage.setItem('role', role);
+			//IF PUBLISHER FOUND --->> PUBLISHER VIEW
+			window.location.href = "../publisher/publisher-paid-requests.html";
+		}
 	}
 	else if(role == 4){
-		//SESSION VARIABLES
-		sessionStorage.setItem('ID', profile_ID);
-		sessionStorage.setItem('role', role);
-		//IF ADMIN FOUND --->> ADMIN VIEW
-		console.log('ADMIN FOUND');
-		window.location.href = "../administrator/administrator-logs.html";
-
-		
+		if(statusTemp == 1){
+			$('#changePasswordModal').modal('show');
+		}
+		else{	
+			//SESSION VARIABLES
+			sessionStorage.setItem('ID', profile_ID);
+			sessionStorage.setItem('role', role);
+			//IF ADMIN FOUND --->> ADMIN VIEW
+			console.log('ADMIN FOUND');
+			window.location.href = "../administrator/administrator-logs.html";
+		}	
 	}
 }
 
