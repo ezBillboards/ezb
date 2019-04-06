@@ -5,21 +5,25 @@ var email;
 var password;
 var confirmPassword;
 var mobilePhone;
+//Profile Information
 var credentials;
 var role;
 var profile_ID;
 var verifiedUser;
 var statusTemp;
+var enabled;
+
 var random;	
 
 $(document).ready(function(){
 	Session();
+	
 	$("#btnlogin").click(function(){
 		console.log('btnlogin clicked!!');
 		email = $('#emaillogin').val();
-		password = $('#passwordlogin').val();
-		Login(email,password);
-		setTimeout(VerifyRole,500);
+		//password = $('#passwordlogin').val();
+		Login(email,$('#passwordlogin').val());
+		//setTimeout(VerifyRole,500);
 	});
 	
 	$("#btnregister").click(function(){
@@ -61,6 +65,9 @@ $(document).ready(function(){
 	$("#btnverify").click(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			VerifyEmail();	
+		}
+		else{
+			alert('Verification code incorrect');
 		}
 	});
 	
@@ -122,66 +129,66 @@ function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
 		{emailAddress: email_IN},
 		function(data, status){
-			if(JSON.parse(data).length > 0){
+			if(data == 'No results'){
+				alert('USER NOT FOUND!!');
+			}
+			else{
 				credentials = JSON.parse(data);
-				role = "USER";
 				profile_ID = credentials[0].id;
-				sessionStorage.setItem('ID', profile_ID);
-				sessionStorage.setItem('email', email_IN);
-				sessionStorage.setItem('role', role);
+				role = credentials[0].roleID;
 				verifiedUser = credentials[0].verified;
 				statusTemp = credentials[0].statusTemp;
-				console.log(data);
-				console.log(status);
+				enabled = credentials[0].enabled;
+				sessionStorage.setItem('email', email_IN);
+				setTimeout(VerifyRole,500);
 			}
 		});
-	$.get("../server/approver-credentials.php",
-		{emailAddress: email_IN},
-		function(data, status){
-			if(JSON.parse(data).length > 0){
-				credentials = JSON.parse(data);
-				role = "APPROVER";
-				profile_ID = credentials[0].id;
-				sessionStorage.setItem('ID', profile_ID);
-				sessionStorage.setItem('email', email_IN);
-				sessionStorage.setItem('role', role);
-				console.log(data);
-				console.log(status);
-			}
-		});
-	$.get("../server/publisher-credentials.php",
-		{emailAddress: email_IN},
-		function(data, status){
-			if(JSON.parse(data).length > 0){
-				credentials = JSON.parse(data);
-				profile_ID = credentials[0].id;
-				sessionStorage.setItem('ID', profile_ID);
-				sessionStorage.setItem('email', email_IN);
-				sessionStorage.setItem('role', role);
-				role = "PUBLISHER";
-				console.log(data);
-				console.log(status);
-			}
-		});
-	$.get("../server/admin-credentials.php",
-		{emailAddress: email_IN},
-		function(data, status){
-			if(JSON.parse(data).length > 0){
-				credentials = JSON.parse(data);
-				role = "ADMIN";
-				profile_ID = credentials[0].id;
-				sessionStorage.setItem('ID', profile_ID);
-				sessionStorage.setItem('email', email_IN);
-				sessionStorage.setItem('role', role);
-				console.log(data);
-				console.log(status);
-			}
 
-		});
 }
 
 function VerifyRole(){
-	if (!role){
+	if(enabled == 0){
+		alert('Account was deleted!');
+	}
+	else if(role == 1){
+		if (verifiedUser == 0 && statusTemp == 0){
+			console.log('USER NOT VERIFIED!');
+			random = Math.floor((Math.random() * 1000000) + 1);
+			sessionStorage.setItem('verificationCode', random);
+			sendVerificationCode();
+			$('#loginModal').modal('hide');
+			$('#verifyEmailModal').modal('show');
+		
+		
+		}else if(verifiedUser == 0 && statusTemp == 1){
+			//$('#loginModal').modal('hide');
+			$('#changePasswordModal').modal('show');
+		}
+		
+		else if(verifiedUser == 1 && statusTemp == 1){
+			//$('#loginModal').modal('hide');
+			$('#changePasswordModal').modal('show');
+		
+		
+		}else{
+			//SESSION VARIABLES
+			sessionStorage.setItem('ID', profile_ID);
+			sessionStorage.setItem('role', role);
+			
+			//logged in nav bar
+			document.getElementById("getStartedLog").style.display = "none";
+			document.getElementById("getStartedReg").style.display = "none";
+			document.getElementById("getStartedMes").style.display = "none";
+			document.getElementById("profileDropdown").style.display = "inline";
+			document.getElementById("profileEmail").style.display = "inline";
+			//document.getElementById("userProfile").style.display = "inline";
+			console.log('USER VERIFIED!')
+			Session();
+			$('#loginModal').modal('hide');
+		}
+	}
+	
+	/*if (!role){
 		console.log('USER NOT FOUND');
 		//USER NOT FOUND
 		//RELOAD MODAL WITH ERROR MESSAGE OR SOMETHING LIKE THAT....
@@ -235,7 +242,7 @@ function VerifyRole(){
 		//SESSION VARIABLES
 		//IF ADMIN FOUND --->> ADMIN VIEW
 		console.log('ADMIN FOUND');
-	}
+	}*/
 }
 
 function sendVerificationCode(){
@@ -260,6 +267,7 @@ function VerifyEmail(){
 			},function(data,status){
 				if(status === "success"){
 					sessionStorage.setItem('ID', profile_ID);
+					sessionStorage.setItem('role', role);
 					$('#verifyEmailModal').modal('hide');
 					console.log(profile_ID);
 					Session();
@@ -306,7 +314,7 @@ function forgotPassword(){
 function changePassword(){
 	$.post("../server/change-password.php",
 			{
-				userID : sessionStorage.getItem('ID'),
+				userID : profile_ID,
 				newPassword: $('#passwordchange').val()
 			},function(data,status){
 				if(status === "success"){
