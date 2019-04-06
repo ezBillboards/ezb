@@ -330,19 +330,6 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 	IN `user_ID_IN` BIGINT,
-	IN `artwork_URL_IN` VARCHAR(1000)
-
-
-
-
-
-
-,
-	IN `artworkName_IN` VARCHAR(50),
-	IN `extension_IN` VARCHAR(10),
-	IN `width_IN` INT,
-	IN `height_IN` INT,
-	IN `size_IN` INT,
 	IN `billboard_ID_IN` BIGINT,
 	IN `package_ID_IN` BIGINT
 
@@ -362,19 +349,49 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 
 
 
+
+,
+	IN `artworkName_IN` VARCHAR(100),
+	IN `extension_IN` VARCHAR(10),
+	IN `width_IN` INT,
+	IN `height_IN` INT,
+	IN `size_IN` INT
+
+
+,
+	IN `ratio_IN` VARCHAR(50)
+
+
+
+
 )
 BEGIN
 	Declare packageDuration int;
+	Declare artworkID bigint;
+	Declare requestID bigint;
 	Declare packageDisplayPerCycle smallint;
 	DECLARE requestEndDate DATE;
-	SELECT @packageDuration := duration, @packageDisplayPerCycle := displayPerCycle from tblpackage where package_ID = package_ID_IN;
+
+	SELECT duration,displayPerCycle into @packageDuration,  @packageDisplayPerCycle 
+	from tblpackage where package_ID = package_ID_IN;
+	
 	SET requestEndDate = DATE_ADD(startDate_IN,INTERVAL @packageDuration DAY);
-	Insert Into tblartwork (user_ID, artworkURL,artworkName,extension,width,height,size) 
-	values (user_ID_IN,artwork_URL_IN,artworkName_IN,extension_IN,width_IN,height_IN,size_IN);
+	
+	Insert Into tblartwork (user_ID,artworkName,extension,width,height,size,ratio) 
+	values (user_ID_IN,artworkName_IN,extension_IN,width_IN,height_IN,size_IN,ratio_IN);
+	
+	Set artworkID = last_insert_id();
+	
 	Insert into tbladrequest (user_ID,artwork_ID,status_ID,package_ID,requestDate,startDate,endDate) 
 	values (user_ID_IN,last_insert_id(),1,package_ID_IN,current_timestamp(),startDate_IN,requestEndDate);
-
 	
+	update tblartwork
+	set tblartwork.artworkURL = Concat('../../img/requests/',last_insert_id(),'.',extension)
+	where tblartwork.artwork_ID = artworkID;
+	
+	select @requestID := request_ID as requestID_OUT from tbladrequest
+	WHERE tbladrequest.artwork_ID = artworkID;
+	 
 	Update tblschedule
 	SET remainingSlots = remainingSlots - @packageDisplayPerCycle
 	where scheduleDate >= startDate_IN 
@@ -393,10 +410,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postApprover`(
 
 
 
+
 )
 BEGIN
-	Insert into tblapprovers (emailAddress,firstName,lastName,psswd)
-	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN);
+	Insert into tblusers (emailAddress,firstName,lastName,psswd,role_ID)
+	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN,2);
 END//
 DELIMITER ;
 
@@ -476,10 +494,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postPublisher`(
 
 
 
+
 )
 BEGIN
-	Insert into tblpublishers (emailAddress,firstName,lastName,psswd)
-	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN);
+	Insert into tblusers (emailAddress,firstName,lastName,psswd,role_ID)
+	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN,3);
 END//
 DELIMITER ;
 
@@ -540,14 +559,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 
 
 
+
 )
 BEGIN
 	insert into tblusers(emailAddress,firstName,lastName,mobilePhone,
 	workPhone,companyName, companyURL,facebookURL, instagramURL,twitterURL,
-	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
+	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate,role_ID) 
 	values (emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,current_timestamp(),current_timestamp());
+	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,current_timestamp(),current_timestamp(),role_ID);
 END//
 DELIMITER ;
 
@@ -577,6 +597,32 @@ BEGIN
 	companyName = companyName_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
 	 facebookURL = fb_IN, instagramURL = inst_IN, twitterURL = tw_IN 
 	where user_ID = user_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbdev.putAccountAdmin
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccountAdmin`(
+	IN `firstName_IN` VARCHAR(50),
+	IN `lastName_IN` VARCHAR(50),
+	IN `emailAddress_IN` VARCHAR(50),
+	IN `psswd_IN` VARCHAR(50),
+	IN `workPhone_IN` VARCHAR(50),
+	IN `mobilePhone_IN` VARCHAR(50),
+	IN `office_IN` VARCHAR(50),
+	IN `role_IN` VARCHAR(50)
+)
+BEGIN
+	IF role_IN = 'Administrator' THEN
+		insert into tbladmin(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempsswd)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+	ELSEIF role_IN = 'Publisher' THEN
+		insert into tblpublishers(emailAddress,firstName,lastName,workPhone,mobilePhone,office, tempsswd)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+	ELSE
+		insert into tblapprovers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempsswd)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+	END IF; 
 END//
 DELIMITER ;
 
@@ -692,12 +738,15 @@ DELIMITER ;
 
 -- Dumping structure for table ezbdev.tbladmin
 CREATE TABLE IF NOT EXISTS `tbladmin` (
-  `admin_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `admin_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `emailAddress` varchar(100) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
-  `psswd` varchar(255) NOT NULL,
-  `tempsswd` varchar(10) DEFAULT NULL,
+  `workPhone` varchar(15) DEFAULT NULL,
+  `mobilePhone` varchar(15) DEFAULT NULL,
+  `office` varchar(50) DEFAULT NULL,
+  `psswd` varchar(255) DEFAULT NULL,
+  `tempsswd` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`admin_id`,`emailAddress`),
   UNIQUE KEY `admin_ID` (`admin_id`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
@@ -709,7 +758,7 @@ CREATE TABLE IF NOT EXISTS `tbladmin` (
 
 -- Dumping structure for table ezbdev.tbladrequest
 CREATE TABLE IF NOT EXISTS `tbladrequest` (
-  `request_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `request_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_ID` bigint(20) NOT NULL DEFAULT 0,
   `artwork_ID` bigint(20) NOT NULL,
   `status_ID` bigint(20) NOT NULL,
@@ -731,27 +780,28 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   KEY `user` (`user_ID`),
   KEY `artwork` (`artwork_ID`),
   KEY `package` (`package_ID`),
-  CONSTRAINT `approver` FOREIGN KEY (`approver_ID`) REFERENCES `tblapprovers` (`approver_ID`),
   CONSTRAINT `artwork` FOREIGN KEY (`artwork_ID`) REFERENCES `tblartwork` (`artwork_ID`),
   CONSTRAINT `package` FOREIGN KEY (`package_ID`) REFERENCES `tblpackage` (`package_ID`),
-  CONSTRAINT `publisher` FOREIGN KEY (`publisher_ID`) REFERENCES `tblpublishers` (`publisher_ID`),
   CONSTRAINT `status` FOREIGN KEY (`status_ID`) REFERENCES `tblrequeststatus` (`status_ID`),
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladrequest: ~5 rows (approximately)
+-- Dumping data for table ezbdev.tbladrequest: ~8 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
 INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `comments`, `publisher_ID`, `publishDate`, `paymentDate`) VALUES
 	(1, 1, 21, 1, 5, '2019-03-14 20:20:20', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(2, 1, 22, 1, 4, '2019-03-13 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(3, 1, 23, 1, 4, '2019-03-12 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL, NULL),
-	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
+	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(17, 1, 37, 1, 7, '2019-04-04 22:17:04', '2019-04-05 00:00:00', '2019-04-12 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(18, 1, 38, 1, 7, '2019-04-04 23:16:41', '2019-04-13 00:00:00', '2019-04-20 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+	(19, 1, 39, 1, 7, '2019-04-04 23:51:58', '2019-04-13 00:00:00', '2019-04-20 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tbladvertisement
 CREATE TABLE IF NOT EXISTS `tbladvertisement` (
-  `advertisement_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `advertisement_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `request_ID` bigint(20) NOT NULL,
   `artwork_ID` bigint(20) NOT NULL,
   `schedule_ID` bigint(20) NOT NULL,
@@ -768,66 +818,73 @@ CREATE TABLE IF NOT EXISTS `tblapprovers` (
   `emailAddress` varchar(100) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
-  `psswd` varchar(255) NOT NULL,
-  `tempsswd` varchar(10) DEFAULT NULL,
+  `workPhone` varchar(15) DEFAULT NULL,
+  `mobilePhone` varchar(15) DEFAULT NULL,
+  `office` varchar(50) DEFAULT NULL,
+  `psswd` varchar(255) DEFAULT NULL,
+  `tempsswd` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`approver_ID`,`emailAddress`),
   UNIQUE KEY `approver_ID` (`approver_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblapprovers: ~2 rows (approximately)
+-- Dumping data for table ezbdev.tblapprovers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tblapprovers` DISABLE KEYS */;
-INSERT INTO `tblapprovers` (`approver_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
-	(1, 'example@example.com', 'Felix', 'Gonzalez', 'bbf2dead374654cbb32a917afd236656', NULL),
-	(5, 'example1@example1.com', 'Juan', 'Del Pueblo', '6bc8954e3c2b6dfbb5ad2d25acc45be4', NULL),
-	(6, 'example@approver.com', 'Carlos', 'Aponte', 'd8e98f7cc38ada6fd9ca0ae9e53bf0bf', NULL);
+INSERT INTO `tblapprovers` (`approver_ID`, `emailAddress`, `firstName`, `lastName`, `workPhone`, `mobilePhone`, `office`, `psswd`, `tempsswd`) VALUES
+	(1, 'example@example.com', 'Felix', 'Gonzalez', NULL, NULL, NULL, 'bbf2dead374654cbb32a917afd236656', NULL),
+	(5, 'example1@example1.com', 'Juan', 'Del Pueblo', NULL, NULL, NULL, '6bc8954e3c2b6dfbb5ad2d25acc45be4', NULL),
+	(6, 'example@approver.com', 'Carlos', 'Aponte', NULL, NULL, NULL, 'd8e98f7cc38ada6fd9ca0ae9e53bf0bf', NULL);
 /*!40000 ALTER TABLE `tblapprovers` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblartwork
 CREATE TABLE IF NOT EXISTS `tblartwork` (
   `artwork_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_ID` bigint(20) NOT NULL,
-  `artworkURL` varchar(1000) NOT NULL,
+  `artworkURL` varchar(1000) DEFAULT NULL,
   `artworkName` varchar(50) NOT NULL,
   `extension` varchar(10) NOT NULL,
   `width` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `Size` int(11) NOT NULL,
+  `ratio` varchar(50) NOT NULL,
   PRIMARY KEY (`artwork_ID`),
   UNIQUE KEY `artwork_ID` (`artwork_ID`),
   KEY `user_ID` (`user_ID`),
   CONSTRAINT `user_ID` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblartwork: ~24 rows (approximately)
+-- Dumping data for table ezbdev.tblartwork: ~29 rows (approximately)
 /*!40000 ALTER TABLE `tblartwork` DISABLE KEYS */;
-INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, `extension`, `width`, `height`, `Size`) VALUES
-	(1, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(2, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(3, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(4, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(5, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(6, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(7, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(8, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(9, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(10, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(11, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(12, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(13, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(14, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(15, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(16, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(17, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(18, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(19, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(20, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14),
-	(21, 1, '../../img/requests/1.jpg', 'Coca Cola', 'jpg', 20, 10, 15),
-	(22, 1, '../../img/requests/2.jpg', 'BURGERTOWN', 'jpg', 80, 40, 33),
-	(23, 1, '../../img/requests/3.jpg', 'PEPSI', 'jpg', 40, 20, 25),
-	(24, 1, 'image.jpg', 'image', '.jpg', 10, 12, 14),
-	(25, 2, 'image.jpg', 'image', '.jpg', 10, 12, 14),
-	(26, 2, '../../img/requests/6.jpg', 'image', '.jpg', 10, 12, 14);
+INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, `extension`, `width`, `height`, `Size`, `ratio`) VALUES
+	(1, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(2, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(3, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(4, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(5, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(6, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(7, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(8, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(9, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(10, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(11, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(12, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(13, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(14, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(15, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(16, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(17, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(18, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(19, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(20, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
+	(21, 1, '../../img/requests/1.jpg', 'Coca Cola', 'jpg', 20, 10, 15, ''),
+	(22, 1, '../../img/requests/2.jpg', 'BURGERTOWN', 'jpg', 80, 40, 33, ''),
+	(23, 1, '../../img/requests/3.jpg', 'PEPSI', 'jpg', 40, 20, 25, ''),
+	(24, 1, 'image.jpg', 'image', '.jpg', 10, 12, 14, ''),
+	(25, 2, 'image.jpg', 'image', '.jpg', 10, 12, 14, ''),
+	(26, 2, '../../img/requests/6.jpg', 'image', '.jpg', 10, 12, 14, ''),
+	(37, 1, '../../img/requests/17.jpg', 'Ponderosa', 'jpg', 400, 200, 8000, ''),
+	(38, 1, '../../img/requests/18.png', 'capstone', 'png', 123, 345, 6778, '2:1'),
+	(39, 1, '../../img/requests/19.png', 'capstone', 'png', 123, 345, 6778, '2:1');
 /*!40000 ALTER TABLE `tblartwork` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblbillboardregulation
@@ -926,7 +983,7 @@ CREATE TABLE IF NOT EXISTS `tblcontact` (
   `officeHours` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblcontact: ~0 rows (approximately)
+-- Dumping data for table ezbdev.tblcontact: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
 INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
 	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
@@ -978,15 +1035,18 @@ CREATE TABLE IF NOT EXISTS `tblpublishers` (
   `emailAddress` varchar(100) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
-  `psswd` varchar(255) NOT NULL,
-  `tempsswd` varchar(10) DEFAULT NULL,
+  `workPhone` varchar(15) DEFAULT NULL,
+  `mobilePhone` varchar(15) DEFAULT NULL,
+  `office` varchar(50) DEFAULT NULL,
+  `psswd` varchar(255) DEFAULT NULL,
+  `tempsswd` varchar(15) NOT NULL,
   PRIMARY KEY (`publisher_ID`,`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblpublishers: ~0 rows (approximately)
+-- Dumping data for table ezbdev.tblpublishers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblpublishers` DISABLE KEYS */;
-INSERT INTO `tblpublishers` (`publisher_ID`, `emailAddress`, `firstName`, `lastName`, `psswd`, `tempsswd`) VALUES
-	(1, 'example@publisher.com', 'Carlos', 'Rodriguez', '52aded165360352a0f5857571d96d68f', NULL);
+INSERT INTO `tblpublishers` (`publisher_ID`, `emailAddress`, `firstName`, `lastName`, `workPhone`, `mobilePhone`, `office`, `psswd`, `tempsswd`) VALUES
+	(1, 'example@publisher.com', 'Carlos', 'Rodriguez', NULL, NULL, NULL, '52aded165360352a0f5857571d96d68f', '');
 /*!40000 ALTER TABLE `tblpublishers` ENABLE KEYS */;
 
 -- Dumping structure for table ezbdev.tblrequeststatus
@@ -1010,9 +1070,25 @@ INSERT INTO `tblrequeststatus` (`status_ID`, `statusName`, `statusDescription`) 
 	(6, 'Published', NULL);
 /*!40000 ALTER TABLE `tblrequeststatus` ENABLE KEYS */;
 
+-- Dumping structure for table ezbdev.tblroles
+CREATE TABLE IF NOT EXISTS `tblroles` (
+  `role_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `roleDescription` varchar(50) NOT NULL,
+  PRIMARY KEY (`role_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table ezbdev.tblroles: ~4 rows (approximately)
+/*!40000 ALTER TABLE `tblroles` DISABLE KEYS */;
+INSERT INTO `tblroles` (`role_ID`, `roleDescription`) VALUES
+	(1, 'User'),
+	(2, 'Approver'),
+	(3, 'Publisher'),
+	(4, 'Administrator');
+/*!40000 ALTER TABLE `tblroles` ENABLE KEYS */;
+
 -- Dumping structure for table ezbdev.tblschedule
 CREATE TABLE IF NOT EXISTS `tblschedule` (
-  `schedule_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `schedule_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
   `remainingSlots` int(11) NOT NULL,
   `scheduleDate` date NOT NULL,
@@ -1746,21 +1822,21 @@ INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `sch
 	(719, 8, 10, '2019-09-08'),
 	(720, 8, 10, '2019-09-09'),
 	(721, 9, 10, '2019-04-04'),
-	(722, 9, 10, '2019-04-05'),
-	(723, 9, 10, '2019-04-06'),
-	(724, 9, 10, '2019-04-07'),
-	(725, 9, 10, '2019-04-08'),
-	(726, 9, 10, '2019-04-09'),
-	(727, 9, 10, '2019-04-10'),
-	(728, 9, 10, '2019-04-11'),
+	(722, 9, 9, '2019-04-05'),
+	(723, 9, 9, '2019-04-06'),
+	(724, 9, 9, '2019-04-07'),
+	(725, 9, 9, '2019-04-08'),
+	(726, 9, 9, '2019-04-09'),
+	(727, 9, 9, '2019-04-10'),
+	(728, 9, 9, '2019-04-11'),
 	(729, 9, 10, '2019-04-12'),
-	(730, 9, 10, '2019-04-13'),
-	(731, 9, 10, '2019-04-14'),
-	(732, 9, 10, '2019-04-15'),
-	(733, 9, 10, '2019-04-16'),
-	(734, 9, 10, '2019-04-17'),
-	(735, 9, 10, '2019-04-18'),
-	(736, 9, 10, '2019-04-19'),
+	(730, 9, 8, '2019-04-13'),
+	(731, 9, 8, '2019-04-14'),
+	(732, 9, 8, '2019-04-15'),
+	(733, 9, 8, '2019-04-16'),
+	(734, 9, 8, '2019-04-17'),
+	(735, 9, 8, '2019-04-18'),
+	(736, 9, 8, '2019-04-19'),
 	(737, 9, 10, '2019-04-20'),
 	(738, 9, 10, '2019-04-21'),
 	(739, 9, 10, '2019-04-22'),
@@ -2294,7 +2370,7 @@ CREATE TABLE IF NOT EXISTS `tblsettings` (
   PRIMARY KEY (`sett_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblsettings: ~0 rows (approximately)
+-- Dumping data for table ezbdev.tblsettings: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
 INSERT INTO `tblsettings` (`sett_ID`, `about`) VALUES
 	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor');
@@ -2304,6 +2380,8 @@ INSERT INTO `tblsettings` (`sett_ID`, `about`) VALUES
 CREATE TABLE IF NOT EXISTS `tblusers` (
   `user_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `emailAddress` varchar(100) NOT NULL,
+  `role_ID` int(11) DEFAULT NULL,
+  `office` varchar(50) DEFAULT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `mobilePhone` varchar(15) DEFAULT NULL,
@@ -2331,11 +2409,11 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
 
 -- Dumping data for table ezbdev.tblusers: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
-INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`) VALUES
-	(1, 'exam@ple.com', 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, 0),
-	(2, 'example@billboards.com', 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, 0),
-	(3, 'example2@billboards.com', 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, 0),
-	(4, 'asd@asdf.com', 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 0);
+INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`) VALUES
+	(1, 'exam@ple.com', NULL, NULL, 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, 0),
+	(2, 'example@billboards.com', NULL, NULL, 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, 0),
+	(3, 'example2@billboards.com', NULL, NULL, 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, 0),
+	(4, 'asd@asdf.com', NULL, NULL, 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 0);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
