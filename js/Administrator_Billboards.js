@@ -40,7 +40,8 @@ $(document).ready(function(){
 	$("table").on("click", "tr .information", function(){
   	var billboardID = $(this).attr("id");
 	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
-  		var info = JSON.parse(data);
+  		console.log(data);
+		var info = JSON.parse(data);
 		$("#editBillboardname").attr('value',info.name);
   		$("#billboard-edit-img-tag").attr('src',info.img);
   		//$("#info-image").attr("alt",info.name);
@@ -92,7 +93,11 @@ function readURL(input) {
 		var reader = new FileReader();
 		
 		reader.onload = function (e) {
-			$('#billboard-img-tag').attr('src', e.target.result);
+			if(input.id == 'billboard-img'){
+				$('#billboard-img-tag').attr('src', e.target.result);
+			}else{
+				 $('#billboard-edit-img-tag').attr('src', e.target.result);
+			}
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
