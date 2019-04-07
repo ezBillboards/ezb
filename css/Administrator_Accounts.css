@@ -74,33 +74,6 @@ body {
   padding: 5px;
 }
 
-
-.glyphicon{
-  font-size: 250%;
-
-}
-
-.glyphicon.glyphicon-user{
-      font-size: 15px;
-        color: gray;
-}
-
-.glyphicon.glyphicon-envelope{
-      font-size: 15px;
-        color: gray;
-}
-
-.glyphicon.glyphicon-phone{
-      font-size: 15px;
-        color: gray;
-}
-
-.glyphicon.glyphicon-asterisk{
-      font-size: 15px;
-        color: gray;
-}
-
-
 .img-responsive.Artwork1-logo{
     width: 60%;
     height: 15%;

@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $userID = 1; //Change to GET later.
-$sql = "CALL getUserRequest($userID, 3)";
+$sql = "CALL getUserRequest($userID, 4)";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 

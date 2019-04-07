@@ -4,36 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="Administrator_BackUp.css">
+  <link rel="stylesheet" href="../css/Administrator_BackUp.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="../js/administrator-backups.js"></script>
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-border navbar-height">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="myNavbar">
-         <a class="navbar-brand">
-          <img src="../Icons/EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
-        </a>
-        <ul class="nav navbar-nav navbar-right navbar-text">
-          <li><a class="navbar-text-color" href="#">Settings</a></li>
-          <li><a class="navbar-text-color" href="#">Accounts</a></li>
-          <li><a class="navbar-text-color" href="#">Billboards</a></li>
-          <li><a class="navbar-text-color" href="#">Logs</a></li>
-              <li><a class="navbar-text-color" href="#">Backups</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Account</a></li>
-              <li><a href="#">Logout</a></li>
-            </ul>
-          </li>
-          <li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<nav class="navbar navbar-default navbar-border navbar-height">
+   <div class="container-fluid">
+     <div class="collapse navbar-collapse" id="myNavbar">
+      <a class="navbar-brand">
+       <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+     </a>
+     <ul class="nav navbar-nav navbar-right navbar-text">
+       <li><a class="navbar-text-color" href="#">Settings</a></li>
+       <li><a class="navbar-text-color" href="#">Accounts</a></li>
+       <li><a class="navbar-text-color" href="#">Billboards</a></li>
+       <li><a class="navbar-text-color" href="#">Logs</a></li>
+       <li><a class="navbar-text-color" href="#">Backups</a></li>
+       <li><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
+       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button>
+     </ul>
+   </div>
+ </div>
+</nav>
 
 
 
@@ -52,10 +47,10 @@
     <div class="col-sm-8">
     <div class="input-group">
                <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
-               <input id="Backup" type="text" class="form-control" name="Backup" placeholder="Backup">
+               <input id="filename" type="text" class="form-control" name="Backup" placeholder="Backup Filename">
              </div>
          </div>
-    <div class="col-sm-2"><button type="button" class="btn btn-info">Backup</button></div>
+    <div class="col-sm-2"><button id="backup" type="button" class="btn btn-info">Backup</button></div>
 
 
 <br>

@@ -46,6 +46,7 @@ $(document).ready(function(){
 	$("#upload-image").val("");
 	files = null;
 	img = null;
+	fd = new FormData();
 	if(currentSelectedPackage != null){
 		currentSelectedPackage.removeClass("selected-package");
 		currentSelectedPackage = null;
@@ -80,33 +81,26 @@ $(document).ready(function(){
 
   $("#request-btn").click(function(){
 	if(currentSelectedPackage != null && $("#upload-image").val() != ""){
-		$.post("../server/user-make-request.php",
-			{
-				billboardID: currentBillboardID,
-				userID: 1,//Change later.
-				sDate: startingDate,
-				packetID: currentSelectedPackage.attr("id"),
-				fileName: files.name,
-				extension: files.type,
-				size: files.size,
-				width: img.width,
-				height: img.height,
-				ratio: getAspectRatio(img.width, img.height)
-			}, function(data, status){
-			if(status == "success"){
-				console.log(data);
-				$.ajax({
-					url: '../server/user-request-upload.php',
-            		    		type: 'post',
-            		   		data: fd,
-            				mimeType:"multipart/form-data",
-            				contentType: false,
-            				processData: false,
-            				success: function(response){
-                    				console.log(response);
-            				},
-        			});
-			}
+		fd.append('billboardID', parseInt(currentBillboardID));
+		fd.append('userID', 1); //Change later.
+		fd.append('sDate', startingDate);
+		fd.append('packetID', parseInt(currentSelectedPackage.attr("id")));
+		fd.append('fileName', files.name.split(".")[0]);
+		fd.append('extension', files.type.substring(6));
+		fd.append('size', files.size);
+		fd.append('width', img.width);
+		fd.append('height', img.height);
+		fd.append('ratio', getAspectRatio(img.width, img.height));
+		$.ajax({
+			url: '../server/user-make-request.php',
+            		type: 'POST',
+            		data: fd,
+            		mimeType:"multipart/form-data",
+            		contentType: false,
+            		processData: false,
+            		success: function(response){
+	                    	console.log(response);
+            		}
 		});
 	} else {
 		alert("Make sure to pick all fields.");
@@ -114,7 +108,6 @@ $(document).ready(function(){
   });
   
   $("#upload-image").bind('change', function() {
-	fd = new FormData();
         files = this.files[0];
         fd.append('upload-image',files);
 
