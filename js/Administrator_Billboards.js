@@ -1,6 +1,9 @@
 /*Administrator billboards JavaScript*/
 
 $(document).ready(function(){
+	
+	  getBillboards();
+	  
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
     });
@@ -23,18 +26,47 @@ $(document).ready(function(){
 		"</td>";
 		$("#add-package").append(newPackage);
 	});
-	$("#profile-img").change(function(){
+	
+	$("#billboard-img").change(function(){
 	        readURL(this);
         	console.log('reading URL of image');
 	});
 });
+
+function getBillboards(){
+	$.get("../server/user-billboards.php", function(data, status){
+		billboards = JSON.parse(data);
+		var billboard = "";
+		for (var i = 0; i < billboards.length; i++) {
+			billboard += "<tr>" +
+			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
+			"<div class=\"row\">" +
+				"<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
+					"<img class=\"img-rounded\ billboard-images\" src=\""+ billboards[i].img + "\"></img>" +
+				"</div>" +
+				"<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
+					"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
+				"</div>" +
+			"</div></td>" +
+			"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
+			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +
+			"<a href=\"#\"><span class=\"glyphicon glyphicon-pencil\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+			
+			"</td>" +
+			"</tr>";
+		}
+		$("#billboards").empty();
+		$("#billboards").append(billboard);
+	});
+}
   
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		
 		reader.onload = function (e) {
-			$('#profile-img-tag').attr('src', e.target.result);
+			$('#billboard-img-tag').attr('src', e.target.result);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}

@@ -79,12 +79,8 @@
             <div class="jumbotron col-lg-4">
               <div class="container mt-3">
                 <form action="/action_page.php">
-					<input type="file" name="file" id="profile-img">
-					<img src="" id="profile-img-tag" width="200px" />
-					<input type="file" id="myFile" name="filename2">
-					<div class="mt-3">
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</div>
+					<img src="" id="billboard-img-tag" width="300px" />
+					<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
                 </form>
               </div>
             </div>
@@ -275,33 +271,34 @@
 
     <!---Modify------>
     <div id="Modify" class="tab-pane fade">
-      <table class="table table-bordered responsive">
-       <tbody>
-         <tr>
-           <td><div class="col-lg-8 text-center">
+      <div class="row">
+		 <div class="col-lg-12 text-center"><h1 class="billboard-header">Billboards</h1></div>
+		 <div class="col-lg-12 text-center">Take advantage of our billboards! By renting our billboards you will be funding our students and will be helping them achieve their goals. Be part of this exciting initiative and rent your billboard now!</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-8 input-group form-group-lg" style="margin:auto;">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+				<input id="search" type="text" class="form-control" name="search" placeholder="Search">
+			</div>
+		</div>
+		<br>
+		<div class="row">          
+			<div class="col-lg-10 table-responsive" style="padding-left: 16.66%;">
+		   <table class="table table-striped">
+			 <thead>
+			   <tr>
+				 <th class="text-center">Billboard</th>
+				 <th class="text-center">Actions</th>
+			   </tr>
+			 </thead>
+			 <tbody id="billboards">
 
-             <div class="row">
-                 <div class="column">
-                   <img src="../Icons/Artwork1.jpg" class="img-responsive Artwork1-logo" alt="Artwork1 Logo">
-                 </div>
-                 <div class="column">
-                   <h5>Role: Adminitrator</h5>
-                   <h5>Work phone: 787-787-7878</h5>
-                   <h5>Mobile Phone: 123-456-7890</h5>
-                   <h5>Office Number: 30</h5>
-                 </div>
-                 <div class="column">
-                   <a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#EditModal"><br></span></a>
-                   <a href="#"><span class="glyphicon glyphicon-trash"><br></span></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+			 </tbody>
+		   </table>
+		 </div>
+		</div>
+	</div>
 
 
 
