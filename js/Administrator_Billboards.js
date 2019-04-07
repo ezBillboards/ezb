@@ -1,4 +1,5 @@
 /*Administrator billboards JavaScript*/
+var packages;
 
 $(document).ready(function(){
 	
@@ -38,26 +39,57 @@ $(document).ready(function(){
 	});
 	
 	$("table").on("click", "tr .information", function(){
-  	var billboardID = $(this).attr("id");
-	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
-  		console.log(data);
-		var info = JSON.parse(data);
-		$("#editBillboardname").attr('value',info.name);
-  		$("#billboard-edit-img-tag").attr('src',info.img);
-  		//$("#info-image").attr("alt",info.name);
-  		$("#width").attr('value',info.width);
-  		$("#height").attr('value',info.height);
-  		$("#latitude").attr('value',info.latitude);
-  		$("#longitude").attr('value',info.longitude);
-  		$("#read-time").attr('value',info.readTime);
-  		$("#impressions").attr('value',info.impressions);
-  		$("#traffic").attr('value',info.traffic);
-  		$("#min-wid").attr('value',info.minWidth);
-		$("#min-hei").attr('value',info.minHeight);
-  		$("#max-wid").attr('value',info.maxWidth);
-		$("#max-hei").attr('value',info.maxHeight);
+		var billboardID = $(this).attr("id");
+		$.get("../server/user-billboardInfo.php", 
+			{id: billboardID},
+			function(data, status){
+			console.log(data);
+			var info = JSON.parse(data);
+			$("#editBillboardname").attr('value',info.name);
+			$("#billboard-edit-img-tag").attr('src',info.img);
+			//$("#info-image").attr("alt",info.name);
+			$("#width").attr('value',info.width);
+			$("#height").attr('value',info.height);
+			$("#latitude").attr('value',info.latitude);
+			$("#longitude").attr('value',info.longitude);
+			$("#read-time").attr('value',info.readTime);
+			$("#impressions").attr('value',info.impressions);
+			$("#traffic").attr('value',info.traffic);
+			$("#min-wid").attr('value',info.minWidth);
+			$("#min-hei").attr('value',info.minHeight);
+			$("#max-wid").attr('value',info.maxWidth);
+			$("#max-hei").attr('value',info.maxHeight);
+		});
+		
+		$.get("../server/admin-billboard-packages.php", 
+			{id: billboardID}, 
+			function(data, status){
+			console.log(data);
+			if(data == "No results"){
+				alert('No pacakages found!!');
+			}else{
+				packages = JSON.parse(data);
+                var package = "";
+                for (var i = 0; i < packages.length; i++) {
+					package += "<tr id=\"" + packages[i].id + "\">" +
+					"<td>"+packages[i].duration + "Day</td>" +
+					"<td>"+packages[i].frequency + "</td>" +
+					"<td>"+packages[i].price + "</td>" +
+					"<td>" +
+					"<div class=\"column\">" +
+					"<div class=\"row\">" +
+					"<div class=\"col-lg-6\">" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+					"</div>" +
+					"</div>" +
+					"</td>";
+                }
+				$("#edit-packages").empty();
+                $("#edit-packages").append(package);
+			}
+			
+		});
 	});
-  });
 });
 
 function getBillboards(){
@@ -75,8 +107,6 @@ function getBillboards(){
 					"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 				"</div>" +
 			"</div></td>" +
-			/*"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
-			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +*/
 			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
 			"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
 			
