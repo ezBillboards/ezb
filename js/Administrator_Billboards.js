@@ -31,6 +31,27 @@ $(document).ready(function(){
 	        readURL(this);
         	console.log('reading URL of image');
 	});
+	
+	$("table").on("click", "tr .information", function(){
+  	var billboardID = $(this).attr("id");
+	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
+  		var info = JSON.parse(data);
+		$("#editBillboardname").text(info.name);
+  		$("#billboard-img-tag").attr("src",info.img);
+  		//$("#info-image").attr("alt",info.name);
+  		$("#width").value(info.width);
+  		$("#height").value(info.height
+  		$("#latitude").value(info.latitude);
+  		$("#longitude").value(info.longitude);
+  		$("#read-time").value(info.readTime);
+  		$("#impressions").value(info.impressions);
+  		$("#traffic").value(info.traffic);
+  		$("#min-wid").value(info.minWidth);
+		$("#min-hei").value(info.minHeight);
+  		$("#max-wid").value(info.maxWidth);
+		$("#max-hei").value(info.maxHeight);
+	});
+  });
 });
 
 function getBillboards(){
@@ -48,10 +69,10 @@ function getBillboards(){
 					"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 				"</div>" +
 			"</div></td>" +
-			"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
-			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +
-			"<a href=\"#\"><span class=\"glyphicon glyphicon-pencil\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+			/*"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
+			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +*/
+			"<a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
+			"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
 			
 			"</td>" +
 			"</tr>";
