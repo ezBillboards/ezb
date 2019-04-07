@@ -58,10 +58,6 @@ $(document).ready(function(){
                 }
 	});
 	
-	$("#btnresend").click(function(){
-		
-	});
-	
 	$("#btnverify").click(function(){
 		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
 			VerifyEmail();	
@@ -70,6 +66,11 @@ $(document).ready(function(){
 			alert('Verification code incorrect');
 		}
 	});
+	
+	$("#btnresend").click(function(){
+		sendVerificationCode();
+	});
+	
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');

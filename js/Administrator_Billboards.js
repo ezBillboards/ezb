@@ -29,7 +29,12 @@ $(document).ready(function(){
 	
 	$("#billboard-img").change(function(){
 	        readURL(this);
-        	console.log('reading URL of image');
+        	console.log(this);
+	});
+	
+	$("#billboard-edit-img").change(function(){
+	        readURL(this);
+        	console.log(this);
 	});
 	
 	$("table").on("click", "tr .information", function(){
