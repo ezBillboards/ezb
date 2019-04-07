@@ -39,17 +39,17 @@ $(document).ready(function(){
 		$("#editBillboardname").text(info.name);
   		$("#billboard-img-tag").attr("src",info.img);
   		//$("#info-image").attr("alt",info.name);
-  		$("#width").value(info.width);
-  		$("#height").value(info.height
-  		$("#latitude").value(info.latitude);
-  		$("#longitude").value(info.longitude);
-  		$("#read-time").value(info.readTime);
-  		$("#impressions").value(info.impressions);
-  		$("#traffic").value(info.traffic);
-  		$("#min-wid").value(info.minWidth);
-		$("#min-hei").value(info.minHeight);
-  		$("#max-wid").value(info.maxWidth);
-		$("#max-hei").value(info.maxHeight);
+  		$("#width").attr('value',info.width);
+  		$("#height").attr('value',info.height);
+  		$("#latitude").attr('value',info.latitude);
+  		$("#longitude").attr('value',info.longitude);
+  		$("#read-time").attr('value',info.readTime);
+  		$("#impressions").attr('value',info.impressions);
+  		$("#traffic").attr('value',info.traffic);
+  		$("#min-wid").attr('value',info.minWidth);
+		$("#min-hei").attr('value',info.minHeight);
+  		$("#max-wid").attr('value',info.maxWidth);
+		$("#max-hei").attr('value',info.maxHeight);
 	});
   });
 });
@@ -71,7 +71,7 @@ function getBillboards(){
 			"</div></td>" +
 			/*"<td class=\"text-center\" style=\"vertical-align: middle;width: 50%;\"><span class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p>Information</p></span>" +
 			"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p>Request</p></span>" +*/
-			"<a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
+			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
 			"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
 			
 			"</td>" +
