@@ -36,8 +36,8 @@ $(document).ready(function(){
   	var billboardID = $(this).attr("id");
 	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
   		var info = JSON.parse(data);
-		$("#editBillboardname").text(info.name);
-  		$("#billboard-img-tag").attr("src",info.img);
+		$("#editBillboardname")attr('value',info.name);
+  		$("#billboard-edit-img-tag").attr('src',info.img);
   		//$("#info-image").attr("alt",info.name);
   		$("#width").attr('value',info.width);
   		$("#height").attr('value',info.height);
