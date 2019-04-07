@@ -14,7 +14,7 @@ if($conn === false){
 $billboardID = $_GET['billboardID'];
 $packages = array();
 
-$sql = "CALL getPackages($billboardID)";
+$sql = "CALL getAdminPackages($billboardID)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {
