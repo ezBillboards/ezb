@@ -3,7 +3,6 @@
 $filename = $_POST['filename'];
 $backupDir = "../../backups/";
 $backup = $backupDir . $filename;
-
 $zip = new ZipArchive();
 
 if($zip->open($backup, ZipArchive::CREATE)){
@@ -12,7 +11,7 @@ if($zip->open($backup, ZipArchive::CREATE)){
 	if($retval != 0){"ERROR making dump file.";}
 	
 	if(file_exists("../../sqlDumps/ezb-dump.sql")){
-	        $zip->addFile("../../sqlDumps/ezb-dump.sql", "ezb-dump.sql");
+	        $zip->addFile("../../sqlDumps/ezb-dump.sql", "/ezb-dump.sql");
         } else {
                 echo "ERROR backing up dump file.";
         }
@@ -22,7 +21,7 @@ if($zip->open($backup, ZipArchive::CREATE)){
 	
 	for ($i = 2; $i < count($ezbImages); $i++) {
 		if(file_exists($ezbImageDir . $ezbImages[$i])){
-			$zip->addFile($ezbImageDir . $ezbImages[$i], "img/ezb/" . $ezbImages[$i]);
+			$zip->addFile($ezbImageDir . $ezbImages[$i], "/img/ezb/" . $ezbImages[$i]);
 		} else {
 			echo "ERROR backing up a ezb image = " . $ezbImages[$i] . ".";
 		}
@@ -33,7 +32,7 @@ if($zip->open($backup, ZipArchive::CREATE)){
 
         for ($i = 2; $i < count($billboardImages); $i++) {
                 if(file_exists($billboardsImageDir . $billboardImages[$i])){
-                        $zip->addFile($billboardsImageDir . $billboardImages[$i], "img/billboards/" . $billboardImages[$i]);
+                        $zip->addFile($billboardsImageDir . $billboardImages[$i], "/img/billboards/" . $billboardImages[$i]);
                 } else {
                         echo "ERROR backing up a billboard image = " . $billboardImages[$i] . ".";
                 }
@@ -44,7 +43,7 @@ if($zip->open($backup, ZipArchive::CREATE)){
 
         for ($i = 2; $i < count($requestImages); $i++) {
                 if(file_exists($requestsImageDir . $requestImages[$i])){
-                        $zip->addFile($requestsImageDir . $requestImages[$i], "img/requests/" . $requestImages[$i]);
+                        $zip->addFile($requestsImageDir . $requestImages[$i], "/img/requests/" . $requestImages[$i]);
                 } else {
                         echo "ERROR backing up a request image = " . $requestImages[$i] . ".";
                 }
