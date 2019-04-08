@@ -47,6 +47,7 @@ $(document).ready(function(){
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
+		newBillboard();
 		var packages = [];
 		var regulations = [];
 		$("#add-package tr").each(function() {
@@ -186,8 +187,8 @@ function readURL(input) {
 }
 
 function newBillboard(){
-	console.log($("#addBillboardname").val());
-	console.log($("#adddescription").val());
+	//console.log($("#addBillboardname").val());
+	//console.log(document.getElementById("adddescription").value);
 	console.log($("#addwidth").val());
 	$.post("../server/administrator-add-billboard.php",
 			{
