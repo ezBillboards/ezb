@@ -12,20 +12,22 @@ $(document).ready(function(){
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
-		"<td>1 Day</td>" +
-		"<td>Every 4 min.</td>" +
-		"<td>$15.45</td>" +
+		"<td><input id=\"Duration\" type=\"text\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
+		"<td><input id=\"Frequency\" type=\"text\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
+		"<td><input id=\"Price\" type=\"text\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
 		"<td>" +
 		"<div class=\"column\">" +
 		"<div class=\"row\">" +
 		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-pencil\"><br></span></a></div>" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
 		"</div>" +
 		"</div>" +
 		"</td>";
 		$("#add-package").append(newPackage);
+	});
+	
+	$("table").on("click", "tr .remove", function(){
+		 $(this).closest('tr').remove();
 	});
 	
 	$('#btnnewbillboard').click(function(){
@@ -36,10 +38,8 @@ $(document).ready(function(){
 				console.log(this.value);
 				packages.push(this.value);
 			});
-			console.log(packages);
 		});
-		
-		
+		console.log(packages);	
 	});
 	
 	$("#billboard-img").change(function(){
