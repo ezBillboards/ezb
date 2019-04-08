@@ -83,16 +83,16 @@ $(document).ready(function(){
 					"</div>" +
 					"</div>" +
 					"</td>";
-                }
+                		}
 				$("#edit-packages").empty();
-                $("#edit-packages").append(package);
+		                $("#edit-packages").append(package);
 			}
 			
 		});
 	});
 	
 	$("table").on("click", "tr .delete", function(){
-		alert('Disable package entry!!');
+		$(this).closest('tr').remove();
 	});
 });
 
