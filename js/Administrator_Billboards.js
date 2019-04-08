@@ -92,14 +92,15 @@ $(document).ready(function(){
 	});
 	
 	$("table").on("click", "tr .delete", function(){
-		var billboardID = $(this).attr("id");
+		var packageID = $(this).closest('tr').attr("id");
+		var tr = $(this).closest('tr');
 		$.post("../server/administrator-delete-package.php",
 			{
-				id:billboardID
+				id:packageID
 			},function(data,status){
 				if(status === "success"){
-					$(this).closest('tr').remove();
-				console.log(status);
+					console.log(status);
+					tr.remove();
 				}else{
 					console.log('Error deleting pacakge!!');
 				}
