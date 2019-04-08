@@ -79,7 +79,7 @@ $(document).ready(function(){
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
 					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions delete\"><br></span></a>" +
 					"</div>" +
 					"</div>" +
 					"</td>";
@@ -89,6 +89,10 @@ $(document).ready(function(){
 			}
 			
 		});
+	});
+	
+	$("table").on("click", "tr .delete", function(){
+		alert('Disable package entry!!');
 	});
 });
 
