@@ -190,6 +190,7 @@ function newBillboard(){
 	//console.log($("#addBillboardname").val());
 	//console.log(document.getElementById("adddescription").value);
 	console.log($("#addwidth").val());
+	console.log($("#addheight").val());
 	$.post("../server/administrator-add-billboard.php",
 			{
 				name:$("#addBillboardname").val(),
