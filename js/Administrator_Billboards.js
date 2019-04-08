@@ -185,6 +185,34 @@ function readURL(input) {
 	}
 }
 
+function newBillboard(){
+	$.post("../server/administrator-add-billboard.php",
+			{
+				name:$("#addBillboardname").val(),
+				description:$("#adddescription").val(),
+				//url:,
+				width:$("#addwidth").val(),
+				height:$("#addheight").val(),
+				latitude:$("#addlatitude").val(),
+				longitude:$("#addlongitude").val(),
+				minwidth:$("#addminwidth").val(),
+				maxwidth:$("#addmaxwidth").val(),
+				minheight:$("#addminheight").val(),
+				maxheight:$("#addmaxheight").val(),
+				readtime:$("#addreadtime").val(),
+				impressions:$("#addimpressions").val(),
+				traffic:$("#addtraffic").val(),
+				//cycle:$("#addBillboardname").val()
+			},function(data,status){
+				console.log(data);
+				if(status === "success"){
+					//console.log('Billboard added successfully');
+				}else{
+					//console.log('Error registering bilboard!!');
+				}
+		});
+}
+
 (function ($) {
 $('.spinner .btn:first-of-type').on('click', function() {
   $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
