@@ -92,7 +92,18 @@ $(document).ready(function(){
 	});
 	
 	$("table").on("click", "tr .delete", function(){
-		$(this).closest('tr').remove();
+		var billboardID = $(this).attr("id");
+		$.post("../server/administrator-delete-package.php",
+			{
+				id:billboardID
+			},function(data,status){
+				if(status === "success"){
+					$(this).closest('tr').remove();
+				console.log(status);
+				}else{
+					console.log('Error deleting pacakge!!');
+				}
+		});
 	});
 });
 
