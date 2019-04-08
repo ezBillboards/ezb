@@ -186,6 +186,9 @@ function readURL(input) {
 }
 
 function newBillboard(){
+	console.log($("#addBillboardname").val());
+	console.log($("#adddescription").val());
+	console.log($("#addwidth").val());
 	$.post("../server/administrator-add-billboard.php",
 			{
 				name:$("#addBillboardname").val(),
