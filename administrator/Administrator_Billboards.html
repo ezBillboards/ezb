@@ -82,7 +82,7 @@
 					<form action="/action_page.php">
 						<div class="form-group">
 							<label for="about">Billboard Description:</label>
-							<textarea class="form-control" rows="5" id="about" name="text"></textarea>
+							<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
 						</div>
 					</form>
 				</div>
@@ -101,13 +101,13 @@
                <div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="widthQuantity" min="1" max="3000">
+                   <input id="addwidth" type="number" placeholder="1" name="widthQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3"><strong style = "color:white;">Minimum Width Resolution (Pixels):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="rWidthQuantity" min="1" max="3000">
+                   <input id="addminwidth" type="number" placeholder="1" name="rWidthQuantity" min="1" max="3000">
                  </form>
                </div>
             </div>
@@ -118,13 +118,13 @@
                <div class="col-lg-3"><strong style = "color:white;">Height:</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="heightQuantity" min="1" max="3000">
+                   <input id="addheight" type="number" placeholder="1" name="heightQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3""><strong style = "color:white;">Minimum Height Resolution (Pixels):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="rHeightQuantity" min="1" max="3000">
+                   <input id="addminheight" type="number" placeholder="1" name="rHeightQuantity" min="1" max="3000">
                  </form>
                </div>
             </div>
@@ -132,16 +132,16 @@
             <br>
 
             <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Latitud (Degrees):</strong></div>
+               <div class="col-lg-3"><strong style = "color:white;">Latitude (Degrees):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="latitudQuantity" min="1" max="3000">
+                   <input id="addlatitude" type="number" placeholder="1" name="latitudQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3"><strong style = "color:white;">Maximun Width Resolution (Pixels):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="maxdWidthQuantity" min="1" max="3000">
+                   <input id="addmaxwidth" type="number" placeholder="1" name="maxdWidthQuantity" min="1" max="3000">
                  </form>
                </div>
             </div>
@@ -149,16 +149,16 @@
 
             <br>
             <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Longitud (Degrees):</strong></div>
+               <div class="col-lg-3"><strong style = "color:white;">Longitude (Degrees):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="latitudQuantity" min="1" max="3000">
+                   <input id="addlongitude" type="number" placeholder="1" name="latitudQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3"><strong style = "color:white;">Maximun Height Resolution (Pixels):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="maxdHeightQuantity" min="1" max="3000">
+                   <input id="addmaxheight" type="number" placeholder="1" name="maxdHeightQuantity" min="1" max="3000">
                  </form>
                </div>
             </div>
@@ -168,13 +168,13 @@
                <div class="col-lg-3"><strong style = "color:white;">Impressions (Daily):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="impressionsQuantity" min="1" max="3000">
+                   <input id="addimpressions" type="number" placeholder="1" name="impressionsQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3"><strong style = "color:white;">Image Toletance (%):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="imageTolerance" min="1" max="3000">
+                   <input id="addtolerance" type="number" placeholder="1" name="imageTolerance" min="1" max="3000">
                  </form>
                </div>
             </div>
@@ -184,13 +184,13 @@
                <div class="col-lg-3"><strong style = "color:white;">Traffic (Daily):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="trafficQuantity" min="1" max="3000">
+                   <input id="addtraffic" type="number" placeholder="1" name="trafficQuantity" min="1" max="3000">
                  </form>
                </div>
                <div class="col-lg-3"><strong style = "color:white;">Read Time (seconds):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
-                   <input type="number" placeholder="1" name="readTime" min="1" max="6">
+                   <input id="addreadtime" type="number" placeholder="1" name="readTime" min="1" max="6">
                  </form>
                </div>
             </div>
