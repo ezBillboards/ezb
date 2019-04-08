@@ -30,11 +30,13 @@ $(document).ready(function(){
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
-		
-		$("#add-package tr.item").each(function() {
-			console.log($(this).find("input.name").val());
-			//var quantity1 = $(this).find("input.name").val(),
-            //quantity2 = $(this).find("input.id").val();
+		var packages = [];
+		$("#add-package tr").each(function() {
+			$(this).find('td').find('input').each(function(){
+				console.log(this.value);
+				packages.push(this.value);
+			});
+			console.log(packages);
 		});
 		
 		
