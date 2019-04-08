@@ -11,10 +11,10 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$id = $_GET['billboardID'];
+$id = $_GET['id'];
 $packages = array();
 
-$sql = "CALL getAdminPackages($billboardID)";
+$sql = "CALL getAdminPackages($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {

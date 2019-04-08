@@ -61,7 +61,7 @@ $(document).ready(function(){
 			$("#max-hei").attr('value',info.maxHeight);
 		});
 		
-		$.get("../server/admin-billboard-packages.php", 
+		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardID}, 
 			function(data, status){
 			console.log(data);
