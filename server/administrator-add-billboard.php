@@ -27,6 +27,8 @@ $impressions = $_POST['impressions'];
 $traffic = $_POST['traffic'];
 $cycle = 4;
 
+echo $name . " " . $description . " " . $url . " " . $width . " " . $height . " " . $latitude . " " . $longitude . " " . $readtime;
+
 $sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
 $result = mysqli_query($conn,$sql);
 
