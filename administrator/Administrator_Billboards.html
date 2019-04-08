@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
- <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="../css/Administrator_Billboards.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
- <script src="../js/Administrator_Billboards.js"></script>
-
-
-
-
-
+	<title>Billboards</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/Administrator_Billboards.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="../js/Administrator_Billboards.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-border navbar-height">
@@ -219,7 +215,7 @@
               </thead>
               <tbody id="add-package">
                 <tr>
-                  <td>1 Day</td>
+                  <td><input id="Duration" value="1" type="text" class="form-control" name="Duration" placeholder="Duration"> Day</td>
                   <td>Every 4 min.</td>
                   <td>$15.45</td>
                   <td>
@@ -234,7 +230,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>1 Week</td>
+                  <td><input id="Duration" value="2" type="text" class="form-control" name="Duration" placeholder="Duration"> Week</td>
                   <td>Every 4 min.</td>
                   <td>$35.45</td>
                   <td>
@@ -257,11 +253,11 @@
         </div>
       </div>
 
-   <div class="row">
-     <div class="col-lg-12 text-center">
-        <button type="button" class="btn btn-info">Add</button>
-      </div>
-  </div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<button id="btnnewbillboard" type="button" class="btn btn-info">Add</button>
+		</div>
+	</div>
 
 <br>
 

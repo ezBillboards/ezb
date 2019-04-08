@@ -28,6 +28,18 @@ $(document).ready(function(){
 		$("#add-package").append(newPackage);
 	});
 	
+	$('#btnnewbillboard').click(function(){
+		console.log('btnnewbillboard clicked!');
+		
+		$("#add-package tr.item").each(function() {
+			console.log($(this).find("input.name").val());
+			//var quantity1 = $(this).find("input.name").val(),
+            //quantity2 = $(this).find("input.id").val();
+		});
+		
+		
+	});
+	
 	$("#billboard-img").change(function(){
 	        readURL(this);
         	console.log(this.id);
