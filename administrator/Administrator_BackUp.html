@@ -44,36 +44,26 @@
 
 <div class="well well-lg text-center" style="background-color:#607d8b;">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-lg-8">
     <div class="input-group">
                <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
                <input id="filename" type="text" class="form-control" name="Backup" placeholder="Backup Filename">
              </div>
          </div>
-    <div class="col-sm-2"><button id="backup" type="button" class="btn btn-info">Backup</button></div>
+    <div class="col-lg-2"><button id="backup" type="button" class="btn btn-info">Backup</button></div>
 
 
 <br>
 <br>
 <br>
     <div class="row">
-      <div class="col-sm-8">
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select File
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-              <li class="divider"></li>
-              <li><a href="#">About Us</a></li>
-            </ul>
-               </div>
-           </div>
-      <div class="col-sm-2"><button type="button" class="btn btn-info">Restore</button></div>
+      <div class="col-lg-8">
+		<select id="backup-files" class="form-control">
 
-
-
+		</select>
+      </div>
+      <div class="col-lg-2"><button id="restore" type="button" class="btn btn-info">Restore</button></div>
+    </div>
 </div>
 </div>
 
