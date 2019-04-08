@@ -48,13 +48,20 @@ $(document).ready(function(){
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
 		var packages = [];
+		var regulations = [];
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
-				console.log(this.value);
+				packages.push(this.value);
+			});
+		});
+		
+		$("#add-regulation tr").each(function() {
+			$(this).find('td').find('input').each(function(){
 				packages.push(this.value);
 			});
 		});
 		console.log(packages);	
+		console.log(regulations);
 	});
 	
 	$("#billboard-img").change(function(){
