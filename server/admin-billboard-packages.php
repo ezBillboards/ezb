@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$billboardID = $_GET['billboardID'];
+$id = $_GET['billboardID'];
 $packages = array();
 
 $sql = "CALL getAdminPackages($billboardID)";
