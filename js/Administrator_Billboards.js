@@ -26,6 +26,21 @@ $(document).ready(function(){
 		$("#add-package").append(newPackage);
 	});
 	
+	$('#btnaddregulation').click(function(){
+		console.log('btnaddpackage clicked!');
+		var newRegulation = "<tr>" +
+		"<td><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+		"<td>" +
+		"<div class=\"column\">" +
+		"<div class=\"row\">" +
+		"<div class=\"col-lg-6\">" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+		"</div>" +
+		"</div>" +
+		"</td>";
+		$("#add-regulation").append(newRegulation);
+	});
+	
 	$("table").on("click", "tr .remove", function(){
 		 $(this).closest('tr').remove();
 	});
