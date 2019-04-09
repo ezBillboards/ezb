@@ -48,7 +48,7 @@ $(document).ready(function(){
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
 		newBillboard();
-		var packages = [];
+		/*var packages = [];
 		var regulations = [];
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
@@ -62,7 +62,7 @@ $(document).ready(function(){
 			});
 		});
 		console.log(packages);	
-		console.log(regulations);
+		console.log(regulations);*/
 	});
 	
 	$("#billboard-img").change(function(){
