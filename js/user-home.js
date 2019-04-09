@@ -268,14 +268,18 @@ function Session(){
 			console.log('Session exists!!!');
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
-			document.getElementById("getStartedMes").style.display = "none";
+			if(document.getElementById("getStartedMes") != null){
+				document.getElementById("getStartedMes").style.display = "none";
+			}
 			document.getElementById("profileDropdown").style.display = "inline";
 			document.getElementById("profileEmail").style.display = "inline";
 		}else{
 			console.log('Session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
-			document.getElementById("getStartedMes").style.display = "inline";
+			if(){
+				document.getElementById("getStartedMes").style.display = "inline";
+			}
 			document.getElementById("profileDropdown").style.display = "none";
 			document.getElementById("profileEmail").style.display = "none";
 		}
