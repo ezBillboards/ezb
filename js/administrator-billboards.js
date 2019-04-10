@@ -158,7 +158,8 @@ $(document).ready(function(){
 			
 		});
 		
-		$("table").on("click", "tr .deleteBillboard", function(){
+		
+	$("table").on("click", "tr .deleteBillboard", function(){
 		console.log('deleteBillboard clicked');
 		var billboardID = $(this).closest('span').attr("id");
 		console.log(billboardID);
@@ -173,10 +174,10 @@ $(document).ready(function(){
 					tr.remove();
 				}else{
 					console.log('Error deleting billboard!!');
-		});		}
+				}
+		});		
 	});
-	
-});
+
 	
 	$("table").on("click", "tr .delete", function(){
 		var packageID = $(this).closest('tr').attr("id");
