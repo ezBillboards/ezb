@@ -28,11 +28,10 @@ $traffic = $_POST['traffic'];
 $cycle = 4;
 $billboardID;
 
-
-$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle,$billboardID)";
+$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
 
 if (mysqli_query($conn, $sql)) {
-	echo "New record created successfully. Last inserted ID is: " . $billboardID;
+	echo "New record created successfully. Last inserted ID is: ";
 } else {
 	echo "Error updating record: " . mysqli_error($conn);
 }
