@@ -234,6 +234,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 			},function(data,status){
 				console.log(data);
 				if(status === "success"){
+					location.reload();
 					//console.log('Billboard added successfully');
 				}else{
 					//console.log('Error registering bilboard!!');
