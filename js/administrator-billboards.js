@@ -53,7 +53,7 @@ $(document).ready(function(){
 		"</div>" +
 		"</div>" +
 		"</td>";
-		$("#add-regulation").append(newRejection);
+		$("#add-rejection").append(newRejection);
 	});
 	
 	$("table").on("click", "tr .remove", function(){
