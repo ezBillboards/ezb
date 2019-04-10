@@ -232,7 +232,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 				traffic:$("#addtraffic").val(),
 				fileName: files.name.split(".")[0],
 				extension: files.type.substring(6),
-				upload-image: files,
+				uploadimage: files.name,
 				//cycle:$("#addBillboardname").val()
 				packages:packages_in,
 				regulations:regulations_in,
@@ -240,7 +240,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 			},function(data,status){
 				console.log(data);
 				if(status === "success"){
-					location.reload();
+					//location.reload();
 					//console.log('Billboard added successfully');
 				}else{
 					//console.log('Error registering bilboard!!');

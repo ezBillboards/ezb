@@ -45,12 +45,12 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($conn);
 /* Getting file name */
-$filename = $_FILES['upload-image']['name'];
-
-echo $billboardID;
+$filename = $_FILES['uploadimage']['name'];
+echo $filename;
 
 /* Location */
 $location = "../../img/billboards/".$billboardID.".".$extension;
+echo $location;
 
 $uploadOk = 1;
 $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
@@ -64,12 +64,12 @@ if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
 }
 
 if($uploadOk == 0){
-   echo 0;
+   echo " uploadOk = 0 ";
 }else{
-   if(move_uploaded_file($_FILES['upload-image']['tmp_name'],$location)){
+   if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],$location)){
         echo "Uploaded";
    }else{
-      echo 0;
+      echo " Not uploaded";
    }
 }
 
