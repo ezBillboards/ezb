@@ -127,7 +127,7 @@ $(document).ready(function(){
 			$("#max-wid").attr('value',info.maxWidth);
 			$("#max-hei").attr('value',info.maxHeight);
 		});	
-	});
+	
 		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardID}, 
@@ -157,7 +157,7 @@ $(document).ready(function(){
 			}
 			
 		});
-		
+	});
 		
 	$("table").on("click", "tr .deleteBillboard", function(){
 		console.log('deleteBillboard clicked');
