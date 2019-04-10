@@ -47,11 +47,11 @@ mysqli_close($conn);
 
 /* Getting file name */
 $filename = $_FILES['uploadimage']['name'];
-echo $filename;
+//echo $filename;
 
 /* Location */
 $location = "../../img/billboards/".$billboardID.".".$extension;
-echo $location;
+//echo $location;
 
 $uploadOk = 1;
 $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
@@ -73,6 +73,7 @@ if($uploadOk == 0){
       echo " Not uploaded";
    }
 }
+//Insert billboard URL
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 if($conn === false){
@@ -82,10 +83,11 @@ $sql = "CALL putBillboardURL($billboardID,'$location')";
 if (mysqli_query($conn, $sql)) {
 	echo "Record updated successfully";
 } else {
-		echo "Error updating record: " . mysqli_error($conn);
+		echo "Error updating URL: " . mysqli_error($conn);
 }
 mysqli_close($conn);
-	
+
+//Insert new packages
 for ($x = 0; $x < count($packages); $x=$x+3) {
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
@@ -97,13 +99,14 @@ for ($x = 0; $x < count($packages); $x=$x+3) {
 	$price = $packages[$x + 2];
 	$sql = "CALL postPackage($billboardID,$duration,$frequency,$price)";
 	if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
+        echo "Package inserted successfully";
 	} else {
-			echo "Error updating record: " . mysqli_error($conn);
+			echo "Error inserting package: " . mysqli_error($conn);
 	}
 	mysqli_close($conn);	
 }
 
+//Insert new regulations
 for ($x = 0; $x < count($regulations); $x++) {
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
@@ -112,13 +115,14 @@ for ($x = 0; $x < count($regulations); $x++) {
 	}
 	$sql = "CALL postRegulation($billboardID,'$regulations[$x]')";
 	if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
+        echo "Regulation inserted successfully";
 	} else {
-		echo "Error updating record: " . mysqli_error($conn);
+		echo "Error inserting regulation: " . mysqli_error($conn);
 	}
 	mysqli_close($conn);
 }
 
+//Insert new rejections
 for ($x = 0; $x < count($rejections); $x++) {
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
@@ -127,9 +131,9 @@ for ($x = 0; $x < count($rejections); $x++) {
 	}
 	$sql = "CALL postCommonRejection($billboardID,'$rejections[$x]')";
 	if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
+        echo "Rejection inserted successfully";
 	} else {
-		echo "Error updating record: " . mysqli_error($conn);
+		echo "Error inserting rejection: " . mysqli_error($conn);
 	}
 	mysqli_close($conn);
 }
