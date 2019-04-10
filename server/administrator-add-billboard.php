@@ -29,8 +29,8 @@ $cycle = 4;
 $billboardID;
 
 $sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
-
-if (mysqli_query($conn, $sql)) {
+$result = mysqli_query($conn, $sql)
+if (mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
         $billboardID = $row['ID'];
     }
