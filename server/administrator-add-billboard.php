@@ -26,9 +26,11 @@ $readtime = $_POST['readtime'];
 $impressions = $_POST['impressions'];
 $traffic = $_POST['traffic'];
 $cycle = 4;
+$packages = $_POST['packages'];
+$regulations = $_POST['regulations'];
 $billboardID;
 
-$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
+/*$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
 $result = mysqli_query($conn, $sql)
 if (mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
@@ -37,6 +39,15 @@ if (mysqli_num_rows($result) > 0) {
 	echo "New record created successfully. Last inserted ID is: " . $billboardID;
 } else {
 	echo "Error updating record: " . mysqli_error($conn);
+}*/
+
+for ($x = 0; $x < $packages.length; $x+3) {
+    echo $packages[$x] . " " .$packages[$x + 1] . " " . $packages[$x + 2];
 }
+
+for ($x = 0; $x < $regulations.length; $x++) {
+    echo $regulations[$x];
+}
+
 mysqli_close($conn);
 ?>
