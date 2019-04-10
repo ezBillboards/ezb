@@ -89,15 +89,15 @@ mysqli_close($conn);
 
 //Insert new packages
 for ($x = 0; $x < count($packages); $x=$x+3) {
+	$duration = $packages[$x];
+	$frequency = $packages[$x + 1];
+	$price = $packages[$x + 2];
+	echo $duration . " " . $frequency . " " . $price . " ";
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 	if($conn === false){
 		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
-	$duration = $packages[$x];
-	$frequency = $packages[$x + 1];
-	$price = $packages[$x + 2];
-	echo $duration . " " . $frequency . " " . $price . " ";
 	$sql = "CALL postPackage($billboardID,$duration,$frequency,$price)";
 	if (mysqli_query($conn, $sql)) {
         echo " Package inserted successfully ";
