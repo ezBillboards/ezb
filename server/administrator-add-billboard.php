@@ -44,6 +44,7 @@ if (mysqli_num_rows($result) > 0) {
 	echo "Error updating record: " . mysqli_error($conn);
 }
 mysqli_close($conn);
+
 /* Getting file name */
 $filename = $_FILES['uploadimage']['name'];
 echo $filename;
