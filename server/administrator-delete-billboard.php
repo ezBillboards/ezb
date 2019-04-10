@@ -17,9 +17,9 @@ $sql = "CALL deleteBillboard($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_query($conn, $sql)) {
-	echo "Record updated successfully";
+	echo "Billboard removed successfully";
 } else {
-	echo "Error updating record: " . mysqli_error($conn);
+	echo "Error removing billboard: " . mysqli_error($conn);
 }
 mysqli_close($conn);
 ?>

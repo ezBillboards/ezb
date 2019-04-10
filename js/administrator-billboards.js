@@ -128,7 +128,7 @@ $(document).ready(function(){
 			$("#max-hei").attr('value',info.maxHeight);
 		});
 		
-		$("table").on("click", "tr .removeBillboard", function(){
+		$("table").on("click", "tr .deleteBillboard", function(){
 			var billboardID = $(this).closest('tr').attr("id");
 			var tr = $(this).closest('tr');
 			$.post("../server/administrator-delete-billboard.php",
@@ -136,6 +136,7 @@ $(document).ready(function(){
 					id:billboardID
 				},function(data,status){
 					if(status === "success"){
+						console.log(data);
 						console.log(status);
 						tr.remove();
 					}else{
@@ -208,7 +209,7 @@ function getBillboards(){
 				"</div>" +
 			"</div></td>" +
 			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
-			"<a href=\"#\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash actions removeBillboard\"><br></span></a>" +
+			"<a href=\"#\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash actions deleteBillboard\"><br></span></a>" +
 			
 			"</td>" +
 			"</tr>";
