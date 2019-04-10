@@ -27,7 +27,7 @@ $(document).ready(function(){
 	});
 	
 	$('#btnaddregulation').click(function(){
-		console.log('btnaddpackage clicked!');
+		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
 		"<td><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
 		"<td>" +
@@ -57,7 +57,7 @@ $(document).ready(function(){
 		
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
-				packages.push(this.value);
+				regulations.push(this.value);
 			});
 		});
 		console.log(packages);	
@@ -186,11 +186,7 @@ function readURL(input) {
 	}
 }
 
-function newBillboard(packages,regulations){
-	//console.log($("#addBillboardname").val());
-	//console.log(document.getElementById("adddescription").value);
-	console.log($("#addwidth").val());
-	console.log($("#addheight").val());
+function newBillboard(packages_in,regulations_in){
 	$.post("../server/administrator-add-billboard.php",
 			{
 				name:$("#addBillboardname").val(),
@@ -208,8 +204,8 @@ function newBillboard(packages,regulations){
 				impressions:$("#addimpressions").val(),
 				traffic:$("#addtraffic").val(),
 				//cycle:$("#addBillboardname").val()
-				packages:packages,
-				regulations:regulations
+				packages:packages_in,
+				regulations:regulations_in
 			},function(data,status){
 				console.log(data);
 				if(status === "success"){
