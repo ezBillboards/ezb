@@ -183,7 +183,9 @@ function VerifyRole(){
 			//logged in nav bar
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
-			document.getElementById("getStartedMes").style.display = "none";
+			if(document.getElementById("getStartedMes") != null){
+				document.getElementById("getStartedMes").style.display;
+			}
 			document.getElementById("profileDropdown").style.display = "inline";
 			document.getElementById("profileEmail").style.display = "inline";
 			//document.getElementById("userProfile").style.display = "inline";
@@ -277,7 +279,7 @@ function Session(){
 			console.log('Session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
-			if(){
+			if(document.getElementById("getStartedMes") != null){
 				document.getElementById("getStartedMes").style.display = "inline";
 			}
 			document.getElementById("profileDropdown").style.display = "none";
