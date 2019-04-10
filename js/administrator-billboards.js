@@ -9,7 +9,7 @@ var fd;
 
 $(document).ready(function(){
 	
-	  getBillboards();
+	getBillboards();
 	  
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
@@ -126,27 +126,8 @@ $(document).ready(function(){
 			$("#min-hei").attr('value',info.minHeight);
 			$("#max-wid").attr('value',info.maxWidth);
 			$("#max-hei").attr('value',info.maxHeight);
-		});
-		
-		$("table").on("click", "tr .deleteBillboard", function(){
-			console.log('deleteBillboard clicked');
-			var billboardID = $(this).closest('span').attr("id");
-			console.log(billboardID);
-			var tr = $(this).closest('tr');
-			$.post("../server/administrator-delete-billboard.php",
-				{
-					id:billboardID
-				},function(data,status){
-					if(status === "success"){
-						console.log(data);
-						console.log(status);
-						tr.remove();
-					}else{
-						console.log('Error deleting billboard!!');
-					}
-			});
-		
-		});
+		});	
+	});
 		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardID}, 
@@ -176,7 +157,26 @@ $(document).ready(function(){
 			}
 			
 		});
+		
+		$("table").on("click", "tr .deleteBillboard", function(){
+		console.log('deleteBillboard clicked');
+		var billboardID = $(this).closest('span').attr("id");
+		console.log(billboardID);
+		var tr = $(this).closest('tr');
+		$.post("../server/administrator-delete-billboard.php",
+			{
+				id:billboardID
+			},function(data,status){
+				if(status === "success"){
+					console.log(data);
+					console.log(status);
+					tr.remove();
+				}else{
+					console.log('Error deleting billboard!!');
+		});		}
 	});
+	
+});
 	
 	$("table").on("click", "tr .delete", function(){
 		var packageID = $(this).closest('tr').attr("id");
