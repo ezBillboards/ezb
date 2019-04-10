@@ -3,6 +3,8 @@ var packages;
 var regulations;
 var rejections;
 var files;
+var img;
+var fd;
 
 $(document).ready(function(){
 	
@@ -202,20 +204,62 @@ function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		files = input.files[0];
+		fd.append('uploadimage',files);
+		reader.readAsDataURL(input.files[0]);
 		
 		reader.onload = function (e) {
 			if(input.id == 'billboard-img'){
 				$('#billboard-img-tag').attr('src', e.target.result);
+				img = new Image;
+               	img.src = reader.result;
+
+				img.onload = function() {
+				};				
 			}else{
-				 $('#billboard-edit-img-tag').attr('src', e.target.result);
+				$('#billboard-edit-img-tag').attr('src', e.target.result);
+				img-edit = new Image;
+               	img-edit.src = reader.result;
+
+				img.onload = function() {
+				};				
 			}
 		}
-		reader.readAsDataURL(input.files[0]);
+		
 	}
 }
 
 function newBillboard(packages_in,regulations_in,rejections_in){
-	$.post("../server/administrator-add-billboard.php",
+	fd.append('name':$("#addBillboardname").val());
+	fd.append('description':$("#adddescription").val());
+	fd.append('width':$("#addwidth").val());
+	fd.append('height':$("#addheight").val());
+	fd.append('latitude':$("#addlatitude").val());
+	fd.append('longitude':$("#addlongitude").val());
+	fd.append('minwidth':$("#addminwidth").val());
+	fd.append('maxwidth':$("#addmaxwidth").val());
+	fd.append('minheight':$("#addminheight").val());
+	fd.append('maxheight':$("#addmaxheight").val());
+	fd.append('readtime':$("#addreadtime").val());
+	fd.append('impressions':$("#addimpressions").val());
+	fd.append('traffic':$("#addtraffic").val());
+	fd.append('fileName': files.name.split(".")[0]);
+	fd.append('extension': files.type.substring(6));
+	//cycle:$("#addBillboardname").val()
+	fd.append('packages':packages_in);
+	fd.append('regulations':regulations_in);
+	fd.append('rejections':rejections_in);
+	$ajax({
+		url:"../server/administrator-add-billboard.php",
+		type: 'POST',
+		data: fd,
+		mimeType:"multipart/form-data",
+		contentType: false,
+		processData: false,
+		success: function(response){
+				console.log(response);
+		}
+	});
+	/*$.post("../server/administrator-add-billboard.php",
 			{
 				name:$("#addBillboardname").val(),
 				description:$("#adddescription").val(),
@@ -245,7 +289,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 				}else{
 					//console.log('Error registering bilboard!!');
 				}
-		});
+		});*/
 }
 
 (function ($) {
