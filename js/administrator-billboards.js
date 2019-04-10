@@ -129,7 +129,9 @@ $(document).ready(function(){
 		});
 		
 		$("table").on("click", "tr .deleteBillboard", function(){
+			console.log('deleteBillboard clicked');
 			var billboardID = $(this).closest('tr').attr("id");
+			console.log(billboardID);
 			var tr = $(this).closest('tr');
 			$.post("../server/administrator-delete-billboard.php",
 				{
