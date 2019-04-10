@@ -28,6 +28,7 @@ $traffic = $_POST['traffic'];
 $cycle = 4;
 $packages = $_POST['packages'];
 $regulations = $_POST['regulations'];
+$rejections = $_POST['rejections'];
 $billboardID;
 
 $sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
@@ -75,6 +76,19 @@ for ($x = 0; $x < count($regulations); $x++) {
 	mysqli_close($conn);
 }
 
-
+for ($x = 0; $x < count($rejections); $x++) {
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+	if($conn === false){
+		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	$sql = "CALL postCommonRejection($billboardID,'$rejections[$x]')";
+	if (mysqli_query($conn, $sql)) {
+        echo "Record updated successfully";
+	} else {
+		echo "Error updating record: " . mysqli_error($conn);
+	}
+	mysqli_close($conn);
+}
 
 ?>

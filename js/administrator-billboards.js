@@ -210,7 +210,7 @@ function readURL(input) {
 	}
 }
 
-function newBillboard(packages_in,regulations_in){
+function newBillboard(packages_in,regulations_in,rejections_in){
 	$.post("../server/administrator-add-billboard.php",
 			{
 				name:$("#addBillboardname").val(),
@@ -229,7 +229,8 @@ function newBillboard(packages_in,regulations_in){
 				traffic:$("#addtraffic").val(),
 				//cycle:$("#addBillboardname").val()
 				packages:packages_in,
-				regulations:regulations_in
+				regulations:regulations_in,
+				rejections:rejections_in
 			},function(data,status){
 				console.log(data);
 				if(status === "success"){
