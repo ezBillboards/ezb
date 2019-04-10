@@ -12,9 +12,9 @@ $(document).ready(function(){
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
-		"<td><input id=\"Duration\" type=\"text\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
-		"<td><input id=\"Frequency\" type=\"text\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
-		"<td><input id=\"Price\" type=\"text\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
+		"<td><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
+		"<td><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
+		"<td><input id=\"Price\" type=\"number\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
 		"<td>" +
 		"<div class=\"column\">" +
 		"<div class=\"row\">" +
