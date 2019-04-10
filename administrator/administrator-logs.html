@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="../css/administrator-logs.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="../js/administrator-logs.js"></script>
+
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-border navbar-height">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="myNavbar">
+         <a class="navbar-brand">
+          <img src="./EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+        </a>
+        <ul class="nav navbar-nav navbar-right navbar-text">
+          <li><a class="navbar-text-color" href="#">Home</a></li>
+          <li><a class="navbar-text-color" href="#">Billboard</a></li>
+          <li><a class="navbar-text-color" href="#">About</a></li>
+          <li><a class="navbar-text-color" href="#">Contact</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Account</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+      <div class="col-lg-12" style="background-color:white;">
+    <h1 class="text-center"><strong>Logs</strong></h1>
+     </div>
+  </div>
+
+
+
+
+<div class="row search">
+    <div class="col-lg-3 list-group">
+      <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 30px; border: 1px solid #ccc; width: 60%">
+        <i class="fa fa-calendar"></i>&nbsp;
+        <span></span> <i class="fa fa-caret-down"></i>
+      </div>
+</div>
+
+
+     <div class="col-lg-3 input-group" style="width: 25%;">
+       <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+           <input id="mySearchEmail" type="text" placeholder="Search by Email">
+     </div>
+
+<br>
+
+     <div class="col-lg-3 input-group" style="width: 25%;">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+           <input id="mySearchAction" type="text" placeholder="Search by Action">
+     </div>
+
+    </div>
+
+<br>
+
+
+  <div class="container">
+      <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th class = "editTable">Date</th>
+          <th class = "editTable">Time</th>
+          <th class = "editTable">Email</th>
+          <th class = "editTable">Action</th>
+          <th class = "editTable">Detail Action</th>
+        </tr>
+      </thead>
+      <tbody id="logs">
+      </tbody>
+    </table>
+  </div>
+
+
+</body>
+</html>
+
