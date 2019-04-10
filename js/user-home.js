@@ -24,6 +24,7 @@ $(document).ready(function(){
 		//password = $('#passwordlogin').val();
 		Login(email,$('#passwordlogin').val());
 		//setTimeout(VerifyRole,500);
+		validateLogin();
 	});
 	
 	$("#btnregister").click(function(){
@@ -34,7 +35,7 @@ $(document).ready(function(){
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
-			validate();
+			validateRegister();
 	});
 	
 	$("#closeVerModal").click(function(){
@@ -84,6 +85,81 @@ $(document).ready(function(){
 
 
 
+
+function validateLogin(){  
+ var email = document.getElementById('emaillogin').value;
+ var emailRGEX = /^(.+)@(.+)$/;
+ var emailResult = emailRGEX.test(email);
+
+ console.log('Email = '+ email);
+
+if(emailResult == false)
+{
+alert('Please enter a valid Email');
+return false;
+}
+
+
+}
+
+function validateRegister(){
+  var phoneNumber = document.getElementById('phonereg').value;
+  var phoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+  var phoneResult = phoneRGEX.test(phoneNumber);
+
+  var firstName = document.getElementById('firstnamereg').value;
+  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+  var firstNameResult = firstNameRGEX.test(firstName);
+
+ var lastName = document.getElementById('lastnamereg').value;
+ var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var lastNameResult = lastNameRGEX.test(lastName);
+
+ var email = document.getElementById('emailreg').value;
+ var emailRGEX = /^(.+)@(.+)$/;
+ var emailResult = emailRGEX.test(email);
+
+
+
+console.log('Phone Number = '+ phoneNumber);
+
+console.log('First Name = '+ firstName);
+
+console.log('Last Name = '+ lastName);
+
+console.log('Email = '+ email);
+
+if(phoneResult == false)
+{
+alert('Please enter a valid phone number');
+return false;
+}
+
+
+if(firstNameResult == false)
+{
+alert('Please enter a valid First Name');
+return false;
+}
+
+
+
+if(lastNameResult == false)
+{
+alert('Please enter a valid Second Name');
+return false;
+}
+
+
+if(emailResult == false)
+{
+alert('Please enter a valid Email');
+return false;
+}
+
+
+
+}
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	console.log('Register function');

@@ -1,9 +1,20 @@
+.nav-align {
+        display: flex;
+        align-items: center;
+}
+
+.profile-dropdown{
+        font-size: 30px;
+}
 
 .ezb-logo {
     width:245px;
     height:66px;
 }
 
+.navbar-border {
+        border-bottom: 1px solid #D3D3D3;
+}
 
 #related{
 background-color: white;
@@ -26,7 +37,7 @@ float: left;
 }
 
 .navbar-height {
-    height: 85px;
+    height: 95px;
 }
 
 .navbar{

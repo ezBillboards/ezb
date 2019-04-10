@@ -18,23 +18,32 @@
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
-   <div class="container-fluid">
-     <div class="collapse navbar-collapse" id="myNavbar">
-      <a class="navbar-brand">
-       <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
-     </a>
-     <ul class="nav navbar-nav navbar-right navbar-text">
-       <li><a class="navbar-text-color" href="#">Settings</a></li>
-       <li><a class="navbar-text-color" href="#">Accounts</a></li>
-       <li><a class="navbar-text-color" href="#">Billboards</a></li>
-       <li><a class="navbar-text-color" href="#">Logs</a></li>
-       <li><a class="navbar-text-color" href="#">Backups</a></li>
-       <li><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
-       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button>
-     </ul>
-   </div>
- </div>
-</nav>
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="myNavbar">
+         <a class="navbar-brand">
+          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+        </a>
+       <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+          <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
+          <li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
+          <li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
+          <li><a class="navbar-text-color" href="logs.html">Logs</a></li>
+          <li><a class="navbar-text-color" href="backups.html">Backups</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+		<span class="glyphicon glyphicon-user profile-dropdown"></span>
+		<span class="caret"></span>
+	    </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Account</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li><a class="profile-email">ezb19@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
   <div class="row">

@@ -128,9 +128,15 @@ $(document).ready(function(){
 			$("#max-hei").attr('value',info.maxHeight);
 		});
 		
+<<<<<<< Updated upstream
 		$("table").on("click", "tr .deleteBillboard", function(){
 			console.log('deleteBillboard clicked');
 			var billboardID = $(this).closest('span').attr("id");
+=======
+		$("table").on("click", "tr .removebillboard", function(){
+			console.log('remove billboard clicked!');
+			var billboardID = $(this).closest('tr').attr("id");
+>>>>>>> Stashed changes
 			console.log(billboardID);
 			var tr = $(this).closest('tr');
 			$.post("../server/administrator-delete-billboard.php",
@@ -211,7 +217,11 @@ function getBillboards(){
 				"</div>" +
 			"</div></td>" +
 			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
+<<<<<<< Updated upstream
 			"<a href=\"#\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash actions deleteBillboard\"><br></span></a>" +
+=======
+			"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions removebillboard\"><br></span></a>" +
+>>>>>>> Stashed changes
 			
 			"</td>" +
 			"</tr>";

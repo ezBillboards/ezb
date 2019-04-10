@@ -23,6 +23,31 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.deleteBillboard
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBillboard`(
+	IN `billboard_ID_IN` BIGINT
+)
+BEGIN
+	update tblbillboards 
+	set enabled = 0
+	where billboard_ID = billboard_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.deletePackage
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePackage`(
+	IN `package_ID_IN` BIGINT
+
+)
+BEGIN
+	update tblpackage
+	set enabled = 0
+	where package_ID = package_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.getAccounts
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccounts`(
@@ -64,7 +89,8 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboards`()
 BEGIN
-	Select billboard_ID, billboardName, billboardDescription, billboardImage_URL from tblbillboards;
+	Select billboard_ID, billboardName, billboardDescription, billboardImage_URL from tblbillboards
+	where enabled = 1;
 END//
 DELIMITER ;
 
@@ -73,46 +99,6 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getContact`()
 BEGIN
 	select * from tblcontact;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure ezbtest2.getLoginAdmin
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginAdmin`(
-	IN `emailAddress_IN` VARCHAR(100)
-
-
-)
-BEGIN
-	Select admin_ID from tbladmin
-	where emailAddress = emailAddress_IN;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure ezbtest2.getLoginApprover
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginApprover`(
-	IN `emailAddress_IN` VARCHAR(100)
-
-
-
-)
-BEGIN
-	Select approver_ID from tblapprovers
-	where emailAddress = emailAddress_IN;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure ezbtest2.getLoginPublisher
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginPublisher`(
-	IN `emailAddress_IN` VARCHAR(100)
-
-
-)
-BEGIN
-	Select publisher_ID from tblpublishers
-	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -569,6 +555,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.postCommonRejection
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `postCommonRejection`(
+	IN `billboard_ID_IN` BIGINT,
+	IN `rejection_IN` VARCHAR(200)
+)
+BEGIN
+	insert into tblcommonrejections (billboard_ID,rejection)
+	values(billboard_ID_IN,rejection_IN);
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.postPackage
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postPackage`(
@@ -743,6 +741,21 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.putBillboardURL
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardURL`(
+	IN `billboard_ID_IN` BIGINT,
+	IN `billboardURL_IN` VARCHAR(250)
+
+
+)
+BEGIN
+	update tblbillboards
+	set billboardImage_URL = billboardURL_IN
+	where billboard_ID = billboard_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.putCancelRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putCancelRequest`(
@@ -752,18 +765,6 @@ BEGIN
 	Update tbladrequest
 	SET status_ID = 4
 	where request_ID = request_ID_IN;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure ezbtest2.putDisablePackage
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `putDisablePackage`(
-	IN `package_ID_IN` BIGINT
-)
-BEGIN
-	update tblpackage
-	set enabled = 0
-	where package_ID = package_ID_IN;
 END//
 DELIMITER ;
 
@@ -1020,24 +1021,25 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   `impressions` int(11) NOT NULL,
   `traffic` int(11) NOT NULL,
   `Cycle` int(11) NOT NULL,
+  `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`billboard_ID`),
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbtest2.tblbillboards: ~11 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
-INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`) VALUES
-	(1, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(2, 'Stefanis Billboard', 'This is the Stefanis Billboard', '../../img/billboards/2.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(3, 'Chardon Billboard', 'This is the Chardon Billboard', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(4, 'Biology Billboard', 'This is the Biology Billboard', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(5, 'Student Center Billboard', 'This is the Student Center Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(6, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(7, 'Chardon Billboard', 'This is the Chardon Billboard', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(8, 'Monson Billboard', 'This is the Monson Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
-	(9, 'West Side Entrance', 'West Side Entrance Billboard UPRM', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 100000, 200000, 4),
-	(10, 'East Side Entrance', 'East Side Entrance Billboard UPRM', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 50000, 10000, 8),
-	(11, 'North Side Entrance', 'North Side Entrance Billboard UPRM', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 1000, 2000, 16);
+INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`, `enabled`) VALUES
+	(1, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(2, 'Stefanis Billboard', 'This is the Stefanis Billboard', '../../img/billboards/2.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(3, 'Chardon Billboard', 'This is the Chardon Billboard', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(4, 'Biology Billboard', 'This is the Biology Billboard', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(5, 'Student Center Billboard', 'This is the Student Center Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(6, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(7, 'Chardon Billboard', 'This is the Chardon Billboard', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(8, 'Monson Billboard', 'This is the Monson Billboard', '../../img/billboards/5.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400, 1),
+	(9, 'West Side Entrance', 'West Side Entrance Billboard UPRM', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 100000, 200000, 4, 1),
+	(10, 'East Side Entrance', 'East Side Entrance Billboard UPRM', '../../img/billboards/3.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 50000, 10000, 8, 1),
+	(11, 'North Side Entrance', 'North Side Entrance Billboard UPRM', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 1000, 2000, 16, 1);
 /*!40000 ALTER TABLE `tblbillboards` ENABLE KEYS */;
 
 -- Dumping structure for table ezbtest2.tblcommonrejections

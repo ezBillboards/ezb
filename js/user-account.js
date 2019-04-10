@@ -122,7 +122,7 @@ function validateContactInfo(){
   var fbRGEX = /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/?/;
   var fbResult = fbRGEX.test(fb);
   var instagram = document.getElementById('instagram').value;
-  var instagramRGEX = /^\s*(http\:\/\/)?instagram\.com\/[a-z\d-_]{1,255}\s*$/;
+  var instagramRGEX = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/;
   var instagramResult = instagramRGEX.test(instagram);
 
 

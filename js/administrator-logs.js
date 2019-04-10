@@ -69,16 +69,16 @@ function getLogs(startStr, endStr){
 		for (var i = 0; i < log.length; i++) {
 
 		var logs = "<tr>" +
-			"<td>" +log[i].date +
+			"<td style=\"vertical-align: middle;text-align: center;\">" +log[i].date +
 			"</td>" +
-			"<td>" + log[i].timeStamp +
+			"<td style=\"vertical-align: middle;text-align: center;\">" + log[i].timeStamp +
 			"</td>" +
-			"<td class = \"emailCol\"> " + log[i].email +
+			"<td style=\"vertical-align: middle;text-align: center;\" class = \"emailCol\"> " + log[i].email +
 			"</td>" +
-			"<td class = \"actionCol\"> " + log[i].action +
+			"<td style=\"vertical-align: middle;text-align: center;\" class = \"actionCol\"> " + log[i].action +
 			"</td>" +
-		        "<td><h5>" + log[i].detailedAction +
-                        "</h5></td>" 
+		        "<td style=\"vertical-align: middle;text-align: center;\">" + log[i].detailedAction +
+                        "</td>" 
 			"</tr>";
 
 			$("#logs").append(logs);

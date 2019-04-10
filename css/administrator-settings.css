@@ -1,3 +1,15 @@
+.nav-align {
+        display: flex;
+        align-items: center;
+}
+
+.profile-dropdown{
+        font-size: 30px;
+}
+
+.navbar-border {
+        border-bottom: 1px solid #D3D3D3;
+}
 
 .well{
  background:#bdbdbd;
@@ -16,11 +28,7 @@
 }
 
 .navbar-height {
-    height: 85px;
-}
-
-.navbar{
-    background:white;
+    height: 95px;
 }
 
 .active {

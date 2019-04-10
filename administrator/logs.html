@@ -24,62 +24,54 @@
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
          <a class="navbar-brand">
-          <img src="./EZBillboardsLogo.jpg" class="img-responsive ezb-logo" alt="EZB Logo">
+          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
         </a>
-        <ul class="nav navbar-nav navbar-right navbar-text">
-          <li><a class="navbar-text-color" href="#">Home</a></li>
-          <li><a class="navbar-text-color" href="#">Billboard</a></li>
-          <li><a class="navbar-text-color" href="#">About</a></li>
-          <li><a class="navbar-text-color" href="#">Contact</a></li>
+        <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+	  <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
+          <li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
+          <li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
+          <li><a class="navbar-text-color" href="logs.html">Logs</a></li>
+          <li><a class="navbar-text-color" href="backups.html">Backups</a></li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		<span class="glyphicon glyphicon-user profile-dropdown"></span>
+		<span class="caret"></span>
+	    </a>
             <ul class="dropdown-menu">
               <li><a href="#">Account</a></li>
               <li><a href="#">Logout</a></li>
             </ul>
           </li>
-          <li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+          <li><a class="profile-email">ezb19@gmail.com</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <div class="row">
-      <div class="col-lg-12" style="background-color:white;">
-    <h1 class="text-center"><strong>Logs</strong></h1>
-     </div>
-  </div>
+<h1 id="logs-header" class="text-center">Logs</h1>
+<br>
+<h3 class="text-center">Search By</h3>
 
-
-
-
-<div class="row search">
-    <div class="col-lg-3 list-group">
-      <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 30px; border: 1px solid #ccc; width: 60%">
-        <i class="fa fa-calendar"></i>&nbsp;
-        <span></span> <i class="fa fa-caret-down"></i>
-      </div>
+<div class="container">
+	<form>
+    		<div class="form-group row text-center">
+      			<div class="col-lg-4">
+                        	<input id="mySearchEmail" type="text" class="form-control" placeholder="Email">
+      			</div>
+			<div class="col-lg-4">
+                                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <span></span> <i class="fa fa-caret-down"></i>
+                                </div>
+                        </div>
+      			<div class="col-lg-4">
+				<input id="mySearchAction" type="text" class="form-control" placeholder="Action">
+      			</div>
+    		</div>
+  	</form>
 </div>
-
-
-     <div class="col-lg-3 input-group" style="width: 25%;">
-       <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-           <input id="mySearchEmail" type="text" placeholder="Search by Email">
-     </div>
-
 <br>
-
-     <div class="col-lg-3 input-group" style="width: 25%;">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-           <input id="mySearchAction" type="text" placeholder="Search by Action">
-     </div>
-
-    </div>
-
-<br>
-
-
-  <div class="container">
+<div class="container">
       <table class="table table-bordered text-center">
       <thead>
         <tr>
@@ -93,8 +85,7 @@
       <tbody id="logs">
       </tbody>
     </table>
-  </div>
-
+</div>
 
 </body>
 </html>
