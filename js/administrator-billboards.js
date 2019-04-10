@@ -128,6 +128,23 @@ $(document).ready(function(){
 			$("#max-hei").attr('value',info.maxHeight);
 		});
 		
+		$("table").on("click", "tr .removeBillboard", function(){
+			var billboardID = $(this).closest('tr').attr("id");
+			var tr = $(this).closest('tr');
+			$.post("../server/administrator-delete-billboard.php",
+				{
+					id:billboardID
+				},function(data,status){
+					if(status === "success"){
+						console.log(status);
+						tr.remove();
+					}else{
+						console.log('Error deleting billboard!!');
+					}
+			});
+		
+		});
+		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardID}, 
 			function(data, status){
@@ -152,7 +169,7 @@ $(document).ready(function(){
 					"</td>";
                 		}
 				$("#edit-packages").empty();
-		                $("#edit-packages").append(package);
+		        $("#edit-packages").append(package);
 			}
 			
 		});
@@ -191,7 +208,7 @@ function getBillboards(){
 				"</div>" +
 			"</div></td>" +
 			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
-			"<a href=\"#\"><span class=\"glyphicon glyphicon-trash\"><br></span></a>" +
+			"<a href=\"#\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash actions removeBillboard\"><br></span></a>" +
 			
 			"</td>" +
 			"</tr>";
@@ -262,37 +279,6 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 				console.log(response);
 		}
 	});
-	/*$.post("../server/administrator-add-billboard.php",
-			{
-				name:$("#addBillboardname").val(),
-				description:$("#adddescription").val(),
-				width:$("#addwidth").val(),
-				height:$("#addheight").val(),
-				latitude:$("#addlatitude").val(),
-				longitude:$("#addlongitude").val(),
-				minwidth:$("#addminwidth").val(),
-				maxwidth:$("#addmaxwidth").val(),
-				minheight:$("#addminheight").val(),
-				maxheight:$("#addmaxheight").val(),
-				readtime:$("#addreadtime").val(),
-				impressions:$("#addimpressions").val(),
-				traffic:$("#addtraffic").val(),
-				fileName: files.name.split(".")[0],
-				extension: files.type.substring(6),
-				uploadimage: files.name,
-				//cycle:$("#addBillboardname").val()
-				packages:packages_in,
-				regulations:regulations_in,
-				rejections:rejections_in
-			},function(data,status){
-				console.log(data);
-				if(status === "success"){
-					//location.reload();
-					//console.log('Billboard added successfully');
-				}else{
-					//console.log('Error registering bilboard!!');
-				}
-		});*/
 }
 
 (function ($) {

@@ -13,7 +13,7 @@ if($conn === false){
 
 $id = $_POST['id'];
 
-$sql = "CALL deletePackage($id)";
+$sql = "CALL deleteBillboard($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_query($conn, $sql)) {
