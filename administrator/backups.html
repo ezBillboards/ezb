@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/administrator_backups.css">
+  <link rel="stylesheet" href="../css/administrator-backups.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,54 +17,52 @@
       <a class="navbar-brand">
        <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
      </a>
-     <ul class="nav navbar-nav navbar-right navbar-text">
-       <li><a class="navbar-text-color" href="#">Settings</a></li>
-       <li><a class="navbar-text-color" href="#">Accounts</a></li>
-       <li><a class="navbar-text-color" href="#">Billboards</a></li>
-       <li><a class="navbar-text-color" href="#">Logs</a></li>
-       <li><a class="navbar-text-color" href="#">Backups</a></li>
-       <li><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
-       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button>
+     <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+	  <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
+          <li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
+          <li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
+          <li><a class="navbar-text-color" href="logs.html">Logs</a></li>
+          <li><a class="navbar-text-color" href="backups.html">Backups</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+		<span class="glyphicon glyphicon-user profile-dropdown"></span>
+		<span class="caret"></span>
+	    </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Account</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li><a class="profile-email">ezb19@gmail.com</a></li>
      </ul>
    </div>
  </div>
 </nav>
 
-
-
-<div class="row">
-    <div class="col-lg-12" style="background-color:white;">
-    <h1 class="text-center"><strong>Back Up</strong></h1>
-     </div>
-</div>
-
-
-   <!-- Data configuration -->
-
-
-<div class="well well-lg text-center" style="background-color:#607d8b;">
+<h1 id="backups-header" class="text-center">Backups</h1>
+<br>
+<div id="backups-body" class="well well-lg">
   <div class="row">
-    <div class="col-lg-8">
-    <div class="input-group">
+    <div class="col-lg-10 text-left">
+    	<div class="input-group">
                <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
                <input id="filename" type="text" class="form-control" name="Backup" placeholder="Backup Filename">
-             </div>
-         </div>
-    <div class="col-lg-2"><button id="backup" type="button" class="btn btn-info">Backup</button></div>
-
-
-<br>
-<br>
-<br>
-    <div class="row">
-      <div class="col-lg-8">
-		<select id="backup-files" class="form-control">
-
-		</select>
-      </div>
-      <div class="col-lg-2"><button id="restore" type="button" class="btn btn-info">Restore</button></div>
+        </div>
     </div>
-</div>
+    <div class="col-lg-2 text-right">
+	<button id="backup" type="button" class="btn btn-info">Backup</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-10 text-left">
+	<select id="backup-files" class="form-control">
+	</select>
+    </div>
+    <div class="col-lg-2 text-right">
+	<button id="restore" type="button" class="btn btn-info">Restore</button>
+    </div>
+  </div>
 </div>
 
 

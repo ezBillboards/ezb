@@ -1,10 +1,14 @@
-hr {
-        border-top: 1px solid #BDBDBD;
+.nav-align {
+        display: flex;
+        align-items: center;
 }
 
-.profile-email {
-        font-size: 16px;
-        font-weight: bold;
+.profile-dropdown{
+        font-size: 30px;
+}
+
+.navbar-border {
+        border-bottom: 1px solid #D3D3D3;
 }
 
 .well{
@@ -29,7 +33,7 @@ hr {
 }
 
 .navbar-height {
-    height: 85px;
+    height: 95px;
 }
 
 .navbar{
@@ -69,5 +73,15 @@ color: #ffffff;
 border-radius: 20px;
 }
 
+#backups-header {
+        font-size: 56px;
+        font-weight: bold;
+}
+
+#backups-body{
+	background-color:#607D8B;
+	padding-right: 2%;
+	padding-left: 2%;
+}
 
 
