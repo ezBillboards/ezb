@@ -39,9 +39,9 @@ if (mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
         $billboardID = $row['ID'];
     }
-	echo "New record created successfully. Last inserted ID is: " . $billboardID;
+	echo "New billboard created successfully. Last inserted ID is: " . $billboardID . " ";
 } else {
-	echo "Error updating record: " . mysqli_error($conn);
+	echo "Error updating record: " . mysqli_error($conn) . " ";
 }
 mysqli_close($conn);
 
@@ -68,9 +68,9 @@ if($uploadOk == 0){
    echo " uploadOk = 0 ";
 }else{
    if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],$location)){
-        echo "Uploaded";
+        echo " Uploaded ";
    }else{
-      echo " Not uploaded";
+      echo " Not uploaded ";
    }
 }
 //Insert billboard URL
@@ -81,9 +81,9 @@ if($conn === false){
 }
 $sql = "CALL putBillboardURL($billboardID,'$location')";
 if (mysqli_query($conn, $sql)) {
-	echo "Record updated successfully";
+	echo " Billboard URL updated successfully ";
 } else {
-		echo "Error updating URL: " . mysqli_error($conn);
+		echo " Error updating URL: " . mysqli_error($conn) . " ";
 }
 mysqli_close($conn);
 
@@ -97,11 +97,12 @@ for ($x = 0; $x < count($packages); $x=$x+3) {
 	$duration = $packages[$x];
 	$frequency = $packages[$x + 1];
 	$price = $packages[$x + 2];
+	echo $duration . " " . $frequency . " " . $price . " ";
 	$sql = "CALL postPackage($billboardID,$duration,$frequency,$price)";
 	if (mysqli_query($conn, $sql)) {
-        echo "Package inserted successfully";
+        echo " Package inserted successfully ";
 	} else {
-			echo "Error inserting package: " . mysqli_error($conn);
+			echo "Error inserting package: " . mysqli_error($conn) . " ";
 	}
 	mysqli_close($conn);	
 }
@@ -115,9 +116,9 @@ for ($x = 0; $x < count($regulations); $x++) {
 	}
 	$sql = "CALL postRegulation($billboardID,'$regulations[$x]')";
 	if (mysqli_query($conn, $sql)) {
-        echo "Regulation inserted successfully";
+        echo " Regulation inserted successfully ";
 	} else {
-		echo "Error inserting regulation: " . mysqli_error($conn);
+		echo "Error inserting regulation: " . mysqli_error($conn) . " ";
 	}
 	mysqli_close($conn);
 }
@@ -131,9 +132,9 @@ for ($x = 0; $x < count($rejections); $x++) {
 	}
 	$sql = "CALL postCommonRejection($billboardID,'$rejections[$x]')";
 	if (mysqli_query($conn, $sql)) {
-        echo "Rejection inserted successfully";
+        echo " Rejection inserted successfully ";
 	} else {
-		echo "Error inserting rejection: " . mysqli_error($conn);
+		echo "Error inserting rejection: " . mysqli_error($conn) . " ";
 	}
 	mysqli_close($conn);
 }
