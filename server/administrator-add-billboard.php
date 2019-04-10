@@ -41,11 +41,11 @@ if (mysqli_num_rows($result) > 0) {
 	echo "Error updating record: " . mysqli_error($conn);
 }*/
 
-for ($x = 0; $x < $packages.length; $x+3) {
+for ($x = 0; $x < count($packages); $x=$x+3) {
     echo $packages[$x] . " " .$packages[$x + 1] . " " . $packages[$x + 2];
 }
 
-for ($x = 0; $x < $regulations.length; $x++) {
+for ($x = 0; $x < count($regulations); $x++) {
     echo $regulations[$x];
 }
 
