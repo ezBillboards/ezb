@@ -34,6 +34,7 @@ $(document).ready(function(){
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
+			validate();
 	});
 	
 	$("#closeVerModal").click(function(){
@@ -80,6 +81,9 @@ $(document).ready(function(){
 		Session();
 	});
 });
+
+
+
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	console.log('Register function');

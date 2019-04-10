@@ -11,7 +11,44 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for procedure ezbdev.getBillboardInfo
+-- Dumping structure for procedure ezbtest2.deleteAccount
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccount`(
+	IN `user_ID_IN` BIGINT
+)
+BEGIN
+	update tblusers 
+	set enabled = 0
+	where user_ID = user_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.getAccounts
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccounts`(
+	IN `role_ID_IN` BIGINT
+
+)
+BEGIN
+	select * from tblusers
+	where role_ID = role_ID_IN and enabled = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.getAdminPackages
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdminPackages`(
+	IN `billboard_ID_IN` BIGINT
+
+)
+BEGIN
+	Select *
+	from tblpackage
+	where billboard_ID = billboard_ID_IN and enabled = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.getBillboardInfo
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboardInfo`(
 	IN `billboard_ID_IN` BIGINT
@@ -23,7 +60,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getBillboards
+-- Dumping structure for procedure ezbtest2.getBillboards
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBillboards`()
 BEGIN
@@ -31,7 +68,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getContact
+-- Dumping structure for procedure ezbtest2.getContact
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getContact`()
 BEGIN
@@ -39,7 +76,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getLoginAdmin
+-- Dumping structure for procedure ezbtest2.getLoginAdmin
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginAdmin`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -52,7 +89,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getLoginApprover
+-- Dumping structure for procedure ezbtest2.getLoginApprover
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginApprover`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -66,7 +103,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getLoginPublisher
+-- Dumping structure for procedure ezbtest2.getLoginPublisher
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginPublisher`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -79,7 +116,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getLoginUser
+-- Dumping structure for procedure ezbtest2.getLoginUser
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -91,18 +128,20 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
 
 
 
+
 )
 BEGIN
-	Select user_ID, verified, statusTemp from tblusers
+	Select user_ID, role_ID,verified, statusTemp,enabled from tblusers
 	where emailAddress = emailAddress_IN;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getPackages
+-- Dumping structure for procedure ezbtest2.getPackages
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackages`(
 	IN `billboard_ID_IN` BIGINT,
 	IN `Date_IN` DATE
+
 
 
 
@@ -121,14 +160,14 @@ BEGIN
 	join tblschedule
 	on tblpackage.billboard_ID = tblschedule.billboard_ID
 	where scheduleDate >= Date_IN and scheduleDate < DATE_ADD(Date_IN,INTERVAL duration DAY)
-	and tblschedule.billboard_ID = billboard_ID_In
+	and tblschedule.billboard_ID = billboard_ID_In and enabled = 1
 	group by package_ID,schedule_ID) as availability
 	group by package_ID
 	order by duration asc, displayPerCycle;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getPassword
+-- Dumping structure for procedure ezbtest2.getPassword
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPassword`(
 	IN `user_ID_IN` BIGINT
@@ -139,7 +178,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getProcessedRequest
+-- Dumping structure for procedure ezbtest2.getProcessedRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
 	IN `status_ID_IN` INT
@@ -149,35 +188,54 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getProcessedRequest`(
 
 
 
+
+
+
 )
 BEGIN
 	IF status_ID_IN = 5 THEN
-		Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
-		artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
-		approveDate, paymentDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		Select request_ID,requestDate,startDate, endDate, approveDate, paymentDate, tblbillboards.billboard_ID, 
+		billboardName, tblusers.firstName, tblusers.lastName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+		displayPerCycle, duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
+		from tbladrequest
 		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		left join
+		(Select request_ID as ID, tblusers.firstName as approverFirstName, tblusers.lastName as approverLastName,publisherFirstName, publisherLastName from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.approver_ID
+		left join
+		(Select request_ID as reqID, tblusers.firstName as publisherFirstName, tblusers.lastName as publisherLastName from tbladrequest
+		left join tblusers on tblusers.user_ID = tbladrequest.publisher_ID) as publisher
+		on reqID = tbladrequest.request_ID) as approver
+		on ID = tbladrequest.request_ID
 		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-		left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
 		where tbladrequest.status_ID = status_ID_IN
 		order by paymentDate asc;
 	ELSE
-		Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
-		artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
-		approveDate, tblartwork.width,tblartwork.height,tblartwork.size from tbladrequest
+		Select request_ID,requestDate,startDate, endDate, approveDate, paymentDate, tblbillboards.billboard_ID, 
+		billboardName, tblusers.firstName, tblusers.lastName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+		displayPerCycle, duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
+		from tbladrequest
 		join tblusers on tblusers.user_ID = tbladrequest.user_ID
+		left join
+		(Select request_ID as ID, tblusers.firstName as approverFirstName, tblusers.lastName as approverLastName,publisherFirstName, publisherLastName from tbladrequest
+		join tblusers on tblusers.user_ID = tbladrequest.approver_ID
+		left join
+		(Select request_ID as reqID, tblusers.firstName as publisherFirstName, tblusers.lastName as publisherLastName from tbladrequest
+		left join tblusers on tblusers.user_ID = tbladrequest.publisher_ID) as publisher
+		on reqID = tbladrequest.request_ID) as approver
+		on ID = tbladrequest.request_ID
 		join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 		join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 		join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-		left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
 		where tbladrequest.status_ID = status_ID_IN
 		order by requestDate asc;
 	END IF;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getRegulations
+-- Dumping structure for procedure ezbtest2.getRegulations
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRegulations`(
 	IN `billboard_ID_IN` BIGINT
@@ -188,7 +246,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getRejections
+-- Dumping structure for procedure ezbtest2.getRejections
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRejections`(
 	IN `billboard_ID_IN` BIGINT
@@ -199,7 +257,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getRequest
+-- Dumping structure for procedure ezbtest2.getRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequest`(
 	IN `requestFrom_IN` DATETIME,
@@ -248,7 +306,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getSettings
+-- Dumping structure for procedure ezbtest2.getSettings
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSettings`()
 BEGIN
@@ -257,7 +315,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getUserAccount
+-- Dumping structure for procedure ezbtest2.getUserAccount
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserAccount`(
 	IN `user_ID_IN` BIGINT
@@ -270,7 +328,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getUserID
+-- Dumping structure for procedure ezbtest2.getUserID
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -281,7 +339,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getUserInfo
+-- Dumping structure for procedure ezbtest2.getUserInfo
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
 	IN `request_ID_IN` BIGINT
@@ -299,7 +357,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.getUserRequest
+-- Dumping structure for procedure ezbtest2.getUserRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserRequest`(
 	IN `user_ID_IN` BIGINT,
@@ -307,26 +365,63 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserRequest`(
 
 
 
+
+
 )
 BEGIN
-	Select request_ID,requestDate,startDate, endDate, tblbillboards.billboard_ID, billboardName,billboardDescription,tblusers.firstName, tblusers.lastName,displayPerCycle, duration
-	artworkName,extension,artworkURL,comments,tblapprovers.firstName as approverFirstName, tblapprovers.lastName as approverLastName,
-	tblpublishers.firstName as publisherFirstName, tblpublishers.lastName as publisherLastName,approveDate,publishDate,
-	tblartwork.width,tblartwork.height,tblartwork.size, tblartwork.artworkName,
-	tblpackage.duration, tblpackage.displayPerCycle,tblpackage.price
+	Select request_ID,requestDate,startDate, endDate, approveDate, paymentDate, tblbillboards.billboard_ID, billboardName, tblusers.firstName as requestName, 
+	tblusers.lastName as requestName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+	displayPerCycle, duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
 	from tbladrequest
 	join tblusers on tblusers.user_ID = tbladrequest.user_ID
+	left join
+	(Select request_ID as ID, tblusers.firstName as approverFirstName, tblusers.lastName as approverLastName,publisherFirstName, publisherLastName from tbladrequest
+	join tblusers on tblusers.user_ID = tbladrequest.approver_ID
+	left join
+	(Select request_ID as reqID, tblusers.firstName as publisherFirstName, tblusers.lastName as publisherLastName from tbladrequest
+	left join tblusers on tblusers.user_ID = tbladrequest.publisher_ID) as publisher
+	on reqID = tbladrequest.request_ID) as approver
+	on ID = tbladrequest.request_ID
 	join tblpackage on tbladrequest.package_ID = tblpackage.package_ID
 	join tblbillboards on tblpackage.billboard_ID = tblbillboards.billboard_ID
 	join tblartwork on tblartwork.artwork_ID = tbladrequest.artwork_ID
-	left join tblapprovers on tblapprovers.approver_ID = tbladrequest.approver_ID
-	left join tblpublishers on tblpublishers.publisher_ID = tbladrequest.publisher_ID
 	where tbladrequest.status_ID = status_ID_IN and tblusers.user_ID = user_ID_IN
 	order by requestDate asc;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postAdRequest
+-- Dumping structure for procedure ezbtest2.postAccountAdmin
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `postAccountAdmin`(
+	IN `firstName_IN` VARCHAR(50),
+	IN `lastName_IN` VARCHAR(50),
+	IN `emailAddress_IN` VARCHAR(50),
+	IN `psswd_IN` VARCHAR(50),
+	IN `workPhone_IN` VARCHAR(50),
+	IN `mobilePhone_IN` VARCHAR(50),
+	IN `office_IN` VARCHAR(50),
+	IN `role_IN` VARCHAR(50)
+
+
+
+
+
+)
+BEGIN
+	IF role_IN = 'Administrator' THEN
+		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempPsswd,role_ID,verified,statusTemp)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN,4,1,1);
+	ELSEIF role_IN = 'Publisher' THEN
+		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office, tempPsswd,role_ID,verified,statusTemp)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN,3,1,1);
+	ELSE
+		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempPsswd,role_ID,verified,statusTemp)
+		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN,2,1,1);
+	END IF; 
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.postAdRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 	IN `user_ID_IN` BIGINT,
@@ -400,7 +495,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postApprover
+-- Dumping structure for procedure ezbtest2.postApprover
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postApprover`(
 	IN `emailAddress_IN` VARCHAR(100),
@@ -410,19 +505,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postApprover`(
 
 
 
-
 )
 BEGIN
-	Insert into tblusers (emailAddress,firstName,lastName,psswd,role_ID)
-	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN,2);
+	Insert into tblapprovers (emailAddress,firstName,lastName,psswd)
+	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN);
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postBillboard
+-- Dumping structure for procedure ezbtest2.postBillboard
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 	IN `billboardName_IN` VARCHAR(50),
-	IN `billboardDescription_IN` VARCHAR(255),
+	IN `billboardDescription_IN` VARCHAR(1000),
 	IN `billboardImageURL_IN` VARCHAR(100),
 	IN `width_IN` INT,
 	IN `height_IN` INT,
@@ -455,20 +549,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 
 
 
+
+
+
+
 )
 BEGIN
 	DECLARE seconds int default 60;
 	declare slots int;
+	declare billboardID bigint;
 	Insert into tblbillboards (billboardName, billboardDescription,billboardImage_URL, width, height, latitude,longitude,
 	minWidthRes,maxWidthRes,minHeightRes,maxHeightRes, readTime, impressions, traffic, cycle)
 	values(billboardName_IN, billboardDescription_IN,billboardImageURL_IN, width_IN, height_IN, latitude_IN,longitude_IN,
 	 minWidthRes_IN, maxWidthRes_IN, readTime_IN, minHeightRes_IN,maxHeightRes_IN, impressions_IN, traffic_IN, cycle_IN);
 	/*SET slots = cycle*seconds/readTime;*/
+	select last_insert_id() as ID;
+	
 	call postSchedule(last_insert_ID(),10);
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postPackage
+-- Dumping structure for procedure ezbtest2.postPackage
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postPackage`(
 	IN `billboard_ID_IN` BIGINT,
@@ -484,7 +585,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postPublisher
+-- Dumping structure for procedure ezbtest2.postPublisher
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postPublisher`(
 	IN `emailAddress_IN` VARCHAR(100),
@@ -494,15 +595,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postPublisher`(
 
 
 
-
 )
 BEGIN
-	Insert into tblusers (emailAddress,firstName,lastName,psswd,role_ID)
-	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN,3);
+	Insert into tblpublishers (emailAddress,firstName,lastName,psswd)
+	values (emailAddress_IN,firstName_IN,lastName_IN,psswd_IN);
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postSchedule
+-- Dumping structure for procedure ezbtest2.postRegulation
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `postRegulation`(
+	IN `billboard_ID_IN` BIGINT,
+	IN `regulation_IN` VARCHAR(200)
+
+)
+BEGIN
+	insert into tblbillboardregulation (billboard_ID,regulation)
+	values (billboard_ID_IN, regulation_IN);
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.postSchedule
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postSchedule`(
 	IN `billboard_ID_IN` BIGINT,
@@ -531,7 +644,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.postUser
+-- Dumping structure for procedure ezbtest2.postUser
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 	IN `emailAddress_IN` VARCHAR(50),
@@ -559,19 +672,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
 
 
 
-
 )
 BEGIN
 	insert into tblusers(emailAddress,firstName,lastName,mobilePhone,
 	workPhone,companyName, companyURL,facebookURL, instagramURL,twitterURL,
-	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate,role_ID) 
+	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
 	values (emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
-	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,current_timestamp(),current_timestamp(),role_ID);
+	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,psswd_IN,current_timestamp(),current_timestamp());
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putAccount
+-- Dumping structure for procedure ezbtest2.putAccount
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 	IN `user_ID_IN` BIGINT,
@@ -600,33 +712,38 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putAccountAdmin
+-- Dumping structure for procedure ezbtest2.putAccountAdmin
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccountAdmin`(
+	IN `user_ID_IN` BIGINT,
 	IN `firstName_IN` VARCHAR(50),
 	IN `lastName_IN` VARCHAR(50),
-	IN `emailAddress_IN` VARCHAR(50),
-	IN `psswd_IN` VARCHAR(50),
 	IN `workPhone_IN` VARCHAR(50),
 	IN `mobilePhone_IN` VARCHAR(50),
 	IN `office_IN` VARCHAR(50),
 	IN `role_IN` VARCHAR(50)
 )
-BEGIN
+BEGIN	
 	IF role_IN = 'Administrator' THEN
-		insert into tbladmin(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempsswd)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+		update tblusers
+		set firstName = firstName_IN,lastName = lastName_IN,workPhone = workPhone_IN,mobilePhone = mobilePhone_IN,
+		office = office_IN,role_ID = 4
+		where user_ID = user_ID_IN;
 	ELSEIF role_IN = 'Publisher' THEN
-		insert into tblpublishers(emailAddress,firstName,lastName,workPhone,mobilePhone,office, tempsswd)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+		update tblusers
+		set firstName = firstName_IN,lastName = lastName_IN,workPhone = workPhone_IN,mobilePhone = mobilePhone_IN,
+		office = office_IN,role_ID = 3
+		where user_ID = user_ID_IN;
 	ELSE
-		insert into tblapprovers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempsswd)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN, psswd_IN);
+		update tblusers
+		set firstName = firstName_IN,lastName = lastName_IN,workPhone = workPhone_IN,mobilePhone = mobilePhone_IN,
+		office = office_IN,role_ID = 2
+		where user_ID = user_ID_IN;
 	END IF; 
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putCancelRequest
+-- Dumping structure for procedure ezbtest2.putCancelRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putCancelRequest`(
 	IN `request_ID_IN` BIGINT
@@ -638,7 +755,19 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putPaidRequest
+-- Dumping structure for procedure ezbtest2.putDisablePackage
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putDisablePackage`(
+	IN `package_ID_IN` BIGINT
+)
+BEGIN
+	update tblpackage
+	set enabled = 0
+	where package_ID = package_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.putPaidRequest
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPaidRequest`(
 	IN `request_ID_IN` BIGINT
@@ -651,7 +780,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putPassword
+-- Dumping structure for procedure ezbtest2.putPassword
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPassword`(
 	IN `user_ID_IN` BIGINT,
@@ -666,7 +795,7 @@ where user_ID = user_ID_IN;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putStatusApprover
+-- Dumping structure for procedure ezbtest2.putStatusApprover
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusApprover`(
 	IN `request_ID_IN` BIGINT,
@@ -684,7 +813,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putStatusPaid
+-- Dumping structure for procedure ezbtest2.putStatusPaid
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusPaid`(
 	IN `request_ID_IN` BIGINT
@@ -696,7 +825,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putStatusPublisher
+-- Dumping structure for procedure ezbtest2.putStatusPublisher
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putStatusPublisher`(
 	IN `request_ID_IN` BIGINT,
@@ -709,7 +838,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putTempPsswd
+-- Dumping structure for procedure ezbtest2.putTempPsswd
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putTempPsswd`(
 	IN `emailAddress_IN` VARCHAR(100),
@@ -724,7 +853,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure ezbdev.putVerified
+-- Dumping structure for procedure ezbtest2.putVerified
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putVerified`(
 	IN `emailAddress_IN` VARCHAR(100)
@@ -736,27 +865,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for table ezbdev.tbladmin
-CREATE TABLE IF NOT EXISTS `tbladmin` (
-  `admin_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `emailAddress` varchar(100) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
-  `workPhone` varchar(15) DEFAULT NULL,
-  `mobilePhone` varchar(15) DEFAULT NULL,
-  `office` varchar(50) DEFAULT NULL,
-  `psswd` varchar(255) DEFAULT NULL,
-  `tempsswd` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`admin_id`,`emailAddress`),
-  UNIQUE KEY `admin_ID` (`admin_id`),
-  UNIQUE KEY `emailAddress` (`emailAddress`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbdev.tbladmin: ~0 rows (approximately)
-/*!40000 ALTER TABLE `tbladmin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbladmin` ENABLE KEYS */;
-
--- Dumping structure for table ezbdev.tbladrequest
+-- Dumping structure for table ezbtest2.tbladrequest
 CREATE TABLE IF NOT EXISTS `tbladrequest` (
   `request_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_ID` bigint(20) NOT NULL DEFAULT 0,
@@ -780,26 +889,28 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   KEY `user` (`user_ID`),
   KEY `artwork` (`artwork_ID`),
   KEY `package` (`package_ID`),
+  CONSTRAINT `approver` FOREIGN KEY (`approver_ID`) REFERENCES `tblusers` (`user_ID`),
   CONSTRAINT `artwork` FOREIGN KEY (`artwork_ID`) REFERENCES `tblartwork` (`artwork_ID`),
   CONSTRAINT `package` FOREIGN KEY (`package_ID`) REFERENCES `tblpackage` (`package_ID`),
+  CONSTRAINT `publisher` FOREIGN KEY (`publisher_ID`) REFERENCES `tblusers` (`user_ID`),
   CONSTRAINT `status` FOREIGN KEY (`status_ID`) REFERENCES `tblrequeststatus` (`status_ID`),
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladrequest: ~8 rows (approximately)
+-- Dumping data for table ezbtest2.tbladrequest: ~8 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
 INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, `package_ID`, `requestDate`, `startDate`, `endDate`, `approver_ID`, `approveDate`, `comments`, `publisher_ID`, `publishDate`, `paymentDate`) VALUES
 	(1, 1, 21, 1, 5, '2019-03-14 20:20:20', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(2, 1, 22, 1, 4, '2019-03-13 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(3, 1, 23, 1, 4, '2019-03-12 20:20:20', '2019-03-16 00:00:00', '2019-04-13 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', 6, '2019-03-14 00:00:00', NULL, NULL, NULL, NULL),
+	(5, 2, 25, 2, 6, '2019-03-14 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(6, 2, 26, 1, 6, '2019-03-15 00:00:00', '2019-03-16 00:00:00', '2019-03-30 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(17, 1, 37, 1, 7, '2019-04-04 22:17:04', '2019-04-05 00:00:00', '2019-04-12 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(18, 1, 38, 1, 7, '2019-04-04 23:16:41', '2019-04-13 00:00:00', '2019-04-20 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
 	(19, 1, 39, 1, 7, '2019-04-04 23:51:58', '2019-04-13 00:00:00', '2019-04-20 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tbladvertisement
+-- Dumping structure for table ezbtest2.tbladvertisement
 CREATE TABLE IF NOT EXISTS `tbladvertisement` (
   `advertisement_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `request_ID` bigint(20) NOT NULL,
@@ -808,35 +919,11 @@ CREATE TABLE IF NOT EXISTS `tbladvertisement` (
   PRIMARY KEY (`advertisement_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tbladvertisement: ~0 rows (approximately)
+-- Dumping data for table ezbtest2.tbladvertisement: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbladvertisement` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tbladvertisement` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblapprovers
-CREATE TABLE IF NOT EXISTS `tblapprovers` (
-  `approver_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `emailAddress` varchar(100) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
-  `workPhone` varchar(15) DEFAULT NULL,
-  `mobilePhone` varchar(15) DEFAULT NULL,
-  `office` varchar(50) DEFAULT NULL,
-  `psswd` varchar(255) DEFAULT NULL,
-  `tempsswd` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`approver_ID`,`emailAddress`),
-  UNIQUE KEY `approver_ID` (`approver_ID`),
-  UNIQUE KEY `emailAddress` (`emailAddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbdev.tblapprovers: ~3 rows (approximately)
-/*!40000 ALTER TABLE `tblapprovers` DISABLE KEYS */;
-INSERT INTO `tblapprovers` (`approver_ID`, `emailAddress`, `firstName`, `lastName`, `workPhone`, `mobilePhone`, `office`, `psswd`, `tempsswd`) VALUES
-	(1, 'example@example.com', 'Felix', 'Gonzalez', NULL, NULL, NULL, 'bbf2dead374654cbb32a917afd236656', NULL),
-	(5, 'example1@example1.com', 'Juan', 'Del Pueblo', NULL, NULL, NULL, '6bc8954e3c2b6dfbb5ad2d25acc45be4', NULL),
-	(6, 'example@approver.com', 'Carlos', 'Aponte', NULL, NULL, NULL, 'd8e98f7cc38ada6fd9ca0ae9e53bf0bf', NULL);
-/*!40000 ALTER TABLE `tblapprovers` ENABLE KEYS */;
-
--- Dumping structure for table ezbdev.tblartwork
+-- Dumping structure for table ezbtest2.tblartwork
 CREATE TABLE IF NOT EXISTS `tblartwork` (
   `artwork_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_ID` bigint(20) NOT NULL,
@@ -853,7 +940,7 @@ CREATE TABLE IF NOT EXISTS `tblartwork` (
   CONSTRAINT `user_ID` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblartwork: ~29 rows (approximately)
+-- Dumping data for table ezbtest2.tblartwork: ~29 rows (approximately)
 /*!40000 ALTER TABLE `tblartwork` DISABLE KEYS */;
 INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, `extension`, `width`, `height`, `Size`, `ratio`) VALUES
 	(1, 1, 'as;dkfj', 'image', '.jpg', 10, 12, 14, ''),
@@ -882,12 +969,12 @@ INSERT INTO `tblartwork` (`artwork_ID`, `user_ID`, `artworkURL`, `artworkName`, 
 	(24, 1, 'image.jpg', 'image', '.jpg', 10, 12, 14, ''),
 	(25, 2, 'image.jpg', 'image', '.jpg', 10, 12, 14, ''),
 	(26, 2, '../../img/requests/6.jpg', 'image', '.jpg', 10, 12, 14, ''),
-	(37, 1, '../../img/requests/17.jpg', 'Ponderosa', 'jpg', 400, 200, 8000, ''),
-	(38, 1, '../../img/requests/18.png', 'capstone', 'png', 123, 345, 6778, '2:1'),
-	(39, 1, '../../img/requests/19.png', 'capstone', 'png', 123, 345, 6778, '2:1');
+	(37, 1, '../../img/requests/1.jpg', 'Ponderosa', 'jpg', 400, 200, 8000, ''),
+	(38, 1, '../../img/requests/3.jpg', 'capstone', 'png', 123, 345, 6778, '2:1'),
+	(39, 1, '../../img/requests/5.jpg', 'capstone', 'png', 123, 345, 6778, '2:1');
 /*!40000 ALTER TABLE `tblartwork` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblbillboardregulation
+-- Dumping structure for table ezbtest2.tblbillboardregulation
 CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
   `reg_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
@@ -895,9 +982,9 @@ CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
   PRIMARY KEY (`reg_ID`),
   KEY `regBillboard` (`billboard_ID`),
   CONSTRAINT `regBillboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblbillboardregulation: ~9 rows (approximately)
+-- Dumping data for table ezbtest2.tblbillboardregulation: ~13 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboardregulation` DISABLE KEYS */;
 INSERT INTO `tblbillboardregulation` (`reg_ID`, `billboard_ID`, `regulation`) VALUES
 	(1, 3, 'No alcohol'),
@@ -908,10 +995,14 @@ INSERT INTO `tblbillboardregulation` (`reg_ID`, `billboard_ID`, `regulation`) VA
 	(6, 6, 'No animations'),
 	(7, 6, 'Appropriate vocabulary'),
 	(8, 7, 'No alcohol'),
-	(9, 7, 'No animations');
+	(9, 7, 'No animations'),
+	(10, 8, 'No alcohol'),
+	(11, 9, 'No alcohol'),
+	(12, 10, 'No alcohol'),
+	(13, 11, 'No alcohol');
 /*!40000 ALTER TABLE `tblbillboardregulation` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblbillboards
+-- Dumping structure for table ezbtest2.tblbillboards
 CREATE TABLE IF NOT EXISTS `tblbillboards` (
   `billboard_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `billboardName` varchar(50) NOT NULL,
@@ -933,7 +1024,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblbillboards: ~11 rows (approximately)
+-- Dumping data for table ezbtest2.tblbillboards: ~11 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
 INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescription`, `billboardImage_URL`, `width`, `height`, `latitude`, `longitude`, `minWidthRes`, `maxWidthRes`, `minHeightRes`, `maxHeightRes`, `readTime`, `impressions`, `traffic`, `Cycle`) VALUES
 	(1, 'Luchetti Billboard', 'This is the Luchetti Billboard', '../../img/billboards/1.jpg', 10, 10, 10, 10, 10, 10, 100, 20, 18, 200, 300, 400),
@@ -949,7 +1040,7 @@ INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescript
 	(11, 'North Side Entrance', 'North Side Entrance Billboard UPRM', '../../img/billboards/4.jpg', 10, 10, 10, 10, 10, 10, 6, 20, 18, 1000, 2000, 16);
 /*!40000 ALTER TABLE `tblbillboards` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblcommonrejections
+-- Dumping structure for table ezbtest2.tblcommonrejections
 CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
   `reject_ID` int(11) NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
@@ -957,7 +1048,7 @@ CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
   PRIMARY KEY (`reject_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblcommonrejections: ~9 rows (approximately)
+-- Dumping data for table ezbtest2.tblcommonrejections: ~9 rows (approximately)
 /*!40000 ALTER TABLE `tblcommonrejections` DISABLE KEYS */;
 INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VALUES
 	(1, 3, 'Animated image'),
@@ -971,7 +1062,7 @@ INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VAL
 	(9, 7, 'Conflict of interest');
 /*!40000 ALTER TABLE `tblcommonrejections` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblcontact
+-- Dumping structure for table ezbtest2.tblcontact
 CREATE TABLE IF NOT EXISTS `tblcontact` (
   `postalAddress` varchar(200) DEFAULT NULL,
   `physicalAddress` varchar(200) DEFAULT NULL,
@@ -983,73 +1074,54 @@ CREATE TABLE IF NOT EXISTS `tblcontact` (
   `officeHours` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblcontact: ~1 rows (approximately)
+-- Dumping data for table ezbtest2.tblcontact: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
 INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
 	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
 /*!40000 ALTER TABLE `tblcontact` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblpackage
+-- Dumping structure for table ezbtest2.tblpackage
 CREATE TABLE IF NOT EXISTS `tblpackage` (
   `package_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
   `displayPerCycle` smallint(6) NOT NULL,
   `duration` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`package_ID`),
   UNIQUE KEY `package_ID` (`package_ID`),
   KEY `billboard_Package` (`billboard_ID`),
   CONSTRAINT `billboard_Package` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COMMENT='Packages available for a billboard.';
 
--- Dumping data for table ezbdev.tblpackage: ~22 rows (approximately)
+-- Dumping data for table ezbtest2.tblpackage: ~22 rows (approximately)
 /*!40000 ALTER TABLE `tblpackage` DISABLE KEYS */;
-INSERT INTO `tblpackage` (`package_ID`, `billboard_ID`, `displayPerCycle`, `duration`, `price`) VALUES
-	(1, 1, 4, 28, 1700.00),
-	(3, 3, 4, 28, 1700.00),
-	(4, 3, 4, 28, 1700.00),
-	(5, 6, 4, 14, 900.00),
-	(6, 7, 4, 14, 900.00),
-	(7, 9, 1, 7, 100.00),
-	(8, 9, 2, 7, 200.00),
-	(9, 9, 4, 7, 400.00),
-	(10, 9, 1, 14, 400.00),
-	(11, 9, 2, 14, 800.00),
-	(12, 9, 4, 14, 1600.00),
-	(13, 10, 1, 7, 50.00),
-	(14, 10, 2, 7, 100.00),
-	(15, 10, 4, 7, 200.00),
-	(16, 10, 8, 7, 400.00),
-	(17, 11, 1, 14, 10.00),
-	(18, 11, 2, 14, 20.00),
-	(19, 11, 4, 14, 40.00),
-	(20, 11, 8, 14, 80.00),
-	(21, 11, 4, 28, 1000.00),
-	(22, 11, 8, 28, 2000.00),
-	(23, 11, 16, 28, 2000.00);
+INSERT INTO `tblpackage` (`package_ID`, `billboard_ID`, `displayPerCycle`, `duration`, `price`, `enabled`) VALUES
+	(1, 1, 4, 28, 1700.00, 1),
+	(3, 3, 4, 28, 1700.00, 1),
+	(4, 3, 4, 28, 1700.00, 1),
+	(5, 6, 4, 14, 900.00, 1),
+	(6, 7, 4, 14, 900.00, 1),
+	(7, 9, 1, 7, 100.00, 1),
+	(8, 9, 2, 7, 200.00, 1),
+	(9, 9, 4, 7, 400.00, 1),
+	(10, 9, 1, 14, 400.00, 1),
+	(11, 9, 2, 14, 800.00, 1),
+	(12, 9, 4, 14, 1600.00, 1),
+	(13, 10, 1, 7, 50.00, 1),
+	(14, 10, 2, 7, 100.00, 1),
+	(15, 10, 4, 7, 200.00, 1),
+	(16, 10, 8, 7, 400.00, 1),
+	(17, 11, 1, 14, 10.00, 1),
+	(18, 11, 2, 14, 20.00, 1),
+	(19, 11, 4, 14, 40.00, 1),
+	(20, 11, 8, 14, 80.00, 1),
+	(21, 11, 4, 28, 1000.00, 1),
+	(22, 11, 8, 28, 2000.00, 1),
+	(23, 11, 16, 28, 2000.00, 1);
 /*!40000 ALTER TABLE `tblpackage` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblpublishers
-CREATE TABLE IF NOT EXISTS `tblpublishers` (
-  `publisher_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `emailAddress` varchar(100) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
-  `workPhone` varchar(15) DEFAULT NULL,
-  `mobilePhone` varchar(15) DEFAULT NULL,
-  `office` varchar(50) DEFAULT NULL,
-  `psswd` varchar(255) DEFAULT NULL,
-  `tempsswd` varchar(15) NOT NULL,
-  PRIMARY KEY (`publisher_ID`,`emailAddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbdev.tblpublishers: ~1 rows (approximately)
-/*!40000 ALTER TABLE `tblpublishers` DISABLE KEYS */;
-INSERT INTO `tblpublishers` (`publisher_ID`, `emailAddress`, `firstName`, `lastName`, `workPhone`, `mobilePhone`, `office`, `psswd`, `tempsswd`) VALUES
-	(1, 'example@publisher.com', 'Carlos', 'Rodriguez', NULL, NULL, NULL, '52aded165360352a0f5857571d96d68f', '');
-/*!40000 ALTER TABLE `tblpublishers` ENABLE KEYS */;
-
--- Dumping structure for table ezbdev.tblrequeststatus
+-- Dumping structure for table ezbtest2.tblrequeststatus
 CREATE TABLE IF NOT EXISTS `tblrequeststatus` (
   `status_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `statusName` varchar(25) NOT NULL,
@@ -1059,7 +1131,7 @@ CREATE TABLE IF NOT EXISTS `tblrequeststatus` (
   UNIQUE KEY `statusName` (`statusName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblrequeststatus: ~6 rows (approximately)
+-- Dumping data for table ezbtest2.tblrequeststatus: ~6 rows (approximately)
 /*!40000 ALTER TABLE `tblrequeststatus` DISABLE KEYS */;
 INSERT INTO `tblrequeststatus` (`status_ID`, `statusName`, `statusDescription`) VALUES
 	(1, 'Requested', NULL),
@@ -1070,23 +1142,7 @@ INSERT INTO `tblrequeststatus` (`status_ID`, `statusName`, `statusDescription`) 
 	(6, 'Published', NULL);
 /*!40000 ALTER TABLE `tblrequeststatus` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblroles
-CREATE TABLE IF NOT EXISTS `tblroles` (
-  `role_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `roleDescription` varchar(50) NOT NULL,
-  PRIMARY KEY (`role_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbdev.tblroles: ~4 rows (approximately)
-/*!40000 ALTER TABLE `tblroles` DISABLE KEYS */;
-INSERT INTO `tblroles` (`role_ID`, `roleDescription`) VALUES
-	(1, 'User'),
-	(2, 'Approver'),
-	(3, 'Publisher'),
-	(4, 'Administrator');
-/*!40000 ALTER TABLE `tblroles` ENABLE KEYS */;
-
--- Dumping structure for table ezbdev.tblschedule
+-- Dumping structure for table ezbtest2.tblschedule
 CREATE TABLE IF NOT EXISTS `tblschedule` (
   `schedule_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
@@ -1098,7 +1154,7 @@ CREATE TABLE IF NOT EXISTS `tblschedule` (
   CONSTRAINT `billboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1261 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblschedule: ~1,260 rows (approximately)
+-- Dumping data for table ezbtest2.tblschedule: ~1,260 rows (approximately)
 /*!40000 ALTER TABLE `tblschedule` DISABLE KEYS */;
 INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `scheduleDate`) VALUES
 	(1, 5, 10, '2019-03-14'),
@@ -2363,20 +2419,20 @@ INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `sch
 	(1260, 11, 10, '2019-09-30');
 /*!40000 ALTER TABLE `tblschedule` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblsettings
+-- Dumping structure for table ezbtest2.tblsettings
 CREATE TABLE IF NOT EXISTS `tblsettings` (
   `sett_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `about` varchar(2000) NOT NULL,
   PRIMARY KEY (`sett_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblsettings: ~1 rows (approximately)
+-- Dumping data for table ezbtest2.tblsettings: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
 INSERT INTO `tblsettings` (`sett_ID`, `about`) VALUES
 	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor');
 /*!40000 ALTER TABLE `tblsettings` ENABLE KEYS */;
 
--- Dumping structure for table ezbdev.tblusers
+-- Dumping structure for table ezbtest2.tblusers
 CREATE TABLE IF NOT EXISTS `tblusers` (
   `user_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `emailAddress` varchar(100) NOT NULL,
@@ -2402,18 +2458,19 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `lastLoginDate` datetime NOT NULL,
   `verified` tinyint(1) NOT NULL DEFAULT 0,
   `statusTemp` tinyint(1) NOT NULL DEFAULT 0,
+  `enabled` tinyint(3) unsigned DEFAULT 1,
   PRIMARY KEY (`user_ID`,`emailAddress`),
   UNIQUE KEY `user_ID` (`user_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbdev.tblusers: ~4 rows (approximately)
+-- Dumping data for table ezbtest2.tblusers: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
-INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`) VALUES
-	(1, 'exam@ple.com', NULL, NULL, 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, 0),
-	(2, 'example@billboards.com', NULL, NULL, 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, 0),
-	(3, 'example2@billboards.com', NULL, NULL, 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, 0),
-	(4, 'asd@asdf.com', NULL, NULL, 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 0);
+INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`, `enabled`) VALUES
+	(1, 'exam@ple.com', 1, NULL, 'Benito', 'Martinez', '939-787-7878', '787-939-8510', 'x100pre', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Calle', '1', 'Vega Baja', 'PR', '00123', '1234', NULL, '2019-03-12 00:00:00', '2019-03-12 00:00:00', 1, 0, 1),
+	(2, 'example@billboards.com', 1, NULL, 'Rafael', 'Taraza', '939-454-9851', '787-147-8520', 'blinders', NULL, 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-14 00:00:00', '2019-03-14 00:00:00', 0, 0, 1),
+	(3, 'example2@billboards.com', 1, NULL, 'Juan', 'Antonio', '787-123-4567', '787-123-4567', 'recordLabel', 'www.google.com', 'https://www.facebook.com', 'https://www.instagram.com', 'https://www.twitter.com', 'Street 1', 'APT1', 'San Juan', 'PR', '00969', '1234', NULL, '2019-03-15 00:00:00', '2019-03-15 00:00:00', 0, 0, 1),
+	(4, 'asd@asdf.com', 1, NULL, 'Antonio', 'Cruz', '787-852-0146', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1234', NULL, '2019-03-31 00:00:00', '2019-03-31 00:00:00', 0, 0, 1);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

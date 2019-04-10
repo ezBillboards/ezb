@@ -48,7 +48,10 @@ for ($x = 0; $x < count($packages); $x=$x+3) {
 	if($conn === false){
 		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
-	$sql = "CALL postPackage($billboardID,$packages[$x],$packages[$x + 1],$packages[$x + 2])";
+	$duration = $packages[$x];
+	$frequency = $packages[$x + 1];
+	$price = $packages[$x + 2];
+	$sql = "CALL postPackage($billboardID,$duration,$frequency,$price)";
 	if (mysqli_query($conn, $sql)) {
         echo "Record updated successfully";
 	} else {
@@ -71,6 +74,7 @@ for ($x = 0; $x < count($regulations); $x++) {
 	}
 	mysqli_close($conn);
 }
+
 
 
 ?>
