@@ -1,5 +1,8 @@
 /*Administrator billboards JavaScript*/
 var packages;
+var regulations;
+var rejections;
+var files;
 
 $(document).ready(function(){
 	
@@ -198,6 +201,7 @@ function getBillboards(){
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
+		files = input.files[0];
 		
 		reader.onload = function (e) {
 			if(input.id == 'billboard-img'){
@@ -215,7 +219,6 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 			{
 				name:$("#addBillboardname").val(),
 				description:$("#adddescription").val(),
-				//url:,
 				width:$("#addwidth").val(),
 				height:$("#addheight").val(),
 				latitude:$("#addlatitude").val(),
@@ -227,6 +230,9 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 				readtime:$("#addreadtime").val(),
 				impressions:$("#addimpressions").val(),
 				traffic:$("#addtraffic").val(),
+				fileName: files.name.split(".")[0],
+				extension: files.type.substring(6),
+				upload-image: files,
 				//cycle:$("#addBillboardname").val()
 				packages:packages_in,
 				regulations:regulations_in,

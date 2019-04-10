@@ -26,6 +26,8 @@ $readtime = $_POST['readtime'];
 $impressions = $_POST['impressions'];
 $traffic = $_POST['traffic'];
 $cycle = 4;
+$fileName = $_POST['fileName'];
+$extension = $_POST['extension'];
 $packages = $_POST['packages'];
 $regulations = $_POST['regulations'];
 $rejections = $_POST['rejections'];
@@ -42,6 +44,34 @@ if (mysqli_num_rows($result) > 0) {
 	echo "Error updating record: " . mysqli_error($conn);
 }
 mysqli_close($conn);
+/* Getting file name */
+$filename = $_FILES['upload-image']['name'];
+
+echo $billboardID;
+
+/* Location */
+$location = "../../img/billboards/".$billboardID.".".$extension;
+
+$uploadOk = 1;
+$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
+/* Valid Extensions */
+$valid_extensions = array("jpg","jpeg","png");
+
+/* Check file extension */
+if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
+   $uploadOk = 0;
+}
+
+if($uploadOk == 0){
+   echo 0;
+}else{
+   if(move_uploaded_file($_FILES['upload-image']['tmp_name'],$location)){
+        echo "Uploaded";
+   }else{
+      echo 0;
+   }
+}
 
 for ($x = 0; $x < count($packages); $x=$x+3) {
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
