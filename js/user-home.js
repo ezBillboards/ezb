@@ -202,7 +202,7 @@ function VerifyRole(){
 			sessionStorage.setItem('ID', profile_ID);
 			sessionStorage.setItem('role', role);
 			//IF APPROVER FOUND --->> APPROVER VIEW
-			window.location.href = "../approver/approver-requests.html";
+			window.location.href = "../approver/requests.html";
 			//console.log('APPROVER FOUND');
 		}
 	}
@@ -215,7 +215,7 @@ function VerifyRole(){
 			sessionStorage.setItem('ID', profile_ID);
 			sessionStorage.setItem('role', role);
 			//IF PUBLISHER FOUND --->> PUBLISHER VIEW
-			window.location.href = "../publisher/publisher-paid-requests.html";
+			window.location.href = "../publisher/paid-requests.html";
 		}
 	}
 	else if(role == 4){
@@ -228,7 +228,7 @@ function VerifyRole(){
 			sessionStorage.setItem('role', role);
 			//IF ADMIN FOUND --->> ADMIN VIEW
 			console.log('ADMIN FOUND');
-			window.location.href = "../administrator/administrator-logs.html";
+			window.location.href = "../administrator/billboards.html";
 		}	
 	}
 }
