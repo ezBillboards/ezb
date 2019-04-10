@@ -41,6 +41,21 @@ $(document).ready(function(){
 		$("#add-regulation").append(newRegulation);
 	});
 	
+	$('#btnaddrejection').click(function(){
+		console.log('btnaddrejection clicked!');
+		var newRejection = "<tr>" +
+		"<td><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+		"<td>" +
+		"<div class=\"column\">" +
+		"<div class=\"row\">" +
+		"<div class=\"col-lg-6\">" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+		"</div>" +
+		"</div>" +
+		"</td>";
+		$("#add-regulation").append(newRejection);
+	});
+	
 	$("table").on("click", "tr .remove", function(){
 		 $(this).closest('tr').remove();
 	});
@@ -49,6 +64,7 @@ $(document).ready(function(){
 		console.log('btnnewbillboard clicked!');
 		var packages = [];
 		var regulations = [];
+		var rejections = [];
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				packages.push(this.value);
@@ -60,9 +76,17 @@ $(document).ready(function(){
 				regulations.push(this.value);
 			});
 		});
+		
+		$("#add-rejection tr").each(function() {
+			$(this).find('td').find('input').each(function(){
+				rejections.push(this.value);
+			});
+		});
+		
 		console.log(packages);	
 		console.log(regulations);
-		newBillboard(packages,regulations);
+		console.log(rejections);
+		newBillboard(packages,regulations,rejections);
 	});
 	
 	$("#billboard-img").change(function(){
