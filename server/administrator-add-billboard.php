@@ -13,7 +13,7 @@ if($conn === false){
 
 $name = $_POST['name'];
 $description = $_POST['description'];
-$url = '../../img/billboards/1.jpg';
+$url = null;
 $width = $_POST['width'];
 $height = $_POST['height'];
 $latitude = $_POST['latitude'];
@@ -73,7 +73,19 @@ if($uploadOk == 0){
       echo " Not uploaded";
    }
 }
-
+$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+if($conn === false){
+	die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+$sql = "CALL putBillboardURL($billboardID,'$location')";
+if (mysqli_query($conn, $sql)) {
+	echo "Record updated successfully";
+} else {
+		echo "Error updating record: " . mysqli_error($conn);
+}
+mysqli_close($conn);
+	
 for ($x = 0; $x < count($packages); $x=$x+3) {
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
