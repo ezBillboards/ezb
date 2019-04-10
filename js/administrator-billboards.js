@@ -248,9 +248,9 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('fileName',files.name.split(".")[0]);
 	fd.append('extension',files.type.substring(6));
 	//cycle:$("#addBillboardname").val()
-	fd.append('packages',packages_in);
-	fd.append('regulations',regulations_in);
-	fd.append('rejections',rejections_in);
+	fd.append('packages',JSON.stringify(packages_in));
+	fd.append('regulations',JSON.stringify(regulations_in));
+	fd.append('rejections',JSON.stringify(rejections_in));
 	$.ajax({
 		url:"../server/administrator-add-billboard.php",
 		type: 'POST',

@@ -28,9 +28,9 @@ $traffic = $_POST['traffic'];
 $cycle = 4;
 $fileName = $_POST['fileName'];
 $extension = $_POST['extension'];
-$packages = $_POST['packages'];
-$regulations = $_POST['regulations'];
-$rejections = $_POST['rejections'];
+$packages = json_decode($_POST['packages']);
+$regulations = json_decode($_POST['regulations']);
+$rejections = json_decode($_POST['rejections']);
 $billboardID;
 
 $sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
@@ -88,6 +88,7 @@ if (mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 
 //Insert new packages
+echo " " . $packages . " ";
 for ($x = 0; $x < count($packages); $x=$x+3) {
 	$duration = $packages[$x];
 	$frequency = $packages[$x + 1];
