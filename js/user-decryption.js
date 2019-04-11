@@ -54,7 +54,7 @@ $(document).ready(function(){
 	
 	$("#save").click(function(){
 		console.log('here 1');
-		$.post("../server/user-encryption.php",
+		/*$.post("../server/user-encryption.php",
 		{
 			firstName:encrypt( $("#firstName").val(), password),
 			lastName:encrypt( $("#lastName").val(), password),
@@ -87,7 +87,7 @@ $(document).ready(function(){
 		});
 
 		
-	});
+	});*/
 
 });
 
