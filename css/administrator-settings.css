@@ -36,13 +36,6 @@
   color: white;
 }
 
-.btn{
-  background-color:#5bc0de;
-  padding: 10px 10px;
-  font-size: 15px;
-  border-radius: 8px;
-}
-
 .navbar-text-color {
     color: #03A9F4 !important;
 }
@@ -51,21 +44,12 @@
   width: 80%;
 }
 
-.glyphicon.glyphicon-pencil{
-  color: #14268b;
-    padding-right: 20px;
-
-}
-
-.glyphicon.glyphicon-trash{
-  color: red;
-}
-
-.jumbotron { padding: 20px 5px 20px 15px;
+.jumbo { 
+padding: 2% 1% 2% 1%;
 margin-bottom: 10px;
 margin-top: 10px;
-margin-left: 5px;
-margin-right: 5px;
+margin-left: 2px;
+margin-right: 2px;
 font-size: 18px;
 font-weight: 200;
 line-height: inherit;
@@ -73,10 +57,15 @@ outline-width: thin;
 outline-style: solid;
 border-radius: 6px;
 outline-color: #eeeeee;
-color: #ffffff;
+color: #fffff1f;
 -webkit-border-radius: 20px;
 -moz-border-radius: 20px;
 border-radius: 20px;
+}
+
+.jumbo-padding{
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 th{
@@ -85,5 +74,11 @@ th{
   background-color: #607d8b;
 }
 
+#settings-header{
+	font-size: 56px;
+	font-weight: bold;
+}
 
-
+.headers{
+	color: white;
+}

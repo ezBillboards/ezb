@@ -48,6 +48,30 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.deleteRegulation
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteRegulation`(
+	IN `regulation_ID_IN` BIGINT
+)
+BEGIN
+	update tblbillboardregulation
+	set enabled = 0
+	where reg_ID = regulation_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.deleteRejection
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteRejection`(
+	IN `rejection_ID_IN` BIGINT
+)
+BEGIN
+	update tblcommonrejections
+	set enabled = 0
+	where reject_ID = rejection_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.getAccounts
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccounts`(
@@ -65,10 +89,36 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdminPackages`(
 	IN `billboard_ID_IN` BIGINT
 
+
 )
 BEGIN
 	Select *
 	from tblpackage
+	where billboard_ID = billboard_ID_IN and enabled = 1
+	order by duration asc, displayPerCycle;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.getAdminRegulations
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdminRegulations`(
+	IN `billboard_ID_IN` BIGINT
+)
+BEGIN
+	Select *
+	from tblbillboardregulation
+	where billboard_ID = billboard_ID_IN and enabled = 1;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.getAdminRejections
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAdminRejections`(
+	IN `billboard_ID_IN` BIGINT
+)
+BEGIN
+	Select *
+	from tblcommonrejections
 	where billboard_ID = billboard_ID_IN and enabled = 1;
 END//
 DELIMITER ;
@@ -133,6 +183,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackages`(
 
 
 
+
 )
 BEGIN
 	Select *,
@@ -146,7 +197,7 @@ BEGIN
 	join tblschedule
 	on tblpackage.billboard_ID = tblschedule.billboard_ID
 	where scheduleDate >= Date_IN and scheduleDate < DATE_ADD(Date_IN,INTERVAL duration DAY)
-	and tblschedule.billboard_ID = billboard_ID_In and enabled = 1
+	and tblschedule.billboard_ID = billboard_ID_In and tblpackage.enabled = 1
 	group by package_ID,schedule_ID) as availability
 	group by package_ID
 	order by duration asc, displayPerCycle;
@@ -681,6 +732,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.putAbout
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putAbout`(
+	IN `about_IN` VARCHAR(10000)
+)
+BEGIN
+	update tblsettings
+	set about = about_IN
+	where sett_ID = 1;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.putAccount
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
@@ -741,6 +804,36 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.putBillboardInfo
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
+	IN `billboard_ID_IN` BIGINT
+,
+	IN `billboardName_IN` VARCHAR(50),
+	IN `billboardDesc_IN` VARCHAR(50),
+	IN `width_IN` INT,
+	IN `height_IN` INT,
+	IN `latitude_IN` DOUBLE,
+	IN `longitude_IN` DOUBLE,
+	IN `minwidth_IN` INT,
+	IN `maxwidth_IN` INT,
+	IN `minheight_IN` INT,
+	IN `maxheight_IN` INT,
+	IN `readtime_IN` INT,
+	IN `impressions_IN` INT,
+	IN `traffic_IN` INT,
+	IN `cycle_IN` INT
+
+)
+BEGIN
+	update tblbillboards
+	set billboardName = billboardName_IN, billboardDescription = billboardDesc_IN, width = width_IN, height = height_IN, latitude = latitude_IN,
+	longitude = longitude_IN, minWidthRes = minwidth_IN, maxWidthRes = maxwidth_IN, minHeightRes = minheight_IN, maxHeightRes = maxheight_IN,
+	readTime = readtime_IN, impressions = impressions_IN,traffic = traffic_IN, cycle = cycle_IN 
+	where billboard_ID = billboard_ID_IN;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.putBillboardURL
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardURL`(
@@ -765,6 +858,27 @@ BEGIN
 	Update tbladrequest
 	SET status_ID = 4
 	where request_ID = request_ID_IN;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbtest2.putContact
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putContact`(
+	IN `postalAddress_IN` VARCHAR(200),
+	IN `physicalAddress_IN` VARCHAR(200)
+,
+	IN `phone_IN` VARCHAR(200),
+	IN `extensions_IN` VARCHAR(200),
+	IN `directPhone_IN` VARCHAR(200),
+	IN `fax_IN` VARCHAR(200),
+	IN `email_IN` VARCHAR(200),
+	IN `officeHours_IN` VARCHAR(200)
+
+)
+BEGIN
+	update tblcontact
+	set postalAddress = postalAddress_IN,physicalAddress = physicalAddress_IN, phone = phone_IN,
+	extensions = extensions_IN, directPhone = directPhone_IN, fax = fax_IN, email = email_IN, officeHours = officeHours_IN;
 END//
 DELIMITER ;
 
@@ -854,6 +968,19 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure ezbtest2.putTerms
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `putTerms`(
+	IN `terms_IN` VARCHAR(52000)
+
+)
+BEGIN
+	update tblsettings
+	set terms = terms_IN
+	where sett_ID = 1;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure ezbtest2.putVerified
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putVerified`(
@@ -911,19 +1038,6 @@ INSERT INTO `tbladrequest` (`request_ID`, `user_ID`, `artwork_ID`, `status_ID`, 
 	(19, 1, 39, 1, 7, '2019-04-04 23:51:58', '2019-04-13 00:00:00', '2019-04-20 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `tbladrequest` ENABLE KEYS */;
 
--- Dumping structure for table ezbtest2.tbladvertisement
-CREATE TABLE IF NOT EXISTS `tbladvertisement` (
-  `advertisement_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `request_ID` bigint(20) NOT NULL,
-  `artwork_ID` bigint(20) NOT NULL,
-  `schedule_ID` bigint(20) NOT NULL,
-  PRIMARY KEY (`advertisement_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table ezbtest2.tbladvertisement: ~0 rows (approximately)
-/*!40000 ALTER TABLE `tbladvertisement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbladvertisement` ENABLE KEYS */;
-
 -- Dumping structure for table ezbtest2.tblartwork
 CREATE TABLE IF NOT EXISTS `tblartwork` (
   `artwork_ID` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -980,27 +1094,28 @@ CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
   `reg_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
   `regulation` varchar(200) NOT NULL,
+  `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`reg_ID`),
   KEY `regBillboard` (`billboard_ID`),
   CONSTRAINT `regBillboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbtest2.tblbillboardregulation: ~13 rows (approximately)
+-- Dumping data for table ezbtest2.tblbillboardregulation: ~12 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboardregulation` DISABLE KEYS */;
-INSERT INTO `tblbillboardregulation` (`reg_ID`, `billboard_ID`, `regulation`) VALUES
-	(1, 3, 'No alcohol'),
-	(2, 3, 'No animations'),
-	(3, 3, 'Appropriate vocabulary'),
-	(4, 3, 'No conflicting theme'),
-	(5, 6, 'No alcohol'),
-	(6, 6, 'No animations'),
-	(7, 6, 'Appropriate vocabulary'),
-	(8, 7, 'No alcohol'),
-	(9, 7, 'No animations'),
-	(10, 8, 'No alcohol'),
-	(11, 9, 'No alcohol'),
-	(12, 10, 'No alcohol'),
-	(13, 11, 'No alcohol');
+INSERT INTO `tblbillboardregulation` (`reg_ID`, `billboard_ID`, `regulation`, `enabled`) VALUES
+	(1, 3, 'No alcohol', 1),
+	(2, 3, 'No animations', 1),
+	(3, 3, 'Appropriate vocabulary', 1),
+	(4, 3, 'No conflicting theme', 1),
+	(5, 6, 'No alcohol', 1),
+	(6, 6, 'No animations', 1),
+	(7, 6, 'Appropriate vocabulary', 1),
+	(8, 7, 'No alcohol', 1),
+	(9, 7, 'No animations', 1),
+	(10, 8, 'No alcohol', 1),
+	(11, 9, 'No alcohol', 1),
+	(12, 10, 'No alcohol', 1),
+	(13, 11, 'No alcohol', 1);
 /*!40000 ALTER TABLE `tblbillboardregulation` ENABLE KEYS */;
 
 -- Dumping structure for table ezbtest2.tblbillboards
@@ -1044,24 +1159,25 @@ INSERT INTO `tblbillboards` (`billboard_ID`, `billboardName`, `billboardDescript
 
 -- Dumping structure for table ezbtest2.tblcommonrejections
 CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
-  `reject_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `reject_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `billboard_ID` bigint(20) NOT NULL,
   `rejection` varchar(100) NOT NULL DEFAULT '0',
+  `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`reject_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbtest2.tblcommonrejections: ~9 rows (approximately)
 /*!40000 ALTER TABLE `tblcommonrejections` DISABLE KEYS */;
-INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`) VALUES
-	(1, 3, 'Animated image'),
-	(2, 3, 'Alcohol reference'),
-	(3, 3, 'Inappropriate language'),
-	(4, 3, 'Conflict of interest'),
-	(5, 6, 'Use of alcohol'),
-	(6, 6, 'Animated image'),
-	(7, 6, 'Too much colors'),
-	(8, 7, 'Drug related'),
-	(9, 7, 'Conflict of interest');
+INSERT INTO `tblcommonrejections` (`reject_ID`, `billboard_ID`, `rejection`, `enabled`) VALUES
+	(1, 3, 'Animated image', 1),
+	(2, 3, 'Alcohol reference', 1),
+	(3, 3, 'Inappropriate language', 1),
+	(4, 3, 'Conflict of interest', 1),
+	(5, 6, 'Use of alcohol', 1),
+	(6, 6, 'Animated image', 1),
+	(7, 6, 'Too much colors', 1),
+	(8, 7, 'Drug related', 1),
+	(9, 7, 'Conflict of interest', 1);
 /*!40000 ALTER TABLE `tblcommonrejections` ENABLE KEYS */;
 
 -- Dumping structure for table ezbtest2.tblcontact
@@ -1076,7 +1192,7 @@ CREATE TABLE IF NOT EXISTS `tblcontact` (
   `officeHours` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbtest2.tblcontact: ~1 rows (approximately)
+-- Dumping data for table ezbtest2.tblcontact: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
 INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
 	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
@@ -2424,14 +2540,15 @@ INSERT INTO `tblschedule` (`schedule_ID`, `billboard_ID`, `remainingSlots`, `sch
 -- Dumping structure for table ezbtest2.tblsettings
 CREATE TABLE IF NOT EXISTS `tblsettings` (
   `sett_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `about` varchar(2000) NOT NULL,
+  `about` varchar(10000) NOT NULL,
+  `terms` varchar(52000) NOT NULL,
   PRIMARY KEY (`sett_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbtest2.tblsettings: ~1 rows (approximately)
+-- Dumping data for table ezbtest2.tblsettings: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
-INSERT INTO `tblsettings` (`sett_ID`, `about`) VALUES
-	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor');
+INSERT INTO `tblsettings` (`sett_ID`, `about`, `terms`) VALUES
+	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor', 'Accept Terms&Aggrements');
 /*!40000 ALTER TABLE `tblsettings` ENABLE KEYS */;
 
 -- Dumping structure for table ezbtest2.tblusers

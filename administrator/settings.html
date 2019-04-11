@@ -39,252 +39,154 @@
     </div>
   </nav>
 
-<div class="row">
-    <div class="col-lg-12" style="background-color:white;">
-    <h1 class="text-center"><strong>Setting</strong></h1>
-     </div>
-</div>
+<h1 id="settings-header" class="text-center" style="margin-left:65px;">Settings</h1>
 
-
-
-<div class="well well-lg text-center">
+<div class="container">
    <div class="row">
-   <br>
-
-   <!-- Data configuration -->
-     <div class="jumbotron col-lg-3" style="background-color:#607d8b;">Database Configuration
+     <div class="jumbo col-lg-4" style="height: 370px;margin-left:15px;background-color:#607d8b;">
+       <h4 class="headers text-center">Database Configuration</h4>
        <br>
+       <div class="input-group">
+        	<span class="input-group-addon"><i class="fa fa-server"></i></span>
+        	<input id="server" type="text" class="form-control" name="server" placeholder="Server">
+       </div>
        <br>
-             <div class="input-group">
-               <span class="input-group-addon"><i class="fa fa-server"></i></span>
-               <input id="server" type="text" class="form-control" name="server" placeholder="Server">
-             </div>
-       <br>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-database"></i></span>
+       <div class="input-group">
+       		<span class="input-group-addon"><i class="fa fa-database"></i></span>
                 <input id="database" type="text" class="form-control" name="database" placeholder="Database">
-              </div>
+       </div>
        <br>
-              <div class="input-group">
+       <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input id="user" type="text" class="form-control" name="user" placeholder="User">
-              </div>
+       </div>
        <br>
-               <div class="input-group">
+       <div class="input-group">
                  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-                 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-               </div>
+		 <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+       </div>
        <br>
-       <div class="row">
-           <div class="col-lg-12 text-center" >
-           <button id="save-db-config" type="button" class="btn btn-info">Save</button>
-           </div>
-         </div>
-     </div>
+       <div class="row text-center">
+        	<button id="db" class="btn btn-default save-config">Save</button>
+       </div>
+    </div>
 
-
-<!-- Mail Server -->
-     <div class="jumbotron col-lg-3" style="background-color:#607d8b;">Mail Server Configuration
-       <br>
-       <br>
-       <br>
-       <br>
-              <div class="input-group">
+    <div class="jumbo col-lg-4" style="height: 370px;margin-left: 10px;margin-right:10px;background-color:#607d8b;">
+       <h4 class="headers text-center">Mail Server Configuration</h4>
+       <br><br><br>
+       <div class="input-group" style="padding-top:8px;">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                <input id="serverIp" type="text" class="form-control" name="serverIp" placeholder="Server ip">
-              </div>
+                <input id="ip" type="text" class="form-control" name="ip" placeholder="Server IP">
+       </div>
        <br>
-               <div class="input-group">
-                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                 <input id="port" type="text" class="form-control" name="port" placeholder="Port">
-               </div>
+       <div class="input-group">
+       		<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                <input id="port" type="text" class="form-control" name="port" placeholder="Port">
+       </div>
        <br>
-  <div class="row">
-    <div class="col-lg-12 text-center" >
-    <button type="button" class="btn btn-info">Save</button>
+       <div class="row text-center" style="padding-top: 60px;">
+                <button id="mail" class="btn btn-default save-config">Save</button>
+       </div>
     </div>
-  </div>
-  </div>
-<!-- Back Up Path -->
-
-<div>
-  <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-4">
-         <div class="jumbotron col-lg-12" style="background-color:#607d8b; height:150px;">Back up Path
-           <br>
-
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
-                    <input id="backup" type="text" class="form-control" name="backup" placeholder="Backup Path">
-                  </div>
-<br>
-
-                <div class="row">
-                  <div class="col-lg-12 text-center" >
-                  <button type="button" class="btn btn-info">Save</button>
-                  </div>
-                </div>
-         </div>
+    
+    <div class="col-lg-3" style="padding:0;">
+       <div class="jumbo" style="width: 335px;height: 180px;background-color:#607d8b;">
+	<h4 class="headers text-center">Backups Path</h4>
+       	<br>
+       	<div class="input-group" style="padding: 0% 5% 0% 5%;">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
+       		<input id="backup" type="text" class="form-control" name="backup" placeholder="Backup Path">
+       	</div>
+	<br>
+	<div class="row text-center">
+                <button id="backup" class="btn btn-default save-config">Save</button>
+       </div>
+       </div>
+       <div class="jumbo" style="width: 335px;height: 180px;background-color:#607d8b;">
+        <h4 class="headers text-center">Images Path</h4>
+        <br>
+	<div class="input-group" style="padding: 0% 5% 0% 5%;">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
+        	<input id="image" type="text" class="form-control" name="image" placeholder="Image Path">
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-4">
-         <div class="jumbotron col-lg-12" style="background-color:#607d8b; height:150px">Image Path
-           <br>
-
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud-upload"></i></span>
-                    <input id="image" type="text" class="form-control" name="image" placeholder="Image Path">
-                  </div>
-           <br>
-
-                <div class="row">
-                  <div class="col-lg-12 text-center" >
-                  <button type="button" class="btn btn-info">Save</button>
-                  </div>
-                </div>
-         </div>
+	<br>
+	<div class="row text-center">
+                <button id="image" class="btn btn-default save-config">Save</button>
         </div>
-      </div>
+       </div>
     </div>
-  </div>
-  </div>
-
-
-<!-- Contact Edit text -->
-     <div class="jumbotron" style="background-color:#607d8b;">Contact Information
-       <br>
-       <br>
-             <div class="input-group">
-               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-               <input id="office" type="text" class="form-control" name="office" placeholder="Office Hours">
-             </div>
-       <br>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                <input id="postal" type="text" class="form-control" name="postal" placeholder="Postal Address">
-              </div>
-       <br>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                <input id="physical" type="text" class="form-control" name="physical" placeholder="Physical Address">
-              </div>
-       <br>
-               <div class="input-group">
-                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                 <input id="phone" type="text" class="form-control" name="phone" placeholder="Phone Number">
-               </div>
-       <br>
-	       <div class="input-group">
-                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                 <input id="extension" type="text" class="form-control" name="extension" placeholder="Extensions">
-               </div>
-       <br>
-               <div class="input-group">
-                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                 <input id="directPhone" type="text" class="form-control" name="directPhone" placeholder="Direct Phone">
-               </div>
-       <br>
-               <div class="input-group">
-                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                 <input id="fax" type="text" class="form-control" name="fax" placeholder="Fax">
-               </div>
-       <br>
-	       <div class="input-group">
-	 	 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                 <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-               </div>
-       <br>
-
-       <div class="row">
-           <div class="col-lg-12 text-center" >
-           <button id="save-contact" type="button" class="btn btn-info">Save</button>
-           </div>
-         </div>
-     </div>
-
-    <br>
-    <br>
-    <br>
-
-<!-- About Edit text -->
-    <div class="Aboutcontainer">
-        <div class="form-group">
-          <label for="about">About:</label>
-          <textarea class="form-control" rows="5" id="about" name="text"></textarea>
-        </div>
-        <button id="save-about" type="button" class="btn btn-primary">Save</button>
-    </div>
-
-
-    <br>
-    <br>
-    <br>
-
-  <!-- Terms Edit text -->
-    <div class="Aboutcontainer">
-      <form action="/action_page.php">
-        <div class="form-group">
-          <label for="termAndPolicy">Terms and Privacy Policy:</label>
-          <textarea class="form-control" rows="5" id="terms" name="text"></textarea>
-        </div>
-        <button id="save-terms" type="button" class="btn btn-primary">Save</button>
-      </form>
-    </div>
-
-
-
-  <br>
-  <br>
-  <br>
-
-  <div class="Tablecontainer">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Link</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Finance Office</td>
-          <td>https://www.uprm.edu/finanzas/</td>
-          <td>
-            <div class="column">
-              <a href="#"><span class="glyphicon glyphicon-pencil"><br></span></a>
-              <a href="#"><span class="glyphicon glyphicon-trash"><br></span></a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Revenue Office</td>
-          <td>https://www.uprm.edu/finanzas/recaudaciones/</td>
-          <td>
-            <div class="column">
-              <a href="#"><span class="glyphicon glyphicon-pencil"><br></span></a>
-              <a href="#"><span class="glyphicon glyphicon-trash"><br></span></a>
-            </div>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-
-
-
-
 </div>
 
+<div class="jumbo jumbo-padding" style="padding-bottom:35px;background-color:#607d8b;">
+	<h4 class="headers text-center">Contact Information</h4>
+        <br>
+        <div class="input-group">
+ 	       <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+               <input id="office" type="text" class="form-control" name="office" placeholder="Office Hours">
+        </div>
+        <br>
+        <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input id="postal" type="text" class="form-control" name="postal" placeholder="Postal Address">
+        </div>
+        <br>
+        <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input id="physical" type="text" class="form-control" name="physical" placeholder="Physical Address">
+        </div>
+        <br>
+        <div class="input-group">
+                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                 <input id="phone" type="text" class="form-control" name="phone" placeholder="Phone Number">
+        </div>
+        <br>
+        <div class="input-group">
+                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                 <input id="extension" type="text" class="form-control" name="extension" placeholder="Extensions">
+        </div>
+        <br>
+        <div class="input-group">
+                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                 <input id="directPhone" type="text" class="form-control" name="directPhone" placeholder="Direct Phone">
+        </div>
+        <br>
+        <div class="input-group">
+                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                 <input id="fax" type="text" class="form-control" name="fax" placeholder="Fax">
+        </div>
+        <br>
+        <div class="input-group">
+	 	 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                 <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+        </div>
+	<br>
+	<div class="row text-center">
+                <button id="save-contact" class="btn btn-default">Save</button>
+        </div>
+</div>
+<br>
+<div class="jumbo jumbo-padding" style="background-color:#607d8b;">
+  <div class="form-group text-center">
+	<h3 class="headers text-center">About</h3>
+	<textarea class="form-control" rows="15" id="about" name="text"></textarea>
+	<br>
+        <div class="row text-center">
+                <button id="save-about" class="btn btn-default">Save</button>
+        </div>
+  </div>
+</div>
+<br>        
+<div class="jumbo jumbo-padding" style="background-color:#607d8b;">
+  <div class="form-group text-center">
+	<h3 class="headers text-center">Terms & Privacy Policy</h3>
+        <textarea class="form-control" rows="15" id="terms" name="text"></textarea>
+	<br>
+        <div class="row text-center">
+                <button id="save-terms" class="btn btn-default">Save</button>
+        </div>
+  </div>
+</div>
+<br><br>
 </body>
 </html>
 

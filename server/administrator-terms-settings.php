@@ -15,14 +15,14 @@ $terms = $_POST['terms'];
 
 echo $terms;
 
-/*$sql = "CALL putTermsInfo('$terms')";
+$sql = "CALL putTerms('$terms')";
 
 if (mysqli_query($conn, $sql)) {
         echo "Record updated successfully";
 } else {
         echo "Error updating record: " . mysqli_error($conn);
 }
-*/
+
 mysqli_close($conn);
 
 ?>

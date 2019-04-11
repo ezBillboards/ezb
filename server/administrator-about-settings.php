@@ -15,14 +15,14 @@ $about = $_POST['about'];
 
 echo $about;
 
-/*$sql = "CALL putAboutInfo('$about')";
+$sql = "CALL putAbout('$about')";
 
 if (mysqli_query($conn, $sql)) {
         echo "Record updated successfully";
 } else {
         echo "Error updating record: " . mysqli_error($conn);
 }
-*/
+
 mysqli_close($conn);
 
 ?>

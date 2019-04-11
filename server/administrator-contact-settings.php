@@ -22,14 +22,14 @@ $email = $_POST['email'];
 
 echo $office . " " . $postal . " " . $physical . " " . $phone . " " . $extension . " " . $directPhone . " " . $fax . " " . $email;
 
-/*$sql = "CALL putContactInfo('$office','$postal','$physical','$phone','$extension','$directPhone','$fax','$email')";
+$sql = "CALL putContact('$postal','$physical','$phone','$extension','$directPhone','$fax','$email','$office')";
 
 if (mysqli_query($conn, $sql)) {
         echo "Record updated successfully";
 } else {
         echo "Error updating record: " . mysqli_error($conn);
 }
-*/
+
 mysqli_close($conn);
 
 ?>
