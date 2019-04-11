@@ -1,6 +1,8 @@
 <?php
 
-$backupDir = "../../backups/";
+$config = parse_ini_file('../../config.ini');
+
+$backupDir = $config['BACKUP_PATH'];
 $backupFiles = scandir($backupDir);
 $result = array();
 	
