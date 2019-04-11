@@ -166,10 +166,10 @@ $(document).ready(function(){
 				console.log('No regulations found!!');
 			}else{
 				regulations = JSON.parse(data);
-                var package = "";
+                var regulation = "";
                 for (var i = 0; i < regulations.length; i++) {
-					package +=  "<tr id=\"" + regulations[i].id + "\">" +
-					"<td><input id=\"Regulation\" value =\"" + regulation[i].regulation + "\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+					regulation +=  "<tr id=\"" + regulations[i].id + "\">" +
+					"<td><input id=\"Regulation\" value =\"" + regulations[i].regulation + "\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
 					"<td>" +
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
@@ -192,9 +192,9 @@ $(document).ready(function(){
 				console.log('No rejections found!!');
 			}else{
 				rejections = JSON.parse(data);
-                var package = "";
+                var rejection = "";
                 for (var i = 0; i < rejections.length; i++) {
-					package += "<tr> id=\"" + rejections[i].id + "\"" +
+					rejection += "<tr> id=\"" + rejections[i].id + "\"" +
 					"<td><input id=\"Rejection\" value =\"" + rejections[i].rejection + "\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
 					"<td>" +
 					"<div class=\"column\">" +
