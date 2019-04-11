@@ -95,6 +95,40 @@ $(document).ready(function(){
 		newBillboard(packages,regulations,rejections);
 	});
 	
+	$('#btnupdatebillboard').click(function(){
+		console.log('btnupdatebillboard clicked!');
+		var packages = [];
+		var regulations = [];
+		var rejections = [];
+		$("#edit-package tr").each(function() {
+			if($(this).find('td').attr("id") == null){
+				$(this).find('td').find('input').each(function(){
+					packages.push(this.value);
+				});
+			}
+		});
+		
+		$("#edit-regulation tr").each(function() {
+			if($(this).find('td').attr("id") == null){
+				$(this).find('td').find('input').each(function(){
+					regulations.push(this.value);
+				});
+			}
+		});
+		
+		$("#edit-rejection tr").each(function() {
+			if($(this).find('td').attr("id") == null){
+				$(this).find('td').find('input').each(function(){
+					rejections.push(this.value);
+				});
+			}
+		});
+		
+		console.log(packages);	
+		console.log(regulations);
+		console.log(rejections);
+	});
+	
 	$("#billboard-img").change(function(){
 	        readURL(this);
         	console.log(this.id);
@@ -140,9 +174,9 @@ $(document).ready(function(){
                 var package = "";
                 for (var i = 0; i < packages.length; i++) {
 					package += "<tr id=\"" + packages[i].id + "\">" +
-					"<td>"+packages[i].duration + "Day</td>" +
+					"<td>"+packages[i].duration + " Day(s)</td>" +
 					"<td>"+packages[i].frequency + "</td>" +
-					"<td>"+packages[i].price + "</td>" +
+					"<td>$"+packages[i].price + "</td>" +
 					"<td>" +
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
