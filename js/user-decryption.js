@@ -6,7 +6,7 @@ var message = "Felix Gonzalez";
 var password = "ezb";
 
 $(document).ready(function(){
-	$.get("../server/user-account.php", function(data, status){
+	$.get("../server/user-decryption.php", function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
                 $("#firstName").val(decrypt(info.firstName, password));
