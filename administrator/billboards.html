@@ -319,14 +319,16 @@
 					<input type="file" name="file" id="billboard-edit-img" accept=".jpg, .jpeg, .png">
                 </form>
 				<div class="Aboutcontainer">
-                <form action="/action_page.php">
-                  <div class="form-group">
-                    <label for="about">Billboard description:</label>
-                    <textarea class="form-control" rows="5" id="about" name="text"></textarea>
-                  </div>
-                </form>
+					<form action="/action_page.php">
+					  <div class="form-group">
+						<label for="about">Billboard description:</label>
+						<textarea class="form-control" rows="5" id="about" name="text"></textarea>
+					  </div>
+					</form>
+				</div>
+			
             </div>
-			<label for="about">Billboard Regulations <button id="btnaddregulation" type="button" class="btn btn-info">Add</button></label>
+			  <label for="about">Billboard Regulations <button id="btneditregulation" type="button" class="btn btn-info">Add</button></label>
 					<div class="Tablecontainer">
 						<table class="table table-bordered">
 							<thead>
@@ -340,7 +342,6 @@
 						  </tbody>
 						</table>
 					</div>
-              </div>
             </div>
             <div class="jumbotron col-lg-7" style="background-color:#607d8b;">
             <div class="input-group">
@@ -453,7 +454,7 @@
 		<br>
 		<div class="row">
             <div class="col-sm-6 text-center">
-                <label for="about">Payment Packages <button type="button" class="btn btn-info">Add</button></label>
+                <label for="about">Payment Packages <button id="btneditpackage" type="button" class="btn btn-info">Add</button></label>
 				<div class="Tablecontainer">
 					<table class="table table-bordered">
 						<thead>
@@ -471,7 +472,7 @@
 				</div>
             </div>
 			<div class="col-sm-6 text-center">
-				<label for="about">Common Rejections <button id="btnaddrejection" type="button" class="btn btn-info">Add</button></label>
+				<label for="about">Common Rejections <button id="btneditrejection" type="button" class="btn btn-info">Add</button></label>
 				<div class="Tablecontainer">
 					<table class="table table-bordered">
 						<thead>
