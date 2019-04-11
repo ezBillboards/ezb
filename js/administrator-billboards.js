@@ -134,7 +134,7 @@ $(document).ready(function(){
 			function(data, status){
 			console.log(data);
 			if(data == "No results"){
-				alert('No pacakages found!!');
+				console.log('No pacakages found!!');
 			}else{
 				packages = JSON.parse(data);
                 var package = "";
@@ -154,6 +154,59 @@ $(document).ready(function(){
                 		}
 				$("#edit-packages").empty();
 		        $("#edit-packages").append(package);
+			}
+			
+		});
+		
+		$.get("../server/administrator-billboard-regulations.php", 
+			{id: billboardID}, 
+			function(data, status){
+			console.log(data);
+			if(data == "No results"){
+				console.log('No regulations found!!');
+			}else{
+				regulations = JSON.parse(data);
+                var package = "";
+                for (var i = 0; i < regulations.length; i++) {
+					package +=  "<tr id=\"" + regulations[i].id + "\">" +
+					"<td><input id=\"Regulation\" value =\"" + regulation[i].regulation + "\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+					"<td>" +
+					"<div class=\"column\">" +
+					"<div class=\"row\">" +
+					"<div class=\"col-lg-6\">" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+					"</div>" +
+					"</div>" +
+					"</td>";
+                }
+				$("#edit-regulations").empty();
+		        $("#edit-regulations").append(package);
+			}
+			
+		});
+		$.get("../server/administrator-billboard-rejections.php", 
+			{id: billboardID}, 
+			function(data, status){
+			console.log(data);
+			if(data == "No results"){
+				console.log('No rejections found!!');
+			}else{
+				rejections = JSON.parse(data);
+                var package = "";
+                for (var i = 0; i < rejections.length; i++) {
+					package += "<tr> id=\"" + rejections[i].id + "\"" +
+					"<td><input id=\"Rejection\" value =\"" + rejections[i].rejection + "\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+					"<td>" +
+					"<div class=\"column\">" +
+					"<div class=\"row\">" +
+					"<div class=\"col-lg-6\">" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+					"</div>" +
+					"</div>" +
+					"</td>";
+               	}
+				$("#edit-rejections").empty();
+		        $("#edit-rejections").append(package);
 			}
 			
 		});
