@@ -9,21 +9,21 @@ $(document).ready(function(){
 	$.get("../server/user-decryption.php", function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
-                $("#firstName").val(decrypt(info.firstName, password));
-                $("#lastName").val(decrypt(info.lastName, password));
-                $("#email").val(decrypt(info.email, password));
-                $("#mobilePhone").val(decrypt(info.mobilePhone, password));
-                $("#workPhone").val(decrypt(info.workPhone, password));
-                $("#company").val(decrypt(info.company, password));
-                $("#address1").val(decrypt(info.address1, password));
-                $("#address2").val(decrypt(info.address2, password));
-                $("#state").val(decrypt(info.state, password));
-                $("#city").val(decrypt(info.city, password));
-                $("#zip").val(decrypt(info.zip, password));
-                $("#url").val(decrypt(info.url, password));
-                $("#facebook").val(decrypt(info.facebook, password));
-                $("#twitter").val(decrypt(info.twitter, password));
-                $("#instagram").val(decrypt(info.instagram, password));
+                $("#firstName").val(decrypt(info.firstName, password).toString(CryptoJS.enc.Utf8));
+                $("#lastName").val(decrypt(info.lastName, password).toString(CryptoJS.enc.Utf8));
+                $("#email").val(decrypt(info.email, password).toString(CryptoJS.enc.Utf8));
+                $("#mobilePhone").val(decrypt(info.mobilePhone, password).toString(CryptoJS.enc.Utf8));
+                $("#workPhone").val(decrypt(info.workPhone, password).toString(CryptoJS.enc.Utf8));
+                $("#company").val(decrypt(info.company, password).toString(CryptoJS.enc.Utf8));
+                $("#address1").val(decrypt(info.address1, password).toString(CryptoJS.enc.Utf8));
+                $("#address2").val(decrypt(info.address2, password).toString(CryptoJS.enc.Utf8));
+                $("#state").val(decrypt(info.state, password).toString(CryptoJS.enc.Utf8));
+                $("#city").val(decrypt(info.city, password).toString(CryptoJS.enc.Utf8));
+                $("#zip").val(decrypt(info.zip, password).toString(CryptoJS.enc.Utf8));
+                $("#url").val(decrypt(info.url, password).toString(CryptoJS.enc.Utf8));
+                $("#facebook").val(decrypt(info.facebook, password).toString(CryptoJS.enc.Utf8));
+                $("#twitter").val(decrypt(info.twitter, password).toString(CryptoJS.enc.Utf8));
+                $("#instagram").val(decrypt(info.instagram, password).toString(CryptoJS.enc.Utf8));
         });
 
 	$("#changePasswd").click(function(){
@@ -253,7 +253,7 @@ function encrypt (msg, pass) {
   
   // salt, iv will be hex 32 in length
   // append them to the ciphertext for use  in decryption
-  var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
+  var transitmessage = salt..toString()+ iv..toString() + encrypted..toString();
   return transitmessage;
 }
 
