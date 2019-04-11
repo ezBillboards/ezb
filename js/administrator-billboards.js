@@ -228,7 +228,7 @@ $(document).ready(function(){
 				rejections = JSON.parse(data);
                 var rejection = "";
                 for (var i = 0; i < rejections.length; i++) {
-					rejection += "<tr> id=\"" + rejections[i].id + "\"" +
+					rejection += "<tr id=\"" + rejections[i].id + "\">" +
 					"<td><input id=\"Rejection\" value =\"" + rejections[i].rejection + "\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
 					"<td>" +
 					"<div class=\"column\">" +
