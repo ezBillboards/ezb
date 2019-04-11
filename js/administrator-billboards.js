@@ -295,11 +295,11 @@ $(document).ready(function(){
 		});
 	});
 	$("table").on("click", "tr .deleteregulation", function(){
-		var packageID = $(this).closest('tr').attr("id");
+		var regulationID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
-		$.post("../server/administrator-delete-package.php",
+		$.post("../server/administrator-delete-regulation.php",
 			{
-				id:packageID
+				id:regulationID
 			},function(data,status){
 				if(status === "success"){
 					console.log(status);
@@ -310,11 +310,11 @@ $(document).ready(function(){
 		});
 	});
 	$("table").on("click", "tr .deleterejection", function(){
-		var packageID = $(this).closest('tr').attr("id");
+		var rejectionID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
-		$.post("../server/administrator-delete-package.php",
+		$.post("../server/administrator-delete-rejection.php",
 			{
-				id:packageID
+				id:rejectionID
 			},function(data,status){
 				if(status === "success"){
 					console.log(status);
