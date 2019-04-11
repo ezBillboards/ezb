@@ -72,19 +72,6 @@ if($fileName != null){
 	}
 
 }
-//Insert billboard URL
-$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
-if($conn === false){
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-$sql = "CALL putBillboardURL($id,'$location')";
-if (mysqli_query($conn, $sql)) {
-	echo " Billboard URL updated successfully ";
-} else {
-		echo " Error updating URL: " . mysqli_error($conn) . " ";
-}
-mysqli_close($conn);
 
 //Insert new packages
 echo " " . $packages . " ";

@@ -144,14 +144,14 @@ $(document).ready(function(){
 	$("table").on("click", "tr .information", function(){
 		fd = new FormData();
 		billboardInfo_ID = $(this).attr("id");
-		$.get("../server/user-billboardInfo.php", 
+		$.get("../server/administrator-billboardInfo.php", 
 			{id: billboardInfo_ID},
 			function(data, status){
 			console.log(data);
 			var info = JSON.parse(data);
 			$("#editBillboardname").attr('value',info.name);
 			$("#billboard-edit-img-tag").attr('src',info.img);
-			//$("#info-image").attr("alt",info.name);
+			$("#editdescription").attr("value",info.description);
 			$("#width").attr('value',info.width);
 			$("#height").attr('value',info.height);
 			$("#latitude").attr('value',info.latitude);
