@@ -1,4 +1,5 @@
 /*Administrator billboards JavaScript*/
+var billboardInfo_ID;
 var packages;
 var regulations;
 var rejections;
@@ -127,6 +128,7 @@ $(document).ready(function(){
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
+		updateBillboard(packages,regulations,rejections);
 	});
 	
 	$("#billboard-img").change(function(){
@@ -140,9 +142,10 @@ $(document).ready(function(){
 	});
 	
 	$("table").on("click", "tr .information", function(){
-		var billboardID = $(this).attr("id");
+		fd = new FormData();
+		billboardInfo_ID = $(this).attr("id");
 		$.get("../server/user-billboardInfo.php", 
-			{id: billboardID},
+			{id: billboardInfo_ID},
 			function(data, status){
 			console.log(data);
 			var info = JSON.parse(data);
@@ -396,19 +399,8 @@ function readURL(input) {
 		reader.onload = function (e) {
 			if(input.id == 'billboard-img'){
 				$('#billboard-img-tag').attr('src', e.target.result);
-				img = new Image;
-				imgedit = new Image;
-               			img.src = reader.result;
-
-				img.onload = function() {
-				};				
 				}else{
-				$('#billboard-edit-img-tag').attr('src', e.target.result);
-				imgedit = new Image;
-               			imgedit.src = reader.result;
-
-				imgedit.onload = function() {
-				};				
+				$('#billboard-edit-img-tag').attr('src', e.target.result);			
 			}
 		}
 		
@@ -443,7 +435,43 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 		contentType: false,
 		processData: false,
 		success: function(response){
-				console.log(response);
+			console.log(response);
+			location.reload();
+		}
+	});
+}
+
+function updateBillboard(packages_in,regulations_in,rejections_in){
+	if(files != null){
+		fd.append('fileName',files.name.split(".")[0]);
+		fd.append('extension',files.type.substring(6));
+	}
+	fd.append('id',billboardInfo_ID);
+	fd.append('name',$("#editBillboardname").val());
+	fd.append('description',$("#editdescription").val());
+	fd.append('width',$("#width").val());
+	fd.append('height',$("#height").val());
+	fd.append('latitude',$("#latitude").val());
+	fd.append('longitude',$("#longitude").val());
+	fd.append('minwidth',$("#min-wid").val());
+	fd.append('maxwidth',$("#max-wid").val());
+	fd.append('minheight',$("#min-hei").val());
+	fd.append('maxheight',$("#max-hei").val());
+	fd.append('readtime',$("#read-time").val());
+	fd.append('impressions',$("#impressions").val());
+	fd.append('traffic',$("#traffic").val());
+	fd.append('packages',JSON.stringify(packages_in));
+	fd.append('regulations',JSON.stringify(regulations_in));
+	fd.append('rejections',JSON.stringify(rejections_in));
+	$.ajax({
+		url:"../server/administrator-update-billboard.php",
+		type: 'POST',
+		data: fd,
+		mimeType:"multipart/form-data",
+		contentType: false,
+		processData: false,
+		success: function(response){
+			console.log(response);
 		}
 	});
 }
