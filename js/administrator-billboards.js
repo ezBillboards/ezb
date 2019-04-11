@@ -179,8 +179,8 @@ $(document).ready(function(){
 					"</div>" +
 					"</td>";
                 }
-				$("#edit-regulations").empty();
-		        $("#edit-regulations").append(regulation);
+				$("#edit-regulation").empty();
+		        $("#edit-regulation").append(regulation);
 			}
 			
 		});
@@ -205,8 +205,8 @@ $(document).ready(function(){
 					"</div>" +
 					"</td>";
                	}
-				$("#edit-rejections").empty();
-		        $("#edit-rejections").append(rejection);
+				$("#edit-rejection").empty();
+		        $("#edit-rejection").append(rejection);
 			}
 			
 		});
