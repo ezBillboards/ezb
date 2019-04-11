@@ -167,7 +167,7 @@ $(document).ready(function(){
 	
 		
 		$.get("../server/administrator-billboard-packages.php", 
-			{id: billboardID}, 
+			{id: billboardInfo_ID}, 
 			function(data, status){
 			console.log(data);
 			if(data == "No results"){
@@ -196,7 +196,7 @@ $(document).ready(function(){
 		});
 		
 		$.get("../server/administrator-billboard-regulations.php", 
-			{id: billboardID}, 
+			{id: billboardInfo_ID}, 
 			function(data, status){
 			console.log(data);
 			if(data == "No results"){
@@ -222,7 +222,7 @@ $(document).ready(function(){
 			
 		});
 		$.get("../server/administrator-billboard-rejections.php", 
-			{id: billboardID}, 
+			{id: billboardInfo_ID}, 
 			function(data, status){
 			console.log(data);
 			if(data == "No results"){
