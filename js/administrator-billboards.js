@@ -152,8 +152,8 @@ $(document).ready(function(){
 					"</div>" +
 					"</td>";
                 		}
-				$("#edit-packages").empty();
-		        $("#edit-packages").append(package);
+				$("#edit-package").empty();
+		        $("#edit-package").append(package);
 			}
 			
 		});
