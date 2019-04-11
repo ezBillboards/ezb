@@ -211,6 +211,53 @@ $(document).ready(function(){
 			
 		});
 	});
+	
+	$('#btneditpackage').click(function(){
+		console.log('btnaddpackage clicked!');
+		var newPackage = "<tr>" +
+		"<td><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
+		"<td><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
+		"<td><input id=\"Price\" type=\"number\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
+		"<td>" +
+		"<div class=\"column\">" +
+		"<div class=\"row\">" +
+		"<div class=\"col-lg-6\">" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+		"</div>" +
+		"</div>" +
+		"</td>";
+		$("#edit-package").append(newPackage);
+	});
+	
+	$('#btneditregulation').click(function(){
+		console.log('btnaddregulation clicked!');
+		var newRegulation = "<tr>" +
+		"<td><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+		"<td>" +
+		"<div class=\"column\">" +
+		"<div class=\"row\">" +
+		"<div class=\"col-lg-6\">" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+		"</div>" +
+		"</div>" +
+		"</td>";
+		$("#edit-regulation").append(newRegulation);
+	});
+	
+	$('#btneditrejection').click(function(){
+		console.log('btnaddrejection clicked!');
+		var newRejection = "<tr>" +
+		"<td><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+		"<td>" +
+		"<div class=\"column\">" +
+		"<div class=\"row\">" +
+		"<div class=\"col-lg-6\">" +
+		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+		"</div>" +
+		"</div>" +
+		"</td>";
+		$("#edit-rejection").append(newRejection);
+	});
 		
 	$("table").on("click", "tr .deleteBillboard", function(){
 		console.log('deleteBillboard clicked');
