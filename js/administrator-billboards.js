@@ -151,7 +151,7 @@ $(document).ready(function(){
 			var info = JSON.parse(data);
 			$("#editBillboardname").attr('value',info.name);
 			$("#billboard-edit-img-tag").attr('src',info.img);
-			$("#editdescription").attr("value",info.description);
+			$("#editdescription").val(info.description);
 			$("#width").attr('value',info.width);
 			$("#height").attr('value',info.height);
 			$("#latitude").attr('value',info.latitude);
