@@ -101,7 +101,7 @@ $(document).ready(function(){
 		var regulations = [];
 		var rejections = [];
 		$("#edit-package tr").each(function() {
-			if($(this).find('td').attr("id") == null){
+			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
 					packages.push(this.value);
 				});
@@ -109,7 +109,7 @@ $(document).ready(function(){
 		});
 		
 		$("#edit-regulation tr").each(function() {
-			if($(this).find('td').attr("id") == null){
+			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
 					regulations.push(this.value);
 				});
@@ -117,7 +117,7 @@ $(document).ready(function(){
 		});
 		
 		$("#edit-rejection tr").each(function() {
-			if($(this).find('td').attr("id") == null){
+			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
 					rejections.push(this.value);
 				});
