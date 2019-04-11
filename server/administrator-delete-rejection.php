@@ -13,11 +13,11 @@ if($conn === false){
 
 $id = $_POST['id'];
 
-$sql = "CALL deletePackage($id)";
+$sql = "CALL deleteRejection($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_query($conn, $sql)) {
-	echo "Pacakage deleted successfully";
+	echo "Rejection deleted successfully";
 } else {
 	echo "Error updating record: " . mysqli_error($conn);
 }

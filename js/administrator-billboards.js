@@ -147,7 +147,7 @@ $(document).ready(function(){
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
 					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions delete\"><br></span></a>" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deletepackage\"><br></span></a>" +
 					"</div>" +
 					"</div>" +
 					"</td>";
@@ -174,7 +174,7 @@ $(document).ready(function(){
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
 					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deleteregulation\"><br></span></a>" +
 					"</div>" +
 					"</div>" +
 					"</td>";
@@ -200,7 +200,7 @@ $(document).ready(function(){
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
 					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
+					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deleterejection\"><br></span></a>" +
 					"</div>" +
 					"</div>" +
 					"</td>";
@@ -279,7 +279,7 @@ $(document).ready(function(){
 	});
 
 	
-	$("table").on("click", "tr .delete", function(){
+	$("table").on("click", "tr .deletepackage", function(){
 		var packageID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
 		$.post("../server/administrator-delete-package.php",
@@ -291,6 +291,36 @@ $(document).ready(function(){
 					tr.remove();
 				}else{
 					console.log('Error deleting pacakge!!');
+				}
+		});
+	});
+	$("table").on("click", "tr .deleteregulation", function(){
+		var packageID = $(this).closest('tr').attr("id");
+		var tr = $(this).closest('tr');
+		$.post("../server/administrator-delete-package.php",
+			{
+				id:packageID
+			},function(data,status){
+				if(status === "success"){
+					console.log(status);
+					tr.remove();
+				}else{
+					console.log('Error deleting regulation!!');
+				}
+		});
+	});
+	$("table").on("click", "tr .deleterejection", function(){
+		var packageID = $(this).closest('tr').attr("id");
+		var tr = $(this).closest('tr');
+		$.post("../server/administrator-delete-package.php",
+			{
+				id:packageID
+			},function(data,status){
+				if(status === "success"){
+					console.log(status);
+					tr.remove();
+				}else{
+					console.log('Error deleting rejection!!');
 				}
 		});
 	});
