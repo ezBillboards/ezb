@@ -180,7 +180,7 @@ $(document).ready(function(){
 					"</td>";
                 }
 				$("#edit-regulations").empty();
-		        $("#edit-regulations").append(package);
+		        $("#edit-regulations").append(regulation);
 			}
 			
 		});
@@ -206,7 +206,7 @@ $(document).ready(function(){
 					"</td>";
                	}
 				$("#edit-rejections").empty();
-		        $("#edit-rejections").append(package);
+		        $("#edit-rejections").append(rejection);
 			}
 			
 		});
