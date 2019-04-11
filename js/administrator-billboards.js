@@ -443,6 +443,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
 	if(files != null){
+		console.log('changed image');
 		fd.append('fileName',files.name.split(".")[0]);
 		fd.append('extension',files.type.substring(6));
 	}

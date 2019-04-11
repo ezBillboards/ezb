@@ -41,10 +41,10 @@ if (mysqli_query($conn, $sql)) {
 }
 mysqli_close($conn);
 
-if($fileName != null){
+if(!$fileName){
 	/* Getting file name */
 	$filename = $_FILES['uploadimage']['name'];
-	//echo $filename;
+	echo $filename;
 
 	/* Location */
 	$location = "../../img/billboards/".$id.".".$extension;
