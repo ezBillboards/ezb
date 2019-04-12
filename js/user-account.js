@@ -47,7 +47,10 @@ $(document).ready(function(){
 	});	
 	
 	$("#save").click(function(){
-		console.log('here 1');
+
+		console.log('here 4');
+
+         if (validateContactInfo()==true){
 		$.post("../server/user-account-save.php",
                         {
                                 userID: 1, //Change later.
@@ -69,7 +72,6 @@ $(document).ready(function(){
                         },
 
                         function(data, status){
-			validateContactInfo();
                         if(status === "success"){
                                alert(data);
                                console.log(status);
@@ -77,11 +79,11 @@ $(document).ready(function(){
                                alert(data);
          	               console.log(status);
                 	}
-		
-
+	            	
+                   
 		});
-
-		
+	    }
+	 
 	});
 
 function validateContactInfo(){
@@ -91,6 +93,9 @@ function validateContactInfo(){
   var lastName = document.getElementById('lastName').value;
   var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
   var lastNameResult = firstNameRGEX.test(lastName);
+  var oldpassword = document.getElementById('oldPasswd').value;
+  var newpassword = document.getElementById('newPasswd').value;
+  var cpassword = document.getElementById('confirmPasswd').value;
   var email = document.getElementById('email').value;
   var emailRGEX = /^(.+)@(.+)$/;
   var emailResult = emailRGEX.test(email);
@@ -126,10 +131,11 @@ function validateContactInfo(){
   var instagramResult = instagramRGEX.test(instagram);
 
 
-
-
   console.log('First Name = '+ firstName);
   console.log('Last Name = '+ lastName);
+  console.log('Old Password = '+ oldpassword);
+  console.log('New Password = '+ newpassword);
+  console.log('Confirm Password = '+ cpassword);
   console.log('Email = '+ email);
   console.log('Mobile Phone = '+ mPhoneNumber);
   console.log('Work Phone = '+ wPhoneNumber);
@@ -142,6 +148,23 @@ function validateContactInfo(){
   console.log('Twitter  = '+ twitter);
   console.log('Instagram  = '+ instagram);
 
+     errors = [];
+    if (newpassword.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (newpassword.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+    if (newpassword.search(/[a-z]/) < 0) { 
+        errors.push("Your password must contain at least one lowercase letter.") 
+    } 
+    if (newpassword.search(/[A-Z]/) < 0) { 
+        errors.push("Your password must contain at least one uppercase letter.") 
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
 
 
   if(firstNameResult == false)
@@ -224,8 +247,10 @@ function validateContactInfo(){
         return false;
         }
 
+return true;
 
 }
+
 
 
 });
