@@ -70,7 +70,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnresend").click(function(){
-		sendVerificationCode();
+		resendVerificationCode();
 	});
 	
 	
@@ -314,6 +314,23 @@ function VerifyRole(){
 }
 
 function sendVerificationCode(){
+	$.post("../server/mail-verification-code.php",
+			{
+				random: sessionStorage.getItem('verificationCode')
+			},function(data,status){
+				
+				if(status === "success"){
+					console.log(data);
+				console.log(status);
+				}else{
+					console.log('Error on user verification!!');
+				}
+		});
+}
+
+function resendVerificationCode(){
+	random = Math.floor((Math.random() * 1000000) + 1);
+	sessionStorage.setItem('verificationCode', random);
 	$.post("../server/mail-verification-code.php",
 			{
 				random: sessionStorage.getItem('verificationCode')
