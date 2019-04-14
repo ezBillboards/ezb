@@ -16,36 +16,45 @@
 <nav class="navbar navbar-default navbar-border navbar-height">
     <div class="container-fluid">
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<a class="navbar-brand" href="EZBillboardsLogo.png" target="_blank">
+			<a class="navbar-brand" target="_blank">
 				<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
 			</a>
-			<ul class="nav navbar-nav navbar-right navbar-text">
-				<li><a class= "selected" href="paid-requests.html">Pending Requests</a></li>
+			<ul class="nav navbar-nav navbar-right navbar-text nav-align">
+				<li><a class= "navbar-text-color" href="paid-requests.html">Pending Requests</a></li>
 				<li><a class="navbar-text-color" href="history.html">Published History</a></li>
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+					<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Account</a></li>
 						<li><a href="#">Logout</a></li>
 					</ul>
 				</li>
-				<li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+				<li><a class="profile-email">ezb19@gmail.com</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
-<h3>PENDING REQUESTS</h3>
-<input id="mySearch" type="text" placeholder="Search..">
-	  <div class="table-responsive">          
+<h1 id="paid-requests-header" class="text-center">Pending Requests</h1>
+
+<div class="container">
+  <br>
+  <div class="row">
+        <div class="col-lg-11 input-group form-group-lg" style="margin:auto;">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input id="mySearch" type="text" class="form-control" name="search" placeholder="Search">
+        </div>
+  </div>
+  <br>
+  <div class="table-responsive">          
 	  <table class="table table-striped">
 		<thead>
 		  <tr>
-			<th>Artwork</th>
-			<th>Display Information</th>
-			<th>Request Information</th>
-			<th>Approver Information</th>
-			<th>Actions</th>
+			<th style="width: 11%;">Image</th>
+			<th style="width: 25%;">Display Information</th>
+			<th style="width: 25%;">Request Information</th>
+			<th style="width: 25%;">Approver Information</th>
+			<th style="width: 14%;">Actions</th>
 			
 		  </tr>
 		</thead>
@@ -53,7 +62,7 @@
 		 
 		</tbody>
 	  </table>
-	  </div>
-
+  </div>
+</div>
 </body>
 </html>

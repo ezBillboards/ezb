@@ -49,6 +49,7 @@ $(document).ready(function(){
     });
 
     $("#add-account").click(function(){
+	if(validate() == true){
 	$.post("../server/administrator-add-account.php",
 	{
 		firstName: $("#firstName").val(),
@@ -63,6 +64,7 @@ $(document).ready(function(){
 		validate();
 		console.log(data);	
       });
+      }
     });
 
     $("table").on("click", "tr .delete-account", function(){    	
@@ -130,7 +132,7 @@ function getUserAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;\"></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</b></i></p></span>" +
 			"</td>" +
                         "</tr>";
                 }
@@ -164,8 +166,8 @@ function getApproverAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;\"></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;\"></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</b></i></p></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 
@@ -173,6 +175,120 @@ function getApproverAccounts(){
                 $("#approver-accounts").append(account);
         });
 }
+
+
+
+
+function validate(){
+ var firstName = document.getElementById('firstName').value;
+ var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var firstNameResult = firstNameRGEX.test(firstName);
+
+ var lastName = document.getElementById('lastName').value;
+ var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var lastNameResult = lastNameRGEX.test(lastName);
+
+ var email = document.getElementById('email').value;
+ var emailRGEX = /^(.+)@(.+)$/;
+ var emailResult = emailRGEX.test(email);
+
+ var password = document.getElementById('tempPass').value;
+
+ var wPhone = document.getElementById('workPhone').value;
+ var wPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var wPhoneResult = wPhoneRGEX.test(wPhone);
+
+ var mPhone = document.getElementById('mobilePhone').value;
+ var mPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var mPhoneResult = mPhoneRGEX.test(mPhone);
+
+ var office = document.getElementById('office').value;
+ var officeRGEX = /^[a-zA-Z ]{2,30}$/;
+ var officeResult = officeRGEX.test(office);
+
+
+console.log('First Name = '+ firstName);
+
+console.log('Last Name = '+ lastName);
+
+console.log('Phone Number = '+ wPhone);
+
+console.log('Mobile Number = '+ mPhone);
+
+console.log('Email = '+ email);
+
+console.log('Temp Password = '+ password);
+
+console.log('Office = '+office);
+
+if(firstNameResult == false)
+{
+alert('Please enter a valid First Name');
+return false;
+}
+
+
+
+if(lastNameResult == false)
+{
+alert('Please enter a valid Last Name');
+return false;
+}
+
+
+if(emailResult == false)
+{
+alert('Please enter a valid Email');
+return false;
+}
+
+
+if(office == false)
+{
+alert('Please enter a valid Email');
+return false;
+}
+
+
+
+
+ errors = [];
+    if (password.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (password.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+     if (password.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+    if (password.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+
+
+if(wPhoneResult == false)
+{
+alert('Please enter a valid phone number');
+return false;
+}
+
+if(mPhoneResult == false)
+{
+alert('Please enter a valid phone number');
+return false;
+}
+
+
+return true;
+
+}
+
 
 function getPublisherAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:3}, function(data,status){
@@ -200,8 +316,8 @@ function getPublisherAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;\"></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;\"></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 
@@ -210,78 +326,6 @@ function getPublisherAccounts(){
         });
 }
 
-
-function validate(){
-  var firstName = document.getElementById('firstName').value;
-  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
-  var firstNameResult = firstNameRGEX.test(firstName);
-  var lastName = document.getElementById('lastName').value;
-  var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
-  var lastNameResult = lastNameRGEX.test(lastName);
-  var email = document.getElementById('email').value;
-  var emailRGEX = /^(.+)@(.+)$/;
-  var emailResult = emailRGEX.test(email);
-  var wPhoneNumber = document.getElementById('workPhone').value;  
-  var wPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
-  var wPhoneResult = wPhoneRGEX.test(wPhoneNumber);
-  var mPhoneNumber = document.getElementById('mobilePhone').value; 
-  var mPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
-  var mPhoneResult = mPhoneRGEX.test(mPhoneNumber);
-  var office = document.getElementById('office').value;
-  var officeRGEX = /[\d -]+/;
-  var officeResult = officeRGEX.test(office);
-
-console.log('First Name = '+ firstName);
-console.log('Last Name = '+ lastName);
-console.log('Email = '+ email);
-console.log('Mobile Phone = '+ mPhoneNumber);
-console.log('Work Phone = '+ wPhoneNumber);
-console.log('Office Number = '+ office);
-
-
-
-if(firstNameResult == false)
-{
-alert('Please enter a valid First Name');
-return false;
-}
-
-if(lastNameResult == false)
-{
-alert('Please enter a valid Second Name');
-return false;
-}
-
-
-if(emailResult == false)
-{
-alert('Please enter a valid Email');
-return false;
-}
-
-
-if(wPhoneResult == false)
-{
-alert('Please enter a valid work number');
-return false;
-}
-
-
-if(mPhoneResult == false)
-{
-alert('Please enter a valid phone number');
-return false;
-}
-
-if(officeResult == false)
-{
-alert('Please enter a valid office');
-return false;
-}
-
-
-
-}
 
 
 
@@ -311,8 +355,8 @@ function getAdministratorAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;\"></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;\"></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 

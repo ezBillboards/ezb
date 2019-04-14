@@ -84,3 +84,18 @@ font-family: Arial;
  	background-color: #708090;
         color: white;
 }
+
+#billboards-header{
+        font-size: 56px;
+        font-weight: bold;
+}
+
+.tabs-text-color {
+    color: #03A9F4 !important;
+}
+
+#billboard-img-tag{
+	width: 300px;
+	display:block;
+    	margin:auto;
+}
