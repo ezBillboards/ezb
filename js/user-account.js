@@ -148,23 +148,6 @@ function validateContactInfo(){
   console.log('Twitter  = '+ twitter);
   console.log('Instagram  = '+ instagram);
 
-     errors = [];
-    if (newpassword.length < 8) {
-        errors.push("Your password must be at least 8 characters");
-    }
-    if (newpassword.search(/[0-9]/) < 0) {
-        errors.push("Your password must contain at least one digit.");
-    }
-    if (newpassword.search(/[a-z]/) < 0) { 
-        errors.push("Your password must contain at least one lowercase letter.") 
-    } 
-    if (newpassword.search(/[A-Z]/) < 0) { 
-        errors.push("Your password must contain at least one uppercase letter.") 
-    }
-    if (errors.length > 0) {
-        alert(errors.join("\n"));
-        return false;
-    }
 
 
   if(firstNameResult == false)
@@ -246,6 +229,27 @@ function validateContactInfo(){
         alert('Please enter a valid Instagram');
         return false;
         }
+
+
+ errors = [];
+    if (newpassword.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (newpassword.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+    if (newpassword.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+    if (newpassword.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+
 
 return true;
 

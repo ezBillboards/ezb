@@ -96,6 +96,16 @@ margin-right: auto;
     font-size: 15px;
 }
 
+.text-primary:hover{
+text-decoration: underline;
+cursor: pointer;
+}
+
+.glyphicon.glyphicon-phone{
+    font-size: 25%;
+}
+
+
 /* The container */
 .Checkcontainer {
 display: block;

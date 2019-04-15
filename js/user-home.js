@@ -119,19 +119,24 @@ function validateRegister(){
  var emailRGEX = /^(.+)@(.+)$/;
  var emailResult = emailRGEX.test(email);
 
+ var password = document.getElementById('passwordreg').value;
+ var cpassword = document.getElementById('confirm_passwordreg').value;
 
-
-console.log('Phone Number = '+ phoneNumber);
 
 console.log('First Name = '+ firstName);
 
 console.log('Last Name = '+ lastName);
 
+console.log('Phone Number = '+ phoneNumber);
+
 console.log('Email = '+ email);
 
-if(phoneResult == false)
-{
-alert('Please enter a valid phone number');
+console.log('Password = '+ password);
+
+console.log('Confirm Password = '+ cpassword);
+
+if(!document.getElementById('terms').checked){
+ alert('You must agree with the terms and policies');
 return false;
 }
 
@@ -146,7 +151,7 @@ return false;
 
 if(lastNameResult == false)
 {
-alert('Please enter a valid Second Name');
+alert('Please enter a valid Last Name');
 return false;
 }
 
@@ -158,11 +163,53 @@ return false;
 }
 
 
+if(phoneResult == false)
+{
+alert('Please enter a valid phone number');
+return false;
+}
+
+
+
+
+
+ errors = [];
+    if (password.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (password.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+     if (password.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+    if (password.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+var temp = password.localeCompare(cpassword);
+
+console.log(temp);
+
+if(temp ==-1)
+{
+alert('Password and Confirm Password do not  match');
+return false;
+}
+
+
+
+return true;
 
 }
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	console.log('Register function');
+	if(validateRegister() == true){
 	$.post("../server/user-registration.php",
 			{
 				email: email_IN,
@@ -205,6 +252,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					console.log('Error registering user!!');
 				}
 		});
+	}
 }
 
 function Login(email_IN,password_IN){
