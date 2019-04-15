@@ -1,7 +1,11 @@
 /* Approver processed requests View CSS */
+.navbar{
+    background:white;
+}
 
-body {
-	background-color: #E0E0E0;
+.nav-align {
+        display: flex;
+        align-items: center;
 }
 
 hr {
@@ -12,17 +16,12 @@ hr {
 	color: #03A9F4 !important;
 }
 
-.selected {
-	color: white !important;
-	background-color: gray;
-}
-
 .navbar-border {
 	border-bottom: 1px solid #BDBDBD;
 }
 
 .navbar-height {
-	height: 85px;
+	height: 95px;
 }
 
 .ezb-logo {
@@ -30,84 +29,17 @@ hr {
 	height:66px;
 }
 
-.user-dropdown {
-	color: gray;
-}
-
 .profile-dropdown {
-	font-size: 25px;
+	font-size: 30px;
 }
 
 li>a:hover {
-  background-color: gray !important;
   color: white;
 }
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-}
-
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-
-.tabcontent {
-  animation: fadeEffect 1s; /* Fading effect takes 1 second */
-}
-
-/* Go from zero to full opacity */
-@keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
 .processed-requests-images {
-	width: 100px;
-	height: 75px;
-}
-
-
-.table tbody  {
-	background-color: #E0E0E0;
-}
-
-.image-row {
-	display: flex;
-	align-items: center;
-}
-
-.profile-email {
-	font-size: 16px;
-	font-weight: bold;
+	width: 139px;
+	height: 100px;
 }
 
 .profile-modal-body {
@@ -164,3 +96,16 @@ li>a:hover {
 	display: flex;
 	align-items: center;
 }
+
+#processed-requests-header{
+	font-size: 56px;
+	font-weight: bold;
+}
+
+th {
+        background-color: #607D8B;
+	width: 25%;
+	text-align: center;
+        color: white;
+}
+

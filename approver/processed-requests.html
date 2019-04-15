@@ -19,9 +19,9 @@
 			<a class="navbar-brand" href="EZBillboardsLogo.png" target="_blank">
 				<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
 			</a>
-			<ul class="nav navbar-nav navbar-right navbar-text">
+			<ul class="nav navbar-nav navbar-right navbar-text nav-align">
 				<li><a class="navbar-text-color" href="requests.html">Pending Requests</a></li>
-				<li><a class="selected" href="processed-requests.html">Processed Requests</a></li>
+				<li><a class="navbar-text-color" href="processed-requests.html">Processed Requests</a></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -29,27 +29,35 @@
 						<li><a href="#">Logout</a></li>
 					</ul>
 				</li>
-				<li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+				<li><a class="profile-email">ezb19@gmail.com</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
-  <ul class="nav nav-tabs">
+<h1 id="processed-requests-header" class="text-center">Processed Requests</h1>
+<br>
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
     <li class="active"><a href="#Approved">Approved</a></li>
     <li><a href="#Denied">Denied</a></li>
     <li><a href="#Cancelled">Cancelled</a></li>
-    <li><input id="mySearch" type="text" placeholder="Search.."></li>
   </ul>
-
+<br>
   <div class="tab-content">
     <div id="Approved" class="tab-pane fade in active">
-      	<h3>Processed Requests</h3>
+	<div class="row">
+                <div class="col-lg-11 input-group" style="margin:auto;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input id="searchUsers" type="text" class="form-control" name="search" placeholder="Search">
+                </div>
+        </div>
+        <br>
 	<div class="table-responsive">          
 	  <table class="table table-striped">
 		<thead>
 		  <tr>
-			<th>Artwork</th>
+			<th >Image</th>
 			<th>Request Information</th>
 			<th>Approver Information</th>
 			<th>Actions</th>
@@ -98,9 +106,10 @@
 		 
 		</tbody>
 	  </table>
-	  </div>
+       </div>
     </div>
-</div>	
+  </div>	
+</div>
 	 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
