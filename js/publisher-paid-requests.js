@@ -38,7 +38,7 @@ function getPaidRequests(){
 			"</p>" +
 			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</p>" +
-			"<p><b>Requested by: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
 			"</p>" +
 			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
 			"</p>" +
@@ -46,7 +46,7 @@ function getPaidRequests(){
 			"<td style=\"vertical-align: middle;\">" +
 			"<p><b>Approved Date: </b>" + requests[i].approveDate +
 			"</p>" +
-			"<p><b>Approved by: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"<p><b>Approved By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
