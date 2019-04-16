@@ -18,9 +18,23 @@ $(document).ready(function(){
 		getCancelledRequests();
   });
   
-  $("#mySearch").on("keyup", function() {
+  $("#searchApproved").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#"+ tab +" tbody tr").filter(function() {
+    $("#approved-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#searchDenied").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#denied-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#searchCancelled").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#cancelled-requests tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
@@ -34,29 +48,27 @@ function getApprovedRequests(){
 		$("#approved-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
-			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\"><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
 			"</td> " +
-			"<td>" +
-			"<div>Request ID:" + requests[i].id + "" +
-			"</div>" +
-			"<div>Request Date: " + requests[i].reqDate +"" +
-			"</div>" +
-			"<div>Requested by: " + requests[i].firstName + " " + requests[i].lastName +"" +
-			"</div>" +
-			"<div>Image: "  + requests[i].artworkName + "." + requests[i].extension + ""+
-			"</div>" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Request ID: </b>" + requests[i].id +
+			"</p>" +
+			"<p><b>Request Date: </b>" + requests[i].reqDate +
+			"</p>" +
+			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"</p>" +
+			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<div>Approved Date: " + requests[i].approveDate +"" +
-			"</div>" +
-			"<div>Approved by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
-			"</div>" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Approved Date: </b>" + requests[i].approveDate +
+			"</p>" +
+			"<p><b>Approved By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<button type=\"button\" onclick=\"viewProfile(this)\" id=\""+requests[i].id+"\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
-			"</button>" +
-			"<button type=\"button\" onclick=\"cancelRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
-			"</button>" +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"cancelRequest(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#approved-requests").append(request);
@@ -72,29 +84,28 @@ function getDeniedRequests(){
 		$("#denied-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
-			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\"><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
 			"</td> " +
-			"<td>" +
-			"<div>Request ID:" + requests[i].id + "" +
-			"</div>" +
-			"<div>Request Date: " + requests[i].reqDate +"" +
-			"</div>" +
-			"<div>Requested by: " + requests[i].firstName + " " + requests[i].lastName +"" +
-			"</div>" +
-			"<div>Image: "  + requests[i].artworkName + "." + requests[i].extension + ""+
-			"</div>" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Request ID: </b>" + requests[i].id +
+			"</p>" +
+			"<p><b>Request Date: </b>" + requests[i].reqDate +
+			"</p>" +
+			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"</p>" +
+			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<div>Denied Date: " + requests[i].deniedDate +"" +
-			"</div>" +
-			"<div>Denied by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
-			"</div>" +
-			"<div>Comments: " + requests[i].comments +"" +
-			"</div>" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Denied Date: </b>" + requests[i].deniedDate +
+			"</p>" +
+			"<p><b>Denied By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"</p>" +
+			"<p><b>Comments: </b>" + requests[i].comments +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<button type=\"button\" onclick=\"viewProfile(this)\" id=\""+requests[i].id+"\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
-			"</button>" +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#denied-requests").append(request);
@@ -110,29 +121,28 @@ function getCancelledRequests(){
 		$("#cancelled-requests").empty();
 		for(var i = 0; i < requests.length; i++){
 			var request = "<tr>" +
-			"<td><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\"><img class=\"img-rounded processed-requests-images\"  src =\""+ requests[i].artworkURL + "\"></img> " +
 			"</td> " +
-			"<td>" +
-			"<div>Request ID:" + requests[i].id + "" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Request ID: </b>" + requests[i].id +
+			"</p>" +
+			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</div>" +
-			"<div>Request Date: " + requests[i].reqDate +"" +
-			"</div>" +
-			"<div>Requested by: " + requests[i].firstName + " " + requests[i].lastName +"" +
-			"</div>" +
-			"<div>Image: "  + requests[i].artworkName + "." + requests[i].extension + ""+
-			"</div>" +
+			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"</p>" +
+			"<p><b>Image: </b>" + requests[i].artworkName + "." + requests[i].extension +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<div>Cancelled Date: " + requests[i].deniedDate +"" +
-			"</div>" +
-			"<div>Cancelled by: " + requests[i].approverFirstName + " " + requests[i].approverLastName +"" +
-			"</div>" +
-			"<div>Comments: " + requests[i].comments +"" +
-			"</div>" +
+			"<td style=\"vertical-align: middle;\">" +
+			"<p><b>Cancelled Date: </b>" + requests[i].deniedDate +
+			"</p>" +
+			"<p><b>Cancelled By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"</p>" +
+			"<p><b>Comments: </b>" + requests[i].comments +
+			"</p>" +
 			"</td> " +
-			"<td>" +
-			"<button type=\"button\" onclick=\"viewProfile(this)\" id=\""+requests[i].id+"\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-user\"></span>View client profile" +
-			"</button>" +
+			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#cancelled-requests").append(request);
@@ -150,9 +160,7 @@ function viewProfile(item){
 		$("#profile-mobile").text(profile.mobile);
 		$("#profile-work").text(profile.work);
 		$("#profile-company").text(profile.company);
-		$("#profile-address1").text(profile.address1);
-		$("#profile-address2").text(profile.address2);
-		$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipcode);
+		$("#profile-address").text(profile.address1 + " " + profile.address2 + " " + profile.city + ", " + profile.state + " " + profile.zipcode);
 		$("#profile-url").text(profile.url);
 		$("#profile-facebook").attr("href",profile.facebookURL);
 		$("#profile-instagram").attr("href",profile.instagramURL);

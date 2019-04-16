@@ -39,9 +39,9 @@
 <br>
 <div class="container">
   <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a href="#Approved">Approved</a></li>
-    <li><a href="#Denied">Denied</a></li>
-    <li><a href="#Cancelled">Cancelled</a></li>
+    <li class="active"><a class="tabs-text-color" href="#Approved">Approved</a></li>
+    <li><a class="tabs-text-color" href="#Denied">Denied</a></li>
+    <li><a class="tabs-text-color" href="#Cancelled">Cancelled</a></li>
   </ul>
 <br>
   <div class="tab-content">
@@ -49,7 +49,7 @@
 	<div class="row">
                 <div class="col-lg-11 input-group" style="margin:auto;">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        <input id="searchUsers" type="text" class="form-control" name="search" placeholder="Search">
+                        <input id="searchApproved" type="text" class="form-control" name="search" placeholder="Search">
                 </div>
         </div>
         <br>
@@ -57,7 +57,7 @@
 	  <table class="table table-striped">
 		<thead>
 		  <tr>
-			<th >Image</th>
+			<th>Image</th>
 			<th>Request Information</th>
 			<th>Approver Information</th>
 			<th>Actions</th>
@@ -71,15 +71,21 @@
 	  </div>
     </div>
     <div id="Denied" class="tab-pane fade">
-      <h3>DENIED REQUESTS</h3>
+      <div class="row">
+                <div class="col-lg-11 input-group" style="margin:auto;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input id="searchDenied" type="text" class="form-control" name="search" placeholder="Search">
+      		</div>
+      </div>
+      <br>
       <div class="table-responsive">          
 	  <table class="table table-striped">
 		<thead>
 		  <tr>
-			<th>Artwork</th>
+			<th>Image</th>
 			<th>Request Information</th>
 			<th>Approver Information</th>
-			<th>Actions</th>
+			<th>Action</th>
 			
 		  </tr>
 		</thead>
@@ -90,16 +96,21 @@
 	  </div>
     </div>
     <div id="Cancelled" class="tab-pane fade">
-      <h3>CANCELLED REQUESTS</h3>
+       <div class="row">
+                <div class="col-lg-11 input-group" style="margin:auto;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input id="searchCancelled" type="text" class="form-control" name="search" placeholder="Search">
+                </div>
+       </div>
+       <br>
        <div class="table-responsive">          
 	  <table class="table table-striped">
 		<thead>
 		  <tr>
-			<th>Artwork</th>
+			<th>Image</th>
 			<th>Request Information</th>
 			<th>Approver Information</th>
-			<th>Actions</th>
-			
+			<th>Action</th>
 		  </tr>
 		</thead>
 		<tbody id = "cancelled-requests">
@@ -111,7 +122,7 @@
   </div>	
 </div>
 	 <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade centered-modal" id="myModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -128,7 +139,7 @@
           </div>
         </div>
         <div class="modal-body text-center profile-modal-body">
-          <h3>Contact Information</h3>
+          <h3 style="font-size: 24px;font-weight: bold;">Contact Information</h3>
           <div class="row">
             <div class="col-lg-6">
               <h4 class="profile-modal-body-headers">Email</h4>
@@ -142,9 +153,7 @@
               <h4 class="profile-modal-body-headers">Company Name</h4>
               <h4 id="profile-company" class="profile-modal-body-info"></h4>
               <h4 class="profile-modal-body-headers">Address</h4>
-              <h4 id="profile-address1" class="profile-modal-body-info"></h4>
-              <h4 id="profile-address2" class="profile-modal-body-info"></h4>
-              <h4 id="profile-city-state-zipcode" class="profile-modal-body-info"></h4>
+              <h4 id="profile-address" class="profile-modal-body-info"></h4>
               <h4 class="profile-modal-body-headers">URL</h4>
               <h4 id="profile-url" class="profile-modal-body-info"></h4>
             </div>
@@ -162,7 +171,7 @@
               <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
             </div>
             <div class="col-lg-9 text-right">
-              <button type="button" class="btn btn-md profile-modal-ok" data-dismiss="modal">OK</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
             </div>
           </div>
         </div>

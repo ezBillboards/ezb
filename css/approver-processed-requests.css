@@ -43,7 +43,8 @@ li>a:hover {
 }
 
 .profile-modal-body {
-	background-color: #BDBDBD;
+	color: white;
+	background-color: #607D8B;
 	padding-top: 0.5% !important;
 }
 
@@ -57,24 +58,20 @@ li>a:hover {
 	align-items: center;
 }
 
-.profile-modal-ok {
-	color: white;
-	background-color: #616161;
-}
-
 .profile-modal-remove {
 	font-size: 30px;
 	color: black;
 }
 
 .profile-modal-body-headers {
-	font-size: 16px;
+	color: white;
+	font-size: 22px;
 	font-weight: bold;
 }
 
 .profile-modal-body-info {
+	color: white;
 	font-size: 16px;
-	color: #616161;
 }
 
 .profile-modal-facebook {
@@ -107,5 +104,17 @@ th {
 	width: 25%;
 	text-align: center;
         color: white;
+}
+
+.tabs-text-color {
+    color: #03A9F4 !important;
+}
+
+.centered-modal.in {
+    display: flex !important;
+}
+
+.centered-modal .modal-dialog {
+    margin: auto;
 }
 
