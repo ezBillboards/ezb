@@ -1,7 +1,6 @@
 
-session();
-
 $(document).ready(function(){
+	session();
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
