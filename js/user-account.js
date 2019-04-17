@@ -21,30 +21,25 @@ $(document).ready(function(){
         });
 
 	$("#changePasswd").click(function(){
-		if($("#oldPasswd").val() != ""){
-			if($("#newPasswd").val() != "" && $("#confirmPasswd").val() != "" && $("#newPasswd").val() === $("#confirmPasswd").val()){
-				$.post("../server/user-account-changePasswd.php",
-					{
-					  userID: 1, //Change later.
-					  oldPasswd: $("#oldPasswd").val(),
-					  passwd: $("#newPasswd").val()
-					},
-					function(data, status){
-					if(status === "success"){
-						alert(data);
-						console.log(status);
-					} else{
-						alert(data);
-						console.log(status);
-					}
-				});
-			} else{
-				alert("New password doesn't match or a field is empty.");
-			}
-		} else{
-			alert("Password is empty.");
+	    if(validatePassword()==true){
+			$.post("../server/user-account-changePasswd.php",
+				{
+				  userID: 1, //Change later.
+				  oldPasswd: $("#oldPasswd").val(),
+				  passwd: $("#newPasswd").val()
+				},
+				function(data, status){
+				if(status === "success"){
+					alert(data);
+					console.log(status);
+				} else{
+					alert(data);
+					console.log(status);
+				}
+			});
+		 
 		}
-	});	
+	});		
 	
 	$("#save").click(function(){
 
@@ -86,6 +81,68 @@ $(document).ready(function(){
 	 
 	});
 
+function validatePassword(){
+ var oldpassword = document.getElementById('oldPasswd').value;
+ var newpassword = document.getElementById('newPasswd').value;
+ var cpassword = document.getElementById('confirmPasswd').value;
+
+ console.log('Old Password = '+ oldpassword);
+ console.log('New Password = '+ newpassword);
+ console.log('Confirm Password = '+ cpassword);
+
+
+if(oldpassword == ""){
+alert('Old password is empty');
+return false;
+}
+
+if(newpassword == ""){
+alert('New password is empty');
+return false;
+}
+
+
+	
+ errors = [];
+    if (newpassword.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (newpassword.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+    if (newpassword.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+    if (newpassword.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+    if(newpassword.localeCompare(oldpassword)==0){
+	alert('Old and new password cannot be the same');
+	return false;
+    }
+
+
+    if(cpassword == ""){
+	alert('Confirm password is empty');
+	return false;
+    }
+
+    if(newpassword.localeCompare(cpassword)==-1){
+        alert('Confirm and new password are not the same');
+        return false;
+    }
+
+
+
+return true;
+
+}
+
 function validateContactInfo(){
   var firstName = document.getElementById('firstName').value;
   var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
@@ -93,9 +150,6 @@ function validateContactInfo(){
   var lastName = document.getElementById('lastName').value;
   var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
   var lastNameResult = firstNameRGEX.test(lastName);
-  var oldpassword = document.getElementById('oldPasswd').value;
-  var newpassword = document.getElementById('newPasswd').value;
-  var cpassword = document.getElementById('confirmPasswd').value;
   var email = document.getElementById('email').value;
   var emailRGEX = /^(.+)@(.+)$/;
   var emailResult = emailRGEX.test(email);
@@ -103,39 +157,36 @@ function validateContactInfo(){
   var mPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
   var mPhoneResult = mPhoneRGEX.test(mPhoneNumber);
   var wPhoneNumber = document.getElementById('workPhone').value;
-  var wPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+  var wPhoneRGEX = /^$|^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
   var wPhoneResult = wPhoneRGEX.test(wPhoneNumber);
   var company = document.getElementById('company').value;
-  var companyRGEX = /^[a-z]|\d?[a-zA-Z0-9]?[a-zA-Z0-9\s&@.]+$/;
+  var companyRGEX = /^$|[a-zA-Z0-9]/;
   var companyResult = companyRGEX.test(company);
   var addressOne = document.getElementById('address1').value;
-  var addressOneRGEX = /^[a-zA-Z ]{2,30}$/;
+  var addressOneRGEX = /^$|^[a-zA-Z ]{2,30}$/;
   var addressOneResult = addressOneRGEX.test(addressOne);
   var addressTwo = document.getElementById('address2').value;
-  var addressTwoRGEX = /^[a-zA-Z ]{2,30}$/;
+  var addressTwoRGEX = /^$|^[a-zA-Z ]{2,30}$/;
   var addressTwoResult = addressTwoRGEX.test(addressTwo);
   var zip = document.getElementById('zip').value;
-  var zipRGEX = /^\d{5}$|^\d{5}-\d{4}$/;
+  var zipRGEX = /^$|^\d{5}$|^\d{5}-\d{4}$/;
   var zipResult = zipRGEX.test(zip);
   var url = document.getElementById('url').value;
-  var urlRGEX = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+  var urlRGEX = /^$|^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   var urlResult = urlRGEX.test(url);
   var twitter = document.getElementById('twitter').value;
-  var twitterRGEX = /^(https?:\/\/)?((w{3}\.)?)twitter\.com\/(#!\/)?[a-z0-9_]+$/;
+  var twitterRGEX = /^$|(?:http:\/\/)?(?:www\.)?twitter\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/;
   var twitterResult = twitterRGEX.test(twitter);
   var fb = document.getElementById('facebook').value;
-  var fbRGEX = /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/?/;
+  var fbRGEX = /^$|(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/;
   var fbResult = fbRGEX.test(fb);
   var instagram = document.getElementById('instagram').value;
-  var instagramRGEX = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/;
+  var instagramRGEX = /^$||(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/;
   var instagramResult = instagramRGEX.test(instagram);
 
 
   console.log('First Name = '+ firstName);
   console.log('Last Name = '+ lastName);
-  console.log('Old Password = '+ oldpassword);
-  console.log('New Password = '+ newpassword);
-  console.log('Confirm Password = '+ cpassword);
   console.log('Email = '+ email);
   console.log('Mobile Phone = '+ mPhoneNumber);
   console.log('Work Phone = '+ wPhoneNumber);
@@ -180,7 +231,7 @@ function validateContactInfo(){
         return false;
         }
 
-  if(company == false)
+  if(companyResult == false)
         {
         alert('Please enter a valid Company name');
         return false;
@@ -229,25 +280,6 @@ function validateContactInfo(){
         alert('Please enter a valid Instagram');
         return false;
         }
-
-
- errors = [];
-    if (newpassword.length < 8) {
-        errors.push("Your password must be at least 8 characters");
-    }
-    if (newpassword.search(/[0-9]/) < 0) {
-        errors.push("Your password must contain at least one digit.");
-    }
-    if (newpassword.search(/[a-z]/) < 0) {
-        errors.push("Your password must contain at least one lowercase letter.")
-    }
-    if (newpassword.search(/[A-Z]/) < 0) {
-        errors.push("Your password must contain at least one uppercase letter.")
-    }
-    if (errors.length > 0) {
-        alert(errors.join("\n"));
-        return false;
-    }
 
 
 
