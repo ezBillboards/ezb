@@ -12,7 +12,7 @@ if($conn === false){
 }
 $emailAddress = $_GET['emailAddress'];
 $psswd = $_GET['psswd'];
-$sql = "call getLoginUser( '$emailAddress','$psswd')";
+$sql = "call getLoginUser('$emailAddress','$psswd')";
 $result = mysqli_query($conn,$sql);
 $requests = array();
 
