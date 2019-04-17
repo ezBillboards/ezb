@@ -1,6 +1,9 @@
 
 $(document).ready(function(){
 	session();
+	
+	$("#profile-email").text(sessionStorage.getItem('email'));
+	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
@@ -24,7 +27,7 @@ function session(){
 				window.location.href = "../administrator/settings.html";
 			}
 		}else{
-			document.getElementById('profile-email').value = sessionStorage.getItem('email');
+			//document.getElementById('profile-email').value = sessionStorage.getItem('email');
 		}
 	}else{
 		window.location.href = "../user/home.html";
