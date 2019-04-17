@@ -11,8 +11,8 @@ if($conn === false){
 }
 	
 $id = $_POST['id'];
-
-$sql = "CALL putStatusPublisher($id,1)";
+$publisherID = $_POST['publisherID'];
+$sql = "CALL putStatusPublisher($id,$publisherID)";
 
 if (mysqli_query($conn, $sql)) {
     echo "Record updated successfully";
