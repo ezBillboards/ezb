@@ -9,7 +9,7 @@ $config = parse_ini_file('../../config.ini');
     $mail->Port = $config['PORT'];
     $mail->SMTPAuth = false;
 	
-	$mail->setFrom('ezbillboards@upr.edu', 'EZBillboards');.
+	$mail->setFrom('ezbillboards@upr.edu', 'EZBillboards');
 	$mail->addAddress('harry.hernandez@upr.edu');
 	//$email = $_POST['email'];
 	$random = $_POST['random'];
