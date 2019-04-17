@@ -1,4 +1,5 @@
 
+
 $(document).ready(function(){
 	session();
 	
@@ -14,16 +15,20 @@ $(document).ready(function(){
 });
 
 function session(){
-	if (sessionStorage.getItem('ID') !== null){
-		if(sessionStorage.getItem('role')!== 3){
+	
+	
+	if (sessionStorage.getItem('ID') != null){
+		
+		
+		if(sessionStorage.getItem('role')!= 4){
 			if(sessionStorage.getItem('role') == 1){
 				window.location.href = "../user/home.html";
 			}
-			else if(sessionStorage.getItem('role') == 2){
-				window.location.href = "../approver/requests.html";
+			else if(sessionStorage.getItem('role') == 3){
+				window.location.href = "../publisher/paid-requests.html";
 			}
 			else{
-				window.location.href = "../administrator/settings.html";
+				window.location.href = "../approver/requests.html";
 			}
 		}else{
 			//document.getElementById('profile-email').value = sessionStorage.getItem('email');

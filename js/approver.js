@@ -10,7 +10,6 @@ $(document).ready(function(){
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
-		Session();
 		window.location.href = "../user/home.html";
 	});
 });
