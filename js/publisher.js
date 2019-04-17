@@ -14,8 +14,8 @@ $(document).ready(function(){
 });
 
 function session(){
-	if (sessionStorage.getItem('ID') !== null){
-		if(sessionStorage.getItem('role')!== 3){
+	if (sessionStorage.getItem('ID') != null){
+		if(sessionStorage.getItem('role') != 3){
 			if(sessionStorage.getItem('role') == 1){
 				window.location.href = "../user/home.html";
 			}
@@ -25,8 +25,6 @@ function session(){
 			else{
 				window.location.href = "../administrator/settings.html";
 			}
-		}else{
-			//document.getElementById('profile-email').value = sessionStorage.getItem('email');
 		}
 	}else{
 		window.location.href = "../user/home.html";
