@@ -1,15 +1,26 @@
 <?php
+date_default_timezone_set('Etc/UTC');
+require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+$mail = new PHPMailer; 
+$config = parse_ini_file('../../config.ini');
 
-
-//$email = $_POST['email'];
-$random = $_POST['random'];
-//The message
-$sbj = "Ezbillboards Verification code";
-$msg = "Your verification code is: $random ";
-$hdr = "From: ezbillboards@ezb.uprm.edu\r\n";
-
-$msg = wordwrap($msg,70);
+	$mail->isSMTP();
+    $mail->Host = $config['IP'];
+    $mail->Port = $config['PORT'];
+    $mail->SMTPAuth = false;
+	
+	$mail->setFrom('ezbillboards@upr.edu', 'EZBillboards');.
+	$mail->addAddress('felix.gonzalez3@upr.edu');
+	//$email = $_POST['email'];
+	$random = $_POST['random'];
+	//The message
+    $mail->Subject = 'Ezbillboards Verification Code';
+    $mail->Body    = 'Your verification code is: $random ';
 
 //Send email
-mail("felix.gonzalez3@upr.edu",$sbj,$msg,$hdr);
+if (!$mail->send()) {
+    echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    echo "Message sent!";
+}
 ?>
