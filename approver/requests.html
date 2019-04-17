@@ -19,11 +19,11 @@
   <nav class="navbar navbar-default navbar-border navbar-height">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="myNavbar">
-       <a class="navbar-brand" href="EZBillboardsLogo.png" target="_blank">
+       <a class="navbar-brand" target="_blank">
         <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
       </a>
-      <ul class="nav navbar-nav navbar-right navbar-text">
-        <li><a class="selected" href="requests.html">Pending Requests</a></li>
+      <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+        <li><a class="navbar-text-color" href="requests.html">Pending Requests</a></li>
         <li><a class="navbar-text-color" href="processed-requests.html">Processed Requests</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
@@ -32,7 +32,7 @@
             <li><a href="#">Logout</a></li>
           </ul>
         </li>
-        <li><a class="profile-email" href="#">ezb19@gmail.com</a></li>
+        <li><a class="profile-email">ezb19@gmail.com</a></li>
       </ul>
     </div>
   </div>
@@ -41,10 +41,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-3 list-group">
-      <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+      <div class="text-center" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
         <i class="fa fa-calendar"></i>&nbsp;
         <span></span> <i class="fa fa-caret-down"></i>
       </div>
+	<br>
       <div id="request-queue" class="pre-scrollable">
 
       </div>
@@ -56,28 +57,16 @@
         </div>
 
         <!-- Left and right controls -->
-        <a class="left carousel-control" href="#request-image">
-          <span class="glyphicon glyphicon-chevron-left"></span>
+        <a id="left" style="color: white;" class="left carousel-control" href="#request-image">
+          <span style="text-shadow: -2px -2px 8px black;" class="glyphicon glyphicon-chevron-left"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#request-image">
-          <span class="glyphicon glyphicon-chevron-right"></span>
+        <a id="right" style="color:white;" class="right carousel-control" href="#request-image">
+          <span style="text-shadow: -2px -2px 8px black;" class="glyphicon glyphicon-chevron-right"></span>
           <span class="sr-only">Next</span>
         </a>
       </div>
-      <div class="row image-row">
-        <div class="col-lg-8 text-right">
-          <h2 class="">Image Information</h2>
-        </div>
-        <div class="col-lg-2 text-right">
-          <button id="view-profile" type="button" class="btn profile-button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> View Client Profile</button>
-        </div>
-        <div class="col-lg-2 text-right">
-          <a id="download-btn" href="#" download="test.jpg">
-            <button id="download-image" type="button" class="btn btn-info"><i class="fa fa-cloud-download"></i> Download Image</button>
-          </a>
-        </div>
-      </div>
+      <h2 class="text-center">Image Information</h2>
       <div class="row">
         <div class="col-lg-6">
           <h4 id="image-name" class="text-center image-info-text"></h4>
@@ -94,13 +83,23 @@
           <h4 id="image-size" class="text-center image-info-text"></h4>
         </div>
       </div>
-      <div class="dropup">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Most Common Rejection Reasons
-          <span class="caret"></span></button>
-          <ul id="rejections" class="dropdown-menu">
+      <div class="row image-row">
+      	<div class="col-lg-4 dropup text-center">
+        	<button class="btn btn-default dropdown-toggle approver-btns" type="button" data-toggle="dropdown">Most Common Rejection Reasons
+          	<span class="caret"></span></button>
+          	<ul id="rejections" class="dropdown-menu">
 
-          </ul>
-        </div>
+          	</ul>
+      	</div>
+	<div class="col-lg-4 text-center">
+		<span id="view-profile" style="font-size:34px;color:#2D2D2D;" class="glyphicon glyphicon-user" data-toggle="modal" data-target="#myModal"><br><p style="font-size: 14px;"><b><i>Profile</i></b></p></span>
+	</div>
+	<div class="col-lg-4 text-center">
+		<a style="color:#2D2D2D;" id="download-btn" href="temp" download="temp">
+			<span id="download-image" style="font-size: 34px;" class="glyphicon glyphicon-cloud-download"><br><p style="font-size: 14px;"><b><i>Download</i></b></p></span>
+          	</a>	
+	</div>
+      </div>
         <br>
         <div class="form-group">
           <textarea class="form-control" placeholder="Comments" rows="5" id="comment" name="text"></textarea>
@@ -113,14 +112,14 @@
         </div>
         <hr>
         <h2 class="text-center">Approve</h2>
-        <button id="yes" type="button" class="btn btn-success btn-block disabled decision" disabled>Yes</button>
-        <button id="no" type="button" class="btn btn-danger btn-block disabled decision" disabled>No</button>
+        <button id="yes" type="button" class="btn btn-default btn-block disabled decision approver-btns" disabled>Yes</button>
+        <button id="no" type="button" class="btn btn-default btn-block disabled decision approver-btns" disabled>No</button>
       </div>
     </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade centered-modal" id="myModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -128,16 +127,16 @@
             <div class="col-lg-1">
               <span class="glyphicon glyphicon-user profile-modal-user"></span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-7">
               <h3 id="profile-name" class="modal-title"></h3>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-5">
               <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
             </div>
           </div>
         </div>
         <div class="modal-body text-center profile-modal-body">
-          <h3>Contact Information</h3>
+          <h3 style="color: white;">Contact Information</h3>
           <div class="row">
             <div class="col-lg-6">
               <h4 class="profile-modal-body-headers">Email</h4>
@@ -171,7 +170,7 @@
               <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
             </div>
             <div class="col-lg-9 text-right">
-              <button type="button" class="btn btn-md profile-modal-ok" data-dismiss="modal">OK</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
             </div>
           </div>
         </div>

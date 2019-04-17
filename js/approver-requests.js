@@ -2,6 +2,8 @@ var requests;
 var currentRequestIndex;
 
 $(document).ready(function(){
+	$("#left").hide();
+        $("#right").hide();
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
 			var profile = JSON.parse(data);
@@ -20,7 +22,17 @@ $(document).ready(function(){
 			console.log(profile);
 		});
 	});
+	
+	$("#request-image").mouseenter(function(){
+		$("#left").fadeIn("slow");
+		$("#right").fadeIn("slow");
+  	});
 
+	$("#request-image").mouseleave(function(){
+		$("#left").fadeOut("slow");
+                $("#right").fadeOut("slow");
+        });
+	
 	$("#request-queue").on("click",".clickable-image",function(){
 		$("#" + currentRequestIndex + "request").removeClass("active");
 		currentRequestIndex = parseInt($(this).attr("id"));
@@ -30,10 +42,10 @@ $(document).ready(function(){
 		$("#request-image").carousel(currentRequestIndex);
 		$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
 		$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-		$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-		$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
-		$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
-		$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+		$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+		$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+		$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
+		$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
 	});
 
 	$(".left").click(function(){
@@ -46,10 +58,10 @@ $(document).ready(function(){
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
 			$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-			$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-			$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
-			$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
-			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+			$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+			$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
+			$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
 		}
 	});
 	$(".right").click(function(){
@@ -62,10 +74,10 @@ $(document).ready(function(){
 			$("#request-image").carousel(currentRequestIndex);
 			$("#download-btn").attr("href",requests[currentRequestIndex].artworkURL);
 			$("#download-btn").attr("download",requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-			$("#image-name").text("Image: " + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
-			$("#image-resolution").text("Resolution: " + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
-			$("#image-extension").text("Item Type: " + requests[currentRequestIndex].extension + " File");
-			$("#image-size").text("Size: " + requests[currentRequestIndex].size);
+			$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
+			$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
+			$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
+			$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
 		}
 	});
 
@@ -128,13 +140,11 @@ $(document).ready(function(){
     		function updateDate(start, end) {
 			var startStr = start.format('YYYY-MM-DD');
 			var endStr = end.format('YYYY-MM-DD');
+			var startDisplay = start.format('MMMM D, YYYY');
+			var endDisplay = end.format('MMMM D, YYYY');
 			console.log(startStr);
 			console.log(endStr);
-			if(startStr == "Invalid date" && endStr == "Invalid date"){
-				$("#reportrange span").html("All");
-			} else{
-	        		$("#reportrange span").html(startStr + " to " + endStr);
-			}
+	        	$("#reportrange span").html(startDisplay + " to " + endDisplay);
 			getRequests(startStr, endStr);
     		}
 
@@ -148,7 +158,7 @@ $(document).ready(function(){
            			'Last 30 Days': [moment().subtract(29, 'days'), moment()],
            			'This Month': [moment().startOf('month'), moment().endOf('month')],
            			'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-	   			'All': 'All'
+	   			'All': [moment().subtract(3,'month'), moment()]
         		}
     		}, updateDate);
 
@@ -209,10 +219,10 @@ function getRequests(startStr, endStr){
 
 		$("#download-btn").attr("href",requests[0].artworkURL);
 		$("#download-btn").attr("download",requests[0].artworkName + "." + requests[0].extension);
-		$("#image-name").text("Image: " + requests[0].artworkName + "." + requests[0].extension);
-		$("#image-resolution").text("Resolution: " + requests[0].width + " X " + requests[0].height + " pixels");
-		$("#image-extension").text("Item Type: " + requests[0].extension + " File");
-		$("#image-size").text("Size: " + requests[0].size);
+		$("#image-name").html("<b>Image: </b>" + requests[0].artworkName + "." + requests[0].extension);
+		$("#image-resolution").html("<b>Resolution: </b>" + requests[0].width + " X " + requests[0].height + " pixels");
+		$("#image-extension").html("<b>Item Type: </b>" + requests[0].extension + " File");
+		$("#image-size").html("<b>Size: </b>" + requests[0].size);
 
 		console.log(requests);
 	});
