@@ -10,12 +10,12 @@ $config = parse_ini_file('../../config.ini');
     $mail->SMTPAuth = false;
 	
 	$mail->setFrom('ezbillboards@upr.edu', 'EZBillboards');
-	$mail->addAddress('harry.hernandez@upr.edu');
+	$mail->addAddress('felix.gonzalez3@upr.edu');
 	//$email = $_POST['email'];
 	$random = $_POST['random'];
 	//The message
     $mail->Subject = 'Ezbillboards Verification Code';
-    $mail->Body    = 'Your verification code for your recently created account is: $random ';
+    $mail->Body    = 'Your verification code for your recently created account is: ' .  $random;
 
 //Send email
 if (!$mail->send()) {
