@@ -3,24 +3,24 @@ var tab = 'Pending';
 var currentRequestIndex;
 var currentRequestID;
 
-getPendingRequests();
+getPendingRequests(sessionStorage.getItem('ID'));
 
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
 	tab = $(this).text();
 	if(tab === 'Pending')
-		getPendingRequests();
+		getPendingRequests(sessionStorage.getItem('ID'));
 	else if(tab === 'Approved')
-		getApprovedRequests();
+		getApprovedRequests(sessionStorage.getItem('ID'));
 	else if(tab === 'Denied')
-		getDeniedRequests();
+		getDeniedRequests(sessionStorage.getItem('ID'));
 	else if(tab === 'Cancelled')
-		getCancelledRequests();
+		getCancelledRequests(sessionStorage.getItem('ID'));
 	else if(tab === 'Paid')
-		getPaidRequests();
+		getPaidRequests(sessionStorage.getItem('ID'));
 	else
-		getPublishedRequests();
+		getPublishedRequests(sessionStorage.getItem('ID'));
   });
   
   $("#search").on("keyup", function() {
@@ -32,8 +32,8 @@ $(document).ready(function(){
   
 });
 
-function getPendingRequests(){
-        $.get("../server/user-pending-requests.php",function(data,status){
+function getPendingRequests(userID){
+        $.get("../server/user-pending-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
 		console.log(requests);
                 currentRequestIndex = 0;
@@ -74,8 +74,8 @@ function getPendingRequests(){
 }
 
 
-function getApprovedRequests(){
-	$.get("../server/user-approved-requests.php",function(data,status){
+function getApprovedRequests(userID){
+	$.get("../server/user-approved-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		$("#approved-requests").empty();
@@ -119,8 +119,8 @@ function getApprovedRequests(){
 	});
 }
 1
-function getDeniedRequests(){
-		$.get("../server/user-denied-requests.php",function(data,status){
+function getDeniedRequests(userID){
+		$.get("../server/user-denied-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		$("#denied-requests").empty();
@@ -160,8 +160,8 @@ function getDeniedRequests(){
 	});
 }
 
-function getCancelledRequests(){
-		$.get("../server/user-cancelled-requests.php",function(data,status){
+function getCancelledRequests(userID){
+		$.get("../server/user-cancelled-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		$("#cancelled-requests").empty();
@@ -203,8 +203,8 @@ function getCancelledRequests(){
 	});
 } 
 
-function getPaidRequests(){
-                $.get("../server/user-paid-requests.php",function(data,status){
+function getPaidRequests(userID){
+                $.get("../server/user-paid-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
                 currentRequestIndex = 0;
                 $("#paid-requests").empty();
@@ -244,8 +244,8 @@ function getPaidRequests(){
         });
 }
 
-function getPublishedRequests(){
-                $.get("../server/user-published-requests.php",function(data,status){
+function getPublishedRequests(userID){
+                $.get("../server/user-published-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
                 currentRequestIndex = 0;
                 $("#published-requests").empty();
@@ -308,10 +308,11 @@ function cancelRequest(item){
 function payment(item){
         currentRequestID = $(item).attr("id");
         console.log(currentRequestID);
-        $.post("../server/user-pay-request.php",{id:currentRequestID},
+        $.post("../server/venta.php",{requestID:currentRequestID},
+        //$.post("../server/user-pay-request.php",{requestID:currentRequestID},
                 function(data, status){
                         if(status === "success"){
-                                location.reload();
+				//location.reload();
                         } else {
                                 alert("Error payment request!");
                         }
