@@ -17,14 +17,17 @@ var random;
 
 $(document).ready(function(){
 	Session();
+
+        $("#profile-email").text(sessionStorage.getItem('email')); 
 	
 	$("#btnlogin").click(function(){
+		if(validateLogin() ==true){	
 		console.log('btnlogin clicked!!');
 		email = $('#emaillogin').val();
 		//password = $('#passwordlogin').val();
 		Login(email,$('#passwordlogin').val());
 		//setTimeout(VerifyRole,500);
-		validateLogin();
+		}
 	});
 	
 	$("#btnregister").click(function(){
@@ -33,9 +36,8 @@ $(document).ready(function(){
 			random = Math.floor((Math.random() * 1000000) + 1);
 			console.log(random);
 			console.log($('#emailreg').val());
-			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#passwordreg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
+			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#lastnamereg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
-			validateRegister();
 	});
 	
 	$("#closeVerModal").click(function(){
@@ -80,6 +82,7 @@ $(document).ready(function(){
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
 		Session();
+		window.location.href = "../user/home.html";
 	});
 });
 
@@ -87,29 +90,92 @@ $(document).ready(function(){
 
 
 function validateLogin(){  
+
  var email = document.getElementById('emaillogin').value;
  var emailRGEX = /^(.+)@(.+)$/;
  var emailResult = emailRGEX.test(email);
+ var password = document.getElementById('passwordlogin').value;
 
- console.log('Email = '+ email);
+console.log('Email = '+ email);
+console.log('Password = '+password);
 
 if(emailResult == false)
-{
-alert('Please enter a valid Email');
-return false;
+	{
+	alert('Please enter a valid Email');
+	return false;
+	}
+
+if(document.getElementById('remember').checked)
+	{
+	setCookie("email",email,30);
+	setCookie("password",password,30);
+    
+   }
+
+if(!document.getElementById('remember').checked)
+        {
+removeCookies();
+   }
+	
+
+
+return true;
 }
 
 
+
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+ function removeCookies() {
+            var res = document.cookie;
+            var multiple = res.split(";");
+            for(var i = 0; i < multiple.length; i++) {
+               var key = multiple[i].split("=");
+               document.cookie = key[0]+" =; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+ }
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  var email = getCookie("email");
+  var password = getCookie("password");
+
+  if (email != "" && password != "")
+	{
+	$("#emaillogin").val(email);
+	$("#passwordlogin").val(password);
+	document.getElementById('remember').checked =true;
+	}
 }
 
 function validateRegister(){
-  var phoneNumber = document.getElementById('phonereg').value;
-  var phoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
-  var phoneResult = phoneRGEX.test(phoneNumber);
+ var phoneNumber = document.getElementById('phonereg').value;
+ var phoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var phoneResult = phoneRGEX.test(phoneNumber);
 
-  var firstName = document.getElementById('firstnamereg').value;
-  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
-  var firstNameResult = firstNameRGEX.test(firstName);
+ var firstName = document.getElementById('firstnamereg').value;
+ var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var firstNameResult = firstNameRGEX.test(firstName);
 
  var lastName = document.getElementById('lastnamereg').value;
  var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
@@ -257,10 +323,11 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 
 function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
-		{emailAddress: email_IN},
+		{emailAddress: email_IN,
+		psswd: password_IN},
 		function(data, status){
 			if(data == 'No results'){
-				alert('USER NOT FOUND!!');
+				alert('Incorrect credentials!');
 			}
 			else{
 				credentials = JSON.parse(data);
@@ -356,7 +423,7 @@ function VerifyRole(){
 			sessionStorage.setItem('role', role);
 			//IF ADMIN FOUND --->> ADMIN VIEW
 			console.log('ADMIN FOUND');
-			window.location.href = "../administrator/billboards.html";
+			window.location.href = "../administrator/settings.html";
 		}	
 	}
 }
@@ -364,7 +431,8 @@ function VerifyRole(){
 function sendVerificationCode(){
 	$.post("../server/mail-verification-code.php",
 			{
-				random: sessionStorage.getItem('verificationCode')
+			emailAddress:email,
+			random: sessionStorage.getItem('verificationCode')
 			},function(data,status){
 				
 				if(status === "success"){
@@ -381,6 +449,7 @@ function resendVerificationCode(){
 	sessionStorage.setItem('verificationCode', random);
 	$.post("../server/mail-verification-code.php",
 			{
+				emailAddress:email,
 				random: sessionStorage.getItem('verificationCode')
 			},function(data,status){
 				
@@ -411,7 +480,19 @@ function VerifyEmail(){
 }
 
 function Session(){
+		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
+			if(sessionStorage.getItem('role')!= 1){
+				if(sessionStorage.getItem('role') == 2){
+					window.location.href = "../approver/requests.html";
+				}
+				else if(sessionStorage.getItem('role') == 3){
+					window.location.href = "../publisher/paid-requests.html";
+				}
+				else{
+					window.location.href = "../administrator/settings.html";
+				}
+			}
 			console.log('Session exists!!!');
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
