@@ -106,7 +106,9 @@ $(document).ready(function(){
 		console.log(regulations);
 		console.log(rejections);
 		if(empty){
-			alert("Fill out all added fields!");
+			alert("Fill out all added fields!");	
+		}else if(validateBillboard()){
+		alert('Missing billboard information');
 		}else{
 			newBillboard(packages,regulations,rejections);
 		}
@@ -424,47 +426,44 @@ function readURL(input) {
 }
 
 function newBillboard(packages_in,regulations_in,rejections_in){
-	if(validateBillboard()){
-		alert('Missing billboard information');
-	}else{
-		fd.append('name',$("#addBillboardname").val());
-		fd.append('description',$("#adddescription").val());
-		fd.append('width',$("#addwidth").val());
-		fd.append('height',$("#addheight").val());
-		fd.append('latitude',$("#addlatitude").val());
-		fd.append('longitude',$("#addlongitude").val());
-		fd.append('minwidth',$("#addminwidth").val());
-		fd.append('maxwidth',$("#addmaxwidth").val());
-		fd.append('minheight',$("#addminheight").val());
-		fd.append('maxheight',$("#addmaxheight").val());
-		fd.append('readtime',$("#addreadtime").val());
-		fd.append('impressions',$("#addimpressions").val());
-		fd.append('traffic',$("#addtraffic").val());
-		fd.append('fileName',files.name.split(".")[0]);
-		fd.append('extension',files.type.substring(6));
-		//cycle:$("#addBillboardname").val()
-		fd.append('packages',JSON.stringify(packages_in));
-		fd.append('regulations',JSON.stringify(regulations_in));
-		fd.append('rejections',JSON.stringify(rejections_in));
-		$.ajax({
-			url:"../server/administrator-add-billboard.php",
-			type: 'POST',
-			data: fd,
-			mimeType:"multipart/form-data",
-			contentType: false,
-			processData: false,
-			success: function(response){
-				console.log(response);
-				location.reload();
-			}
-		});
-	}
+	fd.append('name',$("#addBillboardname").val());
+	fd.append('description',$("#adddescription").val());
+	fd.append('width',$("#addwidth").val());
+	fd.append('height',$("#addheight").val());
+	fd.append('latitude',$("#addlatitude").val());
+	fd.append('longitude',$("#addlongitude").val());
+	fd.append('minwidth',$("#addminwidth").val());
+	fd.append('maxwidth',$("#addmaxwidth").val());
+	fd.append('minheight',$("#addminheight").val());
+	fd.append('maxheight',$("#addmaxheight").val());
+	fd.append('readtime',$("#addreadtime").val());
+	fd.append('impressions',$("#addimpressions").val());
+	fd.append('traffic',$("#addtraffic").val());
+	fd.append('fileName',files.name.split(".")[0]);
+	fd.append('extension',files.type.substring(6));
+	//cycle:$("#addBillboardname").val()
+	fd.append('packages',JSON.stringify(packages_in));
+	fd.append('regulations',JSON.stringify(regulations_in));
+	fd.append('rejections',JSON.stringify(rejections_in));
+	$.ajax({
+		url:"../server/administrator-add-billboard.php",
+		type: 'POST',
+		data: fd,
+		mimeType:"multipart/form-data",
+		contentType: false,
+		processData: false,
+		success: function(response){
+			console.log(response);
+			location.reload();
+		}
+	});
+
 }
 
 function validateBillboard(){
 	var billboardName = true;
-	var billboardDescription = true;
-	var billboardRGEX = /^[a-zA-Z0-9@]{1,100}$/;
+	//var billboardDescription = true;
+	var billboardRGEX = /[^A-Za-z0-9\s@&]/;
 	if ($("#addBillboardname").val() == ""){
 		billboardName = false;
 		alert("Missing billboard name!");
