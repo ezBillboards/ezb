@@ -12,7 +12,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="../js/user-request.js"></script>
-	<script src="../js/user.js"></script>
+	<script src="../js/user-home.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
@@ -215,9 +215,9 @@
            <input id="passwordlogin" type="password" class="form-control" name="password" placeholder="password">
          </div>
          <br>
-         <div style="text-align:center;"><label class="container text-center">Remember me <input id="remember" style="margin: 0 auto"type="checkbox" checked="checked"><span class="checkmark"></span></label>
+         <div style="text-align:center;"><label class="container text-center">Remember me <input style="margin: 0 auto"type="checkbox" id = "remember"><span class="checkmark"></span></label>
 	</div>
-	<div class="text-center">Don't have an account yet?<p class="text-primary text-center" style = "color:#2196f3">Register here</p></div>
+	<div class="text-center">Don't have an account yet?<p class="text-primary text-center" style = "color:#2196f3" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
         <a href ="#"  data-toggle="modal" data-target="#forgotPasswordModal"> <p class="text-primary text-center" style = "color:#2196f3">Forgot Password</p><a>
         <div style="text-align:center;"><button type="button" id="btnlogin" class="btn btn-info position-center" sytle="margin: 0 auto">Login</button></div>
 	</div>
@@ -329,7 +329,12 @@
           <div class="col-lg-12" >
           <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="firstnamereg" type="text" class="form-control" name="firstname" placeholder="First Name">
+              <input id="firstnamereg" 
+			type="text" 
+			class="form-control" 
+			name="firstname" 
+			placeholder="First Name"
+        		value="">
           </div>
           <br>
            <div class="input-group">
@@ -343,7 +348,7 @@
          </div>
         <br>
         <div class="input-group">
-         <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+         <span class="input-group-addon"><i class="glyphicon glyphicon-phone" style = "font-size:15px;"></i></span>
          <input id="phonereg" type="text" class="form-control" name="phone" placeholder="Mobile Number">
        </div>
       <br>
@@ -357,13 +362,44 @@
         <input id="confirm_passwordreg" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
       </div>
       <br>
-    <label class="Checkcontainer">I accept your <p class="text-primary" style = "color:#2196f3">terms and policy privacy</p><input type="checkbox" checked="checked"><span class="checkmark"></span></label>
-    <div>Already have an account?</div><p class="text-primary" style = "color:#2196f3">Login in here</p>
+      <label class="Checkcontainer"><input type="checkbox"id = "terms" checked="checked"><span class="checkmark"></span>I accept your <p class="text-primary" style = "color:#2196f3">terms and policy privacy</p></label>
+    <div>Already have an account?</div><p class="text-primary" style = "color:#2196f3" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
 
 
 
           </div>
       </div>
+      <div class="modal-footer center">
+      <button id="btnregister" type="button" class="btn btn-default  register">Register</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Cancel pendind request Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style = "color:black;">Are you sure you cant to cancel the request?</h4>
+        </div>
+        <div class="modal-body">
+          <h5>Once you cancel, you can't redo your request.</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" id = "cancelPending">Yes</button>
+          <button type="button" class="btn btn-secondary"  data-dismiss="modal">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
 
 </body>
 </html>

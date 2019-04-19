@@ -32,7 +32,7 @@ $(document).ready(function(){
 	
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
-		if($('#passwordreg').val() === $('#confirm_passwordreg').val()){
+		if(validateRegister()==true){
 			random = Math.floor((Math.random() * 1000000) + 1);
 			console.log(random);
 			console.log($('#emailreg').val());
@@ -85,9 +85,6 @@ $(document).ready(function(){
 		window.location.href = "../user/home.html";
 	});
 });
-
-
-
 
 function validateLogin(){  
 
@@ -257,6 +254,29 @@ return false;
         return false;
     }
 
+
+ errors = [];
+    if (cpassword.length < 8) {
+        errors.push("Your Confirm password must be at least 8 characters");
+    }
+    if (cpassword.search(/[0-9]/) < 0) {
+        errors.push("Your Confirm password must contain at least one digit.");
+    }
+     if (cpassword.search(/[a-z]/) < 0) {
+        errors.push("Your Confirm password must contain at least one lowercase letter.")
+    }
+    if (cpassword.search(/[A-Z]/) < 0) {
+        errors.push("Your Confirm password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+
+
+
+
 var temp = password.localeCompare(cpassword);
 
 console.log(temp);
@@ -297,7 +317,11 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 			},function(data,status){
 				console.log(data);
 				console.log(status);
-				if(status === "success"){
+				if(data == "Email already exists!"){
+					console.log("Already exists");
+					alert("Email address already exists!");
+				}
+				else if(status === "success"){
 					if(JSON.parse(data).length > 0){
 					credentials = JSON.parse(data);
 						profile_ID = credentials[0].id;
@@ -431,7 +455,7 @@ function VerifyRole(){
 function sendVerificationCode(){
 	$.post("../server/mail-verification-code.php",
 			{
-			emailAddress:email,
+			emailAddress:sessionStorage.getItem('email'),
 			random: sessionStorage.getItem('verificationCode')
 			},function(data,status){
 				
@@ -449,7 +473,7 @@ function resendVerificationCode(){
 	sessionStorage.setItem('verificationCode', random);
 	$.post("../server/mail-verification-code.php",
 			{
-				emailAddress:email,
+				emailAddress:sessionStorage.getItem('email'),
 				random: sessionStorage.getItem('verificationCode')
 			},function(data,status){
 				

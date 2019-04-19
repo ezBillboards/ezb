@@ -6,7 +6,10 @@ var currentRequestID;
 getPendingRequests(sessionStorage.getItem('ID'));
 
 $(document).ready(function(){
-  $(".nav-tabs a").click(function(){
+  
+
+
+ $(".nav-tabs a").click(function(){
     $(this).tab('show');
 	tab = $(this).text();
 	if(tab === 'Pending')
@@ -65,7 +68,7 @@ function getPendingRequests(userID){
                         "</div>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-			"<button type=\"button\" onclick=\"cancelRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal\"  id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
                         "</td>" +
                         "</tr>";
                 }
@@ -104,7 +107,7 @@ function getApprovedRequests(userID){
                         "</div>" +
                         "<div>Starting Date: " + requests[i].startingDate +
                         "</div>" +
-                        "<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
+                        "<div>Image: "  + requests[i].artworcakName + "." + requests[i].extension +
                         "</div>" +
 			"<div>Comments: " + requests[i].comments +
                         "</div>" +
