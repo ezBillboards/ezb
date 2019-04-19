@@ -6,7 +6,7 @@ var rejections;
 var files;
 var img;
 var imgedit;
-var fd;
+var fd = new FormData();
 
 $(document).ready(function(){
 	
@@ -441,7 +441,6 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('traffic',$("#addtraffic").val());
 	fd.append('fileName',files.name.split(".")[0]);
 	fd.append('extension',files.type.substring(6));
-	//cycle:$("#addBillboardname").val()
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
@@ -463,7 +462,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 function validateBillboard(){
 	var billboardName = true;
 	//var billboardDescription = true;
-	var billboardRGEX = /[^A-Za-z0-9\s@&]/;
+	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() == ""){
 		billboardName = false;
 		alert("Missing billboard name!");
