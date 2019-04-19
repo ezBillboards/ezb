@@ -82,7 +82,7 @@ $(document).ready(function(){
   $("#request-btn").click(function(){
 	if(currentSelectedPackage != null && $("#upload-image").val() != ""){
 		fd.append('billboardID', parseInt(currentBillboardID));
-		fd.append('userID', 1); //Change later.
+		fd.append('userID', sessionStorage.getItem('ID'));
 		fd.append('sDate', startingDate);
 		fd.append('packetID', parseInt(currentSelectedPackage.attr("id")));
 		fd.append('fileName', files.name.split(".")[0]);
