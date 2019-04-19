@@ -25,6 +25,13 @@ $(document).ready(function(){
 	else
 		getPublishedRequests(sessionStorage.getItem('ID'));
   });
+
+$(".canceling").on("click",function(){
+console.log('testing');
+currentRequestID = $(this).attr("id");
+console.log(currentRequestID);
+});
+
   
   $("#search").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -68,7 +75,7 @@ function getPendingRequests(userID){
                         "</div>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-			"<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal\"  id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal\"  id =\"" + requests[i].id +"\" class=\"btn btn-danger canceling\">Cancel Request" +
                         "</td>" +
                         "</tr>";
                 }
@@ -293,8 +300,7 @@ function getPublishedRequests(userID){
 }
 
 
-function cancelRequest(item){
-	currentRequestID = $(item).attr("id");
+function cancelRequest(){
 	console.log(currentRequestID);
 	$.post("../server/approver-cancel-request.php",{id:currentRequestID},
 		function(data, status){
