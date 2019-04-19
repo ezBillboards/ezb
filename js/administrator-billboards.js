@@ -468,7 +468,9 @@ function validateBillboard(){
 		billboardName = false;
 		alert("Missing billboard name!");
 	}
-	billboardName = billboardRGEX.test($("#addBillboardname").val());
+	else{
+		billboardName = billboardRGEX.test($("#addBillboardname").val());
+	}
 	return billboardName;
 }
 
