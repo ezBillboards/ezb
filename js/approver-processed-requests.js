@@ -156,7 +156,7 @@ function viewProfile(item){
 	$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
 		var profile = JSON.parse(data);
 		$("#profile-name").text(profile.firstName + " " + profile.lastName);
-		$("#profile-email").text(profile.email);
+		$("#profile-email-modal").text(profile.email);
 		$("#profile-mobile").text(profile.mobile);
 		$("#profile-work").text(profile.work);
 		$("#profile-company").text(profile.company);
