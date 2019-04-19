@@ -11,7 +11,7 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-$userID = 1; //Do GET later.
+$userID = $_POST['userID'];
 $oldPasswd = $_POST['oldPasswd'];
 $newPasswd = $_POST['passwd'];
 $sql = "CALL getPassword($userID)";
@@ -21,7 +21,7 @@ $result = mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) {
 	$readPasswd = mysqli_fetch_assoc($result);
 	$passwd = $readPasswd['psswd'];
-
+	echo $oldPasswd . " " . $passwd;
 	if($oldPasswd == $passwd){
 		mysqli_close($conn);
 		
