@@ -69,31 +69,47 @@ $(document).ready(function(){
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
+		var empty = false;
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
-				packages.push(this.value);
+				if(this.value == ""){
+					empty = true;
+				}else{
+					packages.push(this.value);
+				}
 			});
 		});
 		
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
-				regulations.push(this.value);
+				if(this.value == ""){
+					empty = true;
+				}else{
+					regulations.push(this.value);
+				}
 			});
 		});
 		
 		$("#add-rejection tr").each(function() {
 			$(this).find('td').find('input').each(function(){
-				rejections.push(this.value);
+				if(this.value == ""){
+					empty = true;
+				}else{
+					rejections.push(this.value);
+				}
 			});
 		});
-		
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
-		newBillboard(packages,regulations,rejections);
+		if(empty){
+			alert("Fill out all added fields!");
+		}else{
+			newBillboard(packages,regulations,rejections);
+		}
 	});
 	
 	$('#btnupdatebillboard').click(function(){
