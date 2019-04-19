@@ -465,6 +465,10 @@ function validateBillboard(){
 	var billboardName = true;
 	var billboardDescription = true;
 	var billboardRGEX = /^[a-zA-Z0-9@]{1,100}$/;
+	if ("#addBillboardname").val() == ""){
+		billboardName = false;
+		alert("Missing billboard name!");
+	}
 	billboardName = billboardRGEX.test($("#addBillboardname").val());
 	return billboardName;
 }
