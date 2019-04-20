@@ -85,7 +85,7 @@
 		  <tr>
 			<th>Image</th>
 			<th>Request Information</th>
-			<th>Approver Information</th>
+			<th>Denied Information</th>
 			<th>Action</th>
 			
 		  </tr>
@@ -110,7 +110,7 @@
 		  <tr>
 			<th>Image</th>
 			<th>Request Information</th>
-			<th>Approver Information</th>
+			<th>Cancel Information</th>
 			<th>Action</th>
 		  </tr>
 		</thead>
@@ -180,6 +180,28 @@
     </div>
   </div>
 
+
+<!-- Cancel pendind request Modal -->
+  <div class="modal fade" id="cancelModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style = "color:black;">Are you sure you cant to cancel the request?</h4>
+        </div>
+        <div class="modal-body">
+          <h5>Once you cancel, you can't redo your request.</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" onclick = "cancelRequest()">Yes</button>
+          <button type="button" class="btn btn-secondary"  data-dismiss="modal">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
   
   
 
