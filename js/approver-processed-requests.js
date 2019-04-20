@@ -68,7 +68,7 @@ function getApprovedRequests(){
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
 			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"cancelRequest(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#approved-requests").append(request);
@@ -134,9 +134,9 @@ function getCancelledRequests(){
 			"</p>" +
 			"</td> " +
 			"<td style=\"vertical-align: middle;\">" +
-			"<p><b>Cancelled Date: </b>" + requests[i].deniedDate +
+			"<p><b>Cancelled Date: </b>" + requests[i].cancelledDate +
 			"</p>" +
-			"<p><b>Cancelled By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"<p><b>Cancelled By: </b>" + requests[i].cancelFirstName + " " + requests[i].cancelLastName +
 			"</p>" +
 			"<p><b>Comments: </b>" + requests[i].comments +
 			"</p>" +
@@ -169,10 +169,19 @@ function viewProfile(item){
 	});
 }
 
-function cancelRequest(item){
-	currentRequestID = $(item).attr("id");
+
+function cancelling(item){
+        currentRequestID = $(item).attr("id");
+        console.log('this is the id');
 	console.log(currentRequestID);
-	$.post("../server/approver-cancel-request.php",{id:currentRequestID},
+        $("#cancelModal").modal("show");
+}
+
+
+
+function cancelRequest(){
+	console.log(currentRequestID);
+	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:sessionStorage.getItem('ID')},
 		function(data, status){
 			if(status === "success"){
 				location.reload();

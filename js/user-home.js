@@ -75,6 +75,11 @@ $(document).ready(function(){
 		resendVerificationCode();
 	});
 	
+
+
+
+
+
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
@@ -291,6 +296,13 @@ return false;
 
 return true;
 
+}
+
+function termsCall() {
+ console.log('enter function');
+                $.get("../server/user-terms.php", function(data, status){
+                $("#termsInfo").text(data);
+	});
 }
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
