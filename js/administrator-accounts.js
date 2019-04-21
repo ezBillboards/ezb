@@ -203,7 +203,7 @@ function validate(){
  var mPhoneResult = mPhoneRGEX.test(mPhone);
 
  var office = document.getElementById('office').value;
- var officeRGEX = /^[a-zA-Z ]{2,30}$/;
+ var officeRGEX = /^$|^[a-zA-Z0-9._-]{1,6}$/
  var officeResult = officeRGEX.test(office);
 
 
@@ -211,46 +211,33 @@ console.log('First Name = '+ firstName);
 
 console.log('Last Name = '+ lastName);
 
+console.log('Email = '+ email);
+
 console.log('Phone Number = '+ wPhone);
 
 console.log('Mobile Number = '+ mPhone);
-
-console.log('Email = '+ email);
 
 console.log('Temp Password = '+ password);
 
 console.log('Office = '+office);
 
-if(firstNameResult == false)
-{
-alert('Please enter a valid First Name');
-return false;
-}
+    if(firstNameResult == false){
+	alert('Please enter a valid First Name');
+	return false;
+    }
 
 
 
-if(lastNameResult == false)
-{
-alert('Please enter a valid Last Name');
-return false;
-}
+    if(lastNameResult == false){
+	alert('Please enter a valid Last Name');
+	return false;
+    }
 
 
-if(emailResult == false)
-{
-alert('Please enter a valid Email');
-return false;
-}
-
-
-if(office == false)
-{
-alert('Please enter a valid Email');
-return false;
-}
-
-
-
+    if(emailResult == false){
+	alert('Please enter a valid Email');
+	return false;
+    }
 
  errors = [];
     if (password.length < 8) {
@@ -270,19 +257,18 @@ return false;
         return false;
     }
 
+    if(mPhoneResult == false){
+        alert('Please enter a valid phone number');
+        return false;
+    }
 
 
-if(wPhoneResult == false)
-{
-alert('Please enter a valid phone number');
-return false;
-}
+    if(officeResult == false){
+	  alert('Please enter a Office ');
+	  return false;
+    }
 
-if(mPhoneResult == false)
-{
-alert('Please enter a valid phone number');
-return false;
-}
+
 
 
 return true;

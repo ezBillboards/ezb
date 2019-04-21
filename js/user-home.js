@@ -203,11 +203,6 @@ console.log('Password = '+ password);
 
 console.log('Confirm Password = '+ cpassword);
 
-if(!document.getElementById('terms').checked){
- alert('You must agree with the terms and policies');
-return false;
-}
-
 
 if(firstNameResult == false)
 {
@@ -260,31 +255,15 @@ return false;
     }
 
 
- errors = [];
-    if (cpassword.length < 8) {
-        errors.push("Your Confirm password must be at least 8 characters");
-    }
-    if (cpassword.search(/[0-9]/) < 0) {
-        errors.push("Your Confirm password must contain at least one digit.");
-    }
-     if (cpassword.search(/[a-z]/) < 0) {
-        errors.push("Your Confirm password must contain at least one lowercase letter.")
-    }
-    if (cpassword.search(/[A-Z]/) < 0) {
-        errors.push("Your Confirm password must contain at least one uppercase letter.")
-    }
-    if (errors.length > 0) {
-        alert(errors.join("\n"));
-        return false;
-    }
-
-
-
+if(cpassword =="")
+{
+alert('Confirm Password is empty');
+return false;
+}
 
 
 var temp = password.localeCompare(cpassword);
 
-console.log(temp);
 
 if(temp ==-1)
 {
@@ -293,13 +272,18 @@ return false;
 }
 
 
+if(!document.getElementById('terms').checked){
+ alert('You must agree with the terms and policies');
+return false;
+}
+
 
 return true;
 
 }
 
 function termsCall() {
- console.log('enter function');
+ console.log('enter Terms function');
                 $.get("../server/user-terms.php", function(data, status){
                 $("#termsInfo").text(data);
 	});
