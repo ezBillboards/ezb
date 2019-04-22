@@ -1,6 +1,7 @@
 var accounts;
 var currentRole = 0;
 var index;
+var indexUserId;
 
 $(document).ready(function(){
     $(".nav-tabs a").click(function(){
@@ -68,11 +69,10 @@ $(document).ready(function(){
     });
 
     $("table").on("click", "tr .delete-account", function(){    	
-	var index = $(this).attr("id");
-	$.post("../server/administrator-delete-account.php",{id:parseInt(accounts[index].id)}, function(data,status){
-		console.log(data);
-		location.reload();
-	});
+	indexUserId = $(this).attr("id");
+	console.log(indexUserId);
+	$("#myModal").modal("show");
+
     });
 
     $("table").on("click", "tr .edit-account", function(){
@@ -101,6 +101,16 @@ $(document).ready(function(){
       });
     });
 });
+
+function cancelRoll(){
+        console.log(indexUserId);
+              $.post("../server/administrator-delete-account.php",{id:parseInt(accounts[indexUserId].id)}, function(data,status){
+              console.log(data);
+              location.reload();
+      });
+
+}
+
   
 function getUserAccounts(){
 	$.get("../server/administrator-user-accounts.php", function(data,status){
