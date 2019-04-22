@@ -70,7 +70,7 @@ $(document).ready(function(){
 
     $("table").on("click", "tr .delete-account", function(){    	
 	indexUserId = $(this).attr("id");
-	console.log(indexUserId);
+	console.log("Roll id = " + indexUserId);
 	$("#myModal").modal("show");
 
     });

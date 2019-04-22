@@ -26,13 +26,6 @@ $(document).ready(function(){
 		getPublishedRequests(sessionStorage.getItem('ID'));
   });
 
-$(".canceling").on("click",function(){
-console.log('testing');
-currentRequestID = $(this).attr("id");
-console.log(currentRequestID);
-});
-
-  
   $("#search").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#"+ tab +" tbody tr").filter(function() {
@@ -43,11 +36,11 @@ console.log(currentRequestID);
 });
 
 function getPendingRequests(userID){
+        $("#pending-requests").empty();
         $.get("../server/user-pending-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
 		console.log(requests);
                 currentRequestIndex = 0;
-                $("#pending-requests").empty();
 		var request = "";
                 for(var i = 0; i < requests.length; i++){
                         request += "<tr>" +
@@ -75,7 +68,7 @@ function getPendingRequests(userID){
                         "</div>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-			"<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal\"  id =\"" + requests[i].id +"\" class=\"btn btn-danger canceling\">Cancel Request" +
+			"<button type=\"button\" onclick=\"cancelling(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
                         "</td>" +
                         "</tr>";
                 }
@@ -85,10 +78,10 @@ function getPendingRequests(userID){
 
 
 function getApprovedRequests(userID){
+	$("#approved-requests").empty();
 	$.get("../server/user-approved-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
-		$("#approved-requests").empty();
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
@@ -121,19 +114,19 @@ function getApprovedRequests(userID){
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
                         "<button type=\"button\" onclick=\"payment(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-success\">Pay" +
-                        "<button type=\"button\" onclick=\"cancelRequest(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
+			"<button type=\"button\" onclick=\"cancelling(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
 			"</td>" +
                         "</tr>";
 		}
 		$("#approved-requests").append(request);			
 	});
 }
-1
+
 function getDeniedRequests(userID){
+		$("#denied-requests").empty();
 		$.get("../server/user-denied-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
-		$("#denied-requests").empty();
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
@@ -171,10 +164,10 @@ function getDeniedRequests(userID){
 }
 
 function getCancelledRequests(userID){
+		$("#cancelled-requests").empty();
 		$.get("../server/user-cancelled-requests.php",{id:userID},function(data,status){
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
-		$("#cancelled-requests").empty();
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
@@ -214,10 +207,10 @@ function getCancelledRequests(userID){
 } 
 
 function getPaidRequests(userID){
+                $("#paid-requests").empty();
                 $.get("../server/user-paid-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
                 currentRequestIndex = 0;
-                $("#paid-requests").empty();
                 var request = "";
 		for(var i = 0; i < requests.length; i++){
                         request += "<tr>" +
@@ -255,10 +248,10 @@ function getPaidRequests(userID){
 }
 
 function getPublishedRequests(userID){
+                $("#published-requests").empty();
                 $.get("../server/user-published-requests.php",{id:userID},function(data,status){
                 requests = JSON.parse(data);
                 currentRequestIndex = 0;
-                $("#published-requests").empty();
                 var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
@@ -302,7 +295,7 @@ function getPublishedRequests(userID){
 
 function cancelRequest(){
 	console.log(currentRequestID);
-	$.post("../server/approver-cancel-request.php",{id:currentRequestID},
+	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:sessionStorage.getItem('ID')},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
@@ -312,6 +305,12 @@ function cancelRequest(){
 			console.log(data);
 			console.log(status);
 		});
+}
+
+function cancelling(item){
+	currentRequestID = $(item).attr("id");
+	console.log('User id = ' + currentRequestID);
+	$("#myModal").modal("show");
 }
 
 function payment(item){
