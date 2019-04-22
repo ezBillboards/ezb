@@ -65,6 +65,8 @@ $(document).ready(function(){
 		validate();
 		console.log(data);	
       });
+	 alert('Added the new ' + $("#role").val());
+	location.reload();
       }
     });
 
