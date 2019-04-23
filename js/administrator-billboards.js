@@ -89,7 +89,9 @@ $(document).ready(function(){
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
-		var empty = false;
+		var emptyPack = false;
+		var emptyReg = false;
+		var emptyRej = false;
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
@@ -97,7 +99,7 @@ $(document).ready(function(){
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
-					empty = true;
+					emptyPack = true;
 				}else{
 					packages.push(this.value);
 				}
@@ -107,7 +109,7 @@ $(document).ready(function(){
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
-					empty = true;
+					emptyReg = true;
 				}else{
 					regulations.push(this.value);
 				}
@@ -117,7 +119,7 @@ $(document).ready(function(){
 		$("#add-rejection tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
-					empty = true;
+					emptyRej = true;
 				}else{
 					rejections.push(this.value);
 				}
@@ -133,10 +135,14 @@ $(document).ready(function(){
 		console.log(regulations);
 		console.log(rejections);
 		console.log(extensions);
-		if(empty){
-			alert("Fill out all added fields!");	
-		}else if(!validateBillboard()){
-		alert('Missing billboard information');
+		if(!validateBillboard()){
+			alert('Missing billboard information');
+		}else if(emptyPack){
+			alert("Fill out package fields!");
+		}else if(emptyReg){
+			alert("Fill out regulations fields!");
+		}else if(emptyRej){
+			alert("Fill out rejections fields!");
 		}else{
 			newBillboard(packages,regulations,rejections);
 		}
@@ -497,17 +503,17 @@ function validateBillboard(){
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() == ""){
 		billboardName = false;
-		alert("Missing billboard name!");
+		//alert("Missing billboard name!");
 	}
 	else if(format.length == 0){
 		billboardName = false;
-		alert("Missing billboard images format!");
+		//alert("Missing billboard images format!");
 	}
 	else{
 		billboardName = !billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	}
-	return billboardName && billboardDescription;
+	return billboardName || billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
