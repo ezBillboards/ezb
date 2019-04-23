@@ -16,13 +16,9 @@ $(document).ready(function(){
 	$('#image-extensions').multiSelect({
 		afterSelect: function(values){
 			format.push(values[0]);
-			console.log(values);
-			console.log(format);
 		},
 		afterDeselect: function(values){
 			format.splice(format.indexOf(values[0]), 1);
-			console.log(values);
-			console.log(format);
 		}
 	});
 	
@@ -87,6 +83,7 @@ $(document).ready(function(){
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
+		var extensions = "";
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -116,9 +113,15 @@ $(document).ready(function(){
 				}
 			});
 		});
+		
+		format.each(function(){
+			extensions += format.value + ":";
+		});
+		
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
+		console.log(extensions);
 		if(empty){
 			alert("Fill out all added fields!");	
 		}else if(validateBillboard()){
@@ -485,11 +488,15 @@ function validateBillboard(){
 		billboardName = false;
 		alert("Missing billboard name!");
 	}
+	else if(format.length == 0){
+		billboardName = false;
+		alert("Missing billboard images format!");
+	}
 	else{
 		billboardName = billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = billboardRGEX.test($("#adddescription").val());
 	}
-	return billboardName;
+	return billboardName && billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
