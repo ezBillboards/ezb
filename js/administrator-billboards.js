@@ -513,7 +513,7 @@ function validateBillboard(){
 		billboardName = !billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	}
-	return billboardName || billboardDescription;
+	return billboardName && billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
