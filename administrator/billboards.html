@@ -194,17 +194,32 @@
             </div>
 			<br>
 			<div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Ratio:</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addratio" type="number" value="1" name="Ratio" min="1" max="9999">
-                 </form>
-               </div>
                <div class="col-lg-3"><strong style = "color:white;">Read Time (seconds):</strong></div>
                <div class="col-lg-2">
                  <form action="/action_page.php">
                    <input id="addreadtime" type="number" value="1" name="readTime" min="1" max="9999">
                  </form>
+               </div>
+            </div>
+			<br>
+			<div class="row">
+               <div class="col-lg-3"><strong style = "color:white;">Image ratio:</strong></div>
+               <div class="col-lg-2"><strong style = "color:white;">Select ratios</strong></div>
+			   <div class="col-lg-3"><strong style = "color:white;"> Selected ratios</strong></div>
+            </div>
+			<br>
+			<div class="row">
+               <div class="col-lg-3"></div>
+               <div class="col-lg-9">
+                 <form>
+					<select id="image-ratio" multiple='multiple'>
+					  <option value='1:1'>1:1</option>
+					  <option value='3:2'>3:2</option>
+					  <option value='4:3'>4:3</option>
+					  <option value='16:9'>16:9</option>
+					  <option value='2:1'>2:1</option>
+					</select>
+				</form>
                </div>
             </div>
 			<br>

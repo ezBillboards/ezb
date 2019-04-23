@@ -7,12 +7,22 @@ var files;
 var img;
 var imgedit;
 var fd = new FormData();
+var ratio = [];
 var format = [];
 
 $(document).ready(function(){
 	
 	getBillboards();
 	  
+	$('#image-ratio').multiSelect({
+		afterSelect: function(values){
+			ratio.push(values[0]);
+		},
+		afterDeselect: function(values){
+			ratio.splice(format.indexOf(values[0]), 1);
+		}
+	});
+	
 	$('#image-extensions').multiSelect({
 		afterSelect: function(values){
 			format.push(values[0]);
@@ -125,10 +135,10 @@ $(document).ready(function(){
 		console.log(extensions);
 		if(empty){
 			alert("Fill out all added fields!");	
-		}else if(validateBillboard()){
+		}else if(!validateBillboard()){
 		alert('Missing billboard information');
 		}else{
-			//newBillboard(packages,regulations,rejections);
+			newBillboard(packages,regulations,rejections);
 		}
 	});
 	
@@ -494,8 +504,8 @@ function validateBillboard(){
 		alert("Missing billboard images format!");
 	}
 	else{
-		billboardName = billboardRGEX.test($("#addBillboardname").val());
-		billboardDescription = billboardRGEX.test($("#adddescription").val());
+		billboardName = !billboardRGEX.test($("#addBillboardname").val());
+		billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	}
 	return billboardName && billboardDescription;
 }
