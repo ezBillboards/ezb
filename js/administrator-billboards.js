@@ -15,12 +15,12 @@ $(document).ready(function(){
 	  
 	$('#image-extensions').multiSelect({
 		afterSelect: function(values){
-			format.push(values);
+			format.push(values[0]);
 			console.log(values);
 			console.log(format);
 		},
 		afterDeselect: function(values){
-			format.splice(format.indexOf(values), 1);
+			format.splice(format.indexOf(values[0]), 1);
 			console.log(values);
 			console.log(format);
 		}
