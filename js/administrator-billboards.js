@@ -114,7 +114,8 @@ $(document).ready(function(){
 			});
 		});
 		
-		$.each(format,function(value){
+		$.each(format,function(key,value){
+			console.log(value);
 			extensions += format.value + ":";
 		});
 		
