@@ -116,7 +116,7 @@ $(document).ready(function(){
 		
 		$.each(format,function(key,value){
 			console.log(value);
-			extensions += format.value + ":";
+			extensions += value + ":";
 		});
 		
 		console.log(packages);	
