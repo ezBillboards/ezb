@@ -364,6 +364,7 @@ $(document).ready(function(){
 				}
 		});
 	});
+	
 	$("table").on("click", "tr .deleterejection", function(){
 		var rejectionID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
@@ -379,6 +380,7 @@ $(document).ready(function(){
 				}
 		});
 	});
+	
 });
 
 function getBillboards(){
@@ -439,8 +441,10 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('readtime',$("#addreadtime").val());
 	fd.append('impressions',$("#addimpressions").val());
 	fd.append('traffic',$("#addtraffic").val());
-	fd.append('fileName',files.name.split(".")[0]);
-	fd.append('extension',files.type.substring(6));
+	if(files != null){
+		fd.append('fileName',files.name.split(".")[0]);
+		fd.append('extension',files.type.substring(6));
+	}
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
@@ -461,7 +465,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 
 function validateBillboard(){
 	var billboardName = true;
-	//var billboardDescription = true;
+	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() == ""){
 		billboardName = false;
@@ -469,6 +473,7 @@ function validateBillboard(){
 	}
 	else{
 		billboardName = billboardRGEX.test($("#addBillboardname").val());
+		billboardDescription = billboardRGEX.test($("#adddescription").val());
 	}
 	return billboardName;
 }
