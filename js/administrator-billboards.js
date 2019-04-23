@@ -12,6 +12,8 @@ $(document).ready(function(){
 	
 	getBillboards();
 	  
+	$('#image-extensions').multiSelect();
+	
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
     });
