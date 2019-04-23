@@ -204,39 +204,20 @@ console.log('Password = '+ password);
 console.log('Confirm Password = '+ cpassword);
 
 
-if(firstNameResult == false)
-{
-alert('Please enter a valid First Name');
-return false;
-}
+errors = [];
 
-
-
-if(lastNameResult == false)
-{
-alert('Please enter a valid Last Name');
-return false;
-}
-
-
-if(emailResult == false)
-{
-alert('Please enter a valid Email');
-return false;
-}
-
-
-if(phoneResult == false)
-{
-alert('Please enter a valid phone number');
-return false;
-}
-
-
-
-
-
- errors = [];
+    if(firstNameResult == false){
+	errors.push('Please enter a valid First Name');
+    }
+    if(lastNameResult == false){
+	errors.push('Please enter a valid Last Name');
+    }
+    if(emailResult == false){
+	errors.push('Please enter a valid Email');
+    }
+    if(phoneResult == false){
+	errors.push('Please enter a valid Mobile Number');
+    }
     if (password.length < 8) {
         errors.push("Your password must be at least 8 characters");
     }
@@ -253,29 +234,23 @@ return false;
         alert(errors.join("\n"));
         return false;
     }
-
-
-if(cpassword =="")
-{
-alert('Confirm Password is empty');
-return false;
-}
+    if(cpassword ==""){
+	alert('Confirm Password is empty');
+	return false;
+    }
 
 
 var temp = password.localeCompare(cpassword);
 
 
-if(temp ==-1)
-{
-alert('Password and Confirm Password do not  match');
-return false;
-}
-
-
-if(!document.getElementById('terms').checked){
- alert('You must agree with the terms and policies');
-return false;
-}
+    if(temp ==-1){
+	alert('Password and Confirm Password do not  match');
+	return false;
+    }
+    if(!document.getElementById('terms').checked){
+	alert('You must agree with the terms and policies');
+	return false;
+    }
 
 
 return true;
