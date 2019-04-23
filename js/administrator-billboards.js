@@ -128,7 +128,7 @@ $(document).ready(function(){
 		}else if(validateBillboard()){
 		alert('Missing billboard information');
 		}else{
-			newBillboard(packages,regulations,rejections);
+			//newBillboard(packages,regulations,rejections);
 		}
 	});
 	
