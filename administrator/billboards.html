@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="../css/administrator-billboards.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/multi-select.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="../js/administrator-billboards.js"></script>
 	<script src="../js/administrator.js"></script>
@@ -192,7 +192,7 @@
                  </form>
                </div>
             </div>
-			
+			<br>
 			<div class="row">
                <div class="col-lg-3"><strong style = "color:white;">Ratio:</strong></div>
                <div class="col-lg-2">
@@ -207,15 +207,16 @@
                  </form>
                </div>
             </div>
+			<br>
 			<div class="row">
                <div class="col-lg-3"><strong style = "color:white;">Extension:</strong></div>
-               <div class="col-lg-2">
+               <div class="col-lg-9">
                  <form>
-					<select id="chkveg" multiple="multiple">
-						<option value="cheese">JPEG</option>
-						<option value="tomatoes">JPG</option>
-						<option value="mozarella">PNG</option>
-						<option value="mushrooms">GIF</option>
+					<select id="image=extensions" multiple='multiple'>
+					  <option value='jpeg'>JPEG</option>
+					  <option value='jpg'>JPG</option>
+					  <option value='png'>PNG</option>
+					  <option value='gif'>GIF</option>
 					</select>
 				</form>
                </div>
@@ -527,6 +528,15 @@
     </div>
   </div>
 </div>
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="../js/jquery.multi-select.js"></script>
+<script type="text/javascript">
+  // run pre selected options
+  $('#pre-selected-options').multiSelect();
+</script>
 </body>
 </html>
 
