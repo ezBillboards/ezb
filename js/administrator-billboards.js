@@ -16,10 +16,12 @@ $(document).ready(function(){
 	$('#image-extensions').multiSelect({
 		afterSelect: function(values){
 			format.push(values);
+			console.log(values);
 			console.log(format);
 		},
 		afterDeselect: function(values){
 			format.splice(format.indexOf(values), 1);
+			console.log(values);
 			console.log(format);
 		}
 	});
