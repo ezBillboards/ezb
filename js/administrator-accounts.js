@@ -215,7 +215,7 @@ function validate(){
  var mPhoneResult = mPhoneRGEX.test(mPhone);
 
  var office = document.getElementById('office').value;
- var officeRGEX = /^$|^[a-zA-Z0-9._-]{1,6}$/
+ var officeRGEX = /^[a-zA-Z0-9._-]{1,6}$/
  var officeResult = officeRGEX.test(office);
 
 
@@ -233,25 +233,17 @@ console.log('Temp Password = '+ password);
 
 console.log('Office = '+office);
 
+errors = [];
+
     if(firstNameResult == false){
-	alert('Please enter a valid First Name');
-	return false;
+	errors.push('Please enter a valid First Name');
     }
-
-
-
     if(lastNameResult == false){
-	alert('Please enter a valid Last Name');
-	return false;
+	errors.push('Please enter a valid Last Name');
     }
-
-
     if(emailResult == false){
-	alert('Please enter a valid Email');
-	return false;
+	errors.push('Please enter a valid Email');
     }
-
- errors = [];
     if (password.length < 8) {
         errors.push("Your password must be at least 8 characters");
     }
@@ -264,20 +256,15 @@ console.log('Office = '+office);
     if (password.search(/[A-Z]/) < 0) {
         errors.push("Your password must contain at least one uppercase letter.")
     }
+    if(mPhoneResult == false){
+        errors.push('Please enter a valid phone number');
+    }
+    if(officeResult == false){
+	errors.push('Please enter a Office ');
+    }
     if (errors.length > 0) {
         alert(errors.join("\n"));
         return false;
-    }
-
-    if(mPhoneResult == false){
-        alert('Please enter a valid phone number');
-        return false;
-    }
-
-
-    if(officeResult == false){
-	  alert('Please enter a Office ');
-	  return false;
     }
 
 
