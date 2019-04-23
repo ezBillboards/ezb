@@ -13,15 +13,16 @@ $(document).ready(function(){
 	
 	getBillboards();
 	  
-	 $('#image-extensions').multiSelect({
-      afterSelect: function(values){
-        format.push(values);
-		console.log(format);
-      },
-      afterDeselect: function(values){
-       format.splice(format.indexOf(values), 1);
-	   console.log(format);
-      }
+	$('#image-extensions').multiSelect({
+		afterSelect: function(values){
+			format.push(values);
+			console.log(format);
+		},
+		afterDeselect: function(values){
+			format.splice(format.indexOf(values), 1);
+			console.log(format);
+		}
+	});
 	
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
