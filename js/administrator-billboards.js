@@ -469,7 +469,7 @@ function readURL(input) {
 
 function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extension_in){
 	var cycle = $("#addcycle").val();
-	var readTime = $("#addreadtime").val()
+	var readTime = $("#addreadtime").val();
 	var totalTime = 60*cycle;
 	var slots = totalTime/readTime;
 	console.log(totalTime);
@@ -484,7 +484,7 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	fd.append('maxwidth',$("#addmaxwidth").val());
 	fd.append('minheight',$("#addminheight").val());
 	fd.append('maxheight',$("#addmaxheight").val());
-	fd.append('readtime',readtime);
+	fd.append('readtime',readTime);
 	fd.append('cycle',cycle);
 	fd.append('slots',slots);
 	fd.append('impressions',$("#addimpressions").val());
