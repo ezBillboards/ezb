@@ -202,8 +202,8 @@ $(document).ready(function(){
 	
 	$("table").on("click", "tr .information", function(){
 		fd = new FormData();
-		var edit-ratio;
-		var edit-extension;
+		var editratio;
+		var editextension;
 		billboardInfo_ID = $(this).attr("id");
 		$.get("../server/administrator-billboardInfo.php", 
 			{id: billboardInfo_ID},
@@ -225,10 +225,10 @@ $(document).ready(function(){
 			$("#max-wid").attr('value',info.maxWidth);
 			$("#max-hei").attr('value',info.maxHeight);
 			$("#cycle").attr('value',info.cycle);
-			edit-extension = info.imageExtension.split(":");
-			edit-ratio = info.imageRatio.split(",");
-			console.log(edit-extension);
-			console.log(edit-ratio);
+			editextension = info.imageExtension.split(":");
+			editratio = info.imageRatio.split(",");
+			console.log(editextension);
+			console.log(editratio);
 		});	
 	
 		
