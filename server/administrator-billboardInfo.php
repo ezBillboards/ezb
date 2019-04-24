@@ -31,6 +31,10 @@ if (mysqli_num_rows($result) > 0) {
 		$info['minHeight'] = $row['minHeightRes'];
 		$info['maxWidth'] = $row['maxWidthRes'];
 		$info['maxHeight'] = $row['maxHeightRes'];
+		$info['cycle'] = $row['cycle'];
+		$info['imageRatio'] = $row['imageRatio'];
+		$info['imageExtension'] = $row['imageExtension'];
+		
 	}
 } else {
 	echo "No results";
