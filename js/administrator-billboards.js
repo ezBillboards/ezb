@@ -225,8 +225,10 @@ $(document).ready(function(){
 			$("#max-wid").attr('value',info.maxWidth);
 			$("#max-hei").attr('value',info.maxHeight);
 			$("#cycle").attr('value',info.cycle);
-			edit-extension = info.imageExtension;
-			edit-ratio = info.imageRatio;
+			edit-extension = info.imageExtension.split(":");
+			edit-ratio = info.imageRatio.split(",");
+			console.log(edit-extension);
+			console.log(edit-ratio);
 		});	
 	
 		
