@@ -131,12 +131,12 @@ $(document).ready(function(){
 			console.log(value);
 			extensions += value + ":";
 		});
-		extensions = extensions.substring(0, str.length-1);
+		extensions = extensions.substring(0, extensions.length-1);
 		$.each(ratio,function(key,value){
 			console.log(value);
 			ratios += value + ":";
 		});
-		ratios = ratios.substring(0, str.length-1);
+		ratios = ratios.substring(0, ratios.length-1);
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
