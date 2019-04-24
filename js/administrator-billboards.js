@@ -202,6 +202,8 @@ $(document).ready(function(){
 	
 	$("table").on("click", "tr .information", function(){
 		fd = new FormData();
+		var edit-ratio;
+		var edit-extension;
 		billboardInfo_ID = $(this).attr("id");
 		$.get("../server/administrator-billboardInfo.php", 
 			{id: billboardInfo_ID},
@@ -222,6 +224,9 @@ $(document).ready(function(){
 			$("#min-hei").attr('value',info.minHeight);
 			$("#max-wid").attr('value',info.maxWidth);
 			$("#max-hei").attr('value',info.maxHeight);
+			$("#cycle").attr('value',info.cycle);
+			edit-extension = info.imageExtension;
+			edit-ratio = info.imageRatio;
 		});	
 	
 		

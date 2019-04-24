@@ -17,8 +17,6 @@ var random;
 
 $(document).ready(function(){
 	Session();
-
-        $("#profile-email").text(sessionStorage.getItem('email')); 
 	
 	$("#btnlogin").click(function(){
 		if(validateLogin() ==true){	
@@ -477,6 +475,7 @@ function VerifyEmail(){
 function Session(){
 		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
+			$("#profile-email").text(sessionStorage.getItem('email')); 
 			if(sessionStorage.getItem('role')!= 1){
 				if(sessionStorage.getItem('role') == 2){
 					window.location.href = "../approver/requests.html";
