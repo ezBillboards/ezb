@@ -96,6 +96,7 @@ $(document).ready(function(){
 		var regulations = [];
 		var rejections = [];
 		var extensions = "";
+		var ratios = "";
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -131,6 +132,11 @@ $(document).ready(function(){
 			extensions += value + ":";
 		});
 		
+		$.each(ratio,function(key,value){
+			console.log(value);
+			ratios += value + ":";
+		});
+		
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
@@ -144,7 +150,7 @@ $(document).ready(function(){
 		}else if(emptyRej){
 			alert("Fill out rejections fields!");
 		}else{
-			newBillboard(packages,regulations,rejections);
+			newBillboard(packages,regulations,rejections,ratios,extensions);
 		}
 	});
 	
@@ -461,7 +467,13 @@ function readURL(input) {
 	}
 }
 
-function newBillboard(packages_in,regulations_in,rejections_in){
+function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extension_in){
+	var cycle = $("#addcycle").val();
+	var readTime = $("#addreadtime").val()
+	var totalTime = 60*cycle;
+	var slots = totalTime/readTime;
+	console.log(totalTime);
+	console.log(slots);
 	fd.append('name',$("#addBillboardname").val());
 	fd.append('description',$("#adddescription").val());
 	fd.append('width',$("#addwidth").val());
@@ -472,9 +484,13 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('maxwidth',$("#addmaxwidth").val());
 	fd.append('minheight',$("#addminheight").val());
 	fd.append('maxheight',$("#addmaxheight").val());
-	fd.append('readtime',$("#addreadtime").val());
+	fd.append('readtime',readtime);
+	fd.append('cycle',cycle);
+	fd.append('slots',slots);
 	fd.append('impressions',$("#addimpressions").val());
 	fd.append('traffic',$("#addtraffic").val());
+	fd.append('imageRatio',ratio_in);
+	fd.append('imageExtension',extension_in);
 	if(files != null){
 		fd.append('fileName',files.name.split(".")[0]);
 		fd.append('extension',files.type.substring(6));
@@ -482,7 +498,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
-	$.ajax({
+	/*$.ajax({
 		url:"../server/administrator-add-billboard.php",
 		type: 'POST',
 		data: fd,
@@ -493,7 +509,7 @@ function newBillboard(packages_in,regulations_in,rejections_in){
 			console.log(response);
 			location.reload();
 		}
-	});
+	});*/
 
 }
 
