@@ -7,8 +7,7 @@ var files;
 var img;
 var imgedit;
 var fd = new FormData();
-var ratio = [];
-var format = [];
+
 var tab = 'Add';
 
 $(document).ready(function(){
@@ -122,15 +121,7 @@ $(document).ready(function(){
 			});
 		});
 		
-		$.each(format,function(key,value){
-			console.log(value);
-			extensions += value + ":";
-		});
-		extensions = extensions.substring(0, extensions.length-1);
-		$.each(ratio,function(key,value){
-			console.log(value);
-			ratios += value + ":";
-		});
+		
 		ratios = ratios.substring(0, ratios.length-1);
 		console.log(packages);	
 		console.log(regulations);
@@ -517,7 +508,6 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 
 function validateBillboard(){
 	var billboardName = true;
-	var billboardImage = true;
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() == ""){
@@ -527,16 +517,12 @@ function validateBillboard(){
 		billboardName = false;
 		console.log("Billboard name found");
 	}
-	if(format.length != 0){
-		billboardName = false;
-		console.log("Missing billboard images format!");
-	}
 	
 	billboardName = !billboardRGEX.test($("#addBillboardname").val());
 	billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	
 	console.log( billboardName || billboardImage || billboardDescription);
-	return billboardName || billboardImage || billboardDescription;
+	return billboardName || billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
