@@ -68,13 +68,243 @@
 		<div class="tab-content">
 			<!----------Add------------>
 			<div id="Add" class="tab-pane fade in active">
-				Add
+				<div class="container-fluid">
+					<div class="row">
+						<div class="jumbotron col-lg-4">
+							<div class="container mt-3">
+								<form action="/action_page.php">
+									<img src="" id="billboard-img-tag" width="300px" />
+									<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
+								</form>
+								<div class="Aboutcontainer">
+									<form action="/action_page.php">
+										<div class="form-group">
+											<label for="about">Billboard Description:</label>
+											<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="jumbotron col-lg-8" style="background-color:#607d8b;">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-television"></i></span>
+								<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
+							</div>
+							<br>
+
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addwidth" type="number" value="1" name="widthQuantity" min="1" max="9999">
+									</form>
+								</div>
+								<div class="col-lg-3"><strong style = "color:white;">Minimum Width Resolution (Pixels):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addminwidth" type="number" value="1" name="rWidthQuantity" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Height:</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addheight" type="number" value="1" name="heightQuantity" min="1" max="9999">
+									</form>
+								</div>
+							   <div class="col-lg-3""><strong style = "color:white;">Minimum Height Resolution (Pixels):</strong></div>
+							   <div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addminheight" type="number" value="1" name="rHeightQuantity" min="1" max="9999">
+									</form>
+							   </div>
+							</div>
+							<br>
+
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Latitude (Degrees):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addlatitude" type="number" value="1" name="latitudQuantity" min="1" max="9999">
+									</form>
+								</div>
+								<div class="col-lg-3"><strong style = "color:white;">Maximun Width Resolution (Pixels):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addmaxwidth" type="number" value="1" name="maxdWidthQuantity" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Longitude (Degrees):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addlongitude" type="number" value="1" name="latitudQuantity" min="1" max="9999">
+									</form>
+							   </div>
+							   <div class="col-lg-3"><strong style = "color:white;">Maximun Height Resolution (Pixels):</strong></div>
+							   <div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addmaxheight" type="number" value="1" name="maxdHeightQuantity" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Impressions (Daily):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addimpressions" type="number" value="1" name="impressionsQuantity" min="1" max="9999">
+									</form>
+								</div>
+								<div class="col-lg-3"><strong style = "color:white;">Image Toletance (%):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addtolerance" type="number" value="1" name="imageTolerance" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Traffic (Daily):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addtraffic" type="number" value="1" name="trafficQuantity" min="1" max="9999">
+									</form>
+								</div>
+								<div class="col-lg-3"><strong style = "color:white;">Cycle (Minutes):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addcycle" type="number" value="1" name="cycle" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Read Time (seconds):</strong></div>
+								<div class="col-lg-2">
+									<form action="/action_page.php">
+										<input id="addreadtime" type="number" value="1" name="readTime" min="1" max="9999">
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Image ratio:</strong></div>
+								<div class="col-lg-2"><strong style = "color:white;">Select ratios</strong></div>
+								<div class="col-lg-3"><strong style = "color:white;"> Selected ratios</strong></div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"></div>
+								<div class="col-lg-9">
+									<form>
+										<select id="image-ratio" multiple='multiple'>
+											<option value='1:1'>1:1</option>
+											<option value='3:2'>3:2</option>
+											<option value='4:3'>4:3</option>
+											<option value='16:9'>16:9</option>
+											<option value='2:1'>2:1</option>
+										</select>
+									</form>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"><strong style = "color:white;">Image extensions:</strong></div>
+								<div class="col-lg-2"><strong style = "color:white;">Select extensions</strong></div>
+								<div class="col-lg-3"><strong style = "color:white;"> Selected extensions</strong></div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-lg-3"></div>
+								<div class="col-lg-9">
+									<form>
+										<select id="image-extensions" multiple='multiple'>
+											<option value='jpeg'>JPEG</option>
+											<option value='jpg'>JPG</option>
+											<option value='png'>PNG</option>
+											<option value='gif'>GIF</option>
+										</select>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-4 text-center">
+							<label for="about">Payment Packages <button id="btnaddpackage" type="button"class="btn btn-default">Add</button></label>
+							<div class="Tablecontainer">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Duration (Days)</th>
+											<th>Frequency (Displays per cycle)</th>
+											<th>Price</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="add-package">
+									
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-4 text-center">
+							<label for="about">Billboard Regulations <button id="btnaddregulation" type="button"class="btn btn-default">Add</button></label>
+							<div class="Tablecontainer">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Regulation description</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="add-regulation">
+									
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-4 text-center">
+							<label for="about">Common Rejections <button id="btnaddrejection" type="button"class="btn btn-default">Add</button></label>
+							<div class="Tablecontainer">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Rejection description</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody id="add-rejection">
+									
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<button id="btnnewbillboard" type="button"class="btn btn-default">Add Billboard</button>
+					</div>
+				</div>
+
+				<br>
 			</div>
 
 
 			<!---Modify------>
 			<div id="Edit" class="tab-pane fade">
-					Edit
+					
 			</div>
 
 		</div>
