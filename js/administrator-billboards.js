@@ -9,6 +9,7 @@ var imgedit;
 var fd = new FormData();
 var ratio = [];
 var format = [];
+var tab = 'Add';
 
 $(document).ready(function(){
 	
