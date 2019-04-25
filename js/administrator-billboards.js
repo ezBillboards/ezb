@@ -37,8 +37,8 @@ $(document).ready(function(){
 		tab = $(this).text();
 		if(tab === 'Add')
 			console.log('add');
-		else if(tab === 'Modify')
-			console.log('modify');
+		else if(tab === 'Edit')
+			console.log('Edit');
     });
 	
 	$('#btnaddpackage').click(function(){

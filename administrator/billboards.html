@@ -11,337 +11,73 @@
 	<link rel="stylesheet" href="../css/administrator-billboards.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/multi-select.css">
+	<link rel="stylesheet" type="text/css" href="../css/multi-select.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="../js/administrator-billboards.js"></script>
 	<script src="../js/administrator.js"></script>
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-border navbar-height">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="myNavbar">
-         <a class="navbar-brand">
-          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
-        </a>
-       <ul class="nav navbar-nav navbar-right navbar-text nav-align">
-          <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
-          <li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
-          <li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
-          <li><a class="navbar-text-color" href="logs.html">Logs</a></li>
-          <li><a class="navbar-text-color" href="backups.html">Backups</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-		<span class="glyphicon glyphicon-user profile-dropdown"></span>
-		<span class="caret"></span>
-	    </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Account</a></li>
-              <li><a id="btnlogout">Logout</a></li>
-            </ul>
-          </li>
-          <li><a id="profile-email" class="profile-email">ezb19@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+	<nav class="navbar navbar-default navbar-border navbar-height">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<a class="navbar-brand">
+					<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+				</a>
+				<ul class="nav navbar-nav navbar-right navbar-text nav-align">
+					<li><a class="navbar-text-color" href="settings.html">Settings</a></li>
+					<li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
+					<li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
+					<li><a class="navbar-text-color" href="logs.html">Logs</a></li>
+					<li><a class="navbar-text-color" href="backups.html">Backups</a></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-user profile-dropdown"></span>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Account</a></li>
+							<li><a id="btnlogout">Logout</a></li>
+						</ul>
+					</li>
+					<li><a id="profile-email" class="profile-email">ezb19@gmail.com</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 
-  <div class="row">
-      <div class="col-lg-12" style="background-color:white;">
-    <h1 class="text-center"><strong>Billboards</strong></h1>
-     </div>
-  </div>
+	<div class="row">
+		<div class="col-lg-12" style="background-color:white;">
+			<h1 class="text-center"><strong>Billboards</strong></h1>
+		</div>
+	</div>
 
 
 
 
 
-  <div class="pendingTab">
-	  <ul class="nav nav-tabs">
-		<li class = "active"><a href="#Add">Add</a></li>
-		<li><a href="#Modify">Modify and Remove</a></li>
-	  </ul>
-
+	<div class="container">
+		<ul class="nav nav-tabs nav-justified">
+			<li class="active"><a class="tabs-text-color" href="#Add">Add Billboard</a></li>
+			<li><a class="tabs-text-color" href="#Edit">Edit Billboard</a></li>
+		</ul>
 		<br>
 	
-<!----------Add------------>
-<div class="tab-content">
-    <div id="Add" class="tab-pane fade in active">
+		
+		<div class="tab-content">
+			<!----------Add------------>
+			<div id="Add" class="tab-pane fade in active">
 
-        <div class="container-fluid">
-          <div class="row">
-            <div class="jumbotron col-lg-4">
-              <div class="container mt-3">
-                <form action="/action_page.php">
-					<img src="" id="billboard-img-tag" width="300px" />
-					<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
-                </form>
-                <div class="Aboutcontainer">
-					<form action="/action_page.php">
-						<div class="form-group">
-							<label for="about">Billboard Description:</label>
-							<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
-						</div>
-					</form>
-				</div>
-            
-              </div>
-            </div>
-            <div class="jumbotron col-lg-8" style="background-color:#607d8b;">
-            <div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-television"></i></span>
-				<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
-            </div>
-
-            <br>
-
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addwidth" type="number" value="1" name="widthQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3"><strong style = "color:white;">Minimum Width Resolution (Pixels):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addminwidth" type="number" value="1" name="rWidthQuantity" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-
-            <br>
-
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Height:</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addheight" type="number" value="1" name="heightQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3""><strong style = "color:white;">Minimum Height Resolution (Pixels):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addminheight" type="number" value="1" name="rHeightQuantity" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-
-            <br>
-
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Latitude (Degrees):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addlatitude" type="number" value="1" name="latitudQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3"><strong style = "color:white;">Maximun Width Resolution (Pixels):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addmaxwidth" type="number" value="1" name="maxdWidthQuantity" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-
-
-            <br>
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Longitude (Degrees):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addlongitude" type="number" value="1" name="latitudQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3"><strong style = "color:white;">Maximun Height Resolution (Pixels):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addmaxheight" type="number" value="1" name="maxdHeightQuantity" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-
-            <br>
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Impressions (Daily):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addimpressions" type="number" value="1" name="impressionsQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3"><strong style = "color:white;">Image Toletance (%):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addtolerance" type="number" value="1" name="imageTolerance" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-
-            <br>
-            <div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Traffic (Daily):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addtraffic" type="number" value="1" name="trafficQuantity" min="1" max="9999">
-                 </form>
-               </div>
-               <div class="col-lg-3"><strong style = "color:white;">Cycle (Minutes):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addcycle" type="number" value="1" name="cycle" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-			<br>
-			<div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Read Time (seconds):</strong></div>
-               <div class="col-lg-2">
-                 <form action="/action_page.php">
-                   <input id="addreadtime" type="number" value="1" name="readTime" min="1" max="9999">
-                 </form>
-               </div>
-            </div>
-			<br>
-			<div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Image ratio:</strong></div>
-               <div class="col-lg-2"><strong style = "color:white;">Select ratios</strong></div>
-			   <div class="col-lg-3"><strong style = "color:white;"> Selected ratios</strong></div>
-            </div>
-			<br>
-			<div class="row">
-               <div class="col-lg-3"></div>
-               <div class="col-lg-9">
-                 <form>
-					<select id="image-ratio" multiple='multiple'>
-					  <option value='1:1'>1:1</option>
-					  <option value='3:2'>3:2</option>
-					  <option value='4:3'>4:3</option>
-					  <option value='16:9'>16:9</option>
-					  <option value='2:1'>2:1</option>
-					</select>
-				</form>
-               </div>
-            </div>
-			<br>
-			<div class="row">
-               <div class="col-lg-3"><strong style = "color:white;">Image extensions:</strong></div>
-               <div class="col-lg-2"><strong style = "color:white;">Select extensions</strong></div>
-			   <div class="col-lg-3"><strong style = "color:white;"> Selected extensions</strong></div>
-            </div>
-			<br>
-			<div class="row">
-               <div class="col-lg-3"></div>
-               <div class="col-lg-9">
-                 <form>
-					<select id="image-extensions" multiple='multiple'>
-					  <option value='jpeg'>JPEG</option>
-					  <option value='jpg'>JPG</option>
-					  <option value='png'>PNG</option>
-					  <option value='gif'>GIF</option>
-					</select>
-				</form>
-               </div>
-            </div>
-
-          </div>
-          </div>
-          <br>
-			<div class="row">
-				<div class="col-sm-4 text-center">
-					<label for="about">Payment Packages <button id="btnaddpackage" type="button"class="btn btn-default">Add</button></label>
-					<div class="Tablecontainer">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Duration (Days)</th>
-									<th>Frequency (Displays per cycle)</th>
-									<th>Price</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-						  <tbody id="add-package">
-							
-						  </tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-sm-4 text-center">
-					<label for="about">Billboard Regulations <button id="btnaddregulation" type="button"class="btn btn-default">Add</button></label>
-					<div class="Tablecontainer">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Regulation description</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-						  <tbody id="add-regulation">
-							
-						  </tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-sm-4 text-center">
-					<label for="about">Common Rejections <button id="btnaddrejection" type="button"class="btn btn-default">Add</button></label>
-					<div class="Tablecontainer">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Rejection description</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-						  <tbody id="add-rejection">
-							
-						  </tbody>
-						</table>
-					</div>
-				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<button id="btnnewbillboard" type="button"class="btn btn-default">Add Billboard</button>
+
+			<!---Modify------>
+			<div id="Edit" class="tab-pane fade">
+					
 			</div>
-		</div>
 
-	<br>
-
-
-	</div>
-
-
-    <!---Modify------>
-    <div id="Modify" class="tab-pane fade">
-		<br>
-		<div class="row">
-			<div class="col-lg-8 input-group form-group-lg" style="margin:auto;">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-				<input id="search" type="text" class="form-control" name="search" placeholder="Search">
-			</div>
-		</div>
-		<br>
-		<div class="row">          
-			<div class="col-lg-10 table-responsive" style="padding-left: 16.66%;">
-		   <table class="table table-striped">
-			 <thead>
-			   <tr>
-				 <th class="text-center">Billboard</th>
-				 <th class="text-center">Actions</th>
-			   </tr>
-			 </thead>
-			 <tbody id="billboards">
-
-			 </tbody>
-		   </table>
-		 </div>
 		</div>
 	</div>
-</div>
-
-</div>
-
     <!------------------------------------ Modals ---------------------------------->
 
 
