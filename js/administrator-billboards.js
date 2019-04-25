@@ -90,7 +90,7 @@ $(document).ready(function(){
 		});
 		console.log(ratios);
 		
-		$("#image-ratio").find("checkbox").each(function(){
+		$("#image-ratio").find("checkbox").find("checkbox").each(function(){
 			console.log("Parent ID image-ratio");
 			if ($(this).prop('checked')==true){ 
 				console.log($(this).val());
