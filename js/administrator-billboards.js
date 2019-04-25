@@ -518,10 +518,10 @@ function validateBillboard(){
 		console.log("Billboard name found");
 	}
 	
-	billboardName = !billboardRGEX.test($("#addBillboardname").val());
-	billboardDescription = !billboardRGEX.test($("#adddescription").val());
+	billboardName = billboardRGEX.test($("#addBillboardname").val());
+	billboardDescription = billboardRGEX.test($("#adddescription").val());
 	
-	console.log( billboardName || billboardImage || billboardDescription);
+	console.log( billboardName || billboardDescription);
 	return billboardName || billboardDescription;
 }
 
