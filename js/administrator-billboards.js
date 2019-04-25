@@ -86,10 +86,10 @@ $(document).ready(function(){
 		var ratios = "";
 		
 		$("#image-ratio").find("checkbox").each(function(){
-    if ($(this).prop('checked')==true){ 
-        console.log($(this).value);
-    }
-});
+			if ($(this).prop('checked')==true){ 
+				console.log($(this).val());
+			}
+		});
 		
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
@@ -515,11 +515,10 @@ function validateBillboard(){
 	}
 	else{
 		billboardName = false;
+		billboardName = billboardRGEX.test($("#addBillboardname").val());
+		billboardDescription = billboardRGEX.test($("#adddescription").val());
 		console.log("Billboard name found");
 	}
-	
-	billboardName = billboardRGEX.test($("#addBillboardname").val());
-	billboardDescription = billboardRGEX.test($("#adddescription").val());
 	
 	console.log( billboardName || billboardDescription);
 	return billboardName || billboardDescription;
