@@ -85,16 +85,20 @@ $(document).ready(function(){
 		var extensions = "";
 		var ratios = "";
 
-		$('#image-Ratio :checkbox').each(function() {
+		/*$('#image-Ratio :checkbox').each(function() {
 			ratios += this.checked ? "1," : "0,";
 		});
 		console.log(ratios);
 		
-		$("#image-ratio").find("checkbox").find("checkbox").each(function(){
+		$("#image-ratio").find("checkbox").each(function(){
 			console.log("Parent ID image-ratio");
 			if ($(this).prop('checked')==true){ 
 				console.log($(this).val());
 			}
+		});*/
+		
+		$('checkbox').change(function(){
+			console.log($(this).value);
 		});
 		
 		$("#add-package tr").each(function() {
