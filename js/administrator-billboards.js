@@ -524,14 +524,14 @@ function validateBillboard(){
 		billboardName = false;
 		console.log("Missing billboard name!");
 	}
-	else if(format.length != 0){
+	if(format.length != 0){
 		billboardName = false;
 		console.log("Missing billboard images format!");
 	}
-	else{
-		billboardName = !billboardRGEX.test($("#addBillboardname").val());
-		billboardDescription = !billboardRGEX.test($("#adddescription").val());
-	}
+	
+	billboardName = !billboardRGEX.test($("#addBillboardname").val());
+	billboardDescription = !billboardRGEX.test($("#adddescription").val());
+	
 	console.log( billboardName || billboardImage || billboardDescription);
 	return billboardName || billboardImage || billboardDescription;
 }
