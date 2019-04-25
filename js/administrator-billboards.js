@@ -23,26 +23,6 @@ $(document).ready(function(){
     });
 	
 	getBillboards();
-	/*	  
-	$('#image-ratio').multiSelect({
-		afterSelect: function(values){
-			ratio.push(values[0]);
-		},
-		afterDeselect: function(values){
-			ratio.splice(format.indexOf(values[0]), 1);
-		}
-	});
-	
-	$('#image-extensions').multiSelect({
-		afterSelect: function(values){
-			format.push(values[0]);
-		},
-		afterDeselect: function(values){
-			format.splice(format.indexOf(values[0]), 1);
-		}
-	});*/
-	
-   
 	
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
@@ -105,6 +85,13 @@ $(document).ready(function(){
 		var rejections = [];
 		var extensions = "";
 		var ratios = "";
+		
+		$("#image-ratio").find("checkbox").each(function(){
+    if ($(this).prop('checked')==true){ 
+        console.log($(this).value);
+    }
+});
+		
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
