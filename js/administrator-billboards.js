@@ -13,6 +13,15 @@ var tab = 'Add';
 
 $(document).ready(function(){
 	
+	$(".nav-tabs a").click(function(){
+		$(this).tab('show');
+		tab = $(this).text();
+		if(tab === 'Add')
+			console.log('add');
+		else if(tab === 'Edit')
+			console.log('Edit');
+    });
+	/*
 	getBillboards();
 	  
 	$('#image-ratio').multiSelect({
@@ -33,14 +42,7 @@ $(document).ready(function(){
 		}
 	});
 	
-    $(".nav-tabs a").click(function(){
-		$(this).tab('show');
-		tab = $(this).text();
-		if(tab === 'Add')
-			console.log('add');
-		else if(tab === 'Edit')
-			console.log('Edit');
-    });
+   
 	
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
@@ -434,7 +436,7 @@ $(document).ready(function(){
 				}
 		});
 	});
-	
+	*/
 });
 
 function getBillboards(){
