@@ -520,9 +520,12 @@ function validateBillboard(){
 	var billboardImage = true;
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
-	if ($("#addBillboardname").val() != ""){
-		billboardName = false;
+	if ($("#addBillboardname").val() == ""){
 		console.log("Missing billboard name!");
+	}
+	else{
+		billboardName = false;
+		console.log("Billboard name found");
 	}
 	if(format.length != 0){
 		billboardName = false;
