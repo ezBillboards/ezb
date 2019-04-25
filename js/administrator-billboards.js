@@ -137,7 +137,7 @@ $(document).ready(function(){
 		console.log(rejections);
 		console.log(extensions);
 		console.log(ratios);
-		if(!validateBillboard()){
+		if(validateBillboard()){
 			alert('Missing billboard information');
 		}else if(emptyPack){
 			alert("Fill out package fields!");
@@ -519,7 +519,7 @@ function validateBillboard(){
 	var billboardName = true;
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
-	if ($("#addBillboardname").val() == ""){
+	if ($("#addBillboardname").val() != ""){
 		billboardName = false;
 		//alert("Missing billboard name!");
 	}
@@ -531,7 +531,7 @@ function validateBillboard(){
 		billboardName = !billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	}
-	return billboardName && billboardDescription;
+	return billboardName || billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
