@@ -33,7 +33,12 @@ $(document).ready(function(){
 	});
 	
     $(".nav-tabs a").click(function(){
-      $(this).tab('show');
+		$(this).tab('show');
+		tab = $(this).text();
+		if(tab === 'Add')
+			console.log('add');
+		else if(tab === 'Modify')
+			console.log('modify');
     });
 	
 	$('#btnaddpackage').click(function(){
