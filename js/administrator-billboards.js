@@ -21,7 +21,7 @@ $(document).ready(function(){
 		else if(tab === 'Edit')
 			console.log('Edit');
     });
-	/*
+	
 	getBillboards();
 	  
 	$('#image-ratio').multiSelect({
@@ -436,7 +436,6 @@ $(document).ready(function(){
 				}
 		});
 	});
-	*/
 });
 
 function getBillboards(){
