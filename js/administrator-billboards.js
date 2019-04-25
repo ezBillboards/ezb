@@ -517,21 +517,23 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 
 function validateBillboard(){
 	var billboardName = true;
+	var billboardImage = true;
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() != ""){
 		billboardName = false;
-		//alert("Missing billboard name!");
+		console.log("Missing billboard name!");
 	}
-	else if(format.length == 0){
+	else if(format.length != 0){
 		billboardName = false;
-		//alert("Missing billboard images format!");
+		console.log("Missing billboard images format!");
 	}
 	else{
 		billboardName = !billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = !billboardRGEX.test($("#adddescription").val());
 	}
-	return billboardName || billboardDescription;
+	console.log( billboardName || billboardImage || billboardDescription);
+	return billboardName || billboardImage || billboardDescription;
 }
 
 function updateBillboard(packages_in,regulations_in,rejections_in){
