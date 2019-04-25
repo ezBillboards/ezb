@@ -23,7 +23,7 @@ $(document).ready(function(){
     });
 	
 	getBillboards();
-	  
+	/*	  
 	$('#image-ratio').multiSelect({
 		afterSelect: function(values){
 			ratio.push(values[0]);
@@ -40,7 +40,7 @@ $(document).ready(function(){
 		afterDeselect: function(values){
 			format.splice(format.indexOf(values[0]), 1);
 		}
-	});
+	});*/
 	
    
 	
