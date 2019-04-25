@@ -84,8 +84,14 @@ $(document).ready(function(){
 		var rejections = [];
 		var extensions = "";
 		var ratios = "";
+
+		$('#image-Ratio :checkbox').each(function() {
+			ratios += this.checked ? "1," : "0,";
+		});
+		console.log(ratios);
 		
 		$("#image-ratio").find("checkbox").each(function(){
+			console.log("Parent ID image-ratio");
 			if ($(this).prop('checked')==true){ 
 				console.log($(this).val());
 			}
