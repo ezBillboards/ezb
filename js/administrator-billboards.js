@@ -74,11 +74,7 @@ $(document).ready(function(){
 		 $(this).closest('tr').remove();
 	});
 	
-	$('checkbox').change(function(){
-			console.log(this);
-	});
-	
-	$("#checkbox").attr("checked") ? alert("Checked") : alert("Unchecked");
+	//$("#checkbox").attr("checked") ? alert("Checked") : alert("Unchecked");
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
@@ -121,6 +117,9 @@ $(document).ready(function(){
 			});
 		});
 		
+		if($("#1:1").prop("checked")){
+			console.log('1:1 checked!!')
+		}
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		console.log(packages);	
