@@ -21,6 +21,7 @@ if (mysqli_num_rows($result) > 0) {
         $request['reqDate'] = $row['requestDateFormat'];
 		$request['startDate'] = $row['startDate'];
 		$request['endDate'] = $row['endDate'];
+		$request['paymentDate'] = $row['paymentDateFormat'];
         $request['firstName'] = $row['firstName'];
         $request['lastName'] = $row['lastName'];
         $request['artworkName'] = $row['artworkName'];
