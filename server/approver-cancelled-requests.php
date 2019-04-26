@@ -24,16 +24,10 @@ if (mysqli_num_rows($result) > 0) {
         $request['artworkName'] = $row['artworkName'];
         $request['artworkURL'] = $row['artworkURL'];
         $request['extension'] = $row['extension'];
-        $request['deniedDate'] = $row['approveDate'];
-		$request['approverFirstName'] = $row['approverFirstName'];
-        $request['approverLastName'] = $row['approverLastName'];
-		$request['comments'] = $row['comments'];
-		/* $request['billboard_ID'] = $row['billboard_ID'];
-        $request['billboard'] = $row['billboardName'];
-		$request['displayPerCycle'] = $row['displayPerCycle'];
-		 request['width'] = $row['width'];
-        $request['height'] = $row['height'];
-        $request['size'] = $row['size'];*/
+        $request['cancelledDate'] = $row['cancelDate'];
+	$request['cancelFirstName'] = $row['cancelFirstName'];
+        $request['cancelLastName'] = $row['cancelLastName'];
+	$request['comments'] = $row['comments'];
         array_push($requests,$request);
     }
 } else {
