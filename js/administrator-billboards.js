@@ -85,7 +85,7 @@ $(document).ready(function(){
 		var regulations = [];
 		var rejections = [];
 		var extensions = "";
-		var ratios = "";
+		var ratios = [];
 		
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
@@ -117,11 +117,12 @@ $(document).ready(function(){
 			});
 		});
 		
-		if($("#1:1").attr("checked")){
-			console.log('1:1 checked!!')
-		}
+		$.each($("input[name='image-ratio']:checked"), function(){            
+                ratios.push($(this).val());
+        });
+        alert("My favourite sports are: " + ratios.join(", "));
 		
-		ratios = ratios.substring(0, ratios.length-1);
+		//ratios = ratios.substring(0, ratios.length-1);
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
