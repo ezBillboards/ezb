@@ -117,7 +117,7 @@ $(document).ready(function(){
 			});
 		});
 		
-		if($("#1:1").prop("checked")){
+		if($("#1:1").attr("checked")){
 			console.log('1:1 checked!!')
 		}
 		
