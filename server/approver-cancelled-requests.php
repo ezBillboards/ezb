@@ -25,9 +25,9 @@ if (mysqli_num_rows($result) > 0) {
         $request['artworkURL'] = $row['artworkURL'];
         $request['extension'] = $row['extension'];
         $request['cancelledDate'] = $row['cancelDate'];
-	$request['cancelFirstName'] = $row['cancelFirstName'];
+		$request['cancelFirstName'] = $row['cancelFirstName'];
         $request['cancelLastName'] = $row['cancelLastName'];
-	$request['comments'] = $row['comments'];
+		$request['comments'] = $row['comments'];
         array_push($requests,$request);
     }
 } else {
