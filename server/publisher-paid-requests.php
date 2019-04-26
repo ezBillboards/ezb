@@ -18,10 +18,10 @@ $requests = array();
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $request['id'] = $row['request_ID'];
-        $request['reqDate'] = $row['requestDate'];
+        $request['reqDate'] = $row['requestDateFormat'];
 		$request['startDate'] = $row['startDate'];
 		$request['endDate'] = $row['endDate'];
-		$request['paymentDate'] = $row['paymentDate'];
+		$request['paymentDate'] = $row['paymentDateFormat'];
         $request['firstName'] = $row['firstName'];
         $request['lastName'] = $row['lastName'];
         $request['artworkName'] = $row['artworkName'];
