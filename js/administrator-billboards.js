@@ -75,8 +75,10 @@ $(document).ready(function(){
 	});
 	
 	$('checkbox').change(function(){
-			console.log($(this).value);
-		});
+			console.log(this);
+	});
+	
+	$("#checkbox").attr("checked") ? alert("Checked") : alert("Unchecked");
 	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
