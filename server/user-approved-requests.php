@@ -21,7 +21,7 @@ if (mysqli_num_rows($result) > 0) {
         $request['name'] = $row['billboardName'];
         $request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
-        $request['date'] = $row['requestDate'];
+        $request['date'] = $row['requestDateFormat'];
 	$request['approvedDate'] = $row['approveDate'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];

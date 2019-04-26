@@ -46,6 +46,8 @@ function getHistory(){
                         "</p>" +
                         "<p><b>Approved By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
                         "</p>" +
+						"<p><b>Payment Date: </b>"  + requests[i].paymentDate +
+						"</p>" +
                         "</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
 			"<a style=\"color:#2D2D2D;\" href= \"" + requests[i].artworkURL+"\" download =\"" + requests[i].artworkName + "\".\"" + requests[i].extension + "\">" +

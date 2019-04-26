@@ -21,8 +21,8 @@ if (mysqli_num_rows($result) > 0) {
         $request['name'] = $row['billboardName'];
         $request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
-        $request['date'] = $row['requestDate'];
-	$request['cancelledDate'] = $row['cancelDate'];
+        $request['date'] = $row['requestDateFormat'];
+	$request['cancelledDate'] = $row['cancelDateFormat'];
 	$request['canceller'] = $row['canceller'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];

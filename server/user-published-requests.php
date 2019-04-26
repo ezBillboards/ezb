@@ -21,11 +21,11 @@ if (mysqli_num_rows($result) > 0) {
         $request['name'] = $row['billboardName'];
         $request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
-        $request['date'] = $row['requestDate'];
-	$request['publishedDate'] = $row['publishedDate'];
+        $request['date'] = $row['requestDateFormat'];
+	$request['publishedDate'] = $row['publishDateFormat'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];
-	$request['startingDate'] = $row['startDate'];
+	$request['startingDate'] = $row['startDateFormat'];
 	$request['artworkName'] = $row['artworkName'];
 	$request['extension'] = $row['extension'];
 	$request['comments'] = $row['comments'];
