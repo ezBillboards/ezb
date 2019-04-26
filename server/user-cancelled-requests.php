@@ -10,7 +10,7 @@ $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$userID = 1; //Change to GET later.
+$userID = $_GET['id'];
 $sql = "CALL getUserRequest($userID, 4)";
 $result = mysqli_query($conn,$sql);
 $requests = array();
@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) > 0) {
         $request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
         $request['date'] = $row['requestDate'];
-	$request['cancelledDate'] = $row['cancelledDate'];
+	$request['cancelledDate'] = $row['cancelDate'];
 	$request['canceller'] = $row['canceller'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];

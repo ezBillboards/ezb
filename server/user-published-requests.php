@@ -10,7 +10,7 @@ $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-$userID = 1; //Change to GET later.
+$userID = $_GET['id'];
 $sql = "CALL getUserRequest($userID, 6)";
 $result = mysqli_query($conn,$sql);
 $requests = array();
