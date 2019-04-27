@@ -145,6 +145,9 @@ $(document).ready(function(){
 	
 	$('#btnupdatebillboard').click(function(){
 		console.log('btnupdatebillboard clicked!');
+		var existingpackages = [];
+		var existingregulations = [];
+		var existingrejections = [];
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
@@ -155,6 +158,11 @@ $(document).ready(function(){
 				$(this).find('td').find('input').each(function(){
 					packages.push(this.value);
 				});
+			}else{
+				existingpackages.push(($(this).attr("id"));
+				$(this).find('td').find('input').each(function(){
+					existingpackages.push(this.value);
+				});
 			}
 		});
 		
@@ -163,6 +171,11 @@ $(document).ready(function(){
 				$(this).find('td').find('input').each(function(){
 					regulations.push(this.value);
 				});
+			}else{
+				existingregulations.push(($(this).attr("id"));
+				$(this).find('td').find('input').each(function(){
+					existingregulations.push(this.value);
+				});
 			}
 		});
 		
@@ -170,6 +183,11 @@ $(document).ready(function(){
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
 					rejections.push(this.value);
+				});
+			}else{
+				existingrejections.push(($(this).attr("id"));
+				$(this).find('td').find('input').each(function(){
+					existingregulations.push(this.value);
 				});
 			}
 		});
@@ -187,7 +205,10 @@ $(document).ready(function(){
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
-		updateBillboard(packages,regulations,rejections,ratios,extensions);
+		console.log(existingpackages);
+		console.log(existingregulations);
+		console.log(existingrejections);
+		updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
 	});
 	
 	$("#billboard-img").change(function(){
@@ -263,9 +284,9 @@ $(document).ready(function(){
                 var package = "";
                 for (var i = 0; i < packages.length; i++) {
 					package += "<tr id=\"" + packages[i].id + "\">" +
-					"<td><input id=\"duration\" value =\""+packages[i].duration + "\" type=\"number\" class=\"form-control\" name=\"duration\"> Day(s)</td>" +
+					"<td><input id=\"duration\" value =\""+packages[i].duration + "\" type=\"number\" class=\"form-control\" name=\"duration\"></td>" +
 					"<td><input id=\"frequency\" value =\""+packages[i].frequency +"\" type=\"number\" class=\"form-control\" name=\"frequency\"></td>" +
-					"<td>$<input id=\"price\" value =\""+packages[i].price +"\" type=\"number\" class=\"form-control\" name=\"Price\"></td>" +
+					"<td><input id=\"price\" value =\""+packages[i].price +"\" type=\"number\" class=\"form-control\" name=\"Price\"></td>" +
 					"<td>" +
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
@@ -560,7 +581,7 @@ function validateBillboard(){
 	return billboardName || billboardDescription;
 }
 
-function updateBillboard(packages_in,regulations_in,rejections_in,ratio_in,extension_in){
+function updateBillboard(packages_in,regulations_in,rejections_in,existingpackages_in,existingregulations_in,existingrejections_in,ratio_in,extension_in){
 	if(files != null){
 		console.log('changed image');
 		fd.append('fileName',files.name.split(".")[0]);
@@ -583,6 +604,9 @@ function updateBillboard(packages_in,regulations_in,rejections_in,ratio_in,exten
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
+	fd.append('existingpackages',JSON.stringify(existingpackages_in));
+	fd.append('existingregulations',JSON.stringify(existingregulations_in));
+	fd.append('existingrejections',JSON.stringify(existingrejections_in));
 	fd.append('cycle',$("#editcycle").val());
 	fd.append('imageRatio',ratio_in);
 	fd.append('imageExtension',extension_in);
