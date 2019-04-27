@@ -221,7 +221,7 @@ $(document).ready(function(){
 		
 		$.each($("input[name='edit-image-ratio']"), function(){
 			console.log($(this).val());
-			var x = $.inArray($(this).val(), editratio);
+			var x = $.inArray(String($(this).val()), editratio);
 			console.log(x);
 			if(x != -1){
 				$(this).prop('checked', true);
@@ -230,7 +230,7 @@ $(document).ready(function(){
 		
 		$.each($("input[name='edit-image-extensions']"), function(){            
 			console.log($(this).val());
-			var x = $.inArray($(this).val(), editextension);
+			var x = $.inArray(String($(this).val()), editextension);
 			console.log(x);
 			if(x != -1){
 				$(this).prop('checked', true);
