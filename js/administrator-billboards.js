@@ -148,6 +148,8 @@ $(document).ready(function(){
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
+		var ratios = "";
+		var extensions = "";
 		$("#edit-package tr").each(function() {
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
@@ -172,10 +174,20 @@ $(document).ready(function(){
 			}
 		});
 		
+		$.each($("input[name='edit-image-ratio']:checked"), function(){            
+                ratios += $(this).val() + ",";
+        });
+		
+		$.each($("input[name='edit-image-extensions']:checked"), function(){            
+                extensions += $(this).val() + ":";
+        });
+		
+		ratios = ratios.substring(0, ratios.length-1);
+		extensions = extensions.substring(0, extensions.length-1);
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
-		updateBillboard(packages,regulations,rejections);
+		updateBillboard(packages,regulations,rejections,ratios,extensions);
 	});
 	
 	$("#billboard-img").change(function(){
@@ -548,7 +560,7 @@ function validateBillboard(){
 	return billboardName || billboardDescription;
 }
 
-function updateBillboard(packages_in,regulations_in,rejections_in){
+function updateBillboard(packages_in,regulations_in,rejections_in,ratio_in,extension_in){
 	if(files != null){
 		console.log('changed image');
 		fd.append('fileName',files.name.split(".")[0]);
@@ -571,6 +583,9 @@ function updateBillboard(packages_in,regulations_in,rejections_in){
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
+	fd.append('cycle',$("#editcycle").val());
+	fd.append('imageRatio',ratio_in);
+	fd.append('imageExtension',extension_in);
 	$.ajax({
 		url:"../server/administrator-update-billboard.php",
 		type: 'POST',

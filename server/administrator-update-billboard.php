@@ -30,10 +30,12 @@ $extension = $_POST['extension'];
 $packages = json_decode($_POST['packages']);
 $regulations = json_decode($_POST['regulations']);
 $rejections = json_decode($_POST['rejections']);
-$cycle = 4;
-$billboardID;
+$cycle = $_POST['cycle'];
+$imageRatio = $_POST['imageRatio'];
+$imageExtension = $_POST['imageExtension'];
 
-$sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle)";
+
+$sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
 if (mysqli_query($conn, $sql)) {
 	echo "Billboard updated successfully";
 } else {
