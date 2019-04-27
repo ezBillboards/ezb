@@ -219,6 +219,7 @@ $(document).ready(function(){
 			console.log(editratio);
 		});	
 		
+		setTimeout(300);
 		$.each($("input[name='edit-image-ratio']"), function(){
 			console.log($(this).val());
 			var x = $.inArray(String($(this).val()), editratio);
