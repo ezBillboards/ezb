@@ -92,6 +92,28 @@ if($fileName){
 
 }
 
+//Update existing packages
+echo " " . $existingpackages . " ";
+for ($x = 0; $x < count($existingpackages); $x=$x+4) {
+	$packageid = $existingpackages[$x];
+	$duration = $existingpackages[$x + 1];
+	$frequency = $existingpackages[$x + 2];
+	$price = $existingpackages[$x + 3];
+	echo $duration . " " . $frequency . " " . $price . " ";
+	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+	if($conn === false){
+		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	$sql = "CALL putPackage($packageid,$duration,$frequency,$price)";
+	if (mysqli_query($conn, $sql)) {
+        echo " Package inserted successfully ";
+	} else {
+			echo "Error inserting package: " . mysqli_error($conn) . " ";
+	}
+	mysqli_close($conn);	
+}
+
 //Insert new packages
 echo " " . $packages . " ";
 for ($x = 0; $x < count($packages); $x=$x+3) {
@@ -113,6 +135,24 @@ for ($x = 0; $x < count($packages); $x=$x+3) {
 	mysqli_close($conn);	
 }
 
+//Update existing regulations
+for ($x = 0; $x < count($existingregulations); $x=$x+2) {
+	$regulationid = $existingregulations[$x];
+	$regulation = $existingregulations[$x + 1];
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+	if($conn === false){
+		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	$sql = "CALL putRegulation($regulationid,'$regulations')";
+	if (mysqli_query($conn, $sql)) {
+        echo " Regulation inserted successfully ";
+	} else {
+		echo "Error inserting regulation: " . mysqli_error($conn) . " ";
+	}
+	mysqli_close($conn);
+}
+
 //Insert new regulations
 for ($x = 0; $x < count($regulations); $x++) {
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -121,6 +161,24 @@ for ($x = 0; $x < count($regulations); $x++) {
 		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
 	$sql = "CALL postRegulation($id,'$regulations[$x]')";
+	if (mysqli_query($conn, $sql)) {
+        echo " Regulation inserted successfully ";
+	} else {
+		echo "Error inserting regulation: " . mysqli_error($conn) . " ";
+	}
+	mysqli_close($conn);
+}
+
+//Update existing regulations
+for ($x = 0; $x < count($existingrejections); $x=$x+2) {
+	$rejectionid = $existingrejections[$x];
+	$rejection = $existingrejections[$x + 1];
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
+	if($conn === false){
+		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	$sql = "CALL putRegulation($rejectionid,'$rejection')";
 	if (mysqli_query($conn, $sql)) {
         echo " Regulation inserted successfully ";
 	} else {
