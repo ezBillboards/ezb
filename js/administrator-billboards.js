@@ -219,15 +219,19 @@ $(document).ready(function(){
 			console.log(editratio);
 		});	
 		
-		$.each($("input[name='edit-image-ratio']"), function(){            
+		$.each($("input[name='edit-image-ratio']"), function(){
+			console.log($(this).val());
 			var x = $.inArray($(this).val(), editratio);
+			console.log(x);
 			if(x != -1){
 				$(this).prop('checked', true);
 			}
         });
 		
 		$.each($("input[name='edit-image-extensions']"), function(){            
+			console.log($(this).val());
 			var x = $.inArray($(this).val(), editextension);
+			console.log(x);
 			if(x != -1){
 				$(this).prop('checked', true);
 			}
