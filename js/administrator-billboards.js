@@ -202,6 +202,8 @@ $(document).ready(function(){
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
+		console.log(ratios);
+		console.log(extensions);
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
@@ -607,7 +609,7 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 	fd.append('existingpackages',JSON.stringify(existingpackages_in));
 	fd.append('existingregulations',JSON.stringify(existingregulations_in));
 	fd.append('existingrejections',JSON.stringify(existingrejections_in));
-	fd.append('cycle',$("#editcycle").val());
+	fd.append('cycle',$("#cycle").val());
 	fd.append('imageRatio',ratio_in);
 	fd.append('imageExtension',extension_in);
 	$.ajax({
