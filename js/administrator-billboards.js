@@ -74,8 +74,6 @@ $(document).ready(function(){
 		 $(this).closest('tr').remove();
 	});
 	
-	//$("#checkbox").attr("checked") ? alert("Checked") : alert("Unchecked");
-	
 	$('#btnnewbillboard').click(function(){
 		console.log('btnnewbillboard clicked!');
 		var emptyPack = false;
@@ -85,7 +83,7 @@ $(document).ready(function(){
 		var regulations = [];
 		var rejections = [];
 		var extensions = "";
-		var ratios = [];
+		var ratios = "";
 		
 		$("#add-package tr").each(function() {
 			$(this).find('td').find('input').each(function(){
@@ -118,11 +116,15 @@ $(document).ready(function(){
 		});
 		
 		$.each($("input[name='image-ratio']:checked"), function(){            
-                ratios.push($(this).val());
+                ratios += $(this).val() + ",";
         });
-        alert("My favourite sports are: " + ratios.join(", "));
 		
-		//ratios = ratios.substring(0, ratios.length-1);
+		$.each($("input[name='image-extensions']:checked"), function(){            
+                extensions += $(this).val() + ":";
+        });
+		
+		ratios = ratios.substring(0, ratios.length-1);
+		extensions = extensions.substring(0, extensions.length-1);
 		console.log(packages);	
 		console.log(regulations);
 		console.log(rejections);
@@ -467,6 +469,8 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	var slots = totalTime/readTime;
 	console.log(totalTime);
 	console.log(slots);
+	console.log(extension_in);
+	console.log(ratio_in);
 	fd.append('name',$("#addBillboardname").val());
 	fd.append('description',$("#adddescription").val());
 	fd.append('width',$("#addwidth").val());
