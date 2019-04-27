@@ -218,7 +218,20 @@ $(document).ready(function(){
 			console.log(editextension);
 			console.log(editratio);
 		});	
-	
+		
+		$.each($("input[name='edit-image-ratio']"), function(){            
+			var x = $.inArray($(this).val(), editratio);
+			if(x != -1){
+				$(this).prop('checked', true);
+			}
+        });
+		
+		$.each($("input[name='edit-image-extensions']"), function(){            
+			var x = $.inArray($(this).val(), editextension);
+			if(x != -1){
+				$(this).prop('checked', true);
+			}
+        });
 		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardInfo_ID}, 
