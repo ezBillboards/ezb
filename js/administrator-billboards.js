@@ -159,7 +159,7 @@ $(document).ready(function(){
 					packages.push(this.value);
 				});
 			}else{
-				existingpackages.push(($(this).attr("id"));
+				existingpackages.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
 					existingpackages.push(this.value);
 				});
@@ -172,7 +172,7 @@ $(document).ready(function(){
 					regulations.push(this.value);
 				});
 			}else{
-				existingregulations.push(($(this).attr("id"));
+				existingregulations.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
 					existingregulations.push(this.value);
 				});
@@ -185,7 +185,7 @@ $(document).ready(function(){
 					rejections.push(this.value);
 				});
 			}else{
-				existingrejections.push(($(this).attr("id"));
+				existingrejections.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
 					existingregulations.push(this.value);
 				});
