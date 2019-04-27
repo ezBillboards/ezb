@@ -219,24 +219,26 @@ $(document).ready(function(){
 			console.log(editratio);
 		});	
 		
-		setTimeout(300);
-		$.each($("input[name='edit-image-ratio']"), function(){
-			console.log($(this).val());
-			var x = $.inArray(String($(this).val()), editratio);
-			console.log(x);
-			if(x != -1){
-				$(this).prop('checked', true);
-			}
-        });
+		setTimeout(function() {
+			$.each($("input[name='edit-image-ratio']"), function(){
+				console.log($(this).val());
+				var x = $.inArray(String($(this).val()), editratio);
+				console.log(x);
+				if(x != -1){
+					$(this).prop('checked', true);
+				}
+			});
 		
-		$.each($("input[name='edit-image-extensions']"), function(){            
-			console.log($(this).val());
-			var x = $.inArray(String($(this).val()), editextension);
-			console.log(x);
-			if(x != -1){
-				$(this).prop('checked', true);
-			}
-        });
+			$.each($("input[name='edit-image-extensions']"), function(){            
+				console.log($(this).val());
+				var x = $.inArray(String($(this).val()), editextension);
+				console.log(x);
+				if(x != -1){
+					$(this).prop('checked', true);
+				}
+			});
+		}, 500);
+
 		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardInfo_ID}, 
