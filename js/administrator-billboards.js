@@ -263,9 +263,9 @@ $(document).ready(function(){
                 var package = "";
                 for (var i = 0; i < packages.length; i++) {
 					package += "<tr id=\"" + packages[i].id + "\">" +
-					"<td>"+packages[i].duration + " Day(s)</td>" +
-					"<td>"+packages[i].frequency + "</td>" +
-					"<td>$"+packages[i].price + "</td>" +
+					"<td><input id=\"duration\" value =\""+packages[i].duration + "\" type=\"number\" class=\"form-control\" name=\"duration\"> Day(s)</td>" +
+					"<td><input id=\"frequency\" value =\""+packages[i].frequency +"\" type=\"number\" class=\"form-control\" name=\"frequency\"></td>" +
+					"<td>$<input id=\"price\" value =\""+packages[i].price +"\" type=\"number\" class=\"form-control\" name=\"Price\"></td>" +
 					"<td>" +
 					"<div class=\"column\">" +
 					"<div class=\"row\">" +
@@ -274,7 +274,7 @@ $(document).ready(function(){
 					"</div>" +
 					"</div>" +
 					"</td>";
-                		}
+                }
 				$("#edit-package").empty();
 		        $("#edit-package").append(package);
 			}
