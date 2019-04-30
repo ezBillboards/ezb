@@ -43,3 +43,6 @@ sudo yum install php php-mysql
 # Restart Apache
 printf "\nRestarting Apache...\n\n"
 sudo systemctl restart httpd.service
+
+# Copy Files To HTML
+cp -vR ../ezb/ /var/www/html/
