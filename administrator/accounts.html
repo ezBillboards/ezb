@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <title>EZBillboards</title>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,14 +14,14 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
  <script src="../js/administrator-accounts.js"></script>
  <script src="../js/administrator.js"></script>
-
+ <link id="tab-logo" rel="icon" href="">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
          <a class="navbar-brand">
-          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+		<img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
         </a>
        <ul class="nav navbar-nav navbar-right navbar-text nav-align">
           <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
@@ -34,7 +35,7 @@
 		<span class="caret"></span>
 	    </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Account</a></li>
+              <li><a href="editAccounts.html">Account</a></li>
               <li><a id="btnlogout">Logout</a></li>
             </ul>
           </li>
@@ -59,7 +60,7 @@
 <!----------Add------------>
   <div class="tab-content">
     <div id="Add" class="tab-pane fade in active">
-      <div class="well well-lg text-center" style="background-color:#607d8b;">
+      <div class="well well-lg text-center" style="background-color:#1F589E;">
         <div class="row">
           <div class="col-lg-12">
 	  <h4 class="headers text-center">Contact Information</h4>
@@ -101,9 +102,9 @@
           <br>
           <div class="col-lg-12 input-group">
       		<select class="form-control" id="role">
-        		<option>Administrator</option>
-        		<option>Approver</option>
-        		<option>Publisher</option>
+        		<option value="0">Administrator</option>
+        		<option value="1">Approver</option>
+        		<option value="2">Publisher</option>
       		</select>
 	  </div>
 	 <br>
@@ -212,21 +213,21 @@
 
 
 <!-- Delete Account Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade centered-modal" id="myModal" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style = "color:black;">Are you sure you want to delete this roll??</h4>
+          <h3 class="modal-title" style = "color:black;">Are you sure you want to delete this roll?</h3>
         </div>
         <div class="modal-body">
           <h5>Once you delete it, you can't redo that account.</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" onclick = "cancelRoll()">Yes</button>
-          <button type="button" class="btn btn-secondary"  data-dismiss="modal">No</button>
+          <button type="button" class="btn ezb-btn" onclick = "cancelRoll()">Yes</button>
+          <button type="button" class="btn ezb-btn"  data-dismiss="modal">No</button>
         </div>
       </div>
 
@@ -241,9 +242,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title text-center"><b>Modify Account</b></h4>
+          <h3 class="modal-title text-center">Modify Account</h3>
         </div>
-        <div class="modal-body" style="background-color:#607d8b;">
+        <div class="modal-body" style="background-color:white;">
 		<div class="modal-body">
                     <div class="row">
                       <div class="col-lg-12">
@@ -284,8 +285,8 @@
         </div>
 	</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button id="update-account" type="button" class="btn btn-default">Save</button>
+          <button type="button" class="btn ezb-btn" data-dismiss="modal">Close</button>
+          <button id="update-account" type="button" class="btn ezb-btn">Save</button>
 	</div>
       </div>
     </div>
