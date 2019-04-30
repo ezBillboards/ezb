@@ -1,0 +1,76 @@
+<?php
+class ckSocketStream {
+	var $fp = 0;
+	var $error = "";
+	var $errorno = 0;
+	var $target = '';
+	var $port = -1;
+	var $eol = "\r\n";
+	var $lineMax=4069;
+
+	function ckSocketStream($target='', $port=-1) {
+		if(('' <> $target) and (0 < $port))
+			@ $this->fp = fsockopen($target, $port, $this->errorno, $this->error);
+		$this->target = $target;
+		$this->port = $port;
+	}
+
+	function setTarget($target) {
+		if((0 == $this->fp) and ('' <> $target) and (0 < $this->port))
+			@ $this->fp = fsockopen($target, $port);
+		$this->target = $target;
+	}
+
+	function setPort($port) {
+		if((0 == $this->fp) and ('' <> $this->target) and (0 < $port))
+			@ $this->fp = fsockopen($target, $port);
+		$this->port = $port;
+	}
+
+	function open($target, $port) {
+		if(0 == $this->fp)
+			@ $this->fp = fsockopen($target, $port);
+		$this->target = $target;
+		$this->port = $port;
+	}
+
+	function close() {
+		if(0 <> $this->fp) {
+			fclose($this->fp);
+			$this->fp = 0;
+		}
+	}
+
+	function eof() {
+		if(0 <> $this->fp)
+			return feof($this->fp);
+		return true;
+	}
+
+	function read($size) {
+		if(0 == $this->fp)
+			return '';
+		$tmp = fread($this->fp, $size);
+		$tmp = str_replace("\0", "", $tmp);
+		return $tmp;
+	}
+
+	function readLine(){
+	return fgets($this->fp, $this->lineMax);
+	}
+
+	function write($string) {
+		if(0 == $this->fp)
+			return "";
+		return fwrite($this->fp, $string);
+	}
+
+	function writeLine($string) {
+		if(0 == $this->fp)
+			return false;
+		//print $string ."<br>";
+		return fwrite($this->fp, $string . $this->eol);
+	}
+}
+
+?>

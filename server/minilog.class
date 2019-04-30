@@ -1,0 +1,36 @@
+<?php
+require_once('./ckdb.class');
+require_once('./id.php');
+
+define('information', 0);
+define('debug', 1);
+define('error', 2);
+
+class ckMiniLog{
+	var $db;
+	function ckMiniLog(){
+		$this->db = new cksdatabase('123456o%u/pmcvsJHcpaq$nvyvL^V_L%IcMzcvBzW+MJ*en%IbMaIwqQklqTW$BzW+MGk^MaE/pTu$LmcvsJH=');
+		
+		$this->db->popendb();
+	}	
+	function info($source,$msg){
+		$this->logentry($source, information, $msg);
+	}
+	function error($source,$msg){
+		$this->logentry($source, error, $msg);
+	}
+	function debug($source,$msg){
+		$this->logentry($source, debug, $msg);
+	}
+	function logentry($source,$priority, $msg){
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$sql = 'insert into log (source,msg,priority,IP) ';
+		$sql.= "values ('$source','$msg',$priority,'$ip')";
+
+		//print "$sql<br>";
+		$this->db->runquery($sql);
+	}
+}
+
+$logger = new ckMiniLog();
+?>
