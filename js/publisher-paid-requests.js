@@ -3,9 +3,13 @@ var requests;
 var currentRequestID;
 
 getPaidRequests();
-//console.log(sessionStorage.getItem('ID'));
-//console.log(sessionStorage.getItem('email'));
+
 $(document).ready(function(){
+	$.get("../server/get-image-path.php", function(data, status){
+		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+                $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+        });
+
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#paid-requests tr").filter(function() {
@@ -68,8 +72,11 @@ function publishRequest(item){
 	currentRequestID = $(item).attr("id");
 	console.log(currentRequestID);
 	$.post("../server/publisher-publish-request.php",
-	{id:currentRequestID,
-	publisherID:sessionStorage.getItem('ID')},
+	{
+		id:currentRequestID,
+		publisherID:sessionStorage.getItem('ID'),
+		publisherEmail:sessionStorage.getItem('email')
+	},
 		function(data, status){
 			if(status === "success"){
 				location.reload();

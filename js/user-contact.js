@@ -1,9 +1,13 @@
 $(document).ready(function(){
 
+	$.get("../server/get-image-path.php", function(data, status){
+                $("#map").attr("src", data + "img/ezb/Map.jpg");
+        });
+
 	$.get("../server/user-contact.php", function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
-                $("#office-hours").text("Office Hours: " + info.office);
+                $("#office-hours").append(info.office);
                 $("#postal").text(info.postal);
                 $("#physical").text(info.physical);
                 $("#phone").text(info.phone);
@@ -11,6 +15,11 @@ $(document).ready(function(){
                 $("#direct-phone").text(info.directPhone);
                 $("#fax").text(info.fax);
                 $("#email").text(info.email);
+
+		$("#footer-physical").text(info.physical);
+		$("#footer-email").text(info.email);
+		$("#footer-phone").text(info.phone);
+		$("#footer-extension").text(info.extension);
         });
 	
 

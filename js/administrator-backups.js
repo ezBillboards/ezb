@@ -1,11 +1,17 @@
 getBackups();
 
 $(document).ready(function(){
+	$.get("../server/get-image-path.php", function(data, status){
+		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+                $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+        });
+
 	$("#backup").click(function(){
 		if(validate()==true){
 		$.post("../server/administrator-backups.php",{filename:$("#filename").val()}, function(data,status){
 	                console.log(data);
 			getBackups();
+			alert("Added new backup file");
 			   
         	});	    
 	     }

@@ -21,6 +21,11 @@ $(document).ready(function(){
       }
     });
 
+    $.get("../server/get-image-path.php", function(data, status){
+	$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+    	$("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+    });
+
     $("#searchUsers").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#user-accounts tr").filter(function() {
@@ -60,13 +65,29 @@ $(document).ready(function(){
 		workPhone: $("#workPhone").val(),
 		mobilePhone: $("#mobilePhone").val(),
 		office: $("#office").val(),
-		role: $("#role").val()	
+		role: $("#role").val(),
+		adminEmail: sessionStorage.getItem('email')	
 	}, function(data,status){
-		validate();
-		console.log(data);	
-      });
-	 alert('Added the new ' + $("#role").val());
-	location.reload();
+		var roleStr;
+		if($("#role").val() == 0) roleStr = "Administrator";
+		else if($("#role").val() == 1) roleStr = "Approver";
+		else roleStr = "Publisher";
+ 
+      		if(status == "success"){
+			alert('Added the new ' + roleStr);
+		} else{
+			alert('Error trying to add the new ' + roleStr);
+		}
+		$("#firstName").val("");
+		$("#lastName").val("");
+		$("#email").val("");
+		$("#tempPass").val("");
+		$("#workPhone").val("");
+		$("#mobilePhone").val("");
+		$("#office").val("");
+		$("#role").val(0);
+	   }
+	);
       }
     });
 

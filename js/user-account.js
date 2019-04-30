@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$.get("../server/user-account.php", function(data, status){
+	$.get("../server/user-account.php",
+		{id:sessionStorage.getItem('ID')},
+		function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
                 $("#firstName").val(info.firstName);
@@ -24,7 +26,7 @@ $(document).ready(function(){
 	    if(validatePassword()==true){
 			$.post("../server/user-account-changePasswd.php",
 				{
-				  userID: 1, //Change later.
+				  userID: sessionStorage.getItem('ID'), //Change later.
 				  oldPasswd: $("#oldPasswd").val(),
 				  passwd: $("#newPasswd").val()
 				},
@@ -43,12 +45,10 @@ $(document).ready(function(){
 	
 	$("#save").click(function(){
 
-		console.log('here 4');
-
          if (validateContactInfo()==true){
 		$.post("../server/user-account-save.php",
                         {
-                                userID: 1, //Change later.
+                                userID: sessionStorage.getItem('ID'), //Change later.
 				firstName: $("#firstName").val(),
                 		lastName: $("#lastName").val(),
                 		email: $("#email").val(),
@@ -145,10 +145,10 @@ return true;
 
 function validateContactInfo(){
   var firstName = document.getElementById('firstName').value;
-  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+  var firstNameRGEX = /^[a-zA-Z]{2,30}$/;
   var firstNameResult = firstNameRGEX.test(firstName);
   var lastName = document.getElementById('lastName').value;
-  var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
+  var lastNameRGEX = /^[a-zA-Z]{2,30}$/;
   var lastNameResult = firstNameRGEX.test(lastName);
   var email = document.getElementById('email').value;
   var emailRGEX = /^(.+)@(.+)$/;

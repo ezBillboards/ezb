@@ -5,6 +5,11 @@ var currentRequestID;
 getHistory();
 
 $(document).ready(function(){
+	$.get("../server/get-image-path.php", function(data, status){
+		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+                $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+        });
+
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#history tr").filter(function() {

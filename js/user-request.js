@@ -7,8 +7,6 @@ getPendingRequests(sessionStorage.getItem('ID'));
 
 $(document).ready(function(){
   
-
-
  $(".nav-tabs a").click(function(){
     $(this).tab('show');
 	tab = $(this).text();
@@ -26,9 +24,44 @@ $(document).ready(function(){
 		getPublishedRequests(sessionStorage.getItem('ID'));
   });
 
-  $("#search").on("keyup", function() {
+  $("#pendingSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#"+ tab +" tbody tr").filter(function() {
+    $("tbody#pending-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#approvedSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody#approved-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#deniedSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody#denied-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#cancelledSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody#cancelled-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#paidSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody#paid-requests tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#publishedSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("tbody#publishedcss-requests tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
@@ -44,31 +77,30 @@ function getPendingRequests(userID){
 		var request = "";
                 for(var i = 0; i < requests.length; i++){
                         request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-			"<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+                        "<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
+	                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+			"<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
+                                "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+			"<td class=\"text-left\" style=\"width: 25%;vertical-align: middle;text-align: left;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+                        "<div><b>Duration: </b>" + requests[i].duration + " Day(s)" +
                         "</div>" +
-			"<div>Frequency: " + requests[i].frequency +
+			"<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
                         "</div>" +
-			"<div>Starting Date: " + requests[i].startingDate +
+			"<div><b>Starting Date: </b>" + requests[i].startingDate +
                         "</div>" +
-                        "<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
+			"<div><b>End Date: </b>" + requests[i].endDate +
+                        "</div>" +
+                        "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
                         "</div>" +
                         "</td> " +
-                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-			"<button type=\"button\" onclick=\"cancelling(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;text-align: center;width: 25%;\">" +
+			"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
                         "</td>" +
                         "</tr>";
                 }
@@ -85,36 +117,44 @@ function getApprovedRequests(userID){
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+                        "<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
+                                "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+                        "<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
+                                "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+                        "<td class=\"text-left\" style=\"width: 25%;vertical-align: middle;text-align: left;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-			"<div>Approved Date: " + requests[i].approvedDate +
+			"<div><b>Approved Date: </b>" + requests[i].approvedDate +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+                        "<div><b>Duration: </b>" + requests[i].duration + " Day(s)" +
                         "</div>" +
-                        "<div>Frequency: " + requests[i].frequency +
+                        "<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
                         "</div>" +
-                        "<div>Starting Date: " + requests[i].startingDate +
+                        "<div><b>Starting Date: </b>" + requests[i].startingDate +
                         "</div>" +
-                        "<div>Image: "  + requests[i].artworcakName + "." + requests[i].extension +
+			"<div><b>End Date: </b>" + requests[i].endDate +
                         "</div>" +
-			"<div>Comments: " + requests[i].comments +
+                        "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
+                        "</div>" +
+			"<div><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
                         "</div>" +
                         "</td> " +
-                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                        "<button type=\"button\" onclick=\"payment(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-success\">Pay" +
-			"<button type=\"button\" onclick=\"cancelling(this)\" id =\"" + requests[i].id +"\" class=\"btn btn-danger\">Cancel Request" +
+                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 22%;vertical-align: middle;\">" +
+			"<div class=\"row align\" style=\"margin-left: 22%;\">" +
+				"<div class=\"col-lg-4\">" +
+                        		"<form action=\"../server/venta.php\"  method=\"post\" name=\"forma\" target=\"_blank\">" +
+					"<input type=\"hidden\" name=\"requestID\" value=\"" + requests[i].id + "\">" +
+					"<button id=\"pay-btn\" type=\"submit\" class=\"btn\"><span class=\"glyphicon glyphicon-usd\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Pay</b></i></p></span></button>"  +
+					"</form>" +
+				"</div>" +
+				"<div class=\"col-lg-4\">" +
+					"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+				"</div>" +
+			"</div>" +
 			"</td>" +
                         "</tr>";
 		}
@@ -130,31 +170,22 @@ function getDeniedRequests(userID){
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
+                                "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+			"<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
+                                "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+			"<td class=\"text-left\" style=\"width: 33.33%;text-align: left;vertical-align: middle;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-                        "<div>Denial Date: " + requests[i].denialDate +
+                        "<div><b>Denied Date: </b>" + requests[i].denialDate +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+                        "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
                         "</div>" +
-                        "<div>Frequency: " + requests[i].frequency +
-                        "</div>" +
-                        "<div>Starting Date: " + requests[i].startingDate +
-                        "</div>" +
-                        "<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
-                        "</div>" +
-                        "<div>Comments: " + requests[i].comments +
+			"<div><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
                         "</div>" +
                         "</td> " +
 			"</tr>";
@@ -171,33 +202,26 @@ function getCancelledRequests(userID){
 		var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
+                                "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
+				"<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+			"<td class=\"text-left\" style=\"width: 33.33%;text-align: left;vertical-align: middle;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-                        "<div>Cancelled Date: " + requests[i].cancelledDate +
+			"<div><b>Approved Date: </b>" + ((requests[i].approvedDate != "" && requests[i].approvedDate != null) ? requests[i].approvedDate : "N/A") +
                         "</div>" +
-			"<div>Cancelled By: " + requests[i].canceller +
+			"<div><b>Cancelled Date: </b>" + requests[i].cancelledDate +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+			"<div><b>Cancelled By: </b>" + requests[i].canceller +
                         "</div>" +
-                        "<div>Frequency: " + requests[i].frequency +
+                        "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
                         "</div>" +
-                        "<div>Starting Date: " + requests[i].startingDate +
-                        "</div>" +
-                        "<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
-                        "</div>" +
-                        "<div>Comments: " + requests[i].comments +
+			"<div><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
                         "</div>" +
                         "</td> " +
                         "</tr>";
@@ -214,31 +238,32 @@ function getPaidRequests(userID){
                 var request = "";
 		for(var i = 0; i < requests.length; i++){
                         request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-                        "<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+			"<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
+                                "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+			"<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +	
+                                "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+			"<td class=\"text-left\" style=\"width: 33.33%;text-align: left;vertical-align: middle;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-                        "<div>Payment Date: " + requests[i].paymentDate +
+			"<div><b>Approved Date: </b>" + requests[i].approvedDate +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+                        "<div><b>Payment Date: </b>" + requests[i].paymentDate +
                         "</div>" +
-                        "<div>Frequency: " + requests[i].frequency +
+                        "<div><b>Duration: </b>" + requests[i].duration + " Day(s)" +
                         "</div>" +
-                        "<div>Starting Date: " + requests[i].startingDate +
+                        "<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
                         "</div>" +
-			"<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
+                        "<div><b>Starting Date: </b>" + requests[i].startingDate +
                         "</div>" +
-                        "<div>Comments: " + requests[i].comments +
+			"<div><b>End Date: </b>" + requests[i].endDate +
+                        "</div>" +
+			"<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
+                        "</div>" +
+			"<div><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
                         "</div>" +
                         "</td> " +
                         "</tr>";
@@ -255,34 +280,37 @@ function getPublishedRequests(userID){
                 var request = "";
 		for(var i = 0; i < requests.length; i++){
 			request += "<tr>" +
-                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div class=\"row\">" +
-                                "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-                                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
-                                "</div>" +
-                                "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
-                                "</div>" +
-                        "</div></td>" +
-                        "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;\">" +
-                        "<div>Request ID:" + requests[i].id +
+			"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
+                                "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
+                        "</td>" +
+			"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
+                                "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
+                        "</td>" +
+			"<td class=\"text-left\" style=\"width: 25%;text-align: left;vertical-align: middle;\">" +
+                        "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
-                        "<div>Request Date: " + requests[i].date +
+                        "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
-                        "<div>Published Date: " + requests[i].publishedDate +
+			"<div><b>Approved Date: </b>" + requests[i].approvedDate +
                         "</div>" +
-                        "<div>Duration: " + requests[i].duration +
+                        "<div><b>Payment Date: </b>" + requests[i].paymentDate +
                         "</div>" +
-                        "<div>Frequency: " + requests[i].frequency +
+                        "<div><b>Published Date: </b>" + requests[i].publishedDate +
                         "</div>" +
-                        "<div>Starting Date: " + requests[i].startingDate +
+                        "<div><b>Duration: </b>" + requests[i].duration + " Day(s)" +
                         "</div>" +
-                        "<div>Image: "  + requests[i].artworkName + "." + requests[i].extension +
+                        "<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
                         "</div>" +
-                        "<div>Comments: " + requests[i].comments +
+                        "<div><b>Starting Date: </b>" + requests[i].startingDate +
+                        "</div>" +
+			"<div><b>End Date: </b>" + requests[i].endDate +
+                        "</div>" +
+                        "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
+                        "</div>" +
+			"<div><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
                         "</div>" +
                         "</td> " +
-                        "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
+			"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
 			"<div>" + requests[i].status +
                         "</div>" +
                         "</td>" +
@@ -316,11 +344,11 @@ function cancelling(item){
 function payment(item){
         currentRequestID = $(item).attr("id");
         console.log(currentRequestID);
-        $.post("../server/venta.php",{requestID:currentRequestID},
-        //$.post("../server/user-pay-request.php",{requestID:currentRequestID},
+        //$.post("../server/venta.php",{requestID:currentRequestID},
+        $.post("../server/user-pay-request.php",{requestID:currentRequestID},
                 function(data, status){
                         if(status === "success"){
-				//location.reload();
+				location.reload();
                         } else {
                                 alert("Error payment request!");
                         }
