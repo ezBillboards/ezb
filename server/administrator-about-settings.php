@@ -1,9 +1,13 @@
 <?php
 
-define('DB_SERVER', 'ezb.uprm.edu');
-define('DB_USERNAME', 'ezb');
-define('DB_PASSWORD', 'ezb');
-define('DB_NAME', 'ezbillboards');
+require_once('./logger.php');
+
+$config = parse_ini_file('../../config.ini');
+
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
  
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
@@ -12,15 +16,14 @@ if($conn === false){
 }
 
 $about = $_POST['about'];
-
-echo $about;
+$adminEmail = $_POST['adminEmail'];
 
 $sql = "CALL putAbout('$about')";
 
 if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
+        logger($adminEmail, "UPDATE ABOUT", "About information has been updated");
 } else {
-        echo "Error updating record: " . mysqli_error($conn);
+	logger($adminEmail, "ERROR UPDATE ABOUT", " Error while trying to update About information");
 }
 
 mysqli_close($conn);

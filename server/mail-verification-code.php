@@ -15,7 +15,7 @@ $config = parse_ini_file('../../config.ini');
 	$mail->addAddress($emailAddress);
 	
 	//The message
-    $mail->Subject = 'Ezbillboards Verification Code';
+    $mail->Subject = 'EZBillboards Verification Code';
     $mail->Body    = 'Your verification code for your recently created account is: ' .  $random;
 
 //Send email

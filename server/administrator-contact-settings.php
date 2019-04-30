@@ -1,10 +1,14 @@
 <?php
 
-define('DB_SERVER', 'ezb.uprm.edu');
-define('DB_USERNAME', 'ezb');
-define('DB_PASSWORD', 'ezb');
-define('DB_NAME', 'ezbillboards');
- 
+require_once('./logger.php');
+
+$config = parse_ini_file('../../config.ini');
+
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
+
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 if($conn === false){
@@ -19,15 +23,14 @@ $extension = $_POST['extension'];
 $directPhone = $_POST['directPhone'];
 $fax = $_POST['fax'];
 $email = $_POST['email'];
-
-echo $office . " " . $postal . " " . $physical . " " . $phone . " " . $extension . " " . $directPhone . " " . $fax . " " . $email;
+$adminEmail = $_POST['adminEmail'];
 
 $sql = "CALL putContact('$postal','$physical','$phone','$extension','$directPhone','$fax','$email','$office')";
 
 if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
+	logger($adminEmail, "UPDATE CONTACT", "Contact information has been updated");
 } else {
-        echo "Error updating record: " . mysqli_error($conn);
+	logger($adminEmail, "ERROR UPDATE CONTACT", " Error while trying to update Contact information");
 }
 
 mysqli_close($conn);
