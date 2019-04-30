@@ -4,16 +4,11 @@
     height:66px;
 }
 
-.selected {
-        color: white !important;
-        background-color: gray;
-}
-
 .navbar-border {
-        border-bottom: 1px solid #BDBDBD;
+        border-bottom: 1px solid #D3D3D3;
 }
 
-.navbar-alignment {
+.nav-align {
         display: flex;
         align-items: center;
 }
@@ -59,7 +54,7 @@ width: 955px;
 
 
 .navbar-text-color {
-    color: #03A9F4 !important;
+    color: #1588C7 !important;
 }
 
 .well {
@@ -85,3 +80,61 @@ strong{
 	width: 139px;
 	height: 82px;
 }
+
+.profile-dropdown{
+        font-size: 30px;
+}
+
+.footer-border {
+        border-top: 1px solid #D3D3D3;
+}
+
+#related{
+        width: 40%;
+        margin-left:10%;
+}
+
+hr{
+        color: #D3D3D3;
+        margin: 0;
+}
+
+th{
+	background-color: #1F589E;
+	color: white;
+}
+
+.align{
+        display: flex;
+        align-items: center;
+}
+
+#pay-btn{
+	background-color:white;
+	border-color: white;
+	border: none;
+	outline: none;
+}
+
+#pay-btn:active {
+  transform: translateY(0px);
+}
+
+.ezb-btn{
+	color: white;
+        background-color: #1588C7;
+}
+
+.ezb-btn:hover{
+        color:white;
+        background-color:#1588C7;
+}
+
+.centered-modal.in {
+    display: flex !important;
+}
+
+.centered-modal .modal-dialog {
+    margin: auto;
+}
+

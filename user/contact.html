@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>EZBillboards</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -10,108 +11,118 @@
 	<script src="../js/user-contact.js"></script>
 	<script src="../js/user-home.js"></script>  
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link id="tab-logo" rel="icon" href="">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
-      <a class="navbar-brand">
-       <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
-     </a>
-      <ul class="nav navbar-nav navbar-right navbar-text">
-		<li><a class="navbar-text-color" href="home.html">Home</a></li>
-		<li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
+       <a class="navbar-brand">
+       		<img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
+       </a>
+       <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+	<li><a class="navbar-text-color" href="home.html">Home</a></li>
+	<li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
         <li><a class="navbar-text-color" href="about-us.html">About</a></li>
         <li><a class="navbar-text-color" href="contact.html">Contact</a></li>
-	    <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
-        <li  id="getStartedReg"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button></li>
-		<li class="dropdown">
-            <a id="profileDropdown" class="dropdown-toggle" style="display:none" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+	<li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+        <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
+	<li class="dropdown">
+            <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
+		<span class="glyphicon glyphicon-user profile-dropdown"></span>
+		<span class="caret"></span>
+	    </a>
             <ul class="dropdown-menu">
               <li><a href="account.html">Account</a></li>
-			  <li><a href="requests.html">Requests</a></li>
+	      <li><a href="requests.html">Requests</a></li>
               <li><a id="btnlogout">Logout</a></li>
             </ul>
-          </li>
-          <li><a id="profileEmail" class="profile-email" style="display:none">ezb19@gmail.com</a></li>
-	 </ul>
+       </li>
+       <li><a id="profileEmail" class="profile-email">ezb19@gmail.com</a></li>
+     </ul>
    </div>
  </div>
 </nav>
 
-<img src="../../img/ezb/Map.jpg" class="img-responsive" alt="EZBillboards Logo" width="2500" height="60">
+<img id="map" src="" class="img-responsive" alt="EZBillboards Logo">
+<hr>
 <br>
 <div class="container">
-  <div id="office-hours-well" class="well well-lg-12 text-center"><h4 id="office-hours"></h4></div>
-  
-
- 
- <div class="row" style = "background:#9e9e9e; width: 70%; margin-left: auto; margin-right: auto;">
-    <div class="col-lg-6" style="background-color:#9e9e9e;">
-    <h4>Postal Address:</h4>
-    <p id="postal"></p>
-    <h4>Physical Address:</h4>
-    <p id="physical"></p>
-</div>
-    
-    
-  <div class="col-lg-6" style="background-color:#9e9e9e;">
-    
-    <p><h4>Phone: <small id="phone" class="numbers"></small></h4></p>
-    <p><h4>Extensions: <small id="extension" class="numbers"></small></h4></p>
-    <p><h4>Direct Phone: <small id="direct-phone" class="numbers"></small></h4></p> 
-    <p><h4>Fax: <small id="fax" class="numbers"></small></h4></p>
-
-    <p><h4>Email: <small id="email" class="numbers"></small></h4></p>  
+  <div class="jumbo" style="background-color:#1F589E;">
+	<h4 id="office-hours" class="text-center">Office Hours: </h4>
   </div>
+  <br>
+ 
+ <div class="row">
+    <div class="jumbo col-lg-5" style="margin-left:18px;padding-top:3%;height:195px;background-color:#1F589E;">
+    	<h4>Postal Address:</h4>
+    	<p id="postal"></p>
+    	<h4>Physical Address:</h4>
+    	<p id="physical"></p>
+    </div>
+    <div class="jumbo col-lg-5" style="margin-left:155px;height:195px;background-color:#1F589E;">
+    	<p><h4>Phone: <small id="phone" class="numbers"></small></h4></p>
+    	<p><h4>Extensions: <small id="extension" class="numbers"></small></h4></p>
+    	<p><h4>Direct Phone: <small id="direct-phone" class="numbers"></small></h4></p> 
+    	<p><h4>Fax: <small id="fax" class="numbers"></small></h4></p>
+    	<p><h4>Email: <small id="email" class="numbers"></small></h4></p>  
+    </div>
+ </div>
 </div>
-</div>
-
-</div>
-
 
 <br>
  
-<div class="container">
-  <div class="well col-lg" id="related">
-    <h2><strong style = "color:black">Related links</strong></h2>           
-  <table class="table table-bordered responsive">
-    <tbody>
-      <tr>
-        <td><p class="text-primary" style = "color:#2196f3">Finance Office.</p></td>
-      </tr>
-      <tr>
-        <td><p class="text-primary" style = "color:#2196f3">Revenue Office.</p></td>
-      </tr>
-      <tr>
-        <td><p class="text-primary" style = "color:#2196f3">Legal Advice Office.</p></td>
-      </tr>
-      <tr>
-        <td><p class="text-primary" style = "color:#2196f3">Rectory Office.</p></td>
-      </tr>
-      <tr>
-        <td><p class="text-primary" style = "color:#2196f3">Press Office.</p></td>
-      </tr>
+<div class="row footer-border">
+  <div class="col-lg-6" id="related">
+  	<h2><strong style="margin-left:0;">Related links</strong></h2>           
+  	<table class="table table-bordered responsive">
+    		<tbody>
+      			<tr>
+        			<td><a href="https://www.uprm.edu/finanzas/" style = "color:#1588C7">Finance Office</a></td>
+      			</tr>
+      			<tr>
+        			<td><a href="https://www.uprm.edu/finanzas/recaudaciones/" style = "color:#1588C7">Revenue Office</a></td>
+      			</tr>
+      			<tr>
+        			<td><a href="https://www.uprm.edu/asesorialegal/" style = "color:#1588C7">Legal Advice Office</a></td>
+      			</tr>
+      			<tr>
+        			<td><a href="https://www.uprm.edu/rectoria/" style = "color:#1588C7">Rectory Office</a></td>
+      			</tr>
+      			<tr>
+        			<td><a href="https://www.uprm.edu/prensa" style = "color:#1588C7">Press Office</a></td>
+      			</tr>
          
-    </tbody>
-  </table>
-  <h4><strong style = "color:black;margin-left: 0px;"">Contact Us</strong></h4> 
-  <div class = "contactDirection">Boulevard Alfonso Valdés 259 </div>
-  <div>Edificio de Diego #201</div>
-  <div>(787) 265-3878</div>
-  <div>rectoria.uprm@upr.edu</div>
+    		</tbody>
+  	</table>
+  	<h4 style="color:black;"><strong style="margin-left:0;">Contact Us</strong></h4>
+  	<div class="row"> 
+  		<div class="col-lg-6" style="border-right: 1px solid #D3D3D3;">
+			<p id="footer-physical" style="color:black;margin:0;"></p>
+  			<p id="footer-email" style="color:black;margin:0;"></p>
+		</div>
+  		<div class="col-lg-6 text-center">
+			<p id="footer-phone" style="color:black;margin:0;"></p>
+  			<p id="footer-extension" style="color:black;margin:0;"></p>
+		</div>
+	
+  	</div>
+	<br>
   </div>
-  
-  <div><h2><strong class = "visit">Visit Us</strong></h2></div>
-  
-  <div class="col-lg">
-  <i class="fa fa-facebook-official col-lg-1" style="font-size:48px;color:#3b5998"></i>
-  <i class="fa fa-instagram col-lg-1" style="font-size:48px;color:#e95950"></i>
-  <i class="fa fa-twitter col-lg-1" style="font-size:48px;color:#33ccff"></i>
-  <i class="fa fa-linkedin-square col-lg-1" style="font-size:48px;color:#4875b4"></i>
+  <br><br><br><br>
+  <div class="col-lg-6 text-center">
+	<h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
+	<div class="row" style="margin-left:23%;">
+  		<a href="https://www.facebook.com/rectorauprm/"><i class="fa fa-facebook-official col-lg-2" style="font-size:48px;color:#3b5998"></i></a>
+  		<a href="https://www.instagram.com/uprm/?hl=es"><i class="fa fa-instagram col-lg-2" style="font-size:48px;color:#e95950"></i></a>
+  		<a href="https://twitter.com/uprm"><i class="fa fa-twitter col-lg-2" style="font-size:48px;color:#33ccff"></i></a>
+  		<a href="https://www.linkedin.com/school/university-of-puerto-rico-mayaguez/about/"><i class="fa fa-linkedin-square col-lg-2" style="font-size:48px;color:#4875b4"></i></a>
+  	</div>
   </div>
-  
 </div>
+
+
+
 
 <!-- Login Modal -->
   <div class="modal fade" id="loginModal" role="dialog">
@@ -241,7 +252,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center" style = "color: black;">Register</h4>
+        <h4 class="modal-title text-center" style ="color:black;">Register</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -281,20 +292,38 @@
         <input id="confirm_passwordreg" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
       </div>
       <br>
-      <label class="Checkcontainer"><input type="checkbox"id = "terms" checked="checked"><span class="checkmark"></span>I accept your <p class="text-primary" style = "color:#2196f3">terms and policy privacy</p></label>
-    <div>Already have an account?</div><p class="text-primary" style = "color:#2196f3" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
-
-
-
-          </div>
+      <label class="Checkcontainer"><input type="checkbox"id = "terms"><span class="checkmark"></span>I accept your</div><p class="text-primary" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#termsModal" onclick = "termsCall()">Terms and Policy Privacy</p></label>
+<div style = "padding-left:20px;">Already have an account?</div><p class="text-primary termsBtn" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p></div>
       </div>
       <div class="modal-footer center">
-      <button id="btnregister" type="button" class="btn btn-default register"">Register</button>
+      <button id="btnregister" type="button" class="btn btn-default register">Register</button>
       </div>
     </div>
   </div>
 </div>
 </div>
+
+
+<!-- Terms Modal -->
+  <div class="modal fade" id="termsModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style = "color:black;">Terms & Privacy Policy</h4>
+        </div>
+        <div class="modal-body">
+	<p style = "color:black;" id="termsInfo"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

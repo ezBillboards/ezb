@@ -12,38 +12,127 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	 <script src="../js/user-home.js"></script>
+	 <link id="tab-logo" rel="icon" href="">
 </head>
 <body>
+
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
-      <a class="navbar-brand">
-		<img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
-     </a>
-     <ul class="nav navbar-nav navbar-right navbar-text">
-		<li><a class="navbar-text-color" href="home.html">Home</a></li>
-		<li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
+       <a class="navbar-brand">
+                <img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
+       </a>
+       <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+        <li><a class="navbar-text-color" href="home.html">Home</a></li>
+        <li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
         <li><a class="navbar-text-color" href="about-us.html">About</a></li>
         <li><a class="navbar-text-color" href="contact.html">Contact</a></li>
-	    <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal" href="#">Log in</a></li>
-        <li  id="getStartedReg"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Register</button></li>
-		<li class="dropdown">
-            <a id="profileDropdown" class="dropdown-toggle" style="display:none" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+        <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+        <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
+        <li class="dropdown">
+            <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user profile-dropdown"></span>
+                <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu">
               <li><a href="account.html">Account</a></li>
-			  <li><a href="requests.html">Requests</a></li>
+              <li><a href="requests.html">Requests</a></li>
               <li><a id="btnlogout">Logout</a></li>
             </ul>
-          </li>
-          <li><a id="profileEmail" class="profile-email" style="display:none">ezb19@gmail.com</a></li>
-	 </ul>
+       </li>
+       <li><a id="profileEmail" class="profile-email">ezb19@gmail.com</a></li>
+     </ul>
    </div>
  </div>
 </nav>
 
+<img id="home-billboard" src="" alt="BackgroundHome">
+<div class="centered jumbotron">
+        <h3 class="text-center" style="color:white;">EZBillboards</h3>
+        <br>
+        <p class="text-justify" style="color:white;">EZBillboards is a platform that streamlines the process of selecting, scheduling and paying a time slot for billboards.</p>
+	<div class="align">
+		<button id= "getStartedMes" type="button" class="btn home-btn" data-toggle="modal" data-target="#registerModal">Get Started Now</button>
+	</div>
+</div>
+<div style="margin-left: 12%;margin-right: 12%;">
+	<h2><strong style = "font-size:48px;color:black;">Support Our Students</strong></h2>
+	<h4 style="margin-top: 15px;">Every time you purchase one of out payment plans, our students benefit from this transaction. Help future engineers, accountants, biologists, psycologists, etc. of our country fulfill their dreams.</h4>
+	<h4><button type="button" class="btn home-btn">Learn More</button></h4>
+</div>
+	<br>
+	<div class="row">
+   		<div class="well col-lg-3 text-center home-wells" style="margin-left: 9%;">
+     			<div> <span class="glyphicon glyphicon-usd home-icon"></span></div>
+     			<h3 class="home-wells-text">Revenue</h3>
+			<h4 class="text-left">Improve your revenue by promoting your services or products from the comfort of your office or home.</h4>
+   		</div>
+
+   		<div class="well col-lg-3 text-center home-wells" style="margin-left: 3%; margin-right: 3%;">
+     			<div><span class="glyphicon glyphicon-eye-open home-icon"></span></div>
+     			<h3 class="home-wells-text">Exposure</h3>
+			<h4 class="text-justify">Take advantage of the thousands of cars that go by our billboards.</h4>
+   		</div>
+
+   		<div class="well col-lg-3 text-center home-wells" style="margin-right: 9%;">
+     			<div><span class="glyphicon glyphicon-education home-icon"></span></div>
+     			<h3 class="home-wells-text">University Audience</h3>
+			<h4 class="text-justify">Also, take advantage of the thousands of students, faculty and non-faculty members that are part of our university.</h4>
+   		</div>
+	</div>
+	<br>
+
+<div class="row footer-border">
+  <div class="col-lg-6" id="related">
+        <h2><strong style="margin-left:0;">Related links</strong></h2>
+        <table class="table table-bordered responsive">
+                <tbody>
+                        <tr>
+                                <td><a href="https://www.uprm.edu/finanzas/" style = "color:#1588C7">Finance Office</a></td>
+                        </tr>
+                        <tr>
+                                <td><a href="https://www.uprm.edu/finanzas/recaudaciones/" style = "color:#1588C7">Revenue Office</a></td>
+                        </tr>
+                        <tr>
+                                <td><a href="https://www.uprm.edu/asesorialegal/" style = "color:#1588C7">Legal Advice Office</a></td>
+                        </tr>
+                        <tr>
+                                <td><a href="https://www.uprm.edu/rectoria/" style = "color:#1588C7">Rectory Office</a></td>
+                        </tr>
+                        <tr>
+                                <td><a href="https://www.uprm.edu/prensa" style = "color:#1588C7">Press Office</a></td>
+                        </tr>
+
+                </tbody>
+        </table>
+        <h4 style="color:black;"><strong style="margin-left:0;">Contact Us</strong></h4>
+        <div class="row">
+                <div class="col-lg-6" style="border-right: 1px solid #D3D3D3;">
+                        <p id="footer-physical" style="color:black;margin:0;"></p>
+                        <p id="footer-email" style="color:black;margin:0;"></p>
+                </div>
+                <div class="col-lg-6 text-center">
+                        <p id="footer-phone" style="color:black;margin:0;"></p>
+                        <p id="footer-extension" style="color:black;margin:0;"></p>
+                </div>
+
+        </div>
+        <br>
+  </div>
+  <br><br><br><br>
+  <div class="col-lg-6 text-center">
+        <h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
+        <div class="row" style="margin-left:23%;">
+                <a href="https://www.facebook.com/rectorauprm/"><i class="fa fa-facebook-official col-lg-2" style="font-size:48px;color:#3b5998"></i></a>
+                <a href="https://www.instagram.com/uprm/?hl=es"><i class="fa fa-instagram col-lg-2" style="font-size:48px;color:#e95950"></i></a>
+                <a href="https://twitter.com/uprm"><i class="fa fa-twitter col-lg-2" style="font-size:48px;color:#33ccff"></i></a>
+                <a href="https://www.linkedin.com/school/university-of-puerto-rico-mayaguez/about/"><i class="fa fa-linkedin-square col-lg-2" style="font-size:48px;color:#4875b4"></i></a>
+        </div>
+  </div>
+</div>
 
 <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" role="dialog">
+  <div class="modal fade centered-modal" id="loginModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -65,9 +154,9 @@
          <br>
          <div style="text-align:center;"><label class="container text-center">Remember me <input style="margin: 0 auto"type="checkbox" id = "remember"><span class="checkmark"></span></label>
 	</div>
-	<div class="text-center">Don't have an account yet?<p class="text-primary text-center" style = "color:#2196f3" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
-        <a href ="#"  data-toggle="modal" data-target="#forgotPasswordModal"> <p class="text-primary text-center" style = "color:#2196f3">Forgot Password</p><a>
-        <div style="text-align:center;"><button type="button" id="btnlogin" class="btn btn-info position-center" sytle="margin: 0 auto">Login</button></div>
+	<div class="text-center">Don't have an account yet?<p class="navbar-text-color text-center" style = "color:#2196f3" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
+        <a href ="#"  data-toggle="modal" data-target="#forgotPasswordModal" data-dismiss="modal"> <p class="navbar-text-color text-center" style = "color:#2196f3">Forgot Password</p><a>
+        <div style="text-align:center;"><button type="button" id="btnlogin" class="btn home-btn position-center" sytle="margin: 0 auto">Login</button></div>
 	</div>
         </div>
       </div>
@@ -77,26 +166,23 @@
 
 
 <!-- Forgot Password Modal -->
-<div class="modal fade" id="forgotPasswordModal" role="dialog">
+<div class="modal fade centered-modal" id="forgotPasswordModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Forgot password</h4>
-        <p>You will receive a new password to the email specified.
-        You will need to change this password when login in again the first time.</p>
+        <h3 class="modal-title text-center" style="color:black;">Forgot password</h3>
       </div>
       <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
+	<p style="color:black;">You will receive a new password to the email specified.
+        You will need to change this password when login in again the first time.</p>
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
             <input id="emailforgot" type="email" class="form-control" name="email" placeholder="email">
           </div>
       </div>
-      </div>
-      <div class="modal-footer">
-        <button id="btnforgotpsswd" type="button" class="send btn btn-default">Send</button>
+      <div class="modal-footer align">
+        <button id="btnforgotpsswd" type="button" class="send btn home-btn">Send</button>
       </div>
     </div>
   </div>
@@ -165,24 +251,17 @@
 
 
 <!-- Register Modal -->
-<div class="modal fade" id="registerModal" role="dialog">
+<div class="modal fade centered-modal" id="registerModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Register</h4>
+        <h3 class="modal-title text-center" style="color:black;">Register</h3>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-12" >
           <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="firstnamereg" 
-			type="text" 
-			class="form-control" 
-			name="firstname" 
-			placeholder="First Name"
-        		value="">
+              <input id="firstnamereg" type="text" class="form-control" name="firstname" placeholder="First Name" value="">
           </div>
           <br>
            <div class="input-group">
@@ -210,129 +289,40 @@
         <input id="confirm_passwordreg" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
       </div>
       <br>
-      <label class="Checkcontainer"><input type="checkbox"id = "terms"><span class="checkmark"></span>I accept your</div><p class="text-primary" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#termsModal" onclick = "termsCall()">Terms and Policy Privacy</p></label>
-<div style = "padding-left:20px;">Already have an account?</div><p class="text-primary termsBtn" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p></div>
+      <input type="checkbox" id="terms"><span class="checkmark"></span> I accept your <a data-toggle="modal" data-target="#termsModal" onclick = "termsCall()">Terms and Policy Privacy</a>
+	<div class="text-center">
+		<p>Already have an account?</p>
+		<p class="termsBtn" style="color: #1588C7;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
+	</div>
       </div>
-      <div class="modal-footer center">
-      <button id="btnregister" type="button" class="btn btn-default register">Register</button>
+      <div class="modal-footer align">
+      	<button id="btnregister" type="button" class="btn home-btn register">Register</button>
       </div>
     </div>
   </div>
 </div>
-</div>
 
 
 <!-- Terms Modal -->
-  <div class="modal fade" id="termsModal" role="dialog">
+  <div class="modal fade centered-modal" id="termsModal" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close terms-close">&times;</button>
           <h4 class="modal-title" style = "color:black;">Terms & Privacy Policy</h4>
         </div>
         <div class="modal-body">
-	<p id="termsInfo"></p>
+	  <p id="termsInfo"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+          <button type="button" class="btn home-btn terms-close">Close</button>
         </div>
       </div>
 
     </div>
   </div>
-
-
-
-
- <div class= "row" >
-     <div class="container2 ">
-       <div class="container-fluid">
-         <div class="row">
-           <div><img src="../../img/ezb/BackgroundHome.jpg" alt="BackgroundHome" style="width:75%;height:75%;">
-           <div  class="centered jumbotron responsive col-lg-6">
-           <h3>EZBillboards</h3>
-           <br>
-           <p>EZBillboards is a platform that streamlines the process of selecting, scheduling and paying a time slot for billboards.</p>
-           <button id= "getStartedMes" type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">Get Started Now</button>
-         </div>
-         </div>
-         </div>
-       </div>
-   </div>
- </div>
-</div>
-
-
-<div class="row">
-   <div class="col-lg-12 "><h2><strong style = "color:black">Support Our students</strong></h2>
-   <div class="col-lg-12 "><h4 id ="Support_text">Every time you purchase one of out payment plans, our students benefit from this transaction. Help future engineers, accountants, biologists, psycologists, etc. of our country fulfill their dreams.</h4></div>
-   <div class="col-lg-12 "><h4 id ="Support_text"><button type="button" class="btn btn-info">Learn More</button></h4></div>
-</div>
-</div>
-
-
-<div class="row">
-   <div class="well col-lg-4 text-center">
-     <div> <span class="glyphicon glyphicon-usd"></span></div>
-     <h3>Revenue</h3>
-   </div>
-
-
-   <div class="well col-lg-4 text-center">
-     <div><span class="glyphicon glyphicon-eye-open"></span></div>
-     <h3>Exposure</h3>
-   </div>
-
-
-   <div class="well col-lg-4 text-center">
-     <div><span class="glyphicon glyphicon-education"></span></div>
-     <h3>University Audience</h3>
-   </div>
-</div>
-
-
-<div class="container">
- <div class="well col-lg" id="related">
-   <h2><strong style = "color:black">Related links</strong></h2>
- <table class="table table-bordered responsive">
-   <tbody>
-     <tr>
-       <td><p class="text-primary" style = "color:#2196f3">Finance Office.</p></td>
-     </tr>
-     <tr>
-       <td><p class="text-primary" style = "color:#2196f3">Revenue Office.</p></td>
-     </tr>
-     <tr>
-       <td><p class="text-primary" style = "color:#2196f3">Legal Advice Office.</p></td>
-     </tr>
-     <tr>
-       <td><p class="text-primary" style = "color:#2196f3">Rectory Office.</p></td>
-     </tr>
-     <tr>
-       <td><p class="text-primary" style = "color:#2196f3">Press Office.</p></td>
-     </tr>
-
-   </tbody>
- </table>
- <h4><strong style = "color:black;margin-left: 0px;">Contact Us</strong></h4>
- <div class = "contactDirection"style = "color:black;">Boulevard Alfonso Valdés 259 </div>
- <div style = "color:black;">Edificio de Diego #201</div>
- <div style = "color:black;">(787) 265-3878</div>
- <div style = "color:black;">rectoria.uprm@upr.edu</div>
- </div>
-
- <div><h2><strong class = "visit" style = "color:black;">Visit Us</strong></h2></div>
-
- <div class="col-lg">
- <i class="fa fa-facebook-official col-lg-1" style="font-size:48px;color:#3b5998"></i>
- <i class="fa fa-instagram col-lg-1" style="font-size:48px;color:#e95950"></i>
- <i class="fa fa-twitter col-lg-1" style="font-size:48px;color:#33ccff"></i>
- <i class="fa fa-linkedin-square col-lg-1" style="font-size:48px;color:#4875b4"></i>
- </div>
-
-</div>
 
 
 
