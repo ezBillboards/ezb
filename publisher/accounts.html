@@ -9,8 +9,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script src="../js/administrator-editAccounts.js"></script>
-  <script src="../js/administrator.js"></script>
+  <script src="../js/publisher-accounts.js"></script>
+  <script src="../js/publisher.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link id="tab-logo" rel="icon" href="">
 </head>
 <body>
@@ -20,22 +23,19 @@
       <div class="collapse navbar-collapse" id="myNavbar">
        <a class="navbar-brand">
 	<img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
-		</a>
-		<ul class="nav navbar-nav navbar-right navbar-text nav-align">
-			<li><a class="navbar-text-color" href="settings.html">Settings</a></li>
-			<li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
-			<li><a class="navbar-text-color" href="billboards.html">Billboards</a></li>
-			<li><a class="navbar-text-color" href="logs.html">Logs</a></li>
-			<li><a class="navbar-text-color" href="backups.html">Backups</a></li>
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#editAccounts.html">Account</a></li>
-					<li><a id="btnlogout">Logout</a></li>
-				</ul>
-			</li>
-			<li><a id="profile-email" class="profile-email">ezb19@gmail.com</a></li>
-		</ul>
+      </a>
+      <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+        <li><a class="navbar-text-color" href="paid-requests.html">Pending Requests</a></li>
+        <li><a class="navbar-text-color" href="history.html">Published History</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="accounts.html">Account</a></li>
+            <li><a id="btnlogout">Logout</a></li>
+          </ul>
+        </li>
+        <li><a id="profile-email" class="profile-email">ezb19@gmail.com</a></li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -46,6 +46,7 @@
 <div class="row"  id = "AccountText">
    <div class="col-lg-12 text-center"><h1 style = "font-size: 56px;">Account</h1></div>
  </div>
+
 
 <div class="container">
   <div class="jumbotron" style = "background:#bdbdbd">
