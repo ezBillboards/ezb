@@ -545,6 +545,13 @@ function Session(){
 			document.getElementById("profileDropdown").style.display = "inline";
 			document.getElementById("profileEmail").style.display = "inline";
 		}else{
+			if(window.location.pathname == "/ezb/user/requests.html"){
+				window.location.href = "home.html";
+			}
+			if(window.location.pathname == "/ezb/user/account.html"){
+                                window.location.href = "home.html";
+                        }
+
 			console.log('Session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
