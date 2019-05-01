@@ -77,7 +77,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnverify").click(function(){
-		if( $('#verificationCode').val() == decrypt(sessionStorage.getItem('verificationCode').toString(CryptoJS.enc.Utf8))){
+		if( $('#verificationCode').val() == decrypt(sessionStorage.getItem('verificationCode'))){
 			VerifyEmail();	
 		}
 		else{
@@ -464,8 +464,8 @@ function VerifyRole(){
 function sendVerificationCode(){
 	$.post("../server/mail-verification-code.php",
 			{
-			emailAddress:decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8),
-			random: decrypt(sessionStorage.getItem('verificationCode')).toString(CryptoJS.enc.Utf8)
+			emailAddress:decrypt(sessionStorage.getItem('email')),
+			random: decrypt(sessionStorage.getItem('verificationCode'))
 			},function(data,status){
 				
 				if(status === "success"){
@@ -482,8 +482,8 @@ function resendVerificationCode(){
 	sessionStorage.setItem('verificationCode', encrypt(random));
 	$.post("../server/mail-verification-code.php",
 			{
-				emailAddress:decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8),
-				random:decrypt(sessionStorage.getItem('verificationCode')).toString(CryptoJS.enc.Utf8)
+				emailAddress:decrypt(sessionStorage.getItem('email')),
+				random:decrypt(sessionStorage.getItem('verificationCode'))
 			},function(data,status){
 				
 				if(status === "success"){
@@ -498,7 +498,7 @@ function resendVerificationCode(){
 function VerifyEmail(){
 	$.post("../server/user-verified.php",
 			{
-				email: decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8)
+				email: decrypt(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
 					sessionStorage.setItem('ID', encrypt(profile_ID));
@@ -516,8 +516,8 @@ function Session(){
 		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
 			$("#profileEmail").text(sessionStorage.getItem('email')); 
-			if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) != 1){
-				if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) == 2){
+			if(decrypt(sessionStorage.getItem('role')) != 1){
+				if(decrypt(sessionStorage.getItem('role')) == 2){
 					window.location.href = "../approver/requests.html";
 				}
 				else if(decrypt(sessionStorage.getItem('role')) == 3){

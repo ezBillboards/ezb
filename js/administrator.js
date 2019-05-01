@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	session();
 	
-	$("#profile-email").text(decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8));
+	$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
@@ -18,13 +18,11 @@ function session(){
 	
 	
 	if (sessionStorage.getItem('ID') != null){
-		
-		
-		if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8)!= 4){
-			if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) == 1){
+		if(decrypt(sessionStorage.getItem('role')) != 4){
+			if(decrypt(sessionStorage.getItem('role')) == 1){
 				window.location.href = "../user/home.html";
 			}
-			else if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) == 3){
+			else if(decrypt(sessionStorage.getItem('role')) == 3){
 				window.location.href = "../publisher/paid-requests.html";
 			}
 			else{

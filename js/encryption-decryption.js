@@ -52,5 +52,5 @@ function decrypt (transitmessage) {
     mode: CryptoJS.mode.CBC
     
   })
-  return decrypted;
+  return decrypted.toString(CryptoJS.enc.Utf8);
 }
