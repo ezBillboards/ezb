@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
-
+	console.log(sessionID);
 	$.get("../server/user-account.php",
 		{id:sessionID},
 		function(data, status){
