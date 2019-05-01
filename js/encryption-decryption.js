@@ -55,7 +55,7 @@ function decrypt (transitmessage) {
 		})
 		return decrypted.toString(CryptoJS.enc.Utf8);
 	}else{
-		return "";
+		return "Not received";
 	}
 	
 	
