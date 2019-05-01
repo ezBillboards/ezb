@@ -18,7 +18,7 @@ function session(){
 	console.log("Reading session variables");
 	
 	if (sessionStorage.getItem('ID') != null){
-		$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
+		
 		if(decrypt(sessionStorage.getItem('role')) != 4){
 			if(decrypt(sessionStorage.getItem('role')) == 1){
 				window.location.href = "../user/home.html";
@@ -30,7 +30,7 @@ function session(){
 				window.location.href = "../approver/requests.html";
 			}
 		}else{
-			//document.getElementById('profile-email').value = sessionStorage.getItem('email');
+			$("#profile-email").text(decrypt(sessionStorage.getItem('email')));		
 		}
 	}else{
 		window.location.href = "../user/home.html";

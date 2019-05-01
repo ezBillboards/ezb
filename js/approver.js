@@ -1,9 +1,9 @@
 
 
 $(document).ready(function(){
-	setTimeout(session,300);
+	setTimeout(session,500);
 	
-	$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
+	
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
@@ -18,8 +18,6 @@ function session(){
 	
 	
 	if (sessionStorage.getItem('ID') != null){
-		
-		
 		if(decrypt(sessionStorage.getItem('role')) != 2){
 			if(decrypt(sessionStorage.getItem('role')) == 1){
 				window.location.href = "../user/home.html";
@@ -31,7 +29,7 @@ function session(){
 				window.location.href = "../administrator/settings.html";
 			}
 		}else{
-			//document.getElementById('profile-email').value = sessionStorage.getItem('email');
+			$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
 		}
 	}else{
 		window.location.href = "../user/home.html";

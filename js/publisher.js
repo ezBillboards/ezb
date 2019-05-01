@@ -1,8 +1,8 @@
 
 $(document).ready(function(){
-	setTimeout(session,300);
+	setTimeout(session,500);
 	
-	$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
+	
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
@@ -25,6 +25,8 @@ function session(){
 			else{
 				window.location.href = "../administrator/settings.html";
 			}
+		}else{
+			$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
 		}
 	}else{
 		window.location.href = "../user/home.html";
