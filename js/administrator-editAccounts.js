@@ -11,6 +11,7 @@ $(document).ready(function(){
 			function(data, status){
 				var info = JSON.parse(data);
 				console.log(info);
+				console.log(decrypt(info.lastName));
 				$("#firstName").val(info.firstName);
 				$("#lastName").val(info.lastName);
 				$("#email").val(info.email);
