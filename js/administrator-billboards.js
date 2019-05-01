@@ -109,13 +109,16 @@ $(document).ready(function(){
 						console.log(price);
 						if(this.value.toString().charAt(0) == "."){
 							if(price[0].length > 2){
+								console.log('char at 0');
 								errPrice = true;
 							}
 						}else{
 							if(price[1].length > 2){
+								console.log('Decimal > 2');
 								errPrice = true;
 							}
 							else if(price[0].length > 12){
+								console.log('Integer > 12');
 								errPrice = true;
 							}
 						}
