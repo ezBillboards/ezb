@@ -33,7 +33,7 @@ $(document).ready(function(){
 		var newPackage = "<tr>" +
 		"<td><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
 		"<td><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
-		"<td><input id=\"Price\" type=\"number\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
+		"<td><input id=\"Price\" type=\"number\" step=\"0.01\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
 		"<td>" +
 		"<div class=\"column\">" +
 		"<div class=\"row\">" +
