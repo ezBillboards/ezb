@@ -1,7 +1,7 @@
 
 
 $(document).ready(function(){
-	setTimeout(session,500);
+	setTimeout(session,400);
 	
 	
 	
