@@ -283,6 +283,7 @@ function encrypt (msg) {
   // salt, iv will be hex 32 in length
   // append them to the ciphertext for use  in decryption
   var transitmessage = salt.toString()+ iv.toString() + encrypted.toString();
+  console.log(transitmessage);
   return transitmessage;
 }
 
