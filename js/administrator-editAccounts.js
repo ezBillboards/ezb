@@ -287,6 +287,7 @@ function encrypt (msg) {
 }
 
 function decrypt (transitmessage) {
+	console.log(transitmessage);
 	if(transitmessage != ""){
 		var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
 		var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
@@ -301,7 +302,6 @@ function decrypt (transitmessage) {
 			padding: CryptoJS.pad.Pkcs7,
 			mode: CryptoJS.mode.CBC
 		})
-		console.log(decrypted);
 		return decrypted.toString(CryptoJS.enc.Utf8);
 	}else{
 		return "Not received";
