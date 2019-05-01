@@ -13,18 +13,18 @@ $(document).ready(function(){
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
 			var profile = JSON.parse(data);
-			$("#profile-name").text(profile.firstName + " " + profile.lastName);
+			$("#profile-name").text(decrypt(profile.firstName) + " " + decrypt(profile.lastName));
 			$("#profile-email").text(profile.email);
-			$("#profile-mobile").text(profile.mobile);
-			$("#profile-work").text(profile.work);
-			$("#profile-company").text(profile.company);
-			$("#profile-address1").text(profile.address1);
-			$("#profile-address2").text(profile.address2);
-			$("#profile-city-state-zipcode").text(profile.city + ", " + profile.state + " " + profile.zipcode);
-			$("#profile-url").text(profile.url);
-			$("#profile-facebook").attr("href",profile.facebookURL);
-			$("#profile-instagram").attr("href",profile.instagramURL);
-			$("#profile-twitter").attr("href",profile.twitterURL);
+			$("#profile-mobile").text(decrypt(profile.mobile));
+			$("#profile-work").text(decrypt(profile.work));
+			$("#profile-company").text(decrypt(profile.company));
+			$("#profile-address1").text(decrypt(profile.address1));
+			$("#profile-address2").text(decrypt(profile.address2));
+			$("#profile-city-state-zipcode").text(decrypt(profile.city) + ", " + decrypt(profile.state) + " " + decrypt(profile.zipcode));
+			$("#profile-url").text(decrypt(profile.url));
+			$("#profile-facebook").attr("href",decrypt(profile.facebookURL));
+			$("#profile-instagram").attr("href",decrypt(profile.instagramURL));
+			$("#profile-twitter").attr("href",decrypt(profile.twitterURL));
 		});
 	});
 	
@@ -205,7 +205,7 @@ function getRequests(startStr, endStr){
 			"<div class=\"row\">" +
 			"<div class=\"col-lg-7\">" +
 			"<p class=\"list-group-item-text\">" + requests[i].billboard + "</p>" +
-			"<p class=\"list-group-item-text\">" + requests[i].firstName + " " + requests[i].lastName + "</p>" +
+			"<p class=\"list-group-item-text\">" + decrypt(requests[i].firstName) + " " + decrypt(requests[i].lastName) + "</p>" +
 			"</div>" +
 			"<div class=\"col-lg-5\">" +
 			"<p class=\"list-group-item-text\">" + requests[i].displayPerCycle + "</p>" +

@@ -55,7 +55,7 @@ $(document).ready(function(){
         if (validateContactInfo()==true){
 			$.post("../server/user-account-save.php",
             {
-				userID: decrypt(sessionStorage.getItem('ID')), //Change later.
+				userID: decrypt(sessionStorage.getItem('ID')),
 				firstName: encrypt($("#firstName").val()),
 				lastName: encrypt($("#lastName").val()),
 				email: $("#email").val(),

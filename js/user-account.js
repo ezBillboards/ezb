@@ -1,32 +1,35 @@
 $(document).ready(function(){
-	$.get("../server/user-account.php",
-		{id:sessionStorage.getItem('ID')},
+	
+	setTimeout(function(){
+		$.get("../server/user-account.php",
+		{id:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
-                $("#firstName").val(info.firstName);
-                $("#lastName").val(info.lastName);
+                $("#firstName").val(decrypt(info.firstName));
+                $("#lastName").val(decrypt(info.lastName));
                 $("#email").val(info.email);
-                $("#mobilePhone").val(info.mobilePhone);
-                $("#workPhone").val(info.workPhone);
-                $("#company").val(info.company);
-                $("#address1").val(info.address1);
-                $("#address2").val(info.address2);
-                $("#state").val(info.state);
-                $("#city").val(info.city);
-                $("#zip").val(info.zip);
-
-                $("#url").val(info.url);
-                $("#facebook").val(info.facebook);
-                $("#twitter").val(info.twitter);
-                $("#instagram").val(info.instagram);
+                $("#mobilePhone").val(decrypt(info.mobilePhone));
+                $("#workPhone").val(decrypt(info.workPhone));
+                $("#company").val(decrypt(info.company));
+                $("#address1").val(decrypt(info.address1));
+                $("#address2").val(decrypt(info.address2));
+                $("#state").val(decrypt(info.state));
+                $("#city").val(decrypt(info.city));
+                $("#zip").val(decrypt(info.zip));
+                $("#url").val(decrypt(info.url));
+                $("#facebook").val(decrypt(info.facebook));
+                $("#twitter").val(decrypt(info.twitter));
+                $("#instagram").val(decrypt(info.instagram));
         });
+	},20);
+	
 
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){
 			$.post("../server/user-account-changePasswd.php",
 				{
-				  userID: sessionStorage.getItem('ID'), //Change later.
+				  userID: decrypt(sessionStorage.getItem('ID')),
 				  oldPasswd: $("#oldPasswd").val(),
 				  passwd: $("#newPasswd").val()
 				},
