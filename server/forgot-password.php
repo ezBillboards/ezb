@@ -1,17 +1,19 @@
 <?php
 
-define('DB_SERVER', 'ezb.uprm.edu');
-define('DB_USERNAME', 'ezb');
-define('DB_PASSWORD', 'ezb');
-define('DB_NAME', 'ezbillboards');
+date_default_timezone_set('Etc/UTC');
+require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+$config = parse_ini_file('../../config.ini');
+
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
 
 $emailAddress = $_POST['emailAddress'];
 $tempPassword = $_POST['tempPassword'];
 
-date_default_timezone_set('Etc/UTC');
-require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 $mail = new PHPMailer; 
-$config = parse_ini_file('../../config.ini');
 $mail->isSMTP();
 $mail->Host = $config['IP'];
 $mail->Port = $config['PORT'];

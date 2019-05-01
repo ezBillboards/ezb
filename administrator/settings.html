@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>EZBillboards</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -10,13 +11,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="../js/administrator-settings.js"></script>
   <script src="../js/administrator.js"></script>
+  <link id="tab-logo" rel="icon" href="">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-border navbar-height">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
          <a class="navbar-brand">
-          <img src="../../img/ezb/EZBillboardsLogo.png" class="img-responsive ezb-logo" alt="EZB Logo">
+		<img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
         </a>
        <ul class="nav navbar-nav navbar-right navbar-text nav-align">
           <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
@@ -30,7 +32,7 @@
 		<span class="caret"></span>
 	    </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Account</a></li>
+              <li><a href="editAccounts.html">Account</a></li>
               <li><a id="btnlogout">Logout</a></li>
             </ul>
           </li>
@@ -44,7 +46,7 @@
 
 <div class="container">
    <div class="row">
-     <div class="jumbo col-lg-4" style="height: 370px;margin-left:15px;background-color:#607d8b;">
+     <div class="jumbo col-lg-4" style="height: 370px;margin-left:15px;background-color:#1F589E;">
        <h4 class="headers text-center">Database Configuration</h4>
        <br>
        <div class="input-group">
@@ -72,7 +74,7 @@
        </div>
     </div>
 
-    <div class="jumbo col-lg-4" style="height: 370px;margin-left: 10px;margin-right:10px;background-color:#607d8b;">
+    <div class="jumbo col-lg-4" style="height: 370px;margin-left: 10px;margin-right:10px;background-color:#1F589E;">
        <h4 class="headers text-center">Mail Server Configuration</h4>
        <br><br><br>
        <div class="input-group" style="padding-top:8px;">
@@ -91,7 +93,7 @@
     </div>
     
     <div class="col-lg-3" style="padding:0;">
-       <div class="jumbo" style="width: 335px;height: 180px;background-color:#607d8b;">
+       <div class="jumbo" style="width: 335px;height: 180px;background-color:#1F589E;">
 	<h4 class="headers text-center">Backups Path</h4>
        	<br>
        	<div class="input-group" style="padding: 0% 5% 0% 5%;">
@@ -103,7 +105,7 @@
                 <button id="backup" class="btn btn-default save-config">Save</button>
        </div>
        </div>
-       <div class="jumbo" style="width: 335px;height: 180px;background-color:#607d8b;">
+       <div class="jumbo" style="width: 335px;height: 180px;background-color:#1F589E;">
         <h4 class="headers text-center">Images Path</h4>
         <br>
 	<div class="input-group" style="padding: 0% 5% 0% 5%;">
@@ -118,7 +120,7 @@
     </div>
 </div>
 
-<div class="jumbo jumbo-padding" style="padding-bottom:35px;background-color:#607d8b;">
+<div class="jumbo jumbo-padding" style="padding-bottom:35px;background-color:#1F589E;">
 	<h4 class="headers text-center">Contact Information</h4>
         <br>
         <div class="input-group">
@@ -166,7 +168,7 @@
         </div>
 </div>
 <br>
-<div class="jumbo jumbo-padding" style="background-color:#607d8b;">
+<div class="jumbo jumbo-padding" style="background-color:#1F589E;">
   <div class="form-group text-center">
 	<h3 class="headers text-center">About</h3>
 	<textarea class="form-control" rows="15" id="about" name="text"></textarea>
@@ -177,7 +179,7 @@
   </div>
 </div>
 <br>        
-<div class="jumbo jumbo-padding" style="background-color:#607d8b;">
+<div class="jumbo jumbo-padding" style="background-color:#1F589E;">
   <div class="form-group text-center">
 	<h3 class="headers text-center">Terms & Privacy Policy</h3>
         <textarea class="form-control" rows="15" id="terms" name="text"></textarea>

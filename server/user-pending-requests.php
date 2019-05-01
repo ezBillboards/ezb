@@ -19,14 +19,15 @@ $requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-        $request['img'] = $row['artworkURL'];
+        $request['img'] = $config['IMAGE_PATH'] . $row['artworkURL'];
         $request['name'] = $row['billboardName'];
         $request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
         $request['date'] = $row['requestDateFormat'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];
-	$request['startingDate'] = $row['startDate'];
+	$request['startingDate'] = $row['startDateFormat'];
+	$request['endDate'] = $row['endDateFormat'];
 	$request['artworkName'] = $row['artworkName'];
 	$request['extension'] = $row['extension'];
         array_push($requests,$request);

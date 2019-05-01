@@ -1,10 +1,12 @@
 <?php
 
-define('DB_SERVER', 'ezb.uprm.edu');
-define('DB_USERNAME', 'ezb');
-define('DB_PASSWORD', 'ezb');
-define('DB_NAME', 'ezbillboards');
- 
+$config = parse_ini_file('../../config.ini');
+
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
+
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 if($conn === false){
@@ -17,15 +19,16 @@ $requests = array();
 
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
-        $request['img'] = $row['artworkURL'];
+        $request['img'] = $config['IMAGE_PATH'] . $row['artworkURL'];
         $request['name'] = $row['billboardName'];
-        $request['description'] = $row['billboardDescription'];
+	$request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
         $request['date'] = $row['requestDateFormat'];
 	$request['approvedDate'] = $row['approveDateFormat'];
         $request['duration'] = $row['duration'];
         $request['frequency'] = $row['displayPerCycle'];
-	$request['startingDate'] = $row['startDate'];
+	$request['startingDate'] = $row['startDateFormat'];
+	$request['endDate'] = $row['endDateFormat'];
 	$request['artworkName'] = $row['artworkName'];
 	$request['extension'] = $row['extension'];
 	$request['comments'] = $row['comments'];

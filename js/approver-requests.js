@@ -4,6 +4,12 @@ var currentRequestIndex;
 $(document).ready(function(){
 	$("#left").hide();
         $("#right").hide();
+	
+	$.get("../server/get-image-path.php", function(data, status){
+		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+        	$("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+	});
+
 	$("#view-profile").click(function(){
 		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
 			var profile = JSON.parse(data);
@@ -19,7 +25,6 @@ $(document).ready(function(){
 			$("#profile-facebook").attr("href",profile.facebookURL);
 			$("#profile-instagram").attr("href",profile.instagramURL);
 			$("#profile-twitter").attr("href",profile.twitterURL);
-			console.log(profile);
 		});
 	});
 	
@@ -45,7 +50,7 @@ $(document).ready(function(){
 		$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
 		$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
 		$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
-		$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
+		$("#image-size").html("<b>Size: </b>" + decimals(requests[currentRequestIndex].size/1048576,3) + " MB");
 	});
 
 	$(".left").click(function(){
@@ -61,7 +66,7 @@ $(document).ready(function(){
 			$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
 			$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
 			$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
-			$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
+			$("#image-size").html("<b>Size: </b>" + decimals(requests[currentRequestIndex].size/1048576,3) + " MB");
 		}
 	});
 	$(".right").click(function(){
@@ -77,7 +82,7 @@ $(document).ready(function(){
 			$("#image-name").html("<b>Image: </b>" + requests[currentRequestIndex].artworkName + "." + requests[currentRequestIndex].extension);
 			$("#image-resolution").html("<b>Resolution: </b>" + requests[currentRequestIndex].width + " X " + requests[currentRequestIndex].height + " pixels");
 			$("#image-extension").html("<b>Item Type: </b>" + requests[currentRequestIndex].extension + " File");
-			$("#image-size").html("<b>Size: </b>" + requests[currentRequestIndex].size);
+			$("#image-size").html("<b>Size: </b>" + decimals(requests[currentRequestIndex].size/1048576,3) + " MB");
 		}
 	});
 
@@ -212,7 +217,7 @@ function getRequests(startStr, endStr){
 			"</a>";
 
 			var requestImages = "<div class=\"item " + i + "image " + ((i == 0) ? "active":"") + "\">" +
-			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;\">" +
+			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;background-color:white;\">" +
 			"</div>";
 			$("#request-queue").append(request);
 			$("#request-images").append(requestImages);	
@@ -223,7 +228,7 @@ function getRequests(startStr, endStr){
 		$("#image-name").html("<b>Image: </b>" + requests[0].artworkName + "." + requests[0].extension);
 		$("#image-resolution").html("<b>Resolution: </b>" + requests[0].width + " X " + requests[0].height + " pixels");
 		$("#image-extension").html("<b>Item Type: </b>" + requests[0].extension + " File");
-		$("#image-size").html("<b>Size: </b>" + requests[0].size);
+		$("#image-size").html("<b>Size: </b>" + decimals(requests[0].size/1048576,3) + " MB");
 
 		console.log(requests);
 	});
@@ -257,4 +262,10 @@ function getRejections(){
 		$("#rejections").append(rejection);
 		console.log(rejections);
 	});
+}
+
+function decimals(n, d) {
+	if ((typeof n !== 'number') || (typeof d !== 'number')) return 0.000;
+    	n = parseFloat(n) || 0;
+	return n.toFixed(d);
 }

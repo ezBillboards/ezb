@@ -1,9 +1,11 @@
 <?php
 
-define('DB_SERVER', 'ezb.uprm.edu');
-define('DB_USERNAME', 'ezb');
-define('DB_PASSWORD', 'ezb');
-define('DB_NAME', 'ezbillboards');
+$config = parse_ini_file('../../config.ini');
+
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
 
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -17,7 +19,7 @@ $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
-		$info['img'] = $row['billboardImage_URL'];
+		$info['img'] = $config['IMAGE_PATH'] . $row['billboardImage_URL'];
 		$info['name'] = $row['billboardName'];
 		$info['width'] = $row['width'];
 		$info['height'] = $row['height'];
@@ -30,6 +32,8 @@ if (mysqli_num_rows($result) > 0) {
 		$info['minHeight'] = $row['minHeightRes'];
 		$info['maxWidth'] = $row['maxWidthRes'];
 		$info['maxHeight'] = $row['maxHeightRes'];
+		$info['extensions'] = $row['imageExtension'];
+		$info['ratios'] = $row['imageRatio'];
 	}
 } else {
 	echo "No results";

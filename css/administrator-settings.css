@@ -31,13 +31,8 @@
     height: 95px;
 }
 
-.active {
-  background-color: #03A9F4;
-  color: white;
-}
-
 .navbar-text-color {
-    color: #03A9F4 !important;
+    color: #1588C7 !important;
 }
 
 .well.col-lg-4{
@@ -56,7 +51,7 @@ line-height: inherit;
 outline-width: thin;
 outline-style: solid;
 border-radius: 6px;
-outline-color: #eeeeee;
+outline-color: white;
 color: #fffff1f;
 -webkit-border-radius: 20px;
 -moz-border-radius: 20px;
@@ -66,12 +61,6 @@ border-radius: 20px;
 .jumbo-padding{
 	padding-left: 5%;
 	padding-right: 5%;
-}
-
-th{
-  text-align: center;
-  width: 20%;
-  background-color: #607d8b;
 }
 
 #settings-header{

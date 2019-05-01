@@ -1,117 +1,129 @@
-
 .ezb-logo {
   width:245px;
   height:66px;
 }
 
-input[aria-invalid="true"], textarea[aria-invalid="true"] {
-  border: 1px solid #f00;
-  box-shadow: 0 0 4px 0 #f00;
+#related{
+	background-color: white;
+	width:50%;
+	float: left;
+	float: left;
 }
 
+.nav-align {
+        display: flex;
+        align-items: center;
+}
 
-
-#related{
-background-color: white;
-width:50%;
-float: left;
-float: left;
+.navbar-border {
+        border-bottom: 1px solid #D3D3D3;
 }
 
 .navbar-height {
-  height: 85px;
+  	height: 85px;
+	margin-bottom: 0px;
 }
 
 .navbar{
   background:white;
 }
 
-.active {
-background-color: #03A9F4;
-color: white;
-}
-
-
-.btn{
-background-color: #03A9F4;
-padding: 10px 10px;
-font-size: 15px;
-border-radius: 8px;
-}
-
 .navbar-text-color {
-  color: #03A9F4 !important;
+  color: #1588C7 !important;
 }
 
-.well {
- background-color: rgba(245, 245, 300, 0.4);
+.home-wells {
+	background-color: white;
+	padding: 2% 1% 2% 1%;
+        -webkit-border-radius: 20px;
+	weight: 150px;
+	height: 275px;
 }
 
 .jumbotron{
-background: rgba(0, 0, 0, 0.60)!important;
-width: 500px;
-heigth: 300px;
-}
-
-.container2 {
-position: relative;
-text-align: center;
-color: white;
-}
-
-
-.modal-title{
-  font-weight: 200%;
-  color: #03a9f4;
-}
-
-#Support_text{
-          margin-left: 105px;
+	background: rgba(0, 0, 0, 0.60)!important;
+	width: 500px;
+	heigth: 300px;
+	padding: 2% 1% 2% 1%;
+	-webkit-border-radius: 20px;
 }
 
 .centered {
-position: absolute;
- top: 50%;
- left: 80%;
- transform: translate(-50%, -50%);
-}
-
-strong{
-  margin-left: 120px;
-}
-
-h2{
-margin-left: auto;
-margin-right: auto;
-}
-
-.glyphicon {
-  font-size: 50px;
-}
-.glyphicon.glyphicon-envelope{
-    font-size: 15px;
-}
-
-.glyphicon.glyphicon-user{
-    font-size: 15px;
+	position: absolute;
+ 	top: 45%;
+ 	left: 80%;
+ 	transform: translate(-50%, -50%);
 }
 
 .text-primary:hover{
-text-decoration: underline;
-cursor: pointer;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
-.glyphicon.glyphicon-phone{
-    font-size: 25%;
+#btn-register{
+        color: white;
+        background-color: #1588C7;
+}
+
+.home-btn{
+        color: white;
+        background-color: #1588C7;
+}
+
+.home-btn:hover{
+	color:white;
+	background-color:#1588C7;
 }
 
 
-
-.userProfile{
-	display:none;
+.profile-dropdown{
+        font-size: 30px;
 }
 
-.getStarted{
-	display:inline;
+.footer-border {
+        border-top: 1px solid #D3D3D3;
 }
 
+#related{
+        width: 40%;
+        margin-left:10%;
+}
+
+.centered-modal.in {
+    display: flex !important;
+}
+
+
+.centered-modal .modal-dialog {
+
+    margin: auto;
+}
+
+.align{
+        justify-content: center;
+        display: flex;
+        align-items: center;
+}
+
+hr{
+        color: #D3D3D3;
+        margin: 0;
+}
+
+#home-billboard{
+        width: 100%;
+        height: 650px;
+        margin: 0;
+        padding:0;
+}
+
+.home-icon{
+	font-size: 75px;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.home-wells-text{
+	margin-top: 8px;
+	margin-bottom: 20px;
+}

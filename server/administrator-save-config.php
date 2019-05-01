@@ -1,20 +1,14 @@
 <?php
 
-$config = parse_ini_file('../../config.ini');
-$category = $_POST['category'];
+require_once('./logger.php');
 
-/*$office = $_POST['office'];
-$postal = $_POST['postal'];
-$physical = $_POST['physical'];
-$phone = $_POST['phone'];
-$extension = $_POST['extension'];
-$directPhone = $_POST['directPhone'];
-$fax = $_POST['fax'];
-$email = $_POST['email'];
-$about = $_POST['about'];
-$terms = $_POST['terms'];
-*/
+$config = parse_ini_file('../../config.ini');
+
+$category = $_POST['category'];
+$adminEmail = $_POST['adminEmail'];
+
 if($category == "db"){
+	
 	$server = $_POST['server'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -77,13 +71,24 @@ if($category == "db"){
 }
 
 if (!$handle = fopen("../../config.ini", 'w')) {
-	echo "ERROR opening file.";
+	logger($adminEmail,"ERROR UPDATE " . strtoupper($category), "Error trying opening config file.");
 }
 	
-$success = fwrite($handle, $content);
+$result = fwrite($handle, $content);
 fclose($handle);
 
-echo $success;
+$additionalInfo;
+if($category == "image" || $category == "backup"){
+	$additionalInfo = "path";
+} else{
+	$additionalInfo = "configuration";
+}
+
+if($result){
+	logger($adminEmail,"UPDATE " . strtoupper($category) . " " . strtoupper($additionalInfo), $category . " " . $additionalInfo . " has been updated");
+} else{
+	logger($adminEmail,"ERROR UPDATE " . strtoupper($category) . " " . strtoupper($additionalInfo), "Error trying writing config file.");
+}
 
 ?>
 

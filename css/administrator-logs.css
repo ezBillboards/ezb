@@ -28,6 +28,7 @@
   text-align: center;
   width: 20%;
   background-color: #607d8b;
+  color: white;
 }
 
 
@@ -48,8 +49,4 @@
 #logs-header{
 	font-size: 56px;
         font-weight: bold;
-}
-
-th {
-	color: white;
 }

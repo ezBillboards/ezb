@@ -1,0 +1,247 @@
+<?PHP
+///V:1.0.0
+///M:Database Library
+///H:ckdb.html
+require_once('./ckseclib.php');
+
+class ckDAO {
+	var $version='1.0';
+	function &OpenConnection($domain,$duser,$dpass){
+		$cn = new ckconnection($domain,$duser,$dpass);
+		$cn->connect();
+		return $cn;
+	}
+	function sanitizeValue($v){
+		$s = $v;
+		$s = str_replace(";","\;",$s);
+		$s = str_replace("'","\'",$s);
+		return $s;
+	}
+}
+
+class ckconnection{
+	var $id=0;
+	var $domain='localhost';
+	var $user='';
+	var $password='';
+	var $conID=0;
+	function ckConnection($d,$du,$dp){
+		///P:$d:String, The db server.
+		///P:$du:String, The username to access the db.
+		///P:$dp:String, The password to access the db.
+		$this->domain=$d;
+		$this->user=$du;
+		$this->password = $dp;
+	}
+	function connect(){
+		@ $this->conID = mysql_connect($this->domain,$this->user,$this->password);
+	}
+	function error(){
+		if(!$this->conID) return true;
+		return false;
+	}
+	function &OpenDatabase($s){
+		///P:$s:Name of the database.
+		$db = new ckdatabase($s,$this->domain,$this->user,$this->password);
+		$db->conID = $this->conID;
+		$db->opendatabase();
+		return $db;
+	}
+}
+class ckdatabase {
+	var $domain='localhost';
+	var $user='';
+	var $password='';
+	var $databasename='';
+	var $conID=0;
+	var $recordsource='';
+	var $error=0;
+
+	function ckdatabase($dbn,$d,$du,$dp){
+		$this->domain=$d;
+		$this->user=$du;
+		$this->password = $dp;
+		$this->databasename=$dbn;
+	}
+	function connect(){
+		$this->conID = mysql_connect($this->domain,$this->user,$this->password);
+	}
+
+	function pconnect(){
+		$this->conID = mysql_pconnect($this->domain,$this->user,$this->password);
+	}
+
+	function getInsertID(){
+		$rs = $this->getRecordset('SELECT LAST_INSERT_ID() id');
+		$rs->movenext();
+		return $rs->fields['id'];
+	}
+
+	function geterror(){
+		return mysql_error();
+	}
+	function errornum(){
+		return mysql_errno($this->conID);
+	}
+     function opendatabase(){
+		//$this->databasename = $s;
+		if(mysql_selectdb($this->databasename, $this->conID) == true){
+			$this->error=0;
+		}else{
+			$this->error=1;
+		}
+	}
+     function opendb(){
+		$this->connect();
+		$this->opendatabase();
+	}
+     function popendb(){
+		$this->pconnect();
+		$this->opendatabase();
+	}
+     function open(){
+		$this->connect();
+		$this->opendatabase();
+	}
+	function ShowDBError(){
+		return "<p><b>Error</b><br>" . mysql_error();
+	}
+	function &getrecordset($s){
+		///P:$s:A valid MySQL query.
+		///N:Returns a recordset.
+		$r = new recordset($this);
+		$r->recordsource($s);
+		return $r;
+	}
+	function &openRecordset($s){
+		///P:$s:A valid MySQL query.
+		///N:Returns a recordset.
+		$r = new recordset($this);
+		$r->recordsource($s);
+		return $r;
+	}
+	function &gettable($s){
+		///P:$s:A table name.
+		///N:Returns a recordset.
+		$r = new recordset($this);
+		$r->recordsource("Select * from $s");
+		return $r;
+	}
+	function runquery($s){
+		///P:$s:A valid MySQL query.
+		 mysql_query($s, $this->conID);
+	}
+	function close(){
+		mysql_close($this->conID);
+	}
+	function pclose(){
+		mysql_pclose($this->conID);
+	}
+	function deleterecord($s,$w){
+		///P:$s:A table name.
+		///P:$w:The where portion a SQL query.
+		//$r = new recordset($this);
+		//$r->recordsource("delete from $s where $w");
+		$this->runquery("delete from $s where $w");
+	}
+}
+class recordset {
+	var $db;
+	var $id=0;
+	var $name='';
+	var $query='';
+	var $fields;
+	var $flgempty=1;
+	var $count = 0;
+	var $ptr=-1;
+	function rowcount(){
+		if(!$this->id) return -1;
+		$c = mysql_numrows($this->id);
+		return $c;
+	}
+	function recordsource($s){
+		$this->query = $s;
+		$this->id = mysql_query($s, $this->db->conID);
+		$this->flgempty = 0;
+		$this->count = $this->rowcount();
+		$this->ptr = 0;
+	}
+	function bof(){
+		if($this->count <= 0) return true;
+		if($this->ptr< 0) return true;
+		return false;
+	}
+	function eof(){
+		if($this->count <= 0) return true;
+		if($this->ptr > $this->count) return true;
+		return false;
+	}
+	function error(){
+		return mysql_errno($this->db->conID);
+	}
+	function movenext(){
+		$this->ptr++;
+		if($this->eof()) return;
+		//print "ptr is " .$this->ptr . "<br>";
+		mysql_data_seek($this->id, $this->ptr-1);
+		//print "ptr is " .$this->ptr . "<br>";
+		$this->fields = mysql_fetch_assoc($this->id);
+	}
+	function moveprevious(){
+		$this->ptr--;
+		if($this->bof()) return;
+		mysql_data_seek($this->id, $this->ptr-1);
+		$this->fields = mysql_fetch_assoc($this->id);
+	}
+	function movefirst(){
+		$this->ptr=0;
+		if($this->count <= 0) return;
+		mysql_data_seek($this->id, $this->ptr);
+		$this->fields = mysql_fetch_assoc($this->id);
+	}
+	function movelast(){
+		$this->ptr=$this->count - 1;
+		if($this->count <= 0) return;
+		mysql_data_seek($this->id, $this->ptr);
+		$this->fields = mysql_fetch_assoc($this->id);
+	}
+	function recordset(&$d){
+		$this->id=-1;
+		$this->db =& $d;
+	}
+	function isRSEmpty(){
+		if($this->rowcount()<=0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+
+$DAO = new ckDAO();
+function &opendatabase($dbn,$d,$du,$dp){
+	///P:$dbn:String, The name of the db.
+	///P:$d:String, The db server.
+	///P:$du:String, The username to access the db.
+	///P:$dp:String, The password to access the db.
+	$db = new ckdatabase($dbn,$d,$du,$dp);
+	return $db;
+}
+
+class cksdatabase extends ckdatabase{
+	function cksdatabase($constr){
+		$decoded = xorDecrypt(rot13ex(substr($constr, 6)), rotEncode(substr($constr, 0, 6)));
+		$bits = explode(';', $decoded);
+		$info = array();
+		foreach($bits as $bit) {
+			list($name, $value) = explode('=', $bit);
+			$info[$name] = $value;
+		}
+		$this->databasename = $info['dbname'];
+		$this->user = $info['user'];
+		$this->password = $info['password'];
+		$this->domain = $info['host'];
+	}
+}
+
+?>

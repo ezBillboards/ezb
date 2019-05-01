@@ -19,8 +19,13 @@ $(document).ready(function(){
 			console.log('add');
 		else if(tab === 'Edit')
 			console.log('Edit');
-    });
+	});
 	
+	$.get("../server/get-image-path.php", function(data, status){
+		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+                $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+        });	
+
 	getBillboards();
 	
 	$('#btnaddpackage').click(function(){

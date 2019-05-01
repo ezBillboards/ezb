@@ -3,25 +3,20 @@
     height:66px;
 }
 
-.selected {
-        color: white !important;
-        background-color: gray;
-}
-
 .navbar-border {
-        border-bottom: 1px solid #BDBDBD;
+        border-bottom: 1px solid #D3D3D3;
 }
 
-.navbar-alignment {
+.nav-align {
         display: flex;
         align-items: center;
 }
 
 #related{
-background-color: white;
-width:50%;
-float: left;
-float: left;
+	background-color: white;
+	width:50%;
+	float: left;
+	float: left;
 }
 
 .navbar-height {
@@ -32,61 +27,41 @@ float: left;
     background:white;
 }
 
-
-#OfficeHours{
-    color: white;
-
-}
-
 .navbar-text-color {
-    color: #03A9F4 !important;
+    color: #1588C7 !important;
 }
 
-.row{
-    background:#bdbdbd;
-    width: 70%;
-    margin-left: auto;
-  margin-right: auto;
+.ezb-btn{
+        color: white;
+        background-color: #1588C7;
 }
 
-p{
-    color: white;
+.ezb-btn:hover{
+        color:white;
+        background-color:#1588C7;
 }
 
-h4{
-    color: black;
-    font-size: 22px;
+.profile-dropdown{
+        font-size: 30px;
 }
 
-tittle{
-    color: white;
-}
-
-#numbers{
-    color: white;
-}
-
-strong{
-    margin-left: 120px;
-}
-
-.container{
-    color: #bdbdbd;
+.footer-border {
+        border-top: 1px solid #D3D3D3;
 }
 
 #related{
-background-color: white;
-width:50%;
-float: left;
-float: left;
+        width: 40%;
+        margin-left:10%;
 }
 
-.btn{
-    background-color:#5bc0de;
+#account-header{
+	font-size:56px;
+	font-weight: bold;
 }
 
-#AccountText{
-    background-color: white;
+.align{
+        justify-content: center;
+        display: flex;
+        align-items: center;
 }
-
 

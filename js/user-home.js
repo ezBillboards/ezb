@@ -17,6 +17,12 @@ var random;
 
 $(document).ready(function(){
 	Session();
+
+	$.get("../server/get-image-path.php", function(data, status){
+                $("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
+                $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
+                $("#home-billboard").attr("src", data + "img/ezb/BackgroundHome.jpg");		
+        });	
 	
 	$("#btnlogin").click(function(){
 		if(validateLogin() ==true){	
@@ -52,8 +58,10 @@ $(document).ready(function(){
 	
 	$("#btnchangepassword").click(function(){
 		console.log('btnchangepassword clicked!!');
+ console.log($('passwordchange').val());		
 		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-                        changePassword();
+                       console.log($('#confirm_passwordchange').val());
+			changePassword(password);
                 }
                 else{
                         console.log('password values not the same');
@@ -523,7 +531,9 @@ function forgotPassword(){
 		});
 }
 
-function changePassword(){
+function changePassword(password){
+	console.log(password);
+	if(password.localeCompare($('#passwordchange').val()) == -1){
 	$.post("../server/change-password.php",
 			{
 				userID : profile_ID,
@@ -537,6 +547,10 @@ function changePassword(){
 					console.log('Error changing password!!');
 				}
 		});
+	}else{
+	    alert('old password and new password cant be the same');
+}
+	
 }
 
 function generatePassword() {

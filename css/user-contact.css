@@ -1,28 +1,35 @@
+hr{
+	color: #D3D3D3;
+	margin: 0;
+}
+
 .ezb-logo {
   width:245px;
   height:66px;
 }
 
 .navbar-text-color {
-        color: #03A9F4 !important;
-}
-
-.selected {
-        color: white !important;
-        background-color: gray;
+        color: #1588C7 !important;
 }
 
 .navbar-border {
-        border-bottom: 1px solid #BDBDBD;
+        border-bottom: 1px solid #D3D3D3;
 }
 
-.navbar-alignment {
+.nav-align {
+        display: flex;
+        align-items: center;
+}
+
+.align{
+	justify-content: center;
         display: flex;
         align-items: center;
 }
 
 .navbar-height {
   height: 85px;
+  margin-bottom:0px;
 }
 
 .navbar{
@@ -31,17 +38,12 @@
 
 #office-hours{
     color: white;
-    
 }
 
 #office-hours-well {
-    background:#9e9e9e;
-    width: 70%;
     margin-left: auto;
     margin-right: auto;
-    
 }
-
 
 p{
     color: white;
@@ -61,5 +63,51 @@ strong{
 
 .numbers {
     color: white;
+}
+
+.profile-dropdown{
+        font-size: 30px;
+}
+
+#map{
+	width: 100%;
+	height: 650px;
+}
+.jumbo {
+padding: 2% 1% 2% 1%;
+margin-bottom: 10px;
+margin-top: 10px;
+margin-left: 2px;
+margin-right: 2px;
+line-height: inherit;
+outline-width: thin;
+outline-style: solid;
+border-radius: 6px;
+outline-color: white;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+}
+
+#btn-register{
+	color: white;
+	background-color: #1588C7;
+}
+
+.footer-border {
+        border-top: 1px solid #D3D3D3;
+}
+
+#related{
+	width: 40%;
+	margin-left:10%;
+}
+
+.centered-modal.in {
+    display: flex !important;
+}
+
+.centered-modal .modal-dialog {
+    margin: auto;
 }
 

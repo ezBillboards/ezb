@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EZBillboards</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/approver-requests.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../js/approver-accounts.js"></script>
+  <script src="../js/approver.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link id="tab-logo" rel="icon" href="">
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-border navbar-height">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="myNavbar">
+       <a class="navbar-brand" target="_blank">
+        <img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
+      </a>
+      <ul class="nav navbar-nav navbar-right navbar-text nav-align">
+        <li><a class="navbar-text-color" href="requests.html">Pending Requests</a></li>
+        <li><a class="navbar-text-color" href="processed-requests.html">Processed Requests</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user profile-dropdown"></span><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Account</a></li>
+            <li><a id="btnlogout">Logout</a></li>
+          </ul>
+        </li>
+        <li><a id="profile-email" class="profile-email">ezb19@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<div class="row"  id = "AccountText">
+   <div class="col-lg-12 text-center"><h1 style = "font-size: 56px;">Account</h1></div>
+ </div>
+
+<div class="container">
+  <div class="jumbotron" style = "background:#bdbdbd">
+    <div class="row-lg">
+    <div class="col col-lg-6 text-center"><strong><h4>Contact Information</h4></strong>
+
+	<div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input id="firstName" type="text" class="form-control" name="firstName" placeholder="First Name">
+        </div>
+<br>
+	<div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input id="lastName" type="text" class="form-control" name="lastName" placeholder="Last Name">
+        </div>
+<br>
+       <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          <input id="email" type="text" class="form-control" name="email" placeholder="Email" disabled>
+        </div>
+<br>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+        <input id="mobilePhone" type="text" class="form-control" name="mobilePhone" placeholder="Mobile Phone">
+      </div>
+
+<br>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+        <input id="workPhone" type="text" class="form-control" name="workPhone" placeholder="Work Phone">
+      </div>
+
+<br>
+
+       <div class="input-group">
+         <span class="input-group-addon"><i class="fa fa-building"></i></span>
+         <input id="company" type="text" class="form-control" name="company" placeholder="Company">
+       </div>
+
+<br>
+
+       <div class="input-group">
+         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+         <input id="address1" type="text" class="form-control" name="address1" placeholder="Address #1">
+       </div>
+
+
+<br>
+
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+          <input id="address2" type="text" class="form-control" name="address2" placeholder="Address #2">
+        </div>
+
+<br>
+
+         <div class="input-group">
+           <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+           <input id="state" type="text" class="form-control" name="state" placeholder="State">
+         </div>
+
+<br>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+            <input id="city" type="text" class="form-control" name="city" placeholder="City">
+          </div>
+	
+<br>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+            <input id="zip" type="text" class="form-control" name="zip" placeholder="Zip">
+          </div>
+    </div>
+
+
+<div class="col-lg text-center" style="padding-top: 1px;"><strong><h4>Password</h4></strong>
+
+      <div class="input-group col-lg-6">
+        <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
+        <input id="oldPasswd" type="password" class="form-control" name="old_password" placeholder="Old Password">
+      </div>
+
+<br>
+
+    <div class="input-group col-lg-6">
+      <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
+      <input id="newPasswd" type="password" class="form-control" name="new_password" placeholder="New Password">
+    </div>
+
+<br>
+
+    <div class="input-group col-lg-6">
+      <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
+      <input id="confirmPasswd" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+    </div>
+
+<br>
+
+<div class="row">
+    <div class="col col-lg">
+     <button id="changePasswd" type="button" class="btn btn-info ">Change Password</button>
+    </div>
+</div>
+
+<br>
+<button id="save" type="button" class="btn btn-info ">Save</button>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</body>
+</html>
