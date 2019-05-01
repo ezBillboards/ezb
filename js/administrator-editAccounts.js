@@ -3,26 +3,30 @@ $(document).ready(function(){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
-	console.log(sessionID);
-	$.get("../server/user-account.php",
-		{id:sessionID},
-		function(data, status){
 
-        	var info = JSON.parse(data);
-                console.log(info);
-                $("#firstName").val(info.firstName);
-                $("#lastName").val(info.lastName);
-                $("#email").val(info.email);
-                $("#mobilePhone").val(info.mobilePhone);
-                $("#workPhone").val(info.workPhone);
-                $("#company").val(info.company);
-                $("#address1").val(info.address1);
-                $("#address2").val(info.address2);
-                $("#state").val(info.state);
-                $("#city").val(info.city);
-                $("#zip").val(info.zip);
+	setTimeout(function(){
+		console.log(decrypt(sessionStorage.getItem('ID')));
+		$.get("../server/user-account.php",
+			{id:decrypt(sessionStorage.getItem('ID'))},
+			function(data, status){
 
-        });
+				var info = JSON.parse(data);
+					console.log(info);
+					$("#firstName").val(info.firstName);
+					$("#lastName").val(info.lastName);
+					$("#email").val(info.email);
+					$("#mobilePhone").val(info.mobilePhone);
+					$("#workPhone").val(info.workPhone);
+					$("#company").val(info.company);
+					$("#address1").val(info.address1);
+					$("#address2").val(info.address2);
+					$("#state").val(info.state);
+					$("#city").val(info.city);
+					$("#zip").val(info.zip);
+
+			});
+	},100);
+	
 
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){
