@@ -190,10 +190,10 @@ $(document).ready(function(){
 			alert("Fill out package fields!");
 		}else if(errZero){
 			alert("Duration, cycle and price cannot be less or equal to zero");
-		}else if(errCycle){
-			alert("Display per cycle larger than billboard cycle");
 		}else if(errNumber){
 			alert("Not a valid integer for duration or cycle");
+		}else if(errCycle){
+			alert("Display per cycle larger than billboard cycle");
 		}else if(errPrice){
 			alert("Not a valid price number");
 		}else if(emptyReg){
