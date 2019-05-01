@@ -301,7 +301,7 @@ function decrypt (transitmessage) {
 			padding: CryptoJS.pad.Pkcs7,
 			mode: CryptoJS.mode.CBC
 		})
-		console.log(decrypted.toString(CryptoJS.enc.Utf8));
+		console.log(decrypted);
 		return decrypted.toString(CryptoJS.enc.Utf8);
 	}else{
 		return "Not received";
