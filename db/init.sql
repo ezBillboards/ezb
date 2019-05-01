@@ -1767,7 +1767,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
 -- Dumping data for table ezbillboards.tblusers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`, `enabled`) VALUES
-	(5, 'ezbillboards19@gmail.com', 1, 'S-123A', 'EZB', 'Developers', '7874122587', '7874566547', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
+	(1, 'ezbillboards19@gmail.com', 4, 'S-123A', 'EZB', 'Developers', '7874122587', '7874566547', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 -- Dumping structure for procedure ezbillboards.viewSchedule
