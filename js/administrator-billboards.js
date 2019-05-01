@@ -132,6 +132,7 @@ $(document).ready(function(){
 							}
 						}
 					}else{
+						console.log(Number.isInteger(this.value));
 						if(!Number.isInteger(this.value)){
 							errNumber = true;
 							console.log("Not an integer");
