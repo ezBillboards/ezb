@@ -113,12 +113,21 @@ $(document).ready(function(){
 								errPrice = true;
 							}
 						}else{
-							if(price[1].length > 2){
-								console.log('Decimal > 2');
-								errPrice = true;
-							}
-							else if(price[0].length > 12){
-								console.log('Integer > 12');
+							if(price.length == 2){
+								if(price[1].length > 2){
+									console.log('Decimal > 2');
+									errPrice = true;
+								}
+								else if(price[0].length > 12){
+									console.log('Integer > 12');
+									errPrice = true;
+								}
+							}else if(price.length == 1){
+								if(price[0].length > 12){
+									console.log('Integer > 12');
+									errPrice = true;
+								}
+							}else{
 								errPrice = true;
 							}
 						}
