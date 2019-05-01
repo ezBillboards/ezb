@@ -84,6 +84,10 @@ $(document).ready(function(){
 		var emptyPack = false;
 		var emptyReg = false;
 		var emptyRej = false;
+		var errZero = false;
+		var errCycle = true;
+		var errNumber = false;
+		var errPrice = false;
 		var packages = [];
 		var regulations = [];
 		var rejections = [];
@@ -91,11 +95,42 @@ $(document).ready(function(){
 		var ratios = "";
 		
 		$("#add-package tr").each(function() {
+			var i = 1;
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
 					emptyPack = true;
+					var i = i +1;
+				}else if(this.value <= 0){
+					errZero = true;
 				}else{
+					if (i % 3 == 0){
+						var price = this.value.split(".");
+						console.log(price);
+						if(this.value.charat(0) == "."){
+							if(price[0].length > 2){
+								errPrice = true;
+							}
+						}else{
+							if(price[1].length > 2){
+								errPrice = true;
+							}
+							else if(price[0].length > 12){
+								errPrice = true;
+							}
+						}
+					}else{
+						if(!Number.isInteger(this.value)){
+							errNumber = true;
+							console.log("Not an integer");
+						}
+						else if(i % 3 == 2){
+							if(this.value > $("#addcycle").val()){
+								errCycle = true;
+							}
+						}
+					}
 					
+					var i = i + 1;
 					packages.push(this.value);
 				}
 			});
@@ -140,12 +175,21 @@ $(document).ready(function(){
 			alert('Missing billboard information');
 		}else if(emptyPack){
 			alert("Fill out package fields!");
+		}else if(errZero){
+			alert("Duration, cycle and price cannot be zero");
+		}else if(errCycle){
+			alert("Display per cycle larger than billboard cycle");
+		}else if(errNumber){
+			alert("Not a valid integer for duration or cycle");
+		}else if(errPrice){
+			alert("Not a valid price number");
 		}else if(emptyReg){
 			alert("Fill out regulations fields!");
 		}else if(emptyRej){
 			alert("Fill out rejections fields!");
 		}else{
-			newBillboard(packages,regulations,rejections,ratios,extensions);
+			alert("Validated information");
+			//newBillboard(packages,regulations,rejections,ratios,extensions);
 		}
 	});
 	
