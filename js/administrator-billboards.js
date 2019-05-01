@@ -156,10 +156,6 @@ $(document).ready(function(){
 			});
 		});
 		
-		if(packages.length == 0){
-			errPack = true;
-		};
-		
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -170,10 +166,6 @@ $(document).ready(function(){
 			});
 		});
 		
-		if(regulations.length == 0){
-			errPack = true;
-		};
-		
 		$("#add-rejection tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -183,10 +175,6 @@ $(document).ready(function(){
 				}
 			});
 		});
-		
-		if(rejections.length == 0){
-			errPack = true;
-		};
 		
 		$.each($("input[name='image-ratio']:checked"), function(){            
                 ratios += $(this).val() + ",";
@@ -205,11 +193,27 @@ $(document).ready(function(){
 		//console.log(ratios);
 		if(validateBillboard()){
 			alert('Missing billboard information');
-		}else if(errPack){
+		}else if(!$("#addwidth").val()){
+			alert("Insert width");
+		}else if(!$("#addheight").val()){
+			alert("Insert height");
+		}else if(!$("#addminwidth").val()){
+			alert("Insert minimum width");
+		}else if(!$("#addminheight").val()){
+			alert("Insert minimum height");
+		}else if(!$("#addmaxwidth").val()){
+			alert("Insert maximum width");
+		}else if(!$("#addmaxheight").val()){
+			alert("Insert maximum height");
+		}else if(extensions.length == 0){
+			alert("Add at least one extension");
+		}else if(ratios.length == 0){
+			alert("Add at least one ratio");
+		}else if(packages.length == 0){
 			alert("Add at least one package");
-		}else if(errReg){
+		}else if(regulations.length == 0){
 			alert("Add at least one regulation");
-		}else if(errRej){
+		}else if(rejections.length == 0){
 			alert("Add at least one Rejection");
 		}else if(emptyPack){
 			alert("Fill out all package fields!");
