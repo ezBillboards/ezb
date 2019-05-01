@@ -1,7 +1,22 @@
-function encrypt (msg, pass) {
+var keySize;
+var ivSize;
+var iterations;
+var psswd;
+
+$(document).ready(function(){
+	$.get("../server/get-security.php", function(data, status){
+			var security = JSON.parse(data);
+			keySize = security.KEYSIZE;
+			ivSize = security.IVSIZE;
+			iterations = security.ITERATIONS;
+			psswd = security.KEY;
+    });
+});
+
+function encrypt (msg) {
   var salt = CryptoJS.lib.WordArray.random(128/8);
   
-  var key = CryptoJS.PBKDF2(pass, salt, {
+  var key = CryptoJS.PBKDF2(psswd, salt, {
       keySize: keySize/32,
       iterations: iterations
     });
@@ -21,12 +36,12 @@ function encrypt (msg, pass) {
   return transitmessage;
 }
 
-function decrypt (transitmessage, pass) {
+function decrypt (transitmessage) {
   var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
   var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
   var encrypted = transitmessage.substring(64);
   
-  var key = CryptoJS.PBKDF2(pass, salt, {
+  var key = CryptoJS.PBKDF2(psswd, salt, {
       keySize: keySize/32,
       iterations: iterations
     });

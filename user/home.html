@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
 	<title>EZBillboards</title>
-	 <meta charset="utf-8">
-	 <meta name="viewport" content="width=device-width, initial-scale=1">
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	 <link rel="stylesheet" href="../css/user-home.css">
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	 <script src="../js/user-home.js"></script>
-	 <link id="tab-logo" rel="icon" href="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/user-home.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+	<script src="../js/encryption-decryption.js"></script>
+	<script src="../js/user-home.js"></script>
+	<link id="tab-logo" rel="icon" href="">
 </head>
 <body>
 
@@ -28,7 +31,7 @@
         <li><a class="navbar-text-color" href="about-us.html">About</a></li>
         <li><a class="navbar-text-color" href="contact.html">Contact</a></li>
         <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
-        <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
+        <li id="getStartedReg"><button id="btn-register" type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
         <li class="dropdown">
             <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user profile-dropdown"></span>

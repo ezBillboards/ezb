@@ -316,9 +316,9 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 	$.post("../server/user-registration.php",
 			{
 				email: email_IN,
-				firstName: firstName_IN,
-				lastName : lastName_IN,
-				mobilePhone: mobilePhone_IN,
+				firstName: encrypt(firstName_IN),
+				lastName : encrypt(lastName_IN),
+				mobilePhone: encrypt(mobilePhone_IN),
 				workPhone : null,
 				companyName : null,
 				companyURL : null,
@@ -330,7 +330,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				city : null,
 				state : null,
 				zipcode : null,
-				password :password_IN,
+				password : password_IN,
 			},function(data,status){
 				if(data == "Email already exists"){
 					alert("Email address already exists");
