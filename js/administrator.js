@@ -1,4 +1,4 @@
-
+var sessionID;
 
 $(document).ready(function(){
 	//setTimeout(session,5);
@@ -18,12 +18,12 @@ function session(){
 	console.log("Reading session variables");
 	
 	if (sessionStorage.getItem('ID') != null){
-		
-		if(decrypt(sessionStorage.getItem('role')) != 4){
-			if(decrypt(sessionStorage.getItem('role')) == 1){
+		sessionID = decrypt(sessionStorage.getItem('role'));
+		if(sessionID != 4){
+			if(sessionID == 1){
 				window.location.href = "../user/home.html";
 			}
-			else if(decrypt(sessionStorage.getItem('role')) == 3){
+			else if(sessionID == 3){
 				window.location.href = "../publisher/paid-requests.html";
 			}
 			else{
