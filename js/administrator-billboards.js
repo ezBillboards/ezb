@@ -186,25 +186,35 @@ $(document).ready(function(){
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
-		//console.log(packages);	
-		//console.log(regulations);
-		//console.log(rejections);
-		//console.log(extensions);
-		//console.log(ratios);
+		
 		if(validateBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#addwidth").val()){
-			alert("Insert width");
+			alert("Insert billboard width");
 		}else if(!$("#addheight").val()){
-			alert("Insert height");
+			alert("Insert billboard height");
 		}else if(!$("#addminwidth").val()){
-			alert("Insert minimum width");
+			alert("Insert image minimum width");
 		}else if(!$("#addminheight").val()){
-			alert("Insert minimum height");
+			alert("Insert image minimum height");
 		}else if(!$("#addmaxwidth").val()){
-			alert("Insert maximum width");
+			alert("Insert image maximum width");
 		}else if(!$("#addmaxheight").val()){
-			alert("Insert maximum height");
+			alert("Insert image maximum height");
+		}else if(!$("#addlatitude").val()){
+			alert("Insert billboard latitude");
+		}else if(!$("#addlongitude").val()){
+			alert("Insert billboard longitude");
+		}else if(!$("#addimpressions").val()){
+			alert("Insert billboard impressions");
+		}else if(!$("#addtraffic").val()){
+			alert("Insert traffic");
+		}else if(!$("#addtolerance").val()){
+			alert("Insert image tolerance");
+		}else if(!$("#addcycle").val()){
+			alert("Insert billboard cycle");
+		}else if(!$("#addreadtime").val()){
+			alert("Insert billboard read time");
 		}else if(extensions.length == 0){
 			alert("Add at least one extension");
 		}else if(ratios.length == 0){
@@ -628,6 +638,7 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	fd.append('maxwidth',$("#addmaxwidth").val());
 	fd.append('minheight',$("#addminheight").val());
 	fd.append('maxheight',$("#addmaxheight").val());
+	fd.append('tolerance',$("#addtolerance").val());
 	fd.append('readtime',readTime);
 	fd.append('cycle',cycle);
 	fd.append('slots',slots);
