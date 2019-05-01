@@ -1,5 +1,7 @@
 <?php
 
+require_once('./logger.php');
+
 $config = parse_ini_file('../../config.ini');
 
 define('DB_SERVER', $config['DB_SERVER']);
@@ -20,15 +22,15 @@ $workPhone = $_POST['workPhone'];
 $mobilePhone = $_POST['mobilePhone'];
 $office = $_POST['office'];
 $role = $_POST['role'];
-
-echo $userID . " " . $firstName . " " . $lastName . " " . $workPhone . " " . $mobilePhone . " " . $office . " " . $role;
+$userEmail = $_POST['userEmail'];
+$adminEmail = $_POST['adminEmail'];
 
 $sql = "CALL putAccountAdmin($userID, '$firstName','$lastName','$workPhone','$mobilePhone','$office','$role')";
 
 if (mysqli_query($conn, $sql)) {
-	echo "Record updated successfully";
+	logger($adminEmail,"ADMIN UPDATE ACCOUNT","An account with email " . $userEmail . " has been updated");
 } else {
-	echo "Error updating record: " . mysqli_error($conn);
+	logger($adminEmail,"ERROR IN DB","Error updating record when updating an account: " . mysqli_error($conn));
 }
 
 mysqli_close($conn);

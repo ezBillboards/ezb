@@ -332,28 +332,19 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 				zipcode : null,
 				password :password_IN,
 			},function(data,status){
-				console.log(data);
-				console.log(status);
-				if(data == "Email already exists!"){
-					console.log("Already exists");
-					alert("Email address already exists!");
+				if(data == "Email already exists"){
+					alert("Email address already exists");
 				}
 				else if(status === "success"){
-					if(JSON.parse(data).length > 0){
-					credentials = JSON.parse(data);
-						profile_ID = credentials[0].id;
-						console.log(profile_ID);
-						console.log(status);
+					if(data != ""){
+						profile_ID = data;
 					}
-					console.log('USER REGISTERED!!')
-					console.log(data);
 					role = 1;
 					sessionStorage.setItem('role', role);
 					sessionStorage.setItem('email', email_IN);
 					sessionStorage.setItem('verificationCode', random_IN);
 					sendVerificationCode();
 					$('#registerModal').modal('hide');
-					//document.getElementById("verifyEmailModal").reset();
 					$('#verifyEmailModal').modal('show');
 				}else{
 					console.log('Error registering user!!');

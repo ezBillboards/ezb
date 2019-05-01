@@ -1,5 +1,7 @@
 <?php
 
+require_once('./logger.php');
+
 $config = parse_ini_file('../../config.ini');
 
 define('DB_SERVER', $config['DB_SERVER']);
@@ -33,6 +35,7 @@ $password = $_POST['password'];
 $sql = "CALL postUser('$email','$firstName','$lastName','$mobilePhone','$workPhone','$companyName','$companyURL','$facebookURL','$instagramURL','$twitterURL','$address1','$address2','$city','$state','$zipcode','$password')";
 
 if (mysqli_query($conn, $sql)) {
+	logger($email,"USER REGISTRATION","User with email " . $email . " has registered succesfully");
 	mysqli_close($conn);
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	 
@@ -42,24 +45,22 @@ if (mysqli_query($conn, $sql)) {
 
 	$sql = "call getUserID('$email')";
 	$result = mysqli_query($conn,$sql);
-	$requests = array();
+	$id = "";
 	
 	if (mysqli_num_rows($result) > 0) {
-	    while($row = mysqli_fetch_assoc($result)) {
-	        $request['id'] = $row['user_ID'];
-		array_push($requests,$request);
-	    }
-		echo json_encode($requests);
+	    $row = mysqli_fetch_assoc($result);
+	    $id = $row['user_ID'];
+	    logger($email,"USER REGISTRATION ID", "Registered user has ID " . $id);
 	} else {
-	    echo "No results";
+	    logger($email,"ERROR USER REGISTRATION ID", "Error while trying to retrieve new user ID");
 	}	
-
+	echo $id;
 	mysqli_close($conn);
 
 } else {
-	echo "Email already exists!";
+	echo "Email already exists";
+	logger($email,"ERROR IN DB","Error while trying to register new user account");
 	mysqli_close($conn);
 }
-
 
 ?>
