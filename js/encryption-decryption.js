@@ -15,6 +15,7 @@ $(document).ready(function(){
 			console.log(ivSize);
 			console.log(iterations);
 			console.log(psswd);
+			session();
     });
 });
 
