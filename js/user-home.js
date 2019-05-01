@@ -514,7 +514,7 @@ function VerifyEmail(){
 
 function Session(){
 		checkCookie();
-		if (sessionStorage.getItem('ID'))!== null){
+		if (sessionStorage.getItem('ID') !== null){
 			$("#profileEmail").text(sessionStorage.getItem('email')); 
 			if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) != 1){
 				if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) == 2){
