@@ -99,7 +99,7 @@ $(document).ready(function(){
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
 					emptyPack = true;
-					i = i +1;
+					//i = i +1;
 				}else if(this.value <= 0){
 					errZero = true;
 				}else{
@@ -129,10 +129,10 @@ $(document).ready(function(){
 							}
 						}
 					}
-					
-					var i = i + 1;
-					packages.push(this.value);
+
 				}
+				i = i + 1;
+				packages.push(this.value);
 			});
 		});
 		
