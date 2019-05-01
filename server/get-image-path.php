@@ -7,4 +7,5 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	$config = parse_ini_file('../../../config.ini');
 	echo $config['IMAGE_PATH'];
 }
+
 ?>
