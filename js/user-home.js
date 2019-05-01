@@ -515,7 +515,7 @@ function VerifyEmail(){
 function session(){
 		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
-			$("#profileEmail").text(sessionStorage.getItem('email')); 
+			$("#profileEmail").text(decrypt(sessionStorage.getItem('email'))); 
 			if(decrypt(sessionStorage.getItem('role')) != 1){
 				if(decrypt(sessionStorage.getItem('role')) == 2){
 					window.location.href = "../approver/requests.html";
