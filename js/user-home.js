@@ -16,7 +16,7 @@ var enabled;
 var random;	
 
 $(document).ready(function(){
-	setTimeout(Session,500);
+	//setTimeout(session,500);
 
 	$.get("../server/get-image-path.php", function(data, status){
                 $("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
@@ -49,7 +49,7 @@ $(document).ready(function(){
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
-		Session();
+		session();
 	});
 	
 	$("#btnforgotpsswd").click(function(){
@@ -97,7 +97,7 @@ $(document).ready(function(){
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
-		Session();
+		session();
 		window.location.href = "../user/home.html";
 	});
 });
@@ -418,7 +418,7 @@ function VerifyRole(){
 			document.getElementById("profileEmail").style.display = "inline";
 			//document.getElementById("userProfile").style.display = "inline";
 			console.log('USER VERIFIED!')
-			Session();
+			session();
 			$('#loginModal').modal('hide');
 		}
 	}else if(role == 2){
@@ -505,14 +505,14 @@ function VerifyEmail(){
 					sessionStorage.setItem('role', encrypt(role));
 					$('#verifyEmailModal').modal('hide');
 					console.log(profile_ID);
-					Session();
+					session();
 				}else{
 					console.log('Error on user verification!!');
 				}
 		});
 }
 
-function Session(){
+function session(){
 		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
 			$("#profileEmail").text(sessionStorage.getItem('email')); 
@@ -527,7 +527,7 @@ function Session(){
 					window.location.href = "../administrator/settings.html";
 				}
 			}
-			console.log('Session exists!!!');
+			console.log('session exists!!!');
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
 			if(document.getElementById("getStartedMes") != null){
@@ -543,7 +543,7 @@ function Session(){
                                 window.location.href = "home.html";
                         }
 
-			console.log('Session doesn\'t exists!!!');
+			console.log('session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
 			if(document.getElementById("getStartedMes") != null){
