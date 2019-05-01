@@ -6,8 +6,8 @@ var indexUserId;
 $(document).ready(function(){
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
-      console.log($(this).text());
       if($(this).text() == "Users"){
+	currentRole = 3;
 	getUserAccounts();
       } else if($(this).text() == "Approvers"){
 	currentRole = 1;
@@ -109,6 +109,7 @@ $(document).ready(function(){
     });
    
     $("#update-account").click(function(){
+	if(validateEdit()==true){
     	$.post("../server/administrator-update-account.php",
         {
 		id: parseInt(accounts[index].id),
@@ -117,21 +118,51 @@ $(document).ready(function(){
                 workPhone: $("#workPhoneEdit").val(),
                 mobilePhone: $("#mobilePhoneEdit").val(),
                 office: $("#officeEdit").val(),
-                role: $("#roleEdit").val()
+                role: $("#roleEdit").val(),
+		userEmail:accounts[index].email,
+		adminEmail:sessionStorage.getItem('email')
         }, function(data,status){
-                console.log(data);
-		location.reload();
+		if(status == "success"){
+                        alert('Account has been succesfully updated');
+                } else{
+                        alert('Error trying to update the account');
+                }
+		$("#EditModal").modal("hide");
+		if(currentRole == 0){
+        		getAdministratorAccounts();
+      		} else if(currentRole == 1){
+        		getApproverAccounts();
+      		} else if(currentRole == 2){
+        		getPublisherAccounts();
+      		}
       });
+	}
     });
 });
 
 function cancelRoll(){
-        console.log(indexUserId);
-              $.post("../server/administrator-delete-account.php",{id:parseInt(accounts[indexUserId].id)}, function(data,status){
-              console.log(data);
-              location.reload();
-      });
-
+	$.post("../server/administrator-delete-account.php",
+	{
+		id:parseInt(accounts[indexUserId].id),
+		userEmail:accounts[indexUserId].email,
+		adminEmail:sessionStorage.getItem('email')
+	}, function(data,status){
+		if(status == "success"){
+                        alert('Account has been succesfully deleted');
+                } else{
+                        alert('Error trying to delete the account');
+                }
+                $("#myModal").modal("hide");
+                if(currentRole == 0){
+                        getAdministratorAccounts();
+                } else if(currentRole == 1){
+                        getApproverAccounts();
+                } else if(currentRole == 2){
+                        getPublisherAccounts();
+                } else{
+			getUserAccounts();
+		}
+      	});
 }
 
   
@@ -210,6 +241,67 @@ function getApproverAccounts(){
 }
 
 
+function validateEdit(){
+ var firstName = document.getElementById('firstNameEdit').value;
+ var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var firstNameResult = firstNameRGEX.test(firstName);
+
+ var lastName = document.getElementById('lastNameEdit').value;
+ var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var lastNameResult = lastNameRGEX.test(lastName);
+
+ var wPhone = document.getElementById('workPhoneEdit').value;
+ var wPhoneRGEX = /^$|^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var wPhoneResult = wPhoneRGEX.test(wPhone);
+
+ var mPhone = document.getElementById('mobilePhoneEdit').value;
+ var mPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var mPhoneResult = mPhoneRGEX.test(mPhone);
+
+ var office = document.getElementById('officeEdit').value;
+ var officeRGEX = /^[a-zA-Z0-9._-]{1,6}$/
+ var officeResult = officeRGEX.test(office);
+
+
+console.log('First Name = '+ firstName);
+
+console.log('Last Name = '+ lastName);
+
+console.log('Phone Number = '+ wPhone);
+
+console.log('Mobile Number = '+ mPhone);
+
+console.log('Office = '+office);
+
+errors = [];
+
+    if(firstNameResult == false){
+	errors.push('Please enter a valid First Name');
+    }
+    if(lastNameResult == false){
+	errors.push('Please enter a valid Last Name');
+    }
+    if(wPhoneResult == false){
+        errors.push('Please enter a valid Work phone');
+    }
+    if(mPhoneResult == false){
+        errors.push('Please enter a valid Mobile phone');
+    }
+    if(officeResult == false){
+	errors.push('Please enter a Office ');
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+
+
+
+
+return true;
+
+}
+
 
 
 function validate(){
@@ -228,7 +320,7 @@ function validate(){
  var password = document.getElementById('tempPass').value;
 
  var wPhone = document.getElementById('workPhone').value;
- var wPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+ var wPhoneRGEX = /^$|^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
  var wPhoneResult = wPhoneRGEX.test(wPhone);
 
  var mPhone = document.getElementById('mobilePhone').value;

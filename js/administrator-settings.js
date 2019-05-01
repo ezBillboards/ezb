@@ -9,7 +9,6 @@ $(document).ready(function(){
 		console.log(settings);
 		$("#server").val(settings.DB_SERVER);
                 $("#user").val(settings.DB_USERNAME);
-                $("#password").val(settings.DB_PASSWORD);
                 $("#database").val(settings.DB_NAME);
 		$("#ip").val(settings.IP);
                 $("#port").val(settings.PORT);
@@ -167,8 +166,6 @@ function validateDatabaseConfiguration(){
  var userRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.:,])*$/;
  var userResult = userRGEX.test(user);
  var password = document.getElementById('password').value;
- var passwordRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.:,])*$/;
- var passwordResult = passwordRGEX.test(password);
 
 console.log('Server = '+ server);
 console.log('Database = '+ db);
@@ -176,24 +173,37 @@ console.log('User = '+ user);
 console.log('Password = '+ password);
 
 
+if(password == ""){
+        alert('Password is empty');
+return false;
+}
+
+
 errors = [];
 
 if(serverResult == false){
         errors.push('Please enter a valid Server');
-        }
-
+    }
 if(dbResult == false){
         errors.push('Please enter a valid Database');
-        }
-
+    }
 if(userResult == false){
         errors.push('Please enter a valid User');
-        }
+    }
+if(password.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+if(password.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+if(password.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+if(password.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
 
-if(passwordResult == false){
-        errors.push('Please enter a valid Password');
-        }
-if (errors.length > 0) {
+if(errors.length > 0) {
         alert(errors.join("\n"));
         return false;
     }
@@ -204,7 +214,7 @@ return true;
 
 function validateMailServerConfiguration(){
  var ip = document.getElementById('ip').value;
- var ipRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/
+ var ipRGEX = /\W*(localhost)\W*|((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
  var ipResult = ipRGEX.test(ip);
  var port = document.getElementById('port').value;
  var portRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.])*$/;

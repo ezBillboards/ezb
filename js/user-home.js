@@ -58,14 +58,22 @@ $(document).ready(function(){
 	
 	$("#btnchangepassword").click(function(){
 		console.log('btnchangepassword clicked!!');
- console.log($('passwordchange').val());		
+		var password = document.getElementById('passwordlogin').value;
+		console.log('before entering function');
+		if($('#passwordchange').val() == ""){
+		alert('Parameters cannot be empty');
+		return;
+		}		
+	
+	if(validatePassword($('#passwordchange').val())==true){
 		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-                       console.log($('#confirm_passwordchange').val());
 			changePassword(password);
                 }
                 else{
-                        console.log('password values not the same');
+                        alert('Password values not the same');
                 }
+	}
+
 	});
 	
 	$("#btnverify").click(function(){
@@ -80,9 +88,6 @@ $(document).ready(function(){
 	$("#btnresend").click(function(){
 		resendVerificationCode();
 	});
-	
-
-
 
 
 
@@ -98,7 +103,6 @@ $(document).ready(function(){
 });
 
 function validateLogin(){  
-
  var email = document.getElementById('emaillogin').value;
  var emailRGEX = /^(.+)@(.+)$/;
  var emailResult = emailRGEX.test(email);
@@ -107,28 +111,64 @@ function validateLogin(){
 console.log('Email = '+ email);
 console.log('Password = '+password);
 
-if(emailResult == false)
-	{
+if(emailResult == false){
 	alert('Please enter a valid Email');
 	return false;
 	}
 
-if(document.getElementById('remember').checked)
-	{
+if(document.getElementById('remember').checked){
 	setCookie("email",email,30);
 	setCookie("password",password,30);
-    
-   }
+}
 
-if(!document.getElementById('remember').checked)
-        {
+if(!document.getElementById('remember').checked){
 removeCookies();
-   }
+}
 	
+return true;
+}
+
+
+function validatePassword(password){
+errors = [];
+console.log(password);
+    if (password.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (password.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+     if (password.search(/[a-z]/) < 0) {
+        errors.push("Your password must contain at least one lowercase letter.")
+    }
+    if (password.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase letter.")
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
 
 
 return true;
 }
+
+
+function validateEmail(){
+
+ var email = document.getElementById('emailforgot').value;
+ var emailRGEX = /^(.+)@(.+)$/;
+ var emailResult = emailRGEX.test(email);
+
+console.log(email);
+if(emailResult == false){
+        alert('Please enter a valid Email');
+	return false;
+}
+return true;
+}
+
+
 
 
 
@@ -331,6 +371,7 @@ function Login(email_IN,password_IN){
 				alert('Incorrect credentials!');
 			}
 			else{
+				console.log(data);
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
 				role = credentials[0].roleID;
@@ -516,6 +557,7 @@ function Session(){
 }
 
 function forgotPassword(){
+	if(validateEmail()==true){
 	$.post("../server/forgot-password.php",
 			{
 				emailAddress : $('#emailforgot').val(),
@@ -529,28 +571,37 @@ function forgotPassword(){
 					console.log('Error on forgot password!!');
 				}
 		});
+	}
 }
 
 function changePassword(password){
+        console.log('After entering function');
 	console.log(password);
-	if(password.localeCompare($('#passwordchange').val()) == -1){
-	$.post("../server/change-password.php",
+	console.log($('#passwordchange').val());
+	console.log($('#confirm_passwordchange').val());
+
+		if(password == $('#confirm_passwordchange').val()){
+            		alert('Temporary password and new password cant be the same');
+       			return;
+		}
+		else if(password != $('#passwordchange').val()){
+		$.post("../server/change-password.php",
 			{
 				userID : profile_ID,
 				newPassword: $('#passwordchange').val()
-			},function(data,status){
+	        	},function(data,status){
 				if(status === "success"){
 					console.log(data);
 					$('#changePasswordModal').modal('hide');
-				console.log(status);
+					removeCookies();
+					location.reload();
+					console.log(status);
 				}else{
 					console.log('Error changing password!!');
 				}
-		});
-	}else{
-	    alert('old password and new password cant be the same');
-}
-	
+			});
+		}
+		
 }
 
 function generatePassword() {
