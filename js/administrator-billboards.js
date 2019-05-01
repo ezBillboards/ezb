@@ -105,7 +105,7 @@ $(document).ready(function(){
 				}else{
 					if (i % 3 == 0){
 						var price = this.value.split(".");
-						var strPrice = (this.value.toString();
+						var strPrice = this.value.toString();
 						console.log(price);
 						if(this.value.toString().charAt(0) == "."){
 							if(price[0].length > 2){
