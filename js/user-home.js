@@ -16,7 +16,7 @@ var enabled;
 var random;	
 
 $(document).ready(function(){
-	setTimeout(session,500);
+	setTimeout(Session,500);
 
 	$.get("../server/get-image-path.php", function(data, status){
                 $("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
