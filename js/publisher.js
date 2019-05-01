@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	session();
+	setTimeout(session,300);
 	
 	$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
 	
