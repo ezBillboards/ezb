@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	session();
 	
-	$("#profile-email").text(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8));
+	$("#profile-email").text(decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8));
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
