@@ -80,7 +80,7 @@ $(document).ready(function(){
 	});
 	
 	$('#btnnewbillboard').click(function(){
-		console.log('btnnewbillboard clicked!');
+		//console.log('btnnewbillboard clicked!');
 		var emptyPack = false;
 		var emptyReg = false;
 		var emptyRej = false;
@@ -99,7 +99,7 @@ $(document).ready(function(){
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
 					emptyPack = true;
-					var i = i +1;
+					i = i +1;
 				}else if(this.value <= 0){
 					errZero = true;
 				}else{
@@ -119,11 +119,11 @@ $(document).ready(function(){
 							}
 						}
 					}else{
-						if(!Number.isInteger(this.value)){
+						if(Number.isInteger(this.value)){
 							errNumber = true;
 							console.log("Not an integer");
 						}
-						else if(i % 3 == 2){
+						if(i % 3 == 2){
 							if(this.value > $("#addcycle").val()){
 								errCycle = true;
 							}
@@ -166,11 +166,11 @@ $(document).ready(function(){
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
-		console.log(packages);	
-		console.log(regulations);
-		console.log(rejections);
-		console.log(extensions);
-		console.log(ratios);
+		//console.log(packages);	
+		//console.log(regulations);
+		//console.log(rejections);
+		//console.log(extensions);
+		//console.log(ratios);
 		if(validateBillboard()){
 			alert('Missing billboard information');
 		}else if(emptyPack){
