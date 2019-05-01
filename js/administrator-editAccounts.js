@@ -11,18 +11,17 @@ $(document).ready(function(){
 			function(data, status){
 				var info = JSON.parse(data);
 				console.log(info);
-				console.log(decrypt(info.lastName));
-				$("#firstName").val(info.firstName);
-				$("#lastName").val(info.lastName);
+				$("#firstName").val(decrypt(info.lastName));
+				$("#lastName").val(decrypt(info.lastName));
 				$("#email").val(info.email);
-				$("#mobilePhone").val(info.mobilePhone);
-				$("#workPhone").val(info.workPhone);
-				$("#company").val(info.company);
-				$("#address1").val(info.address1);
-				$("#address2").val(info.address2);
-				$("#state").val(info.state);
-				$("#city").val(info.city);
-				$("#zip").val(info.zip);
+				$("#mobilePhone").val(decrypt(info.mobilePhone));
+				$("#workPhone").val(decrypt(info.workPhone));
+				$("#company").val(decrypt(info.company));
+				$("#address1").val(decrypt(info.address1));
+				$("#address2").val(decrypt(info.address2));
+				$("#state").val(decrypt(info.state));
+				$("#city").val(decrypt(info.city));
+				$("#zip").val(decrypt(info.zip));
 			});
 	},50);
 	
@@ -50,61 +49,61 @@ $(document).ready(function(){
 	
 	$("#save").click(function(){
 
-         if (validateContactInfo()==true){
-		$.post("../server/user-account-save.php",
-                        {
-                                userID: sessionStorage.getItem('ID'), //Change later.
-				firstName: $("#firstName").val(),
-                		lastName: $("#lastName").val(),
-                		email: $("#email").val(),
-                		mobilePhone: $("#mobilePhone").val(),
-                		workPhone: $("#workPhone").val(),
-                		company: $("#company").val(),
-                		address1: $("#address1").val(),
-                		address2: $("#address2").val(),
-                		state: $("#state").val(),
-                		city: $("#city").val(),
-                		zip: $("#zip").val(),
-                		url: $("#url").val(),
-                		facebook: "",
-                		twitter: "",
-                		instagram: ""
-                        },
+        if (validateContactInfo()==true){
+			$.post("../server/user-account-save.php",
+            {
+				userID: decrypt(sessionStorage.getItem('ID')), //Change later.
+				firstName: encrypt($("#firstName").val()),
+				lastName: encrypt($("#lastName").val()),
+				email: $("#email").val(),
+				mobilePhone: encrypt($("#mobilePhone").val()),
+				workPhone: encrypt($("#workPhone").val()),
+				company: encrypt($("#company").val()),
+				address1: encrypt($("#address1").val()),
+				address2: encrypt($("#address2").val()),
+				state: encrypt($("#state").val()),
+				city: encrypt($("#city").val()),
+				zip: encrypt($("#zip").val()),
+				url: encrypt($("#url").val()),
+				facebook: "",
+				twitter: "",
+				instagram: ""
+            },
 
-                        function(data, status){
-                        if(status === "success"){
-                               alert(data);
-                               console.log(status);
-                        } else{
-                               alert(data);
-         	               console.log(status);
-                	}
-	            	
-                   
-		});
+			function(data, status){
+				if(status === "success"){
+					alert(data);
+					console.log(status);
+				} else{
+					alert(data);
+					console.log(status);
+				}  
+			});
 	    }
 	 
 	});
 
+});
+
 function validatePassword(){
- var oldpassword = document.getElementById('oldPasswd').value;
- var newpassword = document.getElementById('newPasswd').value;
- var cpassword = document.getElementById('confirmPasswd').value;
+	var oldpassword = document.getElementById('oldPasswd').value;
+	var newpassword = document.getElementById('newPasswd').value;
+	var cpassword = document.getElementById('confirmPasswd').value;
 
- console.log('Old Password = '+ oldpassword);
- console.log('New Password = '+ newpassword);
- console.log('Confirm Password = '+ cpassword);
+	console.log('Old Password = '+ oldpassword);
+	console.log('New Password = '+ newpassword);
+	console.log('Confirm Password = '+ cpassword);
 
 
-if(oldpassword == ""){
-alert('Old password is empty');
-return false;
-}
+	if(oldpassword == ""){
+		alert('Old password is empty');
+		return false;
+	}
 
-if(newpassword == ""){
-alert('New password is empty');
-return false;
-}
+	if(newpassword == ""){
+		alert('New password is empty');
+		return false;
+	}
 
 
 	
@@ -141,8 +140,6 @@ return false;
         alert('Confirm and new password are not the same');
         return false;
     }
-
-
 
 return true;
 
@@ -251,7 +248,3 @@ function validateContactInfo(){
 return true;
 
 }
-
-
-
-});
