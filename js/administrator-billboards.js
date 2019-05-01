@@ -132,7 +132,7 @@ $(document).ready(function(){
 							}
 						}
 					}else{
-						if(Number.isInteger(this.value)){
+						if(!Number.isInteger(this.value)){
 							errNumber = true;
 							console.log("Not an integer");
 						}
@@ -189,7 +189,7 @@ $(document).ready(function(){
 		}else if(emptyPack){
 			alert("Fill out package fields!");
 		}else if(errZero){
-			alert("Duration, cycle and price cannot be zero");
+			alert("Duration, cycle and price cannot be less or equal to zero");
 		}else if(errCycle){
 			alert("Display per cycle larger than billboard cycle");
 		}else if(errNumber){
