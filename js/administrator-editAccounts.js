@@ -5,7 +5,7 @@ $(document).ready(function(){
         });
 
 	$.get("../server/user-account.php",
-		{id:sessionStorage.getItem('ID')},
+		{id:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
 
         	var info = JSON.parse(data);
