@@ -84,6 +84,9 @@ $(document).ready(function(){
 		var emptyPack = false;
 		var emptyReg = false;
 		var emptyRej = false;
+		var errPack = false;
+		var errReg = false;
+		var errRej = false;
 		var errZero = false;
 		var errCycle = false;
 		var errNumber = false;
@@ -153,6 +156,10 @@ $(document).ready(function(){
 			});
 		});
 		
+		if(packages.length == 0){
+			errPack = true;
+		};
+		
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -163,6 +170,10 @@ $(document).ready(function(){
 			});
 		});
 		
+		if(regulations.length == 0){
+			errPack = true;
+		};
+		
 		$("#add-rejection tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -172,6 +183,10 @@ $(document).ready(function(){
 				}
 			});
 		});
+		
+		if(rejections.length == 0){
+			errPack = true;
+		};
 		
 		$.each($("input[name='image-ratio']:checked"), function(){            
                 ratios += $(this).val() + ",";
@@ -190,8 +205,14 @@ $(document).ready(function(){
 		//console.log(ratios);
 		if(validateBillboard()){
 			alert('Missing billboard information');
+		}else if(errPack){
+			alert("Add at least one package");
+		}else if(errReg){
+			alert("Add at least one regulation");
+		}else if(errRej){
+			alert("Add at least one Rejection");
 		}else if(emptyPack){
-			alert("Fill out package fields!");
+			alert("Fill out all package fields!");
 		}else if(errZero){
 			alert("Duration, cycle and price cannot be less or equal to zero");
 		}else if(errNumber){
@@ -201,9 +222,9 @@ $(document).ready(function(){
 		}else if(errPrice){
 			alert("Not a valid price number");
 		}else if(emptyReg){
-			alert("Fill out regulations fields!");
+			alert("Fill out all regulations fields!");
 		}else if(emptyRej){
-			alert("Fill out rejections fields!");
+			alert("Fill out all rejections fields!");
 		}else{
 			alert("Validated information");
 			//newBillboard(packages,regulations,rejections,ratios,extensions);
