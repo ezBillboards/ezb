@@ -54,7 +54,7 @@ if($fileName){
 	echo $filename;
 
 	/* Location */
-	$location = "../../img/billboards/".$id.".".$extension;
+	$location = "img/billboards/".$id.".".$extension;
 	//echo $location;
 
 	$uploadOk = 1;

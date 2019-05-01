@@ -95,6 +95,7 @@ $(document).ready(function(){
 				if(this.value == ""){
 					emptyPack = true;
 				}else{
+					
 					packages.push(this.value);
 				}
 			});
@@ -564,6 +565,7 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 		processData: false,
 		success: function(response){
 			console.log(response);
+			alert("Billboard created successfully");
 			location.reload();
 		}
 	});
