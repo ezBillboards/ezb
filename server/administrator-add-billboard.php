@@ -53,7 +53,7 @@ $filename = $_FILES['uploadimage']['name'];
 //echo $filename;
 
 /* Location */
-$location = "../../img/billboards/".$billboardID.".".$extension;
+$location = "img/billboards/".$billboardID.".".$extension;
 //echo $location;
 
 $uploadOk = 1;

@@ -550,7 +550,7 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
-	/*$.ajax({
+	$.ajax({
 		url:"../server/administrator-add-billboard.php",
 		type: 'POST',
 		data: fd,
@@ -561,7 +561,7 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 			console.log(response);
 			location.reload();
 		}
-	});*/
+	});
 
 }
 
