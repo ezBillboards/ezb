@@ -5,13 +5,15 @@ $(document).ready(function(){
         });
 
 	setTimeout(function(){
-		console.log(decrypt(sessionStorage.getItem('ID')));
+		
 		$.get("../server/user-account.php",
 			{id:decrypt(sessionStorage.getItem('ID'))},
 			function(data, status){
 				var info = JSON.parse(data);
 				console.log(info);
-				$("#firstName").val(decrypt(info.lastName));
+				console.log(decrypt(info.lastName));
+				console.log(decrypt(info.lastName));
+				$("#firstName").val(decrypt(info.firstName));
 				$("#lastName").val(decrypt(info.lastName));
 				$("#email").val(info.email);
 				$("#mobilePhone").val(decrypt(info.mobilePhone));
