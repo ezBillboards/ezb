@@ -24,6 +24,7 @@ $minwidth = $_POST['minwidth'];
 $maxwidth = $_POST['maxwidth'];
 $minheight = $_POST['minheight'];
 $maxheight = $_POST['maxheight'];
+$tolerance = $_POST['tolerance'];
 $readtime = $_POST['readtime'];
 $impressions = $_POST['impressions'];
 $traffic = $_POST['traffic'];
@@ -38,7 +39,7 @@ $regulations = json_decode($_POST['regulations']);
 $rejections = json_decode($_POST['rejections']);
 $billboardID;
 
-$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle,$slots,'$imageRatio','$imageExtension')";
+$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,$slots,'$imageRatio','$imageExtension')";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
 	while($row = mysqli_fetch_assoc($result)) {
