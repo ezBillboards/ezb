@@ -132,9 +132,11 @@ $(document).ready(function(){
 							}
 						}
 					}else{
-						console.log(Number.isInteger(1));
-						console.log(Number.isInteger(1.05));
-						if(!Number.isInteger(this.value)){
+						var intValue = this.value.split(".");
+						if(this.value.toString().charAt(0) == "."){
+							errNumber = true;
+							console.log("Not an integer");
+						}else if(intValue.length > 1){
 							errNumber = true;
 							console.log("Not an integer");
 						}
