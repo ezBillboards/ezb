@@ -15,8 +15,7 @@ $(document).ready(function(){
 });
 
 function session(){
-	
-	
+	console.log("Reading session variables");
 	if (sessionStorage.getItem('ID') != null){
 		if(decrypt(sessionStorage.getItem('role')) != 4){
 			if(decrypt(sessionStorage.getItem('role')) == 1){

@@ -10,6 +10,7 @@ $(document).ready(function(){
 			ivSize = security.IVSIZE;
 			iterations = security.ITERATIONS;
 			psswd = security.KEY;
+			console.log("Read Security");
     });
 });
 
