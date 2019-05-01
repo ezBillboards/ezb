@@ -11,6 +11,10 @@ $(document).ready(function(){
 			iterations = security.ITERATIONS;
 			psswd = security.KEY;
 			console.log("Read Security");
+			console.log(keySize);
+			console.log(ivSize);
+			console.log(iterations);
+			console.log(psswd);
     });
 });
 
@@ -53,5 +57,6 @@ function decrypt (transitmessage) {
     mode: CryptoJS.mode.CBC
     
   })
+  console.log(decrypted.toString(CryptoJS.enc.Utf8));
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
