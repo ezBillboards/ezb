@@ -77,7 +77,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnverify").click(function(){
-		if( $('#verificationCode').val() == sessionStorage.getItem('verificationCode')){
+		if( $('#verificationCode').val() == decrypted.toString(sessionStorage.getItem('verificationCode'))){
 			VerifyEmail();	
 		}
 		else{
@@ -340,9 +340,9 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 						profile_ID = data;
 					}
 					role = 1;
-					sessionStorage.setItem('role', role);
-					sessionStorage.setItem('email', email_IN);
-					sessionStorage.setItem('verificationCode', random_IN);
+					sessionStorage.setItem('role', encrypt(role));
+					sessionStorage.setItem('email', encrypt(email_IN));
+					sessionStorage.setItem('verificationCode', encrypt(random_IN));
 					sendVerificationCode();
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
@@ -369,7 +369,7 @@ function Login(email_IN,password_IN){
 				verifiedUser = credentials[0].verified;
 				statusTemp = credentials[0].statusTemp;
 				enabled = credentials[0].enabled;
-				sessionStorage.setItem('email', email_IN);
+				sessionStorage.setItem('email', encrypt(email_IN));
 				setTimeout(VerifyRole,500);
 			}
 		});
@@ -384,7 +384,7 @@ function VerifyRole(){
 		if (verifiedUser == 0 && statusTemp == 0){
 			console.log('USER NOT VERIFIED!');
 			random = Math.floor((Math.random() * 1000000) + 1);
-			sessionStorage.setItem('verificationCode', random);
+			sessionStorage.setItem('verificationCode', encrypt(random));
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
 			//document.getElementById("verifyEmailModal").reset();
@@ -405,8 +405,8 @@ function VerifyRole(){
 		
 		}else{
 			//SESSION VARIABLES
-			sessionStorage.setItem('ID', profile_ID);
-			sessionStorage.setItem('role', role);
+			sessionStorage.setItem('ID', encrypt(profile_ID));
+			sessionStorage.setItem('role', encrypt(role));
 			
 			//logged in nav bar
 			document.getElementById("getStartedLog").style.display = "none";
@@ -427,8 +427,8 @@ function VerifyRole(){
 		}
 		else{	
 			//SESSION VARIABLES
-			sessionStorage.setItem('ID', profile_ID);
-			sessionStorage.setItem('role', role);
+			sessionStorage.setItem('ID', encrypt(profile_ID));
+			sessionStorage.setItem('role', encrypt(role));
 			//IF APPROVER FOUND --->> APPROVER VIEW
 			window.location.href = "../approver/requests.html";
 			//console.log('APPROVER FOUND');
@@ -440,8 +440,8 @@ function VerifyRole(){
 		}
 		else{	
 			//SESSION VARIABLES
-			sessionStorage.setItem('ID', profile_ID);
-			sessionStorage.setItem('role', role);
+			sessionStorage.setItem('ID', encrypt(profile_ID));
+			sessionStorage.setItem('role', encrypt(role));
 			//IF PUBLISHER FOUND --->> PUBLISHER VIEW
 			window.location.href = "../publisher/paid-requests.html";
 		}
@@ -452,8 +452,8 @@ function VerifyRole(){
 		}
 		else{	
 			//SESSION VARIABLES
-			sessionStorage.setItem('ID', profile_ID);
-			sessionStorage.setItem('role', role);
+			sessionStorage.setItem('ID', encrypt(profile_ID));
+			sessionStorage.setItem('role', encrypt(role));
 			//IF ADMIN FOUND --->> ADMIN VIEW
 			console.log('ADMIN FOUND');
 			window.location.href = "../administrator/settings.html";
@@ -464,8 +464,8 @@ function VerifyRole(){
 function sendVerificationCode(){
 	$.post("../server/mail-verification-code.php",
 			{
-			emailAddress:sessionStorage.getItem('email'),
-			random: sessionStorage.getItem('verificationCode')
+			emailAddress:decrypted.toString(sessionStorage.getItem('email')),
+			random: decrypted.toString(sessionStorage.getItem('verificationCode'))
 			},function(data,status){
 				
 				if(status === "success"){
@@ -479,11 +479,11 @@ function sendVerificationCode(){
 
 function resendVerificationCode(){
 	random = Math.floor((Math.random() * 1000000) + 1);
-	sessionStorage.setItem('verificationCode', random);
+	sessionStorage.setItem('verificationCode', encrypt(random));
 	$.post("../server/mail-verification-code.php",
 			{
-				emailAddress:sessionStorage.getItem('email'),
-				random: sessionStorage.getItem('verificationCode')
+				emailAddress:decrypted.toString(sessionStorage.getItem('email')),
+				random:decrypted.toString(sessionStorage.getItem('verificationCode'))
 			},function(data,status){
 				
 				if(status === "success"){
@@ -498,11 +498,11 @@ function resendVerificationCode(){
 function VerifyEmail(){
 	$.post("../server/user-verified.php",
 			{
-				email: sessionStorage.getItem('email')
+				email: decrypted.toString(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
-					sessionStorage.setItem('ID', profile_ID);
-					sessionStorage.setItem('role', role);
+					sessionStorage.setItem('ID', encrypt(profile_ID));
+					sessionStorage.setItem('role', encrypt(role));
 					$('#verifyEmailModal').modal('hide');
 					console.log(profile_ID);
 					Session();
@@ -514,13 +514,13 @@ function VerifyEmail(){
 
 function Session(){
 		checkCookie();
-		if (sessionStorage.getItem('ID') !== null){
+		if (decrypted.toString(sessionStorage.getItem('ID')) !== null){
 			$("#profileEmail").text(sessionStorage.getItem('email')); 
 			if(sessionStorage.getItem('role')!= 1){
-				if(sessionStorage.getItem('role') == 2){
+				if(decrypted.toString(sessionStorage.getItem('role')) == 2){
 					window.location.href = "../approver/requests.html";
 				}
-				else if(sessionStorage.getItem('role') == 3){
+				else if(decrypted.toString(sessionStorage.getItem('role')) == 3){
 					window.location.href = "../publisher/paid-requests.html";
 				}
 				else{
