@@ -16,6 +16,9 @@
 CREATE DATABASE IF NOT EXISTS `ezbillboards` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `ezbillboards`;
 
+Create user 'ezb'@'ezb.uprm.edu' identified by 'Ezb2019*';
+grant all privileges on * . * to 'ezb'@'ezb.uprm.edu';
+flush privileges;
 -- Dumping structure for procedure ezbillboards.deleteAccount
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccount`(
