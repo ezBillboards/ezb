@@ -85,7 +85,7 @@ $(document).ready(function(){
 		var emptyReg = false;
 		var emptyRej = false;
 		var errZero = false;
-		var errCycle = true;
+		var errCycle = false;
 		var errNumber = false;
 		var errPrice = false;
 		var packages = [];
