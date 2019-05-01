@@ -26,6 +26,7 @@ $minheight = $_POST['minheight'];
 $maxheight = $_POST['maxheight'];
 $readtime = $_POST['readtime'];
 $impressions = $_POST['impressions'];
+$tolerance = $_POST['tolerance'];
 $traffic = $_POST['traffic'];
 $fileName = $_POST['fileName'];
 $extension = $_POST['extension'];
@@ -40,7 +41,7 @@ $imageRatio = $_POST['imageRatio'];
 $imageExtension = $_POST['imageExtension'];
 
 
-$sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
+$sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
 if (mysqli_query($conn, $sql)) {
 	echo "Billboard updated successfully";
 } else {

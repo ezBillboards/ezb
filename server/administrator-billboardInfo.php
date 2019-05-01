@@ -28,6 +28,7 @@ if (mysqli_num_rows($result) > 0) {
 		$info['longitude'] = $row['longitude'];
 		$info['readTime'] = $row['readTime'];
 		$info['impressions'] = $row['impressions'];
+		$info['tolerance'] = $row['tolerance'];
 		$info['traffic'] = $row['traffic'];
 		$info['minWidth'] = $row['minWidthRes'];
 		$info['minHeight'] = $row['minHeightRes'];

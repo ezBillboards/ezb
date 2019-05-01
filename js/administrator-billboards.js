@@ -344,6 +344,7 @@ $(document).ready(function(){
 			$("#longitude").attr('value',info.longitude);
 			$("#read-time").attr('value',info.readTime);
 			$("#impressions").attr('value',info.impressions);
+			$("#imageTolerance").attr('value',info.tolerance);
 			$("#traffic").attr('value',info.traffic);
 			$("#min-wid").attr('value',info.minWidth);
 			$("#min-hei").attr('value',info.minHeight);
@@ -706,6 +707,7 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 	fd.append('maxheight',$("#max-hei").val());
 	fd.append('readtime',$("#read-time").val());
 	fd.append('impressions',$("#impressions").val());
+	fd.append('tolerance',$("#imageTolerance").val());
 	fd.append('traffic',$("#traffic").val());
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
