@@ -2,7 +2,7 @@
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 $mail = new PHPMailer; 
-$config = parse_ini_file('../../config.ini');
+$config = parse_ini_file('../../../config.ini');
 	$emailAddress = $_POST['emailAddress'];
 	$random = $_POST['random'];
 	

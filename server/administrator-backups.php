@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('../../config.ini');
+$config = parse_ini_file('../../../config.ini');
 
 $filename = $_POST['filename'];
 $backupDir = $config['BACKUP_PATH'];

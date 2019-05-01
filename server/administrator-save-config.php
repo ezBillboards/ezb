@@ -2,7 +2,7 @@
 
 require_once('./logger.php');
 
-$config = parse_ini_file('../../config.ini');
+$config = parse_ini_file('../../../config.ini');
 
 $category = $_POST['category'];
 $adminEmail = $_POST['adminEmail'];
