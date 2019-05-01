@@ -77,7 +77,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnverify").click(function(){
-		if( $('#verificationCode').val() == decrypted.toString(sessionStorage.getItem('verificationCode'))){
+		if( $('#verificationCode').val() == decrypt(sessionStorage.getItem('verificationCode').toString(CryptoJS.enc.Utf8))){
 			VerifyEmail();	
 		}
 		else{
@@ -464,8 +464,8 @@ function VerifyRole(){
 function sendVerificationCode(){
 	$.post("../server/mail-verification-code.php",
 			{
-			emailAddress:decrypted.toString(sessionStorage.getItem('email')),
-			random: decrypted.toString(sessionStorage.getItem('verificationCode'))
+			emailAddress:decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8),
+			random: decrypt(sessionStorage.getItem('verificationCode')).toString(CryptoJS.enc.Utf8)
 			},function(data,status){
 				
 				if(status === "success"){
@@ -482,8 +482,8 @@ function resendVerificationCode(){
 	sessionStorage.setItem('verificationCode', encrypt(random));
 	$.post("../server/mail-verification-code.php",
 			{
-				emailAddress:decrypted.toString(sessionStorage.getItem('email')),
-				random:decrypted.toString(sessionStorage.getItem('verificationCode'))
+				emailAddress:decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8),
+				random:decrypt(sessionStorage.getItem('verificationCode')).toString(CryptoJS.enc.Utf8)
 			},function(data,status){
 				
 				if(status === "success"){
@@ -498,7 +498,7 @@ function resendVerificationCode(){
 function VerifyEmail(){
 	$.post("../server/user-verified.php",
 			{
-				email: decrypted.toString(sessionStorage.getItem('email'))
+				email: decrypt(sessionStorage.getItem('email')).toString(CryptoJS.enc.Utf8)
 			},function(data,status){
 				if(status === "success"){
 					sessionStorage.setItem('ID', encrypt(profile_ID));
@@ -514,13 +514,13 @@ function VerifyEmail(){
 
 function Session(){
 		checkCookie();
-		if (decrypted.toString(sessionStorage.getItem('ID')) !== null){
+		if (decrypt(sessionStorage.getItem('ID')).toString(CryptoJS.enc.Utf8) !== null){
 			$("#profileEmail").text(sessionStorage.getItem('email')); 
-			if(sessionStorage.getItem('role')!= 1){
-				if(decrypted.toString(sessionStorage.getItem('role')) == 2){
+			if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) != 1){
+				if(decrypt(sessionStorage.getItem('role')).toString(CryptoJS.enc.Utf8) == 2){
 					window.location.href = "../approver/requests.html";
 				}
-				else if(decrypted.toString(sessionStorage.getItem('role')) == 3){
+				else if(decrypt(sessionStorage.getItem('role')) == 3){
 					window.location.href = "../publisher/paid-requests.html";
 				}
 				else{
