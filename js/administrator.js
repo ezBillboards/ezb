@@ -1,9 +1,9 @@
 
 
 $(document).ready(function(){
-	setTimeout(session,300);
+	setTimeout(session,500);
 	
-	$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
+	
 	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
@@ -16,7 +16,9 @@ $(document).ready(function(){
 
 function session(){
 	console.log("Reading session variables");
+	
 	if (sessionStorage.getItem('ID') != null){
+		$("#profile-email").text(decrypt(sessionStorage.getItem('email')));
 		if(decrypt(sessionStorage.getItem('role')) != 4){
 			if(decrypt(sessionStorage.getItem('role')) == 1){
 				window.location.href = "../user/home.html";
