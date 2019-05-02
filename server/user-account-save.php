@@ -20,6 +20,7 @@ $email = $_POST['email'];
 $mobilePhone = $_POST['mobilePhone'];
 $workPhone = $_POST['workPhone'];
 $company = $_POST['company'];
+$office = $_POST['office'];
 $address1 = $_POST['address1'];
 $address2 = $_POST['address2'];
 $state = $_POST['state'];
@@ -31,7 +32,7 @@ $facebook = $_POST['facebook'];
 $twitter = $_POST['twitter'];
 $instagram = $_POST['instagram'];
 		
-$sql = "CALL putAccount($userID, '$firstName','$lastName','$email','$mobilePhone','$workPhone','$company','$address1','$address2','$state','$city','$zip','$url','$facebook','$twitter','$instagram')";
+$sql = "CALL putAccount($userID, '$firstName','$lastName','$email','$mobilePhone','$workPhone','$company','$office','$address1','$address2','$state','$city','$zip','$url','$facebook','$twitter','$instagram')";
 
 if (mysqli_query($conn, $sql)) {
 	echo "Record updated successfully";

@@ -30,7 +30,7 @@ if (mysqli_num_rows($result) > 0) {
 	$info['state'] = $row['state'];
 	$info['city'] = $row['city'];
 	$info['zip'] = $row['zipcode'];
-
+	$info['office'] = $row['office'];
 	$info['url'] = $row['companyURL'];
 	$info['facebook'] = $row['facebookURL'];
 	$info['twitter'] = $row['twitterURL'];

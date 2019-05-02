@@ -19,6 +19,7 @@ $(document).ready(function(){
 				$("#mobilePhone").val(decrypt(info.mobilePhone));
 				$("#workPhone").val(decrypt(info.workPhone));
 				$("#company").val(decrypt(info.company));
+				$("#office").val(decrypt(info.office));
 				$("#address1").val(decrypt(info.address1));
 				$("#address2").val(decrypt(info.address2));
 				$("#state").val(decrypt(info.state));
@@ -61,6 +62,7 @@ $(document).ready(function(){
 				mobilePhone: encrypt($("#mobilePhone").val()),
 				workPhone: encrypt($("#workPhone").val()),
 				company: encrypt($("#company").val()),
+				office: encrypt($("#office").val()),
 				address1: encrypt($("#address1").val()),
 				address2: encrypt($("#address2").val()),
 				state: encrypt($("#state").val()),
