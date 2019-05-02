@@ -100,11 +100,11 @@ $(document).ready(function(){
 
     $("table").on("click", "tr .edit-account", function(){
         index = $(this).attr("id");
-	$("#firstNameEdit").val(accounts[index].firstName),
-        $("#lastNameEdit").val(accounts[index].lastName),
-        $("#workPhoneEdit").val(accounts[index].workPhone),
-        $("#mobilePhoneEdit").val(accounts[index].mobilePhone),
-        $("#officeEdit").val(accounts[index].office),
+	$("#firstNameEdit").val(decrypt(accounts[index].firstName)),
+        $("#lastNameEdit").val(decrypt(accounts[index].lastName)),
+        $("#workPhoneEdit").val(decrypt(accounts[index].workPhone)),
+        $("#mobilePhoneEdit").val(decrypt(accounts[index].mobilePhone)),
+        $("#officeEdit").val(decrypt(accounts[index].office)),
 	$("#roleEdit").prop('selectedIndex', currentRole);
     });
    
@@ -113,14 +113,14 @@ $(document).ready(function(){
     	$.post("../server/administrator-update-account.php",
         {
 		id: parseInt(accounts[index].id),
-                firstName: $("#firstNameEdit").val(),
-                lastName: $("#lastNameEdit").val(),
-                workPhone: $("#workPhoneEdit").val(),
-                mobilePhone: $("#mobilePhoneEdit").val(),
-                office: $("#officeEdit").val(),
+                firstName: encrypt($("#firstNameEdit").val()),
+                lastName: encrypt($("#lastNameEdit").val()),
+                workPhone: encrypt($("#workPhoneEdit").val()),
+                mobilePhone: encrypt($("#mobilePhoneEdit").val()),
+                office: encrypt($("#officeEdit").val()),
                 role: $("#roleEdit").val(),
 		userEmail:accounts[index].email,
-		adminEmail:sessionStorage.getItem('email')
+		adminEmail:decrypt(sessionStorage.getItem('email'))
         }, function(data,status){
 		if(status == "success"){
                         alert('Account has been succesfully updated');
@@ -145,7 +145,7 @@ function cancelRoll(){
 	{
 		id:parseInt(accounts[indexUserId].id),
 		userEmail:accounts[indexUserId].email,
-		adminEmail:sessionStorage.getItem('email')
+		adminEmail:decrypt(sessionStorage.getItem('email'))
 	}, function(data,status){
 		if(status == "success"){
                         alert('Account has been succesfully deleted');
