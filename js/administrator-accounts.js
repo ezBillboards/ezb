@@ -167,13 +167,14 @@ function cancelRoll(){
 
   
 function getUserAccounts(){
-	$.get("../server/administrator-user-accounts.php", function(data,status){
-		accounts = JSON.parse(data);
+	$.get("../server/administrator-user-accounts.php", 
+			function(data,status){
+			accounts = JSON.parse(data);
                 console.log(accounts);
                 $("#user-accounts").empty();
                 var account = "";
                 for(var i = 0; i < accounts.length; i++){
-			account += "<tr>" +
+						account += "<tr>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
                         "<div class=\"row text-center\" style=\"display: flex;align-items: center;\">" +
                                 "<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
@@ -184,7 +185,7 @@ function getUserAccounts(){
                                 "</div>" +
                         "</div></td>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;vertical-align: middle;\">" +
-			"<p class=\text-center\"><b>Address: </b>" + decrypt(accounts[i].address1) + " " + decrypt(accounts[i].address2) + " " + decrypt(accounts[i].city) + " " + decrypt(decrypt(accounts[i].state) + " " + decrypt(accounts[i].zip) +
+						"<p class=\text-center\"><b>Address: </b>" + decrypt(accounts[i].address1) + " " + decrypt(accounts[i].address2) + " " + decrypt(accounts[i].city) + " " + decrypt(accounts[i].state) + " " + decrypt(accounts[i].zip) +
                         "</p>" +
                         "<p class=\text-center\"><b>Work Phone: </b>" + decrypt(accounts[i].workPhone) +
                         "</p>" +
@@ -197,7 +198,7 @@ function getUserAccounts(){
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
                                 "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</b></i></p></span>" +
-			"</td>" +
+						"</td>" +
                         "</tr>";
                 }
                 $("#user-accounts").append(account);
