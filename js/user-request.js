@@ -3,7 +3,7 @@ var tab = 'Pending';
 var currentRequestIndex;
 var currentRequestID;
 
-//getPendingRequests(sessionStorage.getItem('ID'));
+getPendingRequests();
 
 $(document).ready(function(){
 	
