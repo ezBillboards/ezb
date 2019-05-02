@@ -312,6 +312,8 @@ function termsCall() {
 
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	console.log('Register function');
+	role = 1;
+	console.log(role);
 	if(validateRegister() == true){
 	$.post("../server/user-registration.php",
 			{
@@ -339,8 +341,6 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					if(data != ""){
 						profile_ID = data;
 					}
-					role = 1;
-					console.log(role);
 					setTimeout(function(){
 						sessionStorage.setItem('role', encrypt(role));
 						sessionStorage.setItem('email', encrypt(email_IN));
