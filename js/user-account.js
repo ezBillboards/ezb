@@ -51,22 +51,22 @@ $(document).ready(function(){
          if (validateContactInfo()==true){
 		$.post("../server/user-account-save.php",
                         {
-                                userID: sessionStorage.getItem('ID'), //Change later.
-				firstName: $("#firstName").val(),
-                		lastName: $("#lastName").val(),
+                        userID: decrypt(sessionStorage.getItem('ID')), //Change later.
+						firstName: encrypt($("#firstName").val()),
+                		lastName: encrypt($("#lastName").val()),
                 		email: $("#email").val(),
-                		mobilePhone: $("#mobilePhone").val(),
-                		workPhone: $("#workPhone").val(),
-                		company: $("#company").val(),
-                		address1: $("#address1").val(),
-                		address2: $("#address2").val(),
-                		state: $("#state").val(),
-                		city: $("#city").val(),
-                		zip: $("#zip").val(),
-                		url: $("#url").val(),
-                		facebook: $("#facebook").val(),
-                		twitter: $("#twitter").val(),
-                		instagram: $("#instagram").val()
+                		mobilePhone: encrypt($("#mobilePhone").val()),
+                		workPhone: encrypt($("#workPhone").val()),
+                		company: encrypt($("#company").val()),
+                		address1: encrypt($("#address1").val()),
+                		address2:encrypt( $("#address2").val()),
+                		state: encrypt($("#state").val()),
+                		city: encrypt($("#city").val()),
+                		zip: encrypt($("#zip").val()),
+                		url: encrypt($("#url").val()),
+                		facebook: encrypt($("#facebook").val()),
+                		twitter:encrypt( $("#twitter").val()),
+                		instagram: encrypt($("#instagram").val())
                         },
 
                         function(data, status){
