@@ -342,11 +342,12 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 						profile_ID = data;
 					}
 					setTimeout(function(){
-						sessionStorage.setItem('role', encrypt(1));
+						console.log(encrypt(role));
+						sessionStorage.setItem('role', encrypt(role));
 						sessionStorage.setItem('email', encrypt(email_IN));
 						sessionStorage.setItem('verificationCode', encrypt(random_IN));
 						sendVerificationCode();
-					},200);
+					},20);
 					
 					
 					$('#registerModal').modal('hide');
@@ -467,7 +468,8 @@ function VerifyRole(){
 }
 
 function sendVerificationCode(){
-	$.post("../server/mail-verification-code.php",
+	setTimeout(function(){
+		$.post("../server/mail-verification-code.php",
 			{
 			emailAddress:decrypt(sessionStorage.getItem('email')),
 			random: decrypt(sessionStorage.getItem('verificationCode'))
@@ -480,6 +482,7 @@ function sendVerificationCode(){
 					console.log('Error on user verification!!');
 				}
 		});
+	},100);
 }
 
 function resendVerificationCode(){
