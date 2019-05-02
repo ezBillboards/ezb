@@ -1,15 +1,11 @@
 <?php
 
-if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
-	header('HTTP/1.1 403 Forbidden');
-	exit;
-} else{
-	$config = parse_ini_file('../../../config.ini');
+$config = parse_ini_file('/var/www/config.ini');
 
-	define('DB_SERVER', 'ezb.uprm.edu');
-	define('DB_USERNAME', 'ezb');
-	define('DB_PASSWORD', 'ezb');
-	define('DB_NAME', 'ezbillboards');
+define('DB_SERVER', $config['DB_SERVER']);
+define('DB_USERNAME', $config['DB_USERNAME']);
+define('DB_PASSWORD', $config['DB_PASSWORD']);
+define('DB_NAME', $config['DB_NAME']);
 
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	
@@ -26,5 +22,4 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 		echo "Error updating record: " . mysqli_error($conn);
 		mysqli_close($conn);
 	}
-}
 ?>
