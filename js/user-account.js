@@ -18,9 +18,9 @@ $(document).ready(function(){
                 $("#city").val(decrypt(info.city));
                 $("#zip").val(decrypt(info.zip));
                 $("#url").val(decrypt(info.url));
-                $("#facebook").val(info.facebook));
-                $("#twitter").val(info.twitter));
-                $("#instagram").val(info.instagram));
+                $("#facebook").val(decrypt(info.facebook));
+                $("#twitter").val(decrypt(info.twitter));
+                $("#instagram").val(decrypt(info.instagram));
         });
 	},20);
 	
