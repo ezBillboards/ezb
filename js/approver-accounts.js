@@ -21,7 +21,7 @@ $(document).ready(function(){
 				$("#city").val(decrypt(info.city));
 				$("#zip").val(decrypt(info.zip));
 			});
-	},50);
+	},150);
 
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){

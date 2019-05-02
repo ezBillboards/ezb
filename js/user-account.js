@@ -22,7 +22,7 @@ $(document).ready(function(){
                 $("#twitter").val(decrypt(info.twitter));
                 $("#instagram").val(decrypt(info.instagram));
         });
-	},20);
+	},150);
 	
 
 	$("#changePasswd").click(function(){
