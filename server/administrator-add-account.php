@@ -36,7 +36,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	else if($role == 1) $roleStr = "Approver";
 	else $roleStr = "Publisher";
 
-	$sql = "CALL postAccountAdmin('$firstName','$lastName','$email','$tempPass','$workPhone','$mobilePhone','$office','$role')";
+	$sql = "CALL postAccountAdmin('$firstName','$lastName','$email','$tempPass','$workPhone','$mobilePhone','$office','$roleStr')";
 
 	if (mysqli_query($conn, $sql)) {
 		logger($adminEmail, "CREATE " . strtoupper($roleStr). " ACCOUNT", "An ". $roleStr . " with email " . $email . " has been created");
