@@ -10,6 +10,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	define('DB_USERNAME', $config['DB_USERNAME']);
 	define('DB_PASSWORD', $config['DB_PASSWORD']);
 	define('DB_NAME', $config['DB_NAME']);
+	define('PATH',$config['IMAGE_PATH']);
 
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
@@ -60,7 +61,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	//echo $filename;
 
 	/* Location */
-	$location = "img/billboards/".$billboardID.".".$extension;
+	$location = PATH."img/billboards/".$billboardID.".".$extension;
 	//echo $location;
 
 	$uploadOk = 1;
