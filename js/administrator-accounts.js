@@ -72,6 +72,8 @@ $(document).ready(function(){
 		if($("#role").val() == 0) roleStr = "Administrator";
 		else if($("#role").val() == 1) roleStr = "Approver";
 		else roleStr = "Publisher";
+		console.log($("#role").val() );
+		console.log(roleStr);
  
       		if(status == "success"){
 			alert('Added the new ' + roleStr);
