@@ -11,8 +11,8 @@ $(document).ready(function(){
 			function(data, status){
 				var info = JSON.parse(data);
 				console.log(info);
-				console.log(decrypt(info.lastName));
-				console.log(decrypt(info.lastName));
+				console.log(decrypt(info.office));
+				console.log(decrypt(info.company));
 				$("#firstName").val(decrypt(info.firstName));
 				$("#lastName").val(decrypt(info.lastName));
 				$("#email").val(info.email);
@@ -26,7 +26,7 @@ $(document).ready(function(){
 				$("#city").val(decrypt(info.city));
 				$("#zip").val(decrypt(info.zip));
 			});
-	},20);
+	},25);
 	
 
 	$("#changePasswd").click(function(){
