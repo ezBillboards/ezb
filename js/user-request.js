@@ -6,26 +6,23 @@ var currentRequestID;
 getPendingRequests(sessionStorage.getItem('ID'));
 
 $(document).ready(function(){
-  
-	setTimeout(function(){
-		$(".nav-tabs a").click(function(){
-		$(this).tab('show');
-		tab = $(this).text();
-		if(tab === 'Pending')
-			getPendingRequests(decrypt(sessionStorage.getItem('ID')));
-		else if(tab === 'Approved')
-			getApprovedRequests(decrypt(sessionStorage.getItem('ID')));
-		else if(tab === 'Denied')
-			getDeniedRequests(decrypt(sessionStorage.getItem('ID')));
-		else if(tab === 'Cancelled')
-			getCancelledRequests(decrypt(sessionStorage.getItem('ID')));
-		else if(tab === 'Paid')
-			getPaidRequests(decrypt(sessionStorage.getItem('ID')));
-		else
-			getPublishedRequests(decrypt(sessionStorage.getItem('ID')));
-		});
-  },150);
- 
+	
+	$(".nav-tabs a").click(function(){
+	$(this).tab('show');
+	tab = $(this).text();
+	if(tab === 'Pending')
+		getPendingRequests();
+	else if(tab === 'Approved')
+		getApprovedRequests(decrypt(sessionStorage.getItem('ID')));
+	else if(tab === 'Denied')
+		getDeniedRequests(decrypt(sessionStorage.getItem('ID')));
+	else if(tab === 'Cancelled')
+		getCancelledRequests(decrypt(sessionStorage.getItem('ID')));
+	else if(tab === 'Paid')
+		getPaidRequests(decrypt(sessionStorage.getItem('ID')));
+	else
+		getPublishedRequests(decrypt(sessionStorage.getItem('ID')));
+	});
 
   $("#pendingSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -71,44 +68,47 @@ $(document).ready(function(){
   
 });
 
-function getPendingRequests(userID){
+function getPendingRequests(){
         $("#pending-requests").empty();
-        $.get("../server/user-pending-requests.php",{id:userID},function(data,status){
+		setTimeout(function(){
+			$.get("../server/user-pending-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
                 requests = JSON.parse(data);
-		console.log(requests);
+				console.log(requests);
                 currentRequestIndex = 0;
-		var request = "";
+				var request = "";
                 for(var i = 0; i < requests.length; i++){
                         request += "<tr>" +
                         "<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
 	                        "<img class=\"img-rounded request-images\" src=\""+ requests[i].img + "\"></img>" +
                         "</td>" +
-			"<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
+						"<td class=\"text-center\" style=\"width: 25%;vertical-align: middle;text-align: center;\">" +
                                 "<h4>" + requests[i].name + "</h4><h5>" + requests[i].description + "</h5>" +
                         "</td>" +
-			"<td class=\"text-left\" style=\"width: 25%;vertical-align: middle;text-align: left;\">" +
+						"<td class=\"text-left\" style=\"width: 25%;vertical-align: middle;text-align: left;\">" +
                         "<div><b>Request ID: </b>" + requests[i].id +
                         "</div>" +
                         "<div><b>Request Date: </b>" + requests[i].date +
                         "</div>" +
                         "<div><b>Duration: </b>" + requests[i].duration + " Day(s)" +
                         "</div>" +
-			"<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
+						"<div><b>Frequency: </b>" + requests[i].frequency + " Display Per Cycle" +
                         "</div>" +
-			"<div><b>Starting Date: </b>" + requests[i].startingDate +
+						"<div><b>Starting Date: </b>" + requests[i].startingDate +
                         "</div>" +
-			"<div><b>End Date: </b>" + requests[i].endDate +
+						"<div><b>End Date: </b>" + requests[i].endDate +
                         "</div>" +
                         "<div><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
                         "</div>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;text-align: center;width: 25%;\">" +
-			"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+						"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
                         "</td>" +
                         "</tr>";
                 }
                 $("#pending-requests").append(request);
-        });
+			});
+		},200);
+        
 }
 
 
