@@ -58,13 +58,13 @@ $(document).ready(function(){
 	if(validate() == true){
 	$.post("../server/administrator-add-account.php",
 	{
-		firstName: $("#firstName").val(),
-		lastName: $("#lastName").val(),
+		firstName: encrypt($("#firstName").val()),
+		lastName: encrypt($("#lastName").val()),
 		email: $("#email").val(),
 		tempPass: $("#tempPass").val(),
-		workPhone: $("#workPhone").val(),
-		mobilePhone: $("#mobilePhone").val(),
-		office: $("#office").val(),
+		workPhone: encrypt("#workPhone").val()),
+		mobilePhone: encrypt($("#mobilePhone").val()),
+		office: encrypt($("#office").val(),
 		role: $("#role").val(),
 		adminEmail: sessionStorage.getItem('email')	
 	}, function(data,status){

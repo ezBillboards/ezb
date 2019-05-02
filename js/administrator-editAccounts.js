@@ -25,14 +25,14 @@ $(document).ready(function(){
 				$("#city").val(decrypt(info.city));
 				$("#zip").val(decrypt(info.zip));
 			});
-	},50);
+	},20);
 	
 
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){
 			$.post("../server/user-account-changePasswd.php",
 				{
-				  userID: sessionStorage.getItem('ID'), //Change later.
+				  userID: decrypt(sessionStorage.getItem('ID')), //Change later.
 				  oldPasswd: $("#oldPasswd").val(),
 				  passwd: $("#newPasswd").val()
 				},
