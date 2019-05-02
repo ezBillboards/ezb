@@ -1,6 +1,8 @@
 $(document).ready(function(){
-	$.get("../server/user-account.php",
-		{id:sessionStorage.getItem('ID')},
+	
+	setTimeout(function(){
+		$.get("../server/user-account.php",
+		{id:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
         	var info = JSON.parse(data);
                 console.log(info);
@@ -15,17 +17,19 @@ $(document).ready(function(){
                 $("#state").val(decrypt(info.state));
                 $("#city").val(decrypt(info.city));
                 $("#zip").val(decrypt(info.zip));
-                $("#url").val(info.url));
+                $("#url").val(decrypt(info.url));
                 $("#facebook").val(info.facebook));
                 $("#twitter").val(info.twitter));
                 $("#instagram").val(info.instagram));
         });
+	},20);
+	
 
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){
 			$.post("../server/user-account-changePasswd.php",
 				{
-				  userID: sessionStorage.getItem('ID'), //Change later.
+				  userID: decrypt(sessionStorage.getItem('ID')),
 				  oldPasswd: $("#oldPasswd").val(),
 				  passwd: $("#newPasswd").val()
 				},
