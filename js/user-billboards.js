@@ -117,7 +117,7 @@ $(document).ready(function(){
            console.log(img.height + " >= ? " + billboards[index].minHeight);
            console.log(files.type.substring(6) + " == ? " + billboards[index].extensions);
            console.log(getAspectRatio(img.width, img.height) + " == ? " + billboards[index].ratios);
-	   console.log(sessionStorage.getItem('ID'));
+	   console.log(decrypt(sessionStorage.getItem('ID')));
 	   var fileNameREGEX = /^(\d|\w)+$/;
 	   if(fileNameREGEX.test(files.name.split(".")[0]) &&
 		img.width >= billboards[index].minWidth &&
@@ -126,8 +126,8 @@ $(document).ready(function(){
 		billboards[index].ratios.indexOf(getAspectRatio(img.width, img.height)) != -1)
 		{
 		fd.append('billboardID', parseInt(currentBillboardID));
-		fd.append('userID', sessionStorage.getItem('ID'));
-		fd.append('userEmail', sessionStorage.getItem('email'));
+		fd.append('userID', decrypt(sessionStorage.getItem('ID')));
+		fd.append('userEmail',decrypt( sessionStorage.getItem('email')));
 		fd.append('sDate', startingDate);
 		fd.append('packetID', packages[parseInt(currentSelectedPackage.attr("id"))].id);
 		fd.append('duration', packages[parseInt(currentSelectedPackage.attr("id"))].duration);
