@@ -76,6 +76,7 @@ $(document).ready(function(){
 	});
 	
 	$("table").on("click", "tr .remove", function(){
+		$("#myModal").modal("show");
 		 $(this).closest('tr').remove();
 	});
 	
@@ -687,6 +688,10 @@ function validateBillboard(){
 	console.log( billboardName || billboardDescription);
 	return billboardName || billboardDescription;
 }
+
+function cancelRoll(){
+}
+
 
 function updateBillboard(packages_in,regulations_in,rejections_in,existingpackages_in,existingregulations_in,existingrejections_in,ratio_in,extension_in){
 	if(files != null){

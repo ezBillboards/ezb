@@ -1,6 +1,6 @@
 <?php
 
-$settings = parse_ini_file('../../config.ini');
+$settings = parse_ini_file('../../../config.ini');
 
 define('DB_SERVER', $settings['DB_SERVER']);
 define('DB_USERNAME', $settings['DB_USERNAME']);
