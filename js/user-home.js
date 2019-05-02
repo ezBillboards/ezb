@@ -340,13 +340,15 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 						profile_ID = data;
 					}
 					role = 1;
+					console.log(role);
 					setTimeout(function(){
 						sessionStorage.setItem('role', encrypt(role));
 						sessionStorage.setItem('email', encrypt(email_IN));
 						sessionStorage.setItem('verificationCode', encrypt(random_IN));
-					},20);
+						sendVerificationCode();
+					},50);
 					
-					sendVerificationCode();
+					
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
