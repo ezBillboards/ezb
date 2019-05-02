@@ -65,7 +65,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	//echo $location;
 
 	$uploadOk = 1;
-	$imageFileType = pathinfo(PATH.$location,PATHINFO_EXTENSION);
+	$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
 
 	/* Valid Extensions */
 	$valid_extensions = array("jpg","jpeg","png");
@@ -78,7 +78,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	if($uploadOk == 0){
    		echo " uploadOk = 0 ";
 	}else{
-   		if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],$location)){
+   		if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],PATH . $location)){
         		echo " Uploaded ";
    		}else{
       			echo " Not uploaded ";
