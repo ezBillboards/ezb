@@ -25,12 +25,14 @@
 
 </head>
 <body>
+ <!----------Navbar------------>
   <nav class="navbar navbar-default navbar-border navbar-height">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
          <a class="navbar-brand">
 		<img id="ezb-logo" src="" class="img-responsive ezb-logo" alt="EZB Logo">
         </a>
+	<!----------Navbar Options------------>
         <ul class="nav navbar-nav navbar-right navbar-text nav-align">
 	  <li><a class="navbar-text-color" href="settings.html">Settings</a></li>
           <li><a class="navbar-text-color" href="accounts.html">Accounts</a></li>
@@ -61,21 +63,26 @@
 	<form>
     		<div class="form-group row text-center">
       			<div class="col-lg-4">
+				<!----------Search by email------------>
                         	<input id="mySearchEmail" type="text" class="form-control" placeholder="Email">
       			</div>
 			<div class="col-lg-4">
                                 <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <!----------Calendar by range------------>
+					<i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                 </div>
                         </div>
       			<div class="col-lg-4">
+				<!----------Search by Action------------>
 				<input id="mySearchAction" type="text" class="form-control" placeholder="Action">
       			</div>
     		</div>
   	</form>
 </div>
 <br>
+
+<!----------Logs Tables------------>
 <div class="container">
       <table class="table table-bordered text-center">
       <thead>
@@ -87,6 +94,7 @@
           <th class = "editTable">Detail Action</th>
         </tr>
       </thead>
+	<!----------Obtain Logs from Javascript------------>
       <tbody id="logs">
       </tbody>
     </table>
