@@ -64,7 +64,7 @@ $(document).ready(function(){
 		tempPass: $("#tempPass").val(),
 		workPhone: encrypt($("#workPhone").val()),
 		mobilePhone: encrypt($("#mobilePhone").val()),
-		office: encrypt($("#office").val(),
+		office: encrypt($("#office").val()),
 		role: $("#role").val(),
 		adminEmail: sessionStorage.getItem('email')	
 	}, function(data,status){
