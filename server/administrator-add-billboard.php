@@ -65,7 +65,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	//echo $location;
 
 	$uploadOk = 1;
-	$imageFileType = pathinfo(path.$location,PATHINFO_EXTENSION);
+	$imageFileType = pathinfo(PATH.$location,PATHINFO_EXTENSION);
 
 	/* Valid Extensions */
 	$valid_extensions = array("jpg","jpeg","png");
