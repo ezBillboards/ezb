@@ -60,7 +60,7 @@ function getApprovedRequests(){
 			"</p>" +
 			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</p>" +
-			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"<p><b>Requested By: </b>" + decrypt(requests[i].firstName) + " " +decrypt(requests[i].lastName) +
 			"</p>" +
 			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
 			"</p>" +
@@ -68,7 +68,7 @@ function getApprovedRequests(){
 			"<td style=\"vertical-align: middle;\">" +
 			"<p><b>Approved Date: </b>" + requests[i].approveDate +
 			"</p>" +
-			"<p><b>Approved By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"<p><b>Approved By: </b>" + decrypt(requests[i].approverFirstName) + " " + decrypt(requests[i].approverLastName) +
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
@@ -96,7 +96,7 @@ function getDeniedRequests(){
 			"</p>" +
 			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</p>" +
-			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"<p><b>Requested By: </b>" + decrypt(requests[i].firstName) + " " + decrypt(requests[i].lastName) +
 			"</p>" +
 			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
 			"</p>" +
@@ -104,7 +104,7 @@ function getDeniedRequests(){
 			"<td style=\"vertical-align: middle;\">" +
 			"<p><b>Denied Date: </b>" + requests[i].deniedDate +
 			"</p>" +
-			"<p><b>Denied By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"<p><b>Denied By: </b>" + decrypt(requests[i].approverFirstName) + " " + decrypt(requests[i].approverLastName) +
 			"</p>" +
 			"<p><b>Comments: </b>" + requests[i].comments +
 			"</p>" +
@@ -133,7 +133,7 @@ function getCancelledRequests(){
 			"</p>" +
 			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</div>" +
-			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"<p><b>Requested By: </b>" + decrypt(requests[i].firstName) + " " + decrypt(requests[i].lastName) +
 			"</p>" +
 			"<p><b>Image: </b>" + requests[i].artworkName + "." + requests[i].extension +
 			"</p>" +
@@ -141,7 +141,7 @@ function getCancelledRequests(){
 			"<td style=\"vertical-align: middle;\">" +
 			"<p><b>Cancelled Date: </b>" + requests[i].cancelledDate +
 			"</p>" +
-			"<p><b>Cancelled By: </b>" + requests[i].cancelFirstName + " " + requests[i].cancelLastName +
+			"<p><b>Cancelled By: </b>" + decrypt(requests[i].cancelFirstName) + " " + decrypt(requests[i].cancelLastName) +
 			"</p>" +
 			"<p><b>Comments: </b>" + requests[i].comments +
 			"</p>" +
@@ -160,16 +160,16 @@ function viewProfile(item){
 	currentRequestID = $(item).attr("id");
 	$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
 		var profile = JSON.parse(data);
-		$("#profile-name").text(profile.firstName + " " + profile.lastName);
+		$("#profile-name").text(decrypt(profile.firstName) + " " + decrypt(profile.lastName));
 		$("#profile-email-modal").text(profile.email);
-		$("#profile-mobile").text(profile.mobile);
-		$("#profile-work").text(profile.work);
-		$("#profile-company").text(profile.company);
-		$("#profile-address").text(profile.address1 + " " + profile.address2 + " " + profile.city + ", " + profile.state + " " + profile.zipcode);
-		$("#profile-url").text(profile.url);
-		$("#profile-facebook").attr("href",profile.facebookURL);
-		$("#profile-instagram").attr("href",profile.instagramURL);
-		$("#profile-twitter").attr("href",profile.twitterURL);
+		$("#profile-mobile").text(decrypt(profile.mobile));
+		$("#profile-work").text(decrypt(profile.work));
+		$("#profile-company").text(decrypt(profile.company));
+		$("#profile-address").text(decrypt(profile.address1) + " " + decrypt(profile.address2) + " " + decrypt(profile.city + ", " + decrypt(profile.state) + " " + decrypt(profile.zipcode));
+		$("#profile-url").text(decrypt(profile.url));
+		$("#profile-facebook").attr("href",decrypt(profile.facebookURL));
+		$("#profile-instagram").attr("href",decrypt(profile.instagramURL));
+		$("#profile-twitter").attr("href",decrypt(profile.twitterURL));
 		console.log(profile);
 	});
 }
@@ -186,7 +186,7 @@ function cancelling(item){
 
 function cancelRequest(){
 	console.log(currentRequestID);
-	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:sessionStorage.getItem('ID')},
+	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
