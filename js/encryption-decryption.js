@@ -39,7 +39,11 @@ function encrypt (msg) {
 }
 
 function decrypt (transitmessage) {
-	if(transitmessage != ""){
+	if(transitmessage == "" ){
+		return "";
+	}else if(transitmessage == null){
+		return "";
+	}else{
 		var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32));
 		var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
 		var encrypted = transitmessage.substring(64);
@@ -54,8 +58,7 @@ function decrypt (transitmessage) {
 			mode: CryptoJS.mode.CBC
 		})
 		return decrypted.toString(CryptoJS.enc.Utf8);
-	}else{
-		return "Not received";
+		
 	}
 	
 	
