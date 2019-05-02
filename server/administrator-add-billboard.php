@@ -78,6 +78,7 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	if($uploadOk == 0){
    		echo " uploadOk = 0 ";
 	}else{
+		echo PATH . $location . " ";
    		if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],PATH . $location)){
         		echo " Uploaded ";
    		}else{
