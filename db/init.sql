@@ -19,6 +19,7 @@ USE `ezbillboards`;
 Create user 'ezb'@'ezb.uprm.edu' identified by 'Ezb2019*';
 grant all privileges on * . * to 'ezb'@'ezb.uprm.edu';
 flush privileges;
+
 -- Dumping structure for procedure ezbillboards.deleteAccount
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccount`(
@@ -195,7 +196,7 @@ BEGIN
 	#Returns all Billboards
 	#Billboards must be enabled
 	Select billboard_ID, billboardName, billboardDescription, billboardImage_URL,imageRatio,imageExtension,
-	minWidthRes, minHeightRes from tblbillboards
+	minWidthRes, minHeightRes,tolerance from tblbillboards
 	where enabled = 1;
 END//
 DELIMITER ;
@@ -533,11 +534,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserAccount`(
 	IN `user_ID_IN` BIGINT
 
 
+
 )
 BEGIN
 	#Parameter: User ID
 	#Returns the user information
-	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, 
+	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName,office, 
 	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
 	FROM tblusers WHERE user_ID = user_ID_IN;
 END//
@@ -709,20 +711,14 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.postAccountAdmin
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postAccountAdmin`(
-	IN `firstName_IN` VARCHAR(50),
-	IN `lastName_IN` VARCHAR(50),
-	IN `emailAddress_IN` VARCHAR(50),
+	IN `firstName_IN` VARCHAR(100),
+	IN `lastName_IN` VARCHAR(100),
+	IN `emailAddress_IN` VARCHAR(100),
 	IN `psswd_IN` VARCHAR(255),
-	IN `workPhone_IN` VARCHAR(50),
-	IN `mobilePhone_IN` VARCHAR(50),
-	IN `office_IN` VARCHAR(50),
+	IN `workPhone_IN` VARCHAR(100),
+	IN `mobilePhone_IN` VARCHAR(100),
+	IN `office_IN` VARCHAR(100),
 	IN `role_IN` VARCHAR(50)
-
-
-
-
-
-
 
 )
 BEGIN
@@ -1058,28 +1054,32 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 	IN `user_ID_IN` BIGINT,
-	IN `firstName_IN` VARCHAR(50),
-	IN `lastName_IN` VARCHAR(50),
-	IN `emailAddress_IN` VARCHAR(50),
-	IN `mobilePhone_IN` VARCHAR(50),
-	IN `workPhone_IN` VARCHAR(50),
-	IN `companyName_IN` VARCHAR(50),
-	IN `address1_IN` VARCHAR(50),
-	IN `address2_IN` VARCHAR(50),
-	IN `state_IN` VARCHAR(50),
-	IN `city_IN` VARCHAR(50),
-	IN `zipcode_IN` VARCHAR(50),
-	IN `companyURL_IN` VARCHAR(50),
-	IN `fb_IN` VARCHAR(50),
-	IN `tw_IN` VARCHAR(50),
-	IN `inst_IN` VARCHAR(50)
+	IN `firstName_IN` VARCHAR(100),
+	IN `lastName_IN` VARCHAR(100),
+	IN `emailAddress_IN` VARCHAR(100),
+	IN `mobilePhone_IN` VARCHAR(100),
+	IN `workPhone_IN` VARCHAR(100),
+	IN `companyName_IN` VARCHAR(100),
+	IN `office_IN` VARCHAR(100),
+	IN `address1_IN` VARCHAR(100),
+	IN `address2_IN` VARCHAR(100),
+	IN `state_IN` VARCHAR(100),
+	IN `city_IN` VARCHAR(100),
+	IN `zipcode_IN` VARCHAR(100),
+	IN `companyURL_IN` VARCHAR(100),
+	IN `fb_IN` VARCHAR(100),
+	IN `tw_IN` VARCHAR(100),
+	IN `inst_IN` VARCHAR(100)
+
+
+
 
 )
 BEGIN
 	#Update USERS account information
 	update tblusers
 	set firstName = firstName_IN,lastName = lastName_IN,emailAddress = emailAddress_IN,mobilePhone = mobilePhone_IN,workPhone = workPhone_IN,
-	companyName = companyName_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
+	companyName = companyName_IN,office = office_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
 	 facebookURL = fb_IN, instagramURL = inst_IN, twitterURL = tw_IN 
 	where user_ID = user_ID_IN;
 END//
@@ -1089,12 +1089,13 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccountAdmin`(
 	IN `user_ID_IN` BIGINT,
-	IN `firstName_IN` VARCHAR(50),
-	IN `lastName_IN` VARCHAR(50),
-	IN `workPhone_IN` VARCHAR(50),
-	IN `mobilePhone_IN` VARCHAR(50),
-	IN `office_IN` VARCHAR(50),
+	IN `firstName_IN` VARCHAR(100),
+	IN `lastName_IN` VARCHAR(100),
+	IN `workPhone_IN` VARCHAR(100),
+	IN `mobilePhone_IN` VARCHAR(100),
+	IN `office_IN` VARCHAR(100),
 	IN `role_IN` VARCHAR(50)
+
 
 )
 BEGIN	
@@ -1133,6 +1134,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
 	IN `maxwidth_IN` INT,
 	IN `minheight_IN` INT,
 	IN `maxheight_IN` INT,
+	IN `tolerance_IN` INT,
 	IN `readtime_IN` INT,
 	IN `impressions_IN` INT,
 	IN `traffic_IN` INT,
@@ -1142,13 +1144,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
 ,
 	IN `imageRatio_IN` VARCHAR(100),
 	IN `imageExtension_IN` INT
+
 )
 BEGIN
 	#Update billboard information
 	#ADMIN VIEW
 	update tblbillboards
 	set billboardName = billboardName_IN, billboardDescription = billboardDesc_IN, width = width_IN, height = height_IN, latitude = latitude_IN,
-	longitude = longitude_IN, minWidthRes = minwidth_IN, maxWidthRes = maxwidth_IN, minHeightRes = minheight_IN, maxHeightRes = maxheight_IN,
+	longitude = longitude_IN, minWidthRes = minwidth_IN, maxWidthRes = maxwidth_IN, minHeightRes = minheight_IN, maxHeightRes = maxheight_IN, tolerance = tolerance_IN,
 	readTime = readtime_IN, impressions = impressions_IN,traffic = traffic_IN, cycle = cycle_IN,imageRatio = imageRatio_IN, imageExtension = imageExtension_iN
 	where billboard_ID = billboard_ID_IN;
 END//
@@ -1521,7 +1524,7 @@ CREATE TABLE IF NOT EXISTS `tbladrequest` (
   CONSTRAINT `publisher` FOREIGN KEY (`publisher_ID`) REFERENCES `tblusers` (`user_ID`),
   CONSTRAINT `status` FOREIGN KEY (`status_ID`) REFERENCES `tblrequeststatus` (`status_ID`),
   CONSTRAINT `user` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tbladrequest: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbladrequest` DISABLE KEYS */;
@@ -1542,7 +1545,7 @@ CREATE TABLE IF NOT EXISTS `tblartwork` (
   UNIQUE KEY `artwork_ID` (`artwork_ID`),
   KEY `user_ID` (`user_ID`),
   CONSTRAINT `user_ID` FOREIGN KEY (`user_ID`) REFERENCES `tblusers` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblartwork: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblartwork` DISABLE KEYS */;
@@ -1557,7 +1560,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
   PRIMARY KEY (`reg_ID`),
   KEY `regBillboard` (`billboard_ID`),
   CONSTRAINT `regBillboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblbillboardregulation: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboardregulation` DISABLE KEYS */;
@@ -1587,7 +1590,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboards` (
   `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`billboard_ID`),
   UNIQUE KEY `billboard_ID` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblbillboards: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblbillboards` DISABLE KEYS */;
@@ -1627,7 +1630,7 @@ CREATE TABLE IF NOT EXISTS `tblcommonrejections` (
   `rejection` varchar(500) NOT NULL DEFAULT '0',
   `enabled` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`reject_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblcommonrejections: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblcommonrejections` DISABLE KEYS */;
@@ -1645,7 +1648,7 @@ CREATE TABLE IF NOT EXISTS `tblcontact` (
   `officeHours` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbillboards.tblcontact: ~0 rows (approximately)
+-- Dumping data for table ezbillboards.tblcontact: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblcontact` DISABLE KEYS */;
 INSERT INTO `tblcontact` (`postalAddress`, `physicalAddress`, `phone`, `extensions`, `directPhone`, `fax`, `email`, `officeHours`) VALUES
 	('Oficina de la Rectora\nCall Box 9000, Mayaguez, PR 00681-9000', 'Boulevard Alfonso Valdes 259\nEdificio de Diego #201', '(787)832-4040', '3131, 3135,3139', '(787)265-3878', '(787)834-3031', 'rectora.uprm@upr.edu', 'M-F 7:45 A.M to 11:45 A.M., 1:00 P.M. to 4:30 P.M.');
@@ -1675,7 +1678,7 @@ CREATE TABLE IF NOT EXISTS `tblpackage` (
   UNIQUE KEY `package_ID` (`package_ID`),
   KEY `billboard_Package` (`billboard_ID`),
   CONSTRAINT `billboard_Package` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COMMENT='Packages available for a billboard.';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Packages available for a billboard.';
 
 -- Dumping data for table ezbillboards.tblpackage: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblpackage` DISABLE KEYS */;
@@ -1712,7 +1715,7 @@ CREATE TABLE IF NOT EXISTS `tblschedule` (
   UNIQUE KEY `schedule_ID` (`schedule_ID`),
   KEY `billboard` (`billboard_ID`),
   CONSTRAINT `billboard` FOREIGN KEY (`billboard_ID`) REFERENCES `tblbillboards` (`billboard_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblschedule: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tblschedule` DISABLE KEYS */;
@@ -1726,7 +1729,7 @@ CREATE TABLE IF NOT EXISTS `tblsettings` (
   PRIMARY KEY (`sett_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ezbillboards.tblsettings: ~0 rows (approximately)
+-- Dumping data for table ezbillboards.tblsettings: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
 INSERT INTO `tblsettings` (`sett_ID`, `about`, `terms`) VALUES
 	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor', 'Accept Terms&Aggrements');
@@ -1737,7 +1740,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `user_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `emailAddress` varchar(100) NOT NULL,
   `role_ID` int(11) DEFAULT NULL,
-  `office` varchar(50) DEFAULT NULL,
+  `office` varchar(100) DEFAULT NULL,
   `firstName` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL,
   `mobilePhone` varchar(100) DEFAULT NULL,
@@ -1762,12 +1765,12 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   PRIMARY KEY (`user_ID`,`emailAddress`),
   UNIQUE KEY `user_ID` (`user_ID`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ezbillboards.tblusers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`, `enabled`) VALUES
-	(1, 'ezbillboards19@gmail.com', 4, 'S-123A', 'EZB', 'Developers', '7874122587', '7874566547', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
+	(5, 'ezbillboards19@gmail.com', 4, '26a241b42844ce358d4ce9073808973a0e81917754817ac46a05d260fada8188TABhCSSAlheu5IbTutqdCg==', '4d4a69f20c3a63ef0efe489fea7703d1b21f9eadbcfe55c9acc9cb44a335e3666ht0KGjfiM0z7ySC8J0dgg==', 'a8de3fe583790c03a65f211bff0d3db43d565cc8837ab282a70566321b30a67eAMaKNySrsfZDxCY0GyFf/A==', '4a9f7c38e8f7fc981e710978cf118c73c71f242cefab99cf3513463b4721a93bFm/6/dyHXyH5b/GqQ/Rqkg==', '6adcfa5a5e3691831293ea4cda36bd2d81361e93ed14c76c259ea69304babd98OTB7IpUfFq+Jk39ACzI7DA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 -- Dumping structure for procedure ezbillboards.viewSchedule
