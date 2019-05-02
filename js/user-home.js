@@ -341,10 +341,10 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					if(data != ""){
 						profile_ID = data;
 					}
-					//console.log(encrypt(role));
-					sessionStorage.setItem('role', encrypt(role + ""));
+					console.log(typeof role.toString());
+					sessionStorage.setItem('role', encrypt(role.toString()));
 					sessionStorage.setItem('email', encrypt(email_IN));
-					sessionStorage.setItem('verificationCode', encrypt(random_IN));
+					sessionStorage.setItem('verificationCode', encrypt(random_IN.toString()));
 					sendVerificationCode();
 
 					$('#registerModal').modal('hide');
