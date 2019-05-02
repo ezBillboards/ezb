@@ -169,10 +169,10 @@ function validateContactInfo(){
   var companyRGEX = /^$|[a-zA-Z0-9]/;
   var companyResult = companyRGEX.test(company);
   var addressOne = document.getElementById('address1').value;
-  var addressOneRGEX = /^$|^[a-zA-Z ]{2,30}$/;
+  var addressOneRGEX = /^$|^[a-zA-Z \d]{2,30}$/;
   var addressOneResult = addressOneRGEX.test(addressOne);
   var addressTwo = document.getElementById('address2').value;
-  var addressTwoRGEX = /^$|^[a-zA-Z ]{2,30}$/;
+  var addressTwoRGEX = /^$|^[a-zA-Z \d]{2,30}$/;
   var addressTwoResult = addressTwoRGEX.test(addressTwo);
   var zip = document.getElementById('zip').value;
   var zipRGEX = /^$|^\d{5}$|^\d{5}-\d{4}$/;
