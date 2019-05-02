@@ -180,19 +180,19 @@ function getUserAccounts(){
                                         "<span class=\"glyphicon glyphicon-user\" style=\"font-size: 40px;\"></span>" +
                                 "</div>" +
                                 "<div class=\"col-lg-9 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + accounts[i].firstName + " " + accounts[i].lastName + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
+                                        "<h4>" + decrypt(accounts[i].firstName) + " " + decrypt(accounts[i].lastName) + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
                                 "</div>" +
                         "</div></td>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;vertical-align: middle;\">" +
-			"<p class=\text-center\"><b>Address: </b>" + accounts[i].address1 + " " + accounts[i].address2 + " " + accounts[i].city + " " + accounts[i].state + " " + accounts[i].zip +
+			"<p class=\text-center\"><b>Address: </b>" + decrypt(accounts[i].address1) + " " + decrypt(accounts[i].address2) + " " + decrypt(accounts[i].city) + " " + decrypt(decrypt(accounts[i].state) + " " + decrypt(accounts[i].zip) +
                         "</p>" +
-                        "<p class=\text-center\"><b>Work Phone: </b>" + accounts[i].workPhone +
+                        "<p class=\text-center\"><b>Work Phone: </b>" + decrypt(accounts[i].workPhone) +
                         "</p>" +
-                        "<p class=\text-center\"><b>Mobile Phone: </b>" + accounts[i].mobilePhone +
+                        "<p class=\text-center\"><b>Mobile Phone: </b>" + decrypt(accounts[i].mobilePhone) +
                         "</p>" +
-                        "<p class=\text-center\"><b>Company Name: </b>" + accounts[i].company +
+                        "<p class=\text-center\"><b>Company Name: </b>" + decrypt(accounts[i].company) +
                         "</p>" +
-                        "<p class=\text-center\"><b>URL: </b>" + accounts[i].url +
+                        "<p class=\text-center\"><b>URL: </b>" + decrypt(accounts[i].url) +
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
@@ -218,15 +218,15 @@ function getApproverAccounts(){
                                         "<span class=\"glyphicon glyphicon-user\" style=\"font-size: 40px;\"></span>" +
                                 "</div>" +
                                 "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + accounts[i].firstName + " " + accounts[i].lastName + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
+                                        "<h4>" + decrypt(accounts[i].firstName) + " " + decrypt(accounts[i].lastName) + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
                                 "</div>" +
                         "</div></td>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;vertical-align: middle;\">" +
-                        "<p class=\"text-center\"><b>Work Phone: </b>" + accounts[i].workPhone +
+                        "<p class=\"text-center\"><b>Work Phone: </b>" + decrypt(accounts[i].workPhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Mobile Phone: </b>" + accounts[i].mobilePhone +
+                        "<p class=\"text-center\"><b>Mobile Phone: </b>" + decrypt(accounts[i].mobilePhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Office Number: </b>" + accounts[i].office +
+                        "<p class=\"text-center\"><b>Office Number: </b>" + decrypt(accounts[i].office) +
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
@@ -402,15 +402,15 @@ function getPublisherAccounts(){
                                         "<span class=\"glyphicon glyphicon-user\" style=\"font-size: 40px;\"></span>" +
                                 "</div>" +
                                 "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + accounts[i].firstName + " " + accounts[i].lastName + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
+                                        "<h4>" + decrypt(accounts[i].firstName) + " " + decrypt(accounts[i].lastName) + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
                                 "</div>" +
                         "</div></td>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
-                        "<p class=\"text-center\"><b>Work Phone: </b>" + accounts[i].workPhone +
+                        "<p class=\"text-center\"><b>Work Phone: </b>" + decrypt(accounts[i].workPhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Mobile Phone: </b>" + accounts[i].mobilePhone +
+                        "<p class=\"text-center\"><b>Mobile Phone: </b>" +decrypt( accounts[i].mobilePhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Office Number: </b>" + accounts[i].office +
+                        "<p class=\"text-center\"><b>Office Number: </b>" + decrypt(accounts[i].office) +
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
@@ -441,15 +441,15 @@ function getAdministratorAccounts(){
                                         "<span class=\"glyphicon glyphicon-user\" style=\"font-size: 40px;\"></span>" +
                                 "</div>" +
                                 "<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
-                                        "<h4>" + accounts[i].firstName + " " + accounts[i].lastName + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
+                                        "<h4>" + decrypt(accounts[i].firstName) + " " + decrypt(accounts[i].lastName) + "</h4><h5 style=\"color:gray;\"><i>" + accounts[i].email + "</i></h5>" +
                                 "</div>" +
                         "</div></td>" +
                         "<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
-                        "<p class=\"text-center\"><b>Work Phone: </b>" + accounts[i].workPhone +
+                        "<p class=\"text-center\"><b>Work Phone: </b>" + decrypt(accounts[i].workPhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Mobile Phone: </b>" + accounts[i].mobilePhone +
+                        "<p class=\"text-center\"><b>Mobile Phone: </b>" + decrypt(accounts[i].mobilePhone) +
                         "</p>" +
-                        "<p class=\"text-center\"><b>Office Number: </b>" + accounts[i].office +
+                        "<p class=\"text-center\"><b>Office Number: </b>" + decrypt(accounts[i].office) +
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
