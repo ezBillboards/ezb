@@ -339,7 +339,7 @@ $(document).ready(function(){
 			console.log(data);
 			var info = JSON.parse(data);
 			$("#editBillboardname").attr('value',info.name);
-			$("#billboard-edit-img-tag").attr('src',path + info.img);
+			$("#billboard-edit-img-tag").attr('src',info.img);
 			$("#editdescription").val(info.description);
 			$("#width").attr('value',info.width);
 			$("#height").attr('value',info.height);
@@ -588,7 +588,7 @@ function getBillboards(){
 			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\">" +
 			"<div class=\"row\">" +
 				"<div class=\"col-lg-3\" style=\"padding-right: 0;\">" +
-					"<img class=\"img-rounded\ billboard-images\" src=\""+ path + billboards[i].img + "\"></img>" +
+					"<img class=\"img-rounded\ billboard-images\" src=\""+ billboards[i].img + "\"></img>" +
 				"</div>" +
 				"<div class=\"col-lg-6 text-left\" style=\"padding-left: 0;\">" +
 					"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
