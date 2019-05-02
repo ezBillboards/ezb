@@ -2,9 +2,11 @@
 var requests;
 var currentRequestID;
 
-getPaidRequests();
 
 $(document).ready(function(){
+	
+	getPaidRequests();
+	
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
@@ -42,7 +44,7 @@ function getPaidRequests(){
 			"</p>" +
 			"<p><b>Request Date: </b>" + requests[i].reqDate +
 			"</p>" +
-			"<p><b>Requested By: </b>" + requests[i].firstName + " " + requests[i].lastName +
+			"<p><b>Requested By: </b>" + decrypt(requests[i].firstName) + " " + decrypt(requests[i].lastName) +
 			"</p>" +
 			"<p><b>Image: </b>"  + requests[i].artworkName + "." + requests[i].extension +
 			"</p>" +
@@ -50,7 +52,7 @@ function getPaidRequests(){
 			"<td style=\"vertical-align: middle;\">" +
 			"<p><b>Approved Date: </b>" + requests[i].approveDate +
 			"</p>" +
-			"<p><b>Approved By: </b>" + requests[i].approverFirstName + " " + requests[i].approverLastName +
+			"<p><b>Approved By: </b>" + decrypt(requests[i].approverFirstName) + " " + decrypt(requests[i].approverLastName) +
 			"</p>" +
 			"<p><b>Payment Date: </b>"  + requests[i].paymentDate +
 			"</p>" +
