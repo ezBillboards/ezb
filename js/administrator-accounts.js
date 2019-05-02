@@ -66,7 +66,7 @@ $(document).ready(function(){
 		mobilePhone: encrypt($("#mobilePhone").val()),
 		office: encrypt($("#office").val()),
 		role: $("#role").val(),
-		adminEmail: sessionStorage.getItem('email')	
+		adminEmail: decrypt(sessionStorage.getItem('email'))	
 	}, function(data,status){
 		var roleStr;
 		if($("#role").val() == 0) roleStr = "Administrator";
