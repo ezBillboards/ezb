@@ -341,15 +341,12 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					if(data != ""){
 						profile_ID = data;
 					}
-					setTimeout(function(){
-						console.log(encrypt(role));
-						sessionStorage.setItem('role', encrypt(role));
-						sessionStorage.setItem('email', encrypt(email_IN));
-						sessionStorage.setItem('verificationCode', encrypt(random_IN));
-						sendVerificationCode();
-					},20);
-					
-					
+					console.log(encrypt(role));
+					sessionStorage.setItem('role', encrypt(role));
+					sessionStorage.setItem('email', encrypt(email_IN));
+					sessionStorage.setItem('verificationCode', encrypt(random_IN));
+					sendVerificationCode();
+
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
@@ -372,6 +369,7 @@ function Login(email_IN,password_IN){
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
 				role = credentials[0].roleID;
+				console.log(typeof role);
 				verifiedUser = credentials[0].verified;
 				statusTemp = credentials[0].statusTemp;
 				enabled = credentials[0].enabled;
