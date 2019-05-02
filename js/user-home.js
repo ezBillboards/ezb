@@ -342,8 +342,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 						profile_ID = data;
 					}
 					setTimeout(function(){
-						sessionStorage.setItem('role', role);
-						sessionStorage.setItem('role', encrypt(role));
+						sessionStorage.setItem('role', encrypt(1));
 						sessionStorage.setItem('email', encrypt(email_IN));
 						sessionStorage.setItem('verificationCode', encrypt(random_IN));
 						sendVerificationCode();
