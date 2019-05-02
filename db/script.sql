@@ -525,11 +525,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserAccount`(
 	IN `user_ID_IN` BIGINT
 
 
+
 )
 BEGIN
 	#Parameter: User ID
 	#Returns the user information
-	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, 
+	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName,office, 
 	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
 	FROM tblusers WHERE user_ID = user_ID_IN;
 END//
@@ -1056,9 +1057,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 	IN `city_IN` VARCHAR(100),
 	IN `zipcode_IN` VARCHAR(100),
 	IN `companyURL_IN` VARCHAR(100),
+	IN `office_IN` VARCHAR(100),
 	IN `fb_IN` VARCHAR(100),
 	IN `tw_IN` VARCHAR(100),
 	IN `inst_IN` VARCHAR(100)
+
 
 
 )
@@ -1066,7 +1069,7 @@ BEGIN
 	#Update USERS account information
 	update tblusers
 	set firstName = firstName_IN,lastName = lastName_IN,emailAddress = emailAddress_IN,mobilePhone = mobilePhone_IN,workPhone = workPhone_IN,
-	companyName = companyName_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
+	companyName = companyName_IN,office = office_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
 	 facebookURL = fb_IN, instagramURL = inst_IN, twitterURL = tw_IN 
 	where user_ID = user_ID_IN;
 END//
