@@ -37,7 +37,7 @@ $(document).ready(function(){
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
 		if(validateRegister()==true){
-			random = Math.floor((Math.random() * 1000000) + 1);
+			random = Math.floor((Math.random() * 9000000) + 1);
 			console.log(random);
 			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#lastnamereg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
@@ -386,7 +386,7 @@ function VerifyRole(){
 	else if(role == 1){
 		if (verifiedUser == 0 && statusTemp == 0){
 			console.log('USER NOT VERIFIED!');
-			random = Math.floor((Math.random() * 1000000) + 1);
+			random = Math.floor((Math.random() * 9000000) + 1);
 			sessionStorage.setItem('verificationCode', encrypt(random));
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
@@ -483,7 +483,7 @@ function sendVerificationCode(){
 }
 
 function resendVerificationCode(){
-	random = Math.floor((Math.random() * 1000000) + 1);
+	random = Math.floor((Math.random() * 9000000) + 1);
 	sessionStorage.setItem('verificationCode', encrypt(random));
 	$.post("../server/mail-verification-code.php",
 			{
@@ -507,7 +507,7 @@ function VerifyEmail(){
 			},function(data,status){
 				if(status === "success"){
 					sessionStorage.setItem('ID', encrypt(profile_ID));
-					sessionStorage.setItem('role', encrypt(role));
+					sessionStorage.setItem('role', encrypt(role.toString()));
 					$('#verifyEmailModal').modal('hide');
 					console.log(profile_ID);
 					session();
