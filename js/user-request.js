@@ -7,22 +7,25 @@ getPendingRequests(sessionStorage.getItem('ID'));
 
 $(document).ready(function(){
   
- $(".nav-tabs a").click(function(){
-    $(this).tab('show');
-	tab = $(this).text();
-	if(tab === 'Pending')
-		getPendingRequests(sessionStorage.getItem('ID'));
-	else if(tab === 'Approved')
-		getApprovedRequests(sessionStorage.getItem('ID'));
-	else if(tab === 'Denied')
-		getDeniedRequests(sessionStorage.getItem('ID'));
-	else if(tab === 'Cancelled')
-		getCancelledRequests(sessionStorage.getItem('ID'));
-	else if(tab === 'Paid')
-		getPaidRequests(sessionStorage.getItem('ID'));
-	else
-		getPublishedRequests(sessionStorage.getItem('ID'));
-  });
+	setTimeout(function(){
+		$(".nav-tabs a").click(function(){
+		$(this).tab('show');
+		tab = $(this).text();
+		if(tab === 'Pending')
+			getPendingRequests(decrypt(sessionStorage.getItem('ID')));
+		else if(tab === 'Approved')
+			getApprovedRequests(decrypt(sessionStorage.getItem('ID')));
+		else if(tab === 'Denied')
+			getDeniedRequests(decrypt(sessionStorage.getItem('ID')));
+		else if(tab === 'Cancelled')
+			getCancelledRequests(decrypt(sessionStorage.getItem('ID')));
+		else if(tab === 'Paid')
+			getPaidRequests(decrypt(sessionStorage.getItem('ID')));
+		else
+			getPublishedRequests(decrypt(sessionStorage.getItem('ID')));
+		});
+  },150);
+ 
 
   $("#pendingSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
