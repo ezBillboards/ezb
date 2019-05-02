@@ -61,11 +61,11 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	//echo $filename;
 
 	/* Location */
-	$location = PATH."img/billboards/".$billboardID.".".$extension;
+	$location = "img/billboards/".$billboardID.".".$extension;
 	//echo $location;
 
 	$uploadOk = 1;
-	$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+	$imageFileType = pathinfo(path.$location,PATHINFO_EXTENSION);
 
 	/* Valid Extensions */
 	$valid_extensions = array("jpg","jpeg","png");
