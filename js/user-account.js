@@ -48,8 +48,8 @@ $(document).ready(function(){
 	
 	$("#save").click(function(){
 
-         if (validateContactInfo()==true){
-		$.post("../server/user-account-save.php",
+        if (validateContactInfo()==true){
+			$.post("../server/user-account-save.php",
                         {
                         userID: decrypt(sessionStorage.getItem('ID')), //Change later.
 						firstName: encrypt($("#firstName").val()),
@@ -65,7 +65,7 @@ $(document).ready(function(){
                 		zip: encrypt($("#zip").val()),
                 		url: encrypt($("#url").val()),
                 		facebook: encrypt($("#facebook").val()),
-                		twitter:encrypt( $("#twitter").val()),
+                		twitter: encrypt( $("#twitter").val()),
                 		instagram: encrypt($("#instagram").val())
                         },
 
@@ -79,7 +79,7 @@ $(document).ready(function(){
                 	}
 	            	
                    
-		});
+			});
 	    }
 	 
 	});
