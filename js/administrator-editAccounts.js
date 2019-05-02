@@ -18,8 +18,8 @@ $(document).ready(function(){
 				$("#email").val(info.email);
 				$("#mobilePhone").val(decrypt(info.mobilePhone));
 				$("#workPhone").val(decrypt(info.workPhone));
-				$("#company").val(decrypt(info.company));
 				$("#office").val(decrypt(info.office));
+				$("#company").val(decrypt(info.company));
 				$("#address1").val(decrypt(info.address1));
 				$("#address2").val(decrypt(info.address2));
 				$("#state").val(decrypt(info.state));
