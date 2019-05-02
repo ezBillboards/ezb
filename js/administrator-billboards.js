@@ -242,7 +242,7 @@ $(document).ready(function(){
 			alert("Fill out all rejections fields!");
 		}else{
 			alert("Validated information");
-			//newBillboard(packages,regulations,rejections,ratios,extensions);
+			newBillboard(packages,regulations,rejections,ratios,extensions);
 		}
 	});
 	

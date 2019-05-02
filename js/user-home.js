@@ -484,7 +484,7 @@ function sendVerificationCode(){
 
 function resendVerificationCode(){
 	random = Math.floor((Math.random() * 900000) + 1);
-	sessionStorage.setItem('verificationCode', encrypt(random));
+	sessionStorage.setItem('verificationCode', encrypt(random.toString()));
 	$.post("../server/mail-verification-code.php",
 			{
 				emailAddress:decrypt(sessionStorage.getItem('email')),
