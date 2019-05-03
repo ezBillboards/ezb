@@ -55,12 +55,12 @@
 <!----------Tittle------------>
 	
 	<h1 id="billboard-header" class="text-center">Billboards</h1>
-
+	<br>
 <!----------Options------------>
-	<div class="container">
-		<ul class="nav nav-tabs">
-			<li class = "active"><a href="#Add">Add Billboard</a></li>
-			<li><a href="#Edit">Edit Billboard</a></li>
+	<div style="margin-left: 12%;margin-right: 12%;">
+		<ul class="nav nav-tabs nav-justified">
+			<li class = "active"><a class="tabs-text-color" href="#Add">Add Billboard</a></li>
+			<li><a class="tabs-text-color" href="#Edit">Edit Billboard</a></li>
 		</ul>
 		<br>
 	
@@ -78,31 +78,27 @@
 					<br>
 					<div class="row">
 						
-						<div class="jumbotron col-lg-12" style="background-color:#607d8b;">
+						<div class="jumbotron col-lg-12" style="background-color:#1F589E;">
 							<div class="input-group">
-								
 								<span class="input-group-addon"><i class="fa fa-television"></i></span>
 								<!----------Billboard name------------>
 								<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
 							</div>
 							<br>
 							<div class="Aboutcontainer">
-									<form action="/action_page.php">
-										<div class="form-group">
-											<!----------Description of billboard------------>
-											<label for="about" style = "color:white;">Billboard Description:</label>
-											<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
-										</div>
-									</form>
+								<div class="form-group">
+									<!----------Description of billboard------------>
+									<label for="about" style="color:white;">Billboard Description:</label>
+									<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
 								</div>
-								<br>
+							</div>
+							<br>
 							<div class="row">
 								<div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
 								<div class="col-lg-2">
-									<form action="/action_page.php">
-										<!----------Input Width------------>
-										<input id="addwidth" type="number" value="1" name="widthQuantity" min="1" max="9999">
-									</form>
+									<!----------Input Width------------>
+									<label for="about" style="color:white;">Billboard Description:</label>
+									<input id="addwidth" type="number" value="1" name="widthQuantity" min="1" max="9999">
 								</div>
 								<div class="col-lg-3"><strong style = "color:white;">Minimum Width Resolution (Pixels):</strong></div>
 								<div class="col-lg-2">
@@ -319,7 +315,7 @@
 			<div id="Edit" class="tab-pane fade">
 				<br>
 				<div class="row">
-					<div class="col-lg-11 input-group form-group" style="margin:auto;">
+					<div class="col-lg-12 input-group form-group" style="margin:auto;">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
 						<input id="search" type="text" class="form-control" name="search" placeholder="Search">
 					</div>

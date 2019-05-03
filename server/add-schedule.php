@@ -2,10 +2,6 @@
 
 $config = parse_ini_file('/var/www/config.ini');
 
-if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
-        header('HTTP/1.1 403 Forbidden');
-        exit;
-} else{
 	define('DB_SERVER', $config['DB_SERVER']);
 	define('DB_USERNAME', $config['DB_USERNAME']);
 	define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -26,5 +22,4 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
 		echo "Error updating record: " . mysqli_error($conn);
 		mysqli_close($conn);
 	}
-}
 ?>
