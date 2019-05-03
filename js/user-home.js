@@ -230,11 +230,11 @@ function validateRegister(){
  var phoneResult = phoneRGEX.test(phoneNumber);
 
  var firstName = document.getElementById('firstnamereg').value;
- var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var firstNameRGEX = /^[a-zA-Z]{2,30}$/;
  var firstNameResult = firstNameRGEX.test(firstName);
 
  var lastName = document.getElementById('lastnamereg').value;
- var lastNameRGEX = /^[a-zA-Z ]{2,30}$/;
+ var lastNameRGEX = /^[a-zA-Z]{2,30}$/;
  var lastNameResult = lastNameRGEX.test(lastName);
 
  var email = document.getElementById('emailreg').value;

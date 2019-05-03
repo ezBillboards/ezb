@@ -166,11 +166,14 @@ function validateContactInfo(){
   var companyRGEX = /^$|[a-zA-Z0-9]/;
   var companyResult = companyRGEX.test(company);
   var addressOne = document.getElementById('address1').value;
-  var addressOneRGEX = /^$|^[a-zA-Z ]{2,30}$/;
+  var addressOneRGEX = /^$|^[a-zA-Z0-9 ]{2,30}$/;
   var addressOneResult = addressOneRGEX.test(addressOne);
   var addressTwo = document.getElementById('address2').value;
-  var addressTwoRGEX = /^$|^[a-zA-Z ]{2,30}$/;
+  var addressTwoRGEX = /^$|^[a-zA-Z0-9 ]{2,30}$/;
   var addressTwoResult = addressTwoRGEX.test(addressTwo);
+  var state = document.getElementById('state').value.toUpperCase();;
+  var stateRGEX = /^$|\b(AL|AK|AZ)\b/;
+  var stateResult = stateRGEX.test(state);
   var zip = document.getElementById('zip').value;
   var zipRGEX = /^$|^\d{5}$|^\d{5}-\d{4}$/;
   var zipResult = zipRGEX.test(zip);
@@ -196,6 +199,7 @@ function validateContactInfo(){
   console.log('Company = ' + company);
   console.log('Address 1 = '+ addressOne);
   console.log('Address 2 = '+ addressTwo);
+  console.log('State  = '+ state);
   console.log('Zip  = '+ zip);
   console.log('URL  = '+ url);
   console.log('Facebook  = '+ fb);
@@ -250,6 +254,11 @@ function validateContactInfo(){
   if(addressTwoResult == false)
         {
         alert('Please enter a valid Address 2');
+        return false;
+        }
+  if(stateResult == false)
+        {
+        alert('Please enter a valid State');
         return false;
         }
 
