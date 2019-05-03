@@ -37,7 +37,7 @@ $(document).ready(function(){
                                 username: $("#user").val(),
                                 password: $("#password").val(),
                                 dbname: $("#database").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
                                         alert('Database Configuration Updated');
@@ -54,7 +54,7 @@ $(document).ready(function(){
                                 category: configCategory,
                                 ip: $("#ip").val(),
                                 port: $("#port").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
                                         alert('Mail Server Configuration Updated');
@@ -70,7 +70,7 @@ $(document).ready(function(){
                         {
                                 category: configCategory,
                                 backupPath: $("#backup").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
                                         alert('Backup Path Updated');
@@ -86,7 +86,7 @@ $(document).ready(function(){
                         {
                                 category: configCategory,
                                 imagePath: $("#image").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
                 		if(status == "success"){
                                         alert('Image Path Updated');
@@ -111,7 +111,7 @@ $(document).ready(function(){
                 		directPhone:$("#directPhone").val(),
                 		fax:$("#fax").val(),
                 		email:$("#email").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
                                         alert('Contact Information Updated');
@@ -128,7 +128,7 @@ $(document).ready(function(){
                 $.post("../server/administrator-about-settings.php",
                         {
                                 about: $("#about").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
 					alert('About Information Updated');
@@ -143,7 +143,7 @@ $(document).ready(function(){
                 $.post("../server/administrator-terms-settings.php",
                         {
                                 terms: $("#terms").val(),
-				adminEmail: sessionStorage.getItem('email')
+				adminEmail: decrypt(sessionStorage.getItem('email'))
                         }, function(data, status){
 				if(status == "success"){
                                         alert('Terms & Privacy Policy Information Updated');

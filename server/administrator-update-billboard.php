@@ -118,7 +118,7 @@ for ($x = 0; $x < count($existingpackages); $x=$x+4) {
 }
 
 //Insert new packages
-echo " " . $packages . " ";
+//echo " " . $packages . " ";
 for ($x = 0; $x < count($packages); $x=$x+3) {
 	$duration = $packages[$x];
 	$frequency = $packages[$x + 1];
