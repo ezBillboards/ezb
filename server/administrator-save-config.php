@@ -7,13 +7,14 @@ $config = parse_ini_file('../../../config.ini');
 $category = $_POST['category'];
 $adminEmail = $_POST['adminEmail'];
 
-if($category == "db"){
-	
+if($category == "db"){	
 	$server = $_POST['server'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$dbname = $_POST['dbname'];
-	$content = "[database]\n" .
+	$content = "[server]\n" .
+           "SERVER = " . $config['SERVER'] . "\n\n" .
+	   "[database]\n" .
 	   "DB_SERVER = $server\n" .
 	   "DB_USERNAME = $username\n" . 
 	   "DB_PASSWORD = $password\n" .
@@ -24,11 +25,18 @@ if($category == "db"){
 	   "[backup path]\n" .
 	   "BACKUP_PATH = " . $config['BACKUP_PATH'] . "\n\n" .
 	   "[image path]\n" .
-	   "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n";
+	   "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n" .
+	   "[security]\n" .
+	   "KEY = " . $config['KEY'] . "\n" .
+	   "KEYSIZE = " . $config['KEYSIZE'] . "\n" .
+	   "IVSIZE = " . $config['IVSIZE'] . "\n" .
+	   "ITERATIONS = " . $config['ITERATIONS'] . "\n\n";
 } else if($category == "mail"){
 	$ip = $_POST['ip'];
 	$port = $_POST['port'];
-	$content = "[database]\n" .
+	$content = "[server]\n" .
+           "SERVER = " . $config['SERVER'] . "\n\n" .
+	   "[database]\n" .
            "DB_SERVER = " . $config['DB_SERVER'] . "\n" .
            "DB_USERNAME = " . $config['DB_USERNAME'] . "\n" .
            "DB_PASSWORD = " . $config['DB_PASSWORD'] . "\n" .
@@ -39,10 +47,17 @@ if($category == "db"){
            "[backup path]\n" .
            "BACKUP_PATH = " . $config['BACKUP_PATH'] . "\n\n" .
            "[image path]\n" .
-           "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n";
+           "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n" .
+	   "[security]\n" .
+           "KEY = " . $config['KEY'] . "\n" .
+           "KEYSIZE = " . $config['KEYSIZE'] . "\n" .
+           "IVSIZE = " . $config['IVSIZE'] . "\n" .
+           "ITERATIONS = " . $config['ITERATIONS'] . "\n\n";
 } else if($category == "backup"){
 	$backupPath = $_POST['backupPath'];
-        $content = "[database]\n" .
+        $content = "[server]\n" .
+           "SERVER = " . $config['SERVER'] . "\n\n" .
+	   "[database]\n" .
            "DB_SERVER = " . $config['DB_SERVER'] . "\n" .
            "DB_USERNAME = " . $config['DB_USERNAME'] . "\n" .
            "DB_PASSWORD = " . $config['DB_PASSWORD'] . "\n" .
@@ -53,10 +68,17 @@ if($category == "db"){
            "[backup path]\n" .
            "BACKUP_PATH = $backupPath\n\n" .
            "[image path]\n" .
-           "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n";
+           "IMAGE_PATH = " . $config['IMAGE_PATH'] . "\n\n" .
+	   "[security]\n" .
+           "KEY = " . $config['KEY'] . "\n" .
+           "KEYSIZE = " . $config['KEYSIZE'] . "\n" .
+           "IVSIZE = " . $config['IVSIZE'] . "\n" .
+           "ITERATIONS = " . $config['ITERATIONS'] . "\n\n";
 } else if($category == "image"){
         $imagePath = $_POST['imagePath'];
-        $content = "[database]\n" .
+        $content = "[server]\n" .
+           "SERVER = " . $config['SERVER'] . "\n\n" .
+	   "[database]\n" .
            "DB_SERVER = " . $config['DB_SERVER'] . "\n" .
            "DB_USERNAME = " . $config['DB_USERNAME'] . "\n" .
            "DB_PASSWORD = " . $config['DB_PASSWORD'] . "\n" .
@@ -67,10 +89,15 @@ if($category == "db"){
            "[backup path]\n" .
            "BACKUP_PATH = " . $config['BACKUP_PATH'] . "\n\n" .
            "[image path]\n" .
-           "IMAGE_PATH = $imagePath\n\n";
+           "IMAGE_PATH = $imagePath\n\n" .
+	   "[security]\n" .
+           "KEY = " . $config['KEY'] . "\n" .
+           "KEYSIZE = " . $config['KEYSIZE'] . "\n" .
+           "IVSIZE = " . $config['IVSIZE'] . "\n" .
+           "ITERATIONS = " . $config['ITERATIONS'] . "\n\n";
 }
 
-if (!$handle = fopen("../../config.ini", 'w')) {
+if (!$handle = fopen("../../../config.ini", 'w')) {
 	logger($adminEmail,"ERROR UPDATE " . strtoupper($category), "Error trying opening config file.");
 }
 	

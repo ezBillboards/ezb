@@ -23,6 +23,8 @@ if (mysqli_num_rows($result) > 0) {
         $request['name'] = $row['billboardName'];
 	$request['description'] = $row['billboardDescription'];
         $request['id'] = $row['request_ID'];
+	$request['requestFirstName'] = $row['requestFirstName'];
+	$request['requestLastName'] = $row['requestLastName'];
         $request['date'] = $row['requestDateFormat'];
 	$request['approvedDate'] = $row['approveDateFormat'];
         $request['duration'] = $row['duration'];

@@ -151,6 +151,9 @@ function getApprovedRequests(){
 				"<div class=\"col-lg-4\">" +
                         		"<form action=\"../server/venta.php\"  method=\"post\" name=\"forma\" target=\"_blank\">" +
 					"<input type=\"hidden\" name=\"requestID\" value=\"" + requests[i].id + "\">" +
+					"<input type=\"hidden\" name=\"requestFirstName\" value=\"" + decrypt(requests[i].requestFirstName) + "\">" +
+					"<input type=\"hidden\" name=\"requestLastName\" value=\"" + decrypt(requests[i].requestLastName) + "\">" +
+					"<input type=\"hidden\" name=\"email\" value=\"" + decrypt(sessionStorage.getItem('email')) + "\">" +
 					"<button id=\"pay-btn\" type=\"submit\" class=\"btn\"><span class=\"glyphicon glyphicon-usd\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Pay</b></i></p></span></button>"  +
 					"</form>" +
 				"</div>" +

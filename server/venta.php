@@ -4,12 +4,16 @@ require_once('./ckparser.class');
 require_once('./cksocketstream.class');
 require_once('./ckPGClient.php');
 require_once('./id.php');
+require_once('./logger.php');
 
 // Crea un request para el banco.
 $request = new ckPurchaseRequest($authid);
 
 // Lee información de POST.
 $requestID = $_POST['requestID'];
+$firstName = $_POST['requestFirstName'];
+$lastName = $_POST['requestLastName'];
+$email = $_POST['email'];
 
 // Conecta a la base de datos.
 $config = parse_ini_file('../../../config.ini');
@@ -31,14 +35,6 @@ $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) > 0) {
     $info = mysqli_fetch_assoc($result);
-	$firstName = $info['firstName'];
-	$lastName = $info['lastName'];
-	$email = $info['emailAddress'];
-	$address1 = $info['address1'];
-	$address2 = $info['address2'];
-	$city = $info['city'];
-	$zipcode = $info['zipcode'];
-	$mobilePhone = $info['mobilePhone'];
 	$packageID = $info['package_ID'];
 	$price = $info['price'];
 } else {
@@ -53,11 +49,13 @@ $prod = 'RECA0343';
 $request->clientFirstName = $firstName;
 $request->clientLastName= $lastName;
 $request->email= $email;
-$request->addr1= $address1;
-$request->addr2= $address2;
-$request->city= $city;
-$request->zipcode= $zipcode;
-$request->telephone= $mobilePhone;
+/*
+$request->addr1= "Urb Paseos Dorados";
+$request->addr2= "";
+$request->city= "Cayey";
+$request->zipcode= "00736";
+$request->telephone= "9394883023";
+*/
 $request->quantity = 10;//$price; // 10 Cents for testing purposes.
 $request->create($prod);
 $response = $clientPG->sendRequest($request);
@@ -65,12 +63,14 @@ $transactionID = $response->transactionID;
 
 // Número de transactionID inválido.
 if($transactionID <= 0){
+	logger($email,"ERROR PAYMENT TRANSACTION", "Received a response with invalid transaction ID " . $transactionID);
 	header('Location: onerror.php?error=' .urlencode("Transaction ID invalido"));
 	exit;
 }
 
 // Hubo error en el response.
 if(!$response->isOK()){
+	logger($email, "ERROR PAYMENT RESPONSE", "Received error " . $response->errorMsg . " in response from the bank");
 	header('Location: onerror.php?error=' .urlencode($response->errorMsg));
 	exit;
 }

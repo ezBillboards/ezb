@@ -1,14 +1,14 @@
 <?php
 
-if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
 	date_default_timezone_set('Etc/UTC');
 	require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 	require_once('./logger.php');
-
-	$config = parse_ini_file('../../../config.ini');
 
 	define('DB_SERVER', $config['DB_SERVER']);
 	define('DB_USERNAME', $config['DB_USERNAME']);
