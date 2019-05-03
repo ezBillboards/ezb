@@ -123,7 +123,7 @@ $(document).ready(function(){
 		$.post("../server/approver-decision.php",
 		{
 			id:requests[currentRequestIndex].id,
-			approverID: sessionStorage.getItem('ID'),
+			approverID: decrypt(sessionStorage.getItem('ID')),
 			status:decision,
 			comments:$("#comment").val()
 		},
