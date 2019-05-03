@@ -165,7 +165,7 @@ function viewProfile(item){
 		$("#profile-mobile").text(decrypt(profile.mobile));
 		$("#profile-work").text(decrypt(profile.work));
 		$("#profile-company").text(decrypt(profile.company));
-		$("#profile-address").text(decrypt(profile.address1) + " " + decrypt(profile.address2) + " " + decrypt(profile.city + ", " + decrypt(profile.state) + " " + decrypt(profile.zipcode));
+		$("#profile-address").text(decrypt(profile.address1) + " " + decrypt(profile.address2) + " " + decrypt(profile.city) + ", " + decrypt(profile.state) + " " + decrypt(profile.zipcode));
 		$("#profile-url").text(decrypt(profile.url));
 		$("#profile-facebook").attr("href",decrypt(profile.facebookURL));
 		$("#profile-instagram").attr("href",decrypt(profile.instagramURL));
