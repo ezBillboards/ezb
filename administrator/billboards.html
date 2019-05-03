@@ -78,7 +78,7 @@
 								<span class="input-group-btn">
 									<button class="btn btn-default btn-choose" type="button">Choose</button>
 								</span>
-								<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png" />
+								<input type="text" class="form-control" placeholder='Choose a file...' />
 								<span class="input-group-btn">
 									 <button class="btn btn-warning btn-reset" type="button">Reset</button>
 								</span>
@@ -87,7 +87,7 @@
 						<br>
 						<img src="" id="billboard-img-tag" width="300px" />
 							<!----------Select billboard------------>
-						<input >
+						<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
 					</div>
 					<br>
 					<div class="row">
@@ -104,7 +104,7 @@
 									<form action="/action_page.php">
 										<div class="form-group">
 											<!----------Description of billboard------------>
-											<label for="about">Billboard Description:</label>
+											<label for="about" style = "color:white;">Billboard Description:</label>
 											<textarea id="adddescription" class="form-control" rows="5" id="about" name="text"></textarea>
 										</div>
 									</form>
