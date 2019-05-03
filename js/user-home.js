@@ -18,6 +18,14 @@ var random;
 $(document).ready(function(){
 	//setTimeout(session,500);
 
+	$.get("../server/user-contact.php", function(data, status){
+		var info = JSON.parse(data);
+		$("#footer-physical").text(info.physical);
+		$("#footer-email").text(info.email);
+		$("#footer-phone").text(info.phone);
+		$("#footer-extension").text(info.extension);
+        });
+
 	$.get("../server/get-image-path.php", function(data, status){
                 $("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
