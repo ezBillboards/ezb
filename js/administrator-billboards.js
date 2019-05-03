@@ -249,7 +249,17 @@ $(document).ready(function(){
 	});
 	
 	$('#btnupdatebillboard').click(function(){
-		console.log('btnupdatebillboard clicked!');
+		//console.log('btnupdatebillboard clicked!');
+		var emptyPack = false;
+		var emptyReg = false;
+		var emptyRej = false;
+		var errPack = false;
+		var errReg = false;
+		var errRej = false;
+		var errZero = false;
+		var errCycle = false;
+		var errNumber = false;
+		var errPrice = false;
 		var existingpackages = [];
 		var existingregulations = [];
 		var existingrejections = [];
@@ -307,15 +317,63 @@ $(document).ready(function(){
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
-		console.log(ratios);
-		console.log(extensions);
-		console.log(packages);	
-		console.log(regulations);
-		console.log(rejections);
-		console.log(existingpackages);
-		console.log(existingregulations);
-		console.log(existingrejections);
-		updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
+		
+		if(validateBillboard()){
+			alert('Missing billboard information');
+		}else if(!$("#addwidth").val()){
+			alert("Insert billboard width");
+		}else if(!$("#addheight").val()){
+			alert("Insert billboard height");
+		}else if(!$("#addminwidth").val()){
+			alert("Insert image minimum width");
+		}else if(!$("#addminheight").val()){
+			alert("Insert image minimum height");
+		}else if(!$("#addmaxwidth").val()){
+			alert("Insert image maximum width");
+		}else if(!$("#addmaxheight").val()){
+			alert("Insert image maximum height");
+		}else if(!$("#addlatitude").val()){
+			alert("Insert billboard latitude");
+		}else if(!$("#addlongitude").val()){
+			alert("Insert billboard longitude");
+		}else if(!$("#addimpressions").val()){
+			alert("Insert billboard impressions");
+		}else if(!$("#addtraffic").val()){
+			alert("Insert traffic");
+		}else if(!$("#addtolerance").val()){
+			alert("Insert image tolerance");
+		}else if(!$("#addcycle").val()){
+			alert("Insert billboard cycle");
+		}else if(!$("#addreadtime").val()){
+			alert("Insert billboard read time");
+		}else if(extensions.length == 0){
+			alert("Add at least one extension");
+		}else if(ratios.length == 0){
+			alert("Add at least one ratio");
+		}else if(packages.length == 0){
+			alert("Add at least one package");
+		}else if(regulations.length == 0){
+			alert("Add at least one regulation");
+		}else if(rejections.length == 0){
+			alert("Add at least one Rejection");
+		}else if(emptyPack){
+			alert("Fill out all package fields!");
+		}else if(errZero){
+			alert("Duration, cycle and price cannot be less or equal to zero");
+		}else if(errNumber){
+			alert("Not a valid integer for duration or cycle");
+		}else if(errCycle){
+			alert("Display per cycle larger than billboard cycle");
+		}else if(errPrice){
+			alert("Not a valid price number");
+		}else if(emptyReg){
+			alert("Fill out all regulations fields!");
+		}else if(emptyRej){
+			alert("Fill out all rejections fields!");
+		}else{
+			alert("Validated information");
+			updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
+		}
 	});
 	
 	$("#billboard-img").change(function(){

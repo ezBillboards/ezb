@@ -606,6 +606,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserRequest`(
 
 
 
+
 )
 BEGIN
 	#Parameters: User ID, Status ID
@@ -645,7 +646,7 @@ BEGIN
 			ELSE 'Displayed'
 		END as status,
 		DATE_FORMAT(approveDate, "%M %e, %Y") as approveDateFormat, paymentDate, tblbillboards.billboard_ID, billboardName,billboardDescription,
-		tblusers.firstName as requestName, tblusers.lastName as requestName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+		tblusers.firstName as requestFirstName, tblusers.lastName as requestLastName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
 		tbladrequest.displayPerCycle, tbladrequest.duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
 		from tbladrequest
 		join tblusers on tblusers.user_ID = tbladrequest.user_ID
@@ -666,7 +667,7 @@ BEGIN
 		Select request_ID,DATE_FORMAT(requestDate, "%M %e, %Y") as requestDateFormat,
 		DATE_FORMAT(startDate, "%M %e, %Y") as startDateFormat, DATE_FORMAT(endDate, "%M %e, %Y") as endDateFormat,DATE_FORMAT(approveDate, "%M %e, %Y") as deniedDateFormat,
 		DATE_FORMAT(paymentDate, "%M %e, %Y") as paymentDateFormat, tblbillboards.billboard_ID, billboardName,billboardDescription,
-		tblusers.firstName as requestName, tblusers.lastName as requestName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+		tblusers.firstName as requestFirstName, tblusers.lastName as requestLastName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
 		tbladrequest.displayPerCycle, tbladrequest.duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
 		from tbladrequest
 		join tblusers on tblusers.user_ID = tbladrequest.user_ID
@@ -687,7 +688,7 @@ BEGIN
 		Select request_ID,DATE_FORMAT(requestDate, "%M %e, %Y") as requestDateFormat,
 		DATE_FORMAT(startDate, "%M %e, %Y") as startDateFormat, DATE_FORMAT(endDate, "%M %e, %Y") as endDateFormat,DATE_FORMAT(approveDate, "%M %e, %Y") as approveDateFormat,
 		DATE_FORMAT(paymentDate, "%M %e, %Y") as paymentDateFormat, tblbillboards.billboard_ID, billboardName,billboardDescription,
-		tblusers.firstName as requestName, tblusers.lastName as requestName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
+		tblusers.firstName as requestFirstName, tblusers.lastName as requestLastName,approverFirstName,approverLastName,publisherFirstName,publisherLastName,
 		tbladrequest.displayPerCycle, tbladrequest.duration, artworkURL, artworkName, extension,tblartwork.width,tblartwork.height,tblartwork.size,comments
 		from tbladrequest
 		join tblusers on tblusers.user_ID = tbladrequest.user_ID
@@ -855,6 +856,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 	IN `imageExtension_IN` VARCHAR(500)
 
 
+
 )
 BEGIN
 	#Parameters: Billboard information
@@ -865,7 +867,7 @@ BEGIN
 	Insert into tblbillboards (billboardName, billboardDescription,billboardImage_URL, width, height, latitude,longitude,
 	minWidthRes,maxWidthRes,minHeightRes,maxHeightRes,tolerance, readTime, impressions, traffic, cycle,imageRatio,imageExtension)
 	values(billboardName_IN, billboardDescription_IN,billboardImageURL_IN, width_IN, height_IN, latitude_IN,longitude_IN,
-	 minWidthRes_IN, maxWidthRes_IN, readTime_IN, minHeightRes_IN,maxHeightRes_IN,tolerance_IN, impressions_IN, traffic_IN, cycle_IN,imageRatio_IN,imageExtension_IN);
+	 minWidthRes_IN, maxWidthRes_IN, minHeightRes_IN,maxHeightRes_IN,tolerance_IN, readTime_IN, impressions_IN, traffic_IN, cycle_IN,imageRatio_IN,imageExtension_IN);
 	/*SET slots = cycle*seconds/readTime;*/
 	select last_insert_id() as ID;
 	#Create billboard schedule form 3 months
@@ -1066,10 +1068,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 	IN `state_IN` VARCHAR(100),
 	IN `city_IN` VARCHAR(100),
 	IN `zipcode_IN` VARCHAR(100),
-	IN `companyURL_IN` VARCHAR(100),
-	IN `fb_IN` VARCHAR(100),
-	IN `tw_IN` VARCHAR(100),
-	IN `inst_IN` VARCHAR(100)
+	IN `companyURL_IN` VARCHAR(400),
+	IN `fb_IN` VARCHAR(400),
+	IN `tw_IN` VARCHAR(400),
+	IN `inst_IN` VARCHAR(400)
+
 
 
 
@@ -1143,8 +1146,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
 
 ,
 	IN `imageRatio_IN` VARCHAR(100),
-	IN `imageExtension_IN` INT
-
+	IN `imageExtension_IN` VARCHAR(100)
 )
 BEGIN
 	#Update billboard information
@@ -1746,10 +1748,10 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `mobilePhone` varchar(100) DEFAULT NULL,
   `workPhone` varchar(100) DEFAULT NULL,
   `companyName` varchar(100) DEFAULT NULL,
-  `companyURL` varchar(100) DEFAULT NULL,
-  `facebookURL` varchar(100) DEFAULT NULL,
-  `instagramURL` varchar(100) DEFAULT NULL,
-  `twitterURL` varchar(100) DEFAULT NULL,
+  `companyURL` varchar(400) DEFAULT NULL,
+  `facebookURL` varchar(400) DEFAULT NULL,
+  `instagramURL` varchar(400) DEFAULT NULL,
+  `twitterURL` varchar(400) DEFAULT NULL,
   `address1` varchar(200) DEFAULT NULL,
   `address2` varchar(200) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
