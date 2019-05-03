@@ -1,11 +1,11 @@
 <?php
 
-if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
-        $config = parse_ini_file('../../../config.ini');
-
 	define('DB_SERVER', $config['DB_SERVER']);
 	define('DB_USERNAME', $config['DB_USERNAME']);
 	define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -58,14 +58,14 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 
 	/* Getting file name */
 	$filename = $_FILES['uploadimage']['name'];
-	//echo $filename;
+	echo $filename;
 
 	/* Location */
 	$location = "img/billboards/".$billboardID.".".$extension;
 	//echo $location;
 
 	$uploadOk = 1;
-	$imageFileType = pathinfo(PATH . $location,PATHINFO_EXTENSION);
+	$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
 
 	/* Valid Extensions */
 	$valid_extensions = array("jpg","jpeg","png");
@@ -78,8 +78,8 @@ if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
 	if($uploadOk == 0){
    		echo " uploadOk = 0 ";
 	}else{
-		echo PATH . $location . " ";
-   		if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],PATH . $location)){
+		//echo PATH . $location . " ";
+   		if(move_uploaded_file($_FILES['uploadimage']['tmp_name'],$config['IMAGE_PATH'] . $location)){
         		echo " Uploaded ";
    		}else{
       			echo " Not uploaded ";

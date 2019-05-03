@@ -60,10 +60,15 @@ sudo rm -Rfv /var/www/html/ezb/db/
 # Change Ownership And Permissions
 printf "\nChanging Ownership And Permissions...\n\n"
 sudo chown -v apache:apache /var/www/config.ini
+sudo chmod -v 664 /var/www/config.ini
 sudo chown -v apache:apache /var/www/html/ezb/server/remove-unverified-accounts.php
 sudo chown -v apache:apache /var/www/html/ezb/server/add-schedule.php
 sudo chmod -v 755 /var/www/html/ezb/server/remove-unverified-accounts.php
 sudo chmod -v 755 /var/www/html/ezb/server/add-schedule.php
+sudo chown -vR apache:apache /var/www/html/img/
+sudo chmod -vR 764 /var/www/html/img/
+sudo chown -vR apache:apache /var/www/backups/
+sudo chmod -vR 770 /var/www/html/backups/
 
 # Dump DB
 printf "\nDumping DB...\n\n"
