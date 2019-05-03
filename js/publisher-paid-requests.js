@@ -76,8 +76,8 @@ function publishRequest(item){
 	$.post("../server/publisher-publish-request.php",
 	{
 		id:currentRequestID,
-		publisherID:sessionStorage.getItem('ID'),
-		publisherEmail:sessionStorage.getItem('email')
+		publisherID:decrypt(sessionStorage.getItem('ID')),
+		publisherEmail:decrypt(sessionStorage.getItem('email'))
 	},
 		function(data, status){
 			if(status === "success"){
