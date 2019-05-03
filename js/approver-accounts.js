@@ -4,6 +4,7 @@ $(document).ready(function(){
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 	
+	setTimeout(function(){
 	$.get("../server/user-account.php",
 			{id:decrypt(sessionStorage.getItem('ID'))},
 			function(data, status){
@@ -82,6 +83,8 @@ $(document).ready(function(){
 	    }
 	 
 	});
+
+});
 
 function validatePassword(){
  var oldpassword = document.getElementById('oldPasswd').value;
@@ -248,7 +251,3 @@ function validateContactInfo(){
 return true;
 
 }
-
-
-
-});
