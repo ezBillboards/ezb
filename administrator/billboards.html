@@ -359,14 +359,23 @@
 				<div class="modal-body">
 					<div class="container-fluid">
 						<div class="row">
-							<div class="jumbotron col-lg-5">
+							<div class="jumbotron col-lg-3">
 								<div class="container mt-3">
 									<form action="/action_page.php">
 										<img src="" id="billboard-edit-img-tag" width="200px" />
 										<!----------Edit image------------>
 										<input type="file" name="file" id="billboard-edit-img" accept=".jpg, .jpeg, .png">
 									</form>
-									<div class="Aboutcontainer">
+								</div>
+							</div>
+							<div class="jumbotron col-lg-9" style="background-color:#607d8b;">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-television"></i></span>
+									<!----------Edit Billboard Name------------>
+									<input id="editBillboardname" type="text" class="form-control" name="editBillboardname" placeholder="Billboard Name">
+								</div>
+								<br>
+								<div class="Aboutcontainer">
 										<form action="/action_page.php">
 											<div class="form-group">
 												<label for="description">Billboard description:</label>
@@ -375,16 +384,7 @@
 											</div>
 										</form>
 									</div>
-					
-								</div>
-							</div>
-							<div class="jumbotron col-lg-7" style="background-color:#607d8b;">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-television"></i></span>
-									<!----------Edit Billboard Name------------>
-									<input id="editBillboardname" type="text" class="form-control" name="editBillboardname" placeholder="Billboard Name">
-								</div>
-								<br>
+									<br>
 								<div class="row">
 									<div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
 									<div class="col-lg-2">
