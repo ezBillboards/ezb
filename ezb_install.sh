@@ -68,7 +68,7 @@ sudo chmod -v 755 /var/www/html/ezb/server/add-schedule.php
 sudo chown -vR apache:apache /var/www/html/img/
 sudo chmod -vR 764 /var/www/html/img/
 sudo chown -vR apache:apache /var/www/backups/
-sudo chmod -vR 770 /var/www/html/backups/
+sudo chmod -vR 770 /var/www/backups/
 
 # Dump DB
 printf "\nDumping DB...\n\n"
@@ -79,7 +79,7 @@ sudo mysql -u root -p < ./db/init.sql
 printf "\nSetting Up Cron...\n\n"
 removeUnverifiedAccounts="0 3 * * * php /var/www/html/ezb/server/remove-unverified-accounts.php"
 addSchedule="0 0 * * * php /var/www/html/ezb/server/add-schedule.php"
-sudo echo -e "$removeUnverifiedAccounts\n$addSchedule" | crontab -u apache -
+echo -e "$removeUnverifiedAccounts\n$addSchedule" | sudo crontab -u apache -
 
 # Start Cron
 printf "\nStarting Cron...\n\n"
