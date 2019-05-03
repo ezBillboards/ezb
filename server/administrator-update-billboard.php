@@ -142,12 +142,13 @@ for ($x = 0; $x < count($packages); $x=$x+3) {
 for ($x = 0; $x < count($existingregulations); $x=$x+2) {
 	$regulationid = $existingregulations[$x];
 	$regulation = $existingregulations[$x + 1];
+	echo $regulation . " ";
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
 	if($conn === false){
 		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
-	$sql = "CALL putRegulation($regulationid,'$regulations')";
+	$sql = "CALL putRegulation($regulationid,'$regulation')";
 	if (mysqli_query($conn, $sql)) {
         echo " Regulation inserted successfully ";
 	} else {
@@ -172,7 +173,7 @@ for ($x = 0; $x < count($regulations); $x++) {
 	mysqli_close($conn);
 }
 
-//Update existing regulations
+//Update existing rejection
 for ($x = 0; $x < count($existingrejections); $x=$x+2) {
 	$rejectionid = $existingrejections[$x];
 	$rejection = $existingrejections[$x + 1];
