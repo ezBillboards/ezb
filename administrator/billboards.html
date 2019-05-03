@@ -72,13 +72,16 @@
 			<!----------Add------------>
 			<div id="Add" class="tab-pane fade in active">
 				<div class="container-fluid">
+					<div class = row>
+						<img src="" id="billboard-img-tag" width="300px" />
+							<!----------Select billboard------------>
+						<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
+					</div>
 					<div class="row">
 						
-						<div class="jumbotron col-lg-10" style="background-color:#607d8b;">
+						<div class="jumbotron col-lg-12" style="background-color:#607d8b;">
 							<div class="input-group">
-								<img src="" id="billboard-img-tag" width="300px" />
-									<!----------Select billboard------------>
-								<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
+								
 								<span class="input-group-addon"><i class="fa fa-television"></i></span>
 								<!----------Billboard name------------>
 								<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
