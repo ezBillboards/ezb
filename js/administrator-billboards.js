@@ -370,43 +370,43 @@ $(document).ready(function(){
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
 		
-		if(validateBillboard()){
+		/*if(validateEditBillboard()){
 			alert('Missing billboard information');
-		}else if(!$("#addwidth").val()){
+		}else if(!$("#width").val()){
 			alert("Insert billboard width");
-		}else if(!$("#addheight").val()){
+		}else if(!$("#height").val()){
 			alert("Insert billboard height");
-		}else if(!$("#addminwidth").val()){
+		}else if(!$("#min-wid").val()){
 			alert("Insert image minimum width");
-		}else if(!$("#addminheight").val()){
+		}else if(!$("#min-hei").val()){
 			alert("Insert image minimum height");
-		}else if(!$("#addmaxwidth").val()){
+		}else if(!$("#max-wid").val()){
 			alert("Insert image maximum width");
-		}else if(!$("#addmaxheight").val()){
+		}else if(!$("#max-hei").val()){
 			alert("Insert image maximum height");
-		}else if(!$("#addlatitude").val()){
+		}else if(!$("#latitude").val()){
 			alert("Insert billboard latitude");
-		}else if(!$("#addlongitude").val()){
+		}else if(!$("#longitude").val()){
 			alert("Insert billboard longitude");
-		}else if(!$("#addimpressions").val()){
+		}else if(!$("#impressions").val()){
 			alert("Insert billboard impressions");
-		}else if(!$("#addtraffic").val()){
+		}else if(!$("#traffic").val()){
 			alert("Insert traffic");
-		}else if(!$("#addtolerance").val()){
+		}else if(!$("#tolerance").val()){
 			alert("Insert image tolerance");
-		}else if(!$("#addcycle").val()){
+		}else if(!$("#cycle").val()){
 			alert("Insert billboard cycle");
-		}else if(!$("#addreadtime").val()){
+		}else if(!$("#read-time").val()){
 			alert("Insert billboard read time");
 		}else if(extensions.length == 0){
 			alert("Add at least one extension");
 		}else if(ratios.length == 0){
 			alert("Add at least one ratio");
-		}else if(packages.length == 0){
+		}else if(packages.length + existingpackages.length == 0){
 			alert("Add at least one package");
-		}else if(regulations.length == 0){
+		}else if(regulations.length + existingregulations.length == 0){
 			alert("Add at least one regulation");
-		}else if(rejections.length == 0){
+		}else if(rejections.length + existingrejections.length == 0){
 			alert("Add at least one Rejection");
 		}else if(emptyPack){
 			alert("Fill out all package fields!");
@@ -425,7 +425,9 @@ $(document).ready(function(){
 		}else{
 			alert("Validated information");
 			updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
-		}
+		}*/
+		
+		updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
 	});
 	
 	$("#billboard-img").change(function(){
@@ -792,6 +794,24 @@ function validateBillboard(){
 		billboardName = false;
 		billboardName = billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = billboardRGEX.test($("#adddescription").val());
+		console.log("Billboard name found");
+	}
+	
+	console.log( billboardName || billboardDescription);
+	return billboardName || billboardDescription;
+}
+
+function validateEditBillboard(){
+	var billboardName = true;
+	var billboardDescription = true;
+	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
+	if ($("#editBillboardname").val() == ""){
+		console.log("Missing billboard name!");
+	}
+	else{
+		billboardName = false;
+		billboardName = billboardRGEX.test($("#editBillboardname").val());
+		billboardDescription = billboardRGEX.test($("#editdescription").val());
 		console.log("Billboard name found");
 	}
 	
