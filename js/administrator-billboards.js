@@ -339,7 +339,7 @@ $(document).ready(function(){
 			console.log(data);
 			var info = JSON.parse(data);
 			$("#editBillboardname").attr('value',info.name);
-			$("#billboard-edit-img-tag").attr('src',info.img);
+			$("#billboard-edit-img-tag").attr('src',path + info.img);
 			$("#editdescription").val(info.description);
 			$("#width").attr('value',info.width);
 			$("#height").attr('value',info.height);
