@@ -41,7 +41,6 @@ $imageRatio = $_POST['imageRatio'];
 $imageExtension = $_POST['imageExtension'];
 
 print_r($_POST);
-exit;
 $sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
 if (mysqli_query($conn, $sql)) {
 	echo "Billboard updated successfully";
