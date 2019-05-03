@@ -40,7 +40,8 @@ $cycle = $_POST['cycle'];
 $imageRatio = $_POST['imageRatio'];
 $imageExtension = $_POST['imageExtension'];
 
-
+print_r($_POST);
+exit;
 $sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
 if (mysqli_query($conn, $sql)) {
 	echo "Billboard updated successfully";
@@ -183,9 +184,9 @@ for ($x = 0; $x < count($existingrejections); $x=$x+2) {
 	}
 	$sql = "CALL putRegulation($rejectionid,'$rejection')";
 	if (mysqli_query($conn, $sql)) {
-        echo " Regulation inserted successfully ";
+        echo " Rejection inserted successfully ";
 	} else {
-		echo "Error inserting regulation: " . mysqli_error($conn) . " ";
+		echo "Error inserting rejection: " . mysqli_error($conn) . " ";
 	}
 	mysqli_close($conn);
 }
