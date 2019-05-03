@@ -701,9 +701,8 @@ function getBillboards(){
 			"<td class=\"text-center\" style=\"width: 33.33%;text-align: center;vertical-align: middle;\">" +
 				"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 			"</td>" +
-			"<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-				"<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p style=\"font-size: 14px;\"><b><i>Information</b></i></p></span>" +
-				"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p style=\"font-size: 14px;\"><b><i>Request</b></i></p></span>" +
+			"<td class=\"text-center\" style=\"width: 50%;text-align: center;\"><a href=\"#\"><span id=\"" + billboards[i].id + "\"  class=\"glyphicon glyphicon-pencil actions information\" data-toggle=\"modal\" data-target=\"#EditModal\"><br></span></a>" +
+			"<a href=\"#\"><span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash actions deleteBillboard\"><br></span></a>" +
 			"</td>" +
 			"</tr>";
 		}
