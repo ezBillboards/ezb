@@ -66,7 +66,7 @@ sudo chown -v apache:apache /var/www/html/ezb/server/add-schedule.php
 sudo chmod -v 755 /var/www/html/ezb/server/remove-unverified-accounts.php
 sudo chmod -v 755 /var/www/html/ezb/server/add-schedule.php
 sudo chown -vR apache:apache /var/www/html/img/
-sudo chmod -vR 764 /var/www/html/img/
+sudo chmod -vR 774 /var/www/html/img/
 sudo chown -vR apache:apache /var/www/backups/
 sudo chmod -vR 770 /var/www/backups/
 
