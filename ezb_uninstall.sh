@@ -13,5 +13,5 @@ sudo mysql -u root -p < ./db/destroy.sql
 
 # Clear Cron
 printf "\nClearing Cron...\n\n"
-sudo echo "" | crontab -u apache -
+echo "" | sudo crontab -u apache -
 
