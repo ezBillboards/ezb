@@ -4,7 +4,10 @@ var tab = 'Approved';
 var currentRequestIndex;
 var currentRequestID;
 
-getApprovedRequests();
+setTimeout(function(){
+	getApprovedRequests();
+},100);
+
 
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
