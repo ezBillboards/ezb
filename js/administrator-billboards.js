@@ -292,7 +292,7 @@ $(document).ready(function(){
 			}else{
 				existingrejections.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
-					existingregulations.push(this.value);
+					existingrejections.push(this.value);
 				});
 			}
 		});

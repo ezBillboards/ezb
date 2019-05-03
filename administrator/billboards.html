@@ -73,14 +73,24 @@
 			<div id="Add" class="tab-pane fade in active">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="jumbotron col-lg-4">
+						<div class="jumbotron col-lg-2">
 							<div class="container mt-3">
 								<form action="/action_page.php">
 									<img src="" id="billboard-img-tag" width="300px" />
 									<!----------Select billboard------------>
 									<input type="file" name="file" id="billboard-img" accept=".jpg, .jpeg, .png">
 								</form>
-								<div class="Aboutcontainer">
+								
+							</div>
+						</div>
+						<div class="jumbotron col-lg-10" style="background-color:#607d8b;">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-television"></i></span>
+								<!----------Billboard name------------>
+								<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
+							</div>
+							<br>
+							<div class="Aboutcontainer">
 									<form action="/action_page.php">
 										<div class="form-group">
 											<!----------Description of billboard------------>
@@ -89,16 +99,7 @@
 										</div>
 									</form>
 								</div>
-							</div>
-						</div>
-						<div class="jumbotron col-lg-8" style="background-color:#607d8b;">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-television"></i></span>
-								<!----------Billboard name------------>
-								<input id="addBillboardname" type="text" class="form-control" name="addBillboardname" placeholder="Billboard Name">
-							</div>
-							<br>
-
+								<br>
 							<div class="row">
 								<div class="col-lg-3"><strong style = "color:white;">Width:</strong></div>
 								<div class="col-lg-2">
