@@ -2,7 +2,8 @@
 
 $config = parse_ini_file('../../../config.ini');
 
-$filename = $_POST['filename'];
+//$filename = $_POST['filename'];
+$filename = "ezb.zip";
 $backupDir = $config['BACKUP_PATH'];
 $imageDir = $config['IMAGE_PATH'];
 $backup = $backupDir . $filename;

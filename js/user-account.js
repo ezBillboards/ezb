@@ -172,7 +172,7 @@ function validateContactInfo(){
   var addressTwoRGEX = /^$|^[a-zA-Z0-9 ]{2,30}$/;
   var addressTwoResult = addressTwoRGEX.test(addressTwo);
   var state = document.getElementById('state').value.toUpperCase();;
-  var stateRGEX = /^$|\b(AL|AK|AZ)\b/;
+  var stateRGEX = /^$|\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AS|DC|FM|GU|MH|MP|PW|PR|VI)\b/;
   var stateResult = stateRGEX.test(state);
   var zip = document.getElementById('zip').value;
   var zipRGEX = /^$|^\d{5}$|^\d{5}-\d{4}$/;

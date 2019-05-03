@@ -798,7 +798,8 @@ function validateBillboard(){
 	}
 	
 	console.log( billboardName || billboardDescription);
-	return billboardName || billboardDescription;
+//	return billboardName || billboardDescription;
+	return false;
 }
 
 function validateEditBillboard(){
