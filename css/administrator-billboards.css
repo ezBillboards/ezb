@@ -46,10 +46,16 @@
 }
 
 .actions {
-	font-size: 25px;
+	font-size: 35px;
 	padding-left: 2%;
 	paddign-right: 2%;
-	color: gray;
+	color: #2D2D2D;
+}
+
+.align{
+        justify-content: center;
+        display: flex;
+        align-items: center;
 }
 
 .tabs-text-color {
