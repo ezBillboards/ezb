@@ -270,7 +270,59 @@ $(document).ready(function(){
 		var extensions = "";
 		$("#edit-package tr").each(function() {
 			if($(this).attr("id") == null){
+				var i = 1;
 				$(this).find('td').find('input').each(function(){
+					if(this.value == ""){
+						emptyPack = true;
+					}else if(this.value <= 0){
+						errZero = true;
+					}else{
+						if (i % 3 == 0){
+							var price = this.value.split(".");
+							var strPrice = this.value.toString();
+							console.log(price);
+							if(this.value.toString().charAt(0) == "."){
+								if(price[0].length > 2){
+									console.log('char at 0');
+									errPrice = true;
+								}
+							}else{
+								if(price.length == 2){
+									if(price[1].length > 2){
+										console.log('Decimal > 2');
+										errPrice = true;
+									}
+									else if(price[0].length > 12){
+										console.log('Integer > 12');
+										errPrice = true;
+									}
+								}else if(price.length == 1){
+									if(price[0].length > 12){
+										console.log('Integer > 12');
+										errPrice = true;
+									}
+								}else{
+									errPrice = true;
+								}
+							}
+						}else{
+							var intValue = this.value.split(".");
+							if(this.value.toString().charAt(0) == "."){
+								errNumber = true;
+								console.log("Not an integer");
+							}else if(intValue.length > 1){
+								errNumber = true;
+								console.log("Not an integer");
+							}
+							if(i % 3 == 2){
+								if(this.value > $("#addcycle").val()){
+									errCycle = true;
+								}
+							}
+						}
+
+					}
+					i = i + 1;
 					packages.push(this.value);
 				});
 			}else{

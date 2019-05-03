@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$.get("../server/approver-view-client-profile.php", {id:requests[currentRequestIndex].id}, function(data, status){
 			var profile = JSON.parse(data);
 			$("#profile-name").text(decrypt(profile.firstName) + " " + decrypt(profile.lastName));
-			$("#profile-email").text(profile.email);
+			$("#profile-email-modal").text(profile.email);
 			$("#profile-mobile").text(decrypt(profile.mobile));
 			$("#profile-work").text(decrypt(profile.work));
 			$("#profile-company").text(decrypt(profile.company));
