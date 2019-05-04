@@ -12,7 +12,6 @@ var profile_ID;
 var verifiedUser;
 var statusTemp;
 var enabled;
-
 var random;	
 
 $(document).ready(function(){
@@ -61,21 +60,34 @@ $(document).ready(function(){
 	});
 	
 	$("#btnforgotpsswd").click(function(){
-		forgotPassword();
+		if(validateEmail()){
+			$.get("../server/get-email-account.php",
+                        	{
+                        		emailAddress:$('#emailforgot').val()
+                        	},function(data,status){
+        			if(JSON.parse(data)){
+                                	forgotPassword();
+                                	alert("You will receive a new password to the email in the system. You will need to change this password when login in again the first time.");
+                        	}else{
+                                	alert("This account does not exist.");
+                        	}	
+			});
+		}
 	});
 	
 	$("#btnchangepassword").click(function(){
 		console.log('btnchangepassword clicked!!');
 		var password = document.getElementById('passwordlogin').value;
+		var email = document.getElementById('emaillogin').value;
 		console.log('before entering function');
 		if($('#passwordchange').val() == ""){
 		alert('Parameters cannot be empty');
 		return;
 		}		
-	
+
 	if(validatePassword($('#passwordchange').val())==true){
 		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-			changePassword(password);
+			changePassword(email,password);
                 }
                 else{
                         alert('Password values not the same');
@@ -570,24 +582,25 @@ function session(){
 function forgotPassword(){
 	if(validateEmail()==true){
 		$.post("../server/forgot-password.php",
-			{
-				emailAddress : $('#emailforgot').val(),
-				tempPassword: generatePassword()
-			},function(data,status){
-				if(data == "Email address doesn't exist"){
-					alert("Email address doesn't exist");
-				}else{
-					console.log(data);
-					$('#forgotPasswordModal').modal('hide');
-					console.log(status);
-				}
+		{
+			emailAddress : $('#emailforgot').val(),
+			tempPassword: generatePassword()
+		},function(data,status){
+			if(data == "Email address doesn't exist"){
+				alert("Email address doesn't exist");
+			}else{
+				console.log(data);
+				$('#forgotPasswordModal').modal('hide');
+				console.log(status);
+			}
 		});
 	}
 }
 
-function changePassword(password){
-        console.log('After entering function');
+function changePassword(email,password){
+	console.log('After entering function');
 	console.log(password);
+	console.log(email);
 	console.log($('#passwordchange').val());
 	console.log($('#confirm_passwordchange').val());
 
@@ -605,15 +618,23 @@ function changePassword(password){
 					console.log(data);
 					$('#changePasswordModal').modal('hide');
 					removeCookies();
-					location.reload();
 					console.log(status);
 				}else{
 					console.log('Error changing password!!');
 				}
 			});
 		}
-		
+	$('#loginModal').modal('hide');
+	AutoLogin(email,$('#passwordchange').val());
 }
+
+
+function AutoLogin(email,password){
+        console.log(email);
+	console.log(password);
+	Login(email,password);
+}
+
 
 function generatePassword() {
     var length = 8,

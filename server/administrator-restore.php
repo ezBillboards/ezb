@@ -5,7 +5,6 @@ $config = parse_ini_file('../../../config.ini');
 $backupDir = $config['BACKUP_PATH'];
 $imagesDir = $config['IMAGE_PATH'];
 $filename = $_POST['filename'];
-
 $zip = new ZipArchive;
 
 if ($zip->open($backupDir . $filename)) {
@@ -14,7 +13,7 @@ if ($zip->open($backupDir . $filename)) {
 
     $zip->extractTo($imagesDir);
     $zip->close();
-    
+
     system("mysql -u root --password=ezb ezbillboards < " . $imagesDir . "ezb-dump.sql", $retval);
     if($retval != 0){echo "ERROR restoring database.";}
     
