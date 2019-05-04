@@ -47,6 +47,7 @@ sudo systemctl restart httpd.service
 # Copy Files To HTML
 printf "\nCopying Files To Apache...\n\n"
 sudo cp -vR ../ezb/ /var/www/html/
+sudo cp -v ./index.html /var/www/html/
 
 # Move Files
 printf "\nMoving Files...\n\n"
