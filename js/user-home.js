@@ -12,7 +12,6 @@ var profile_ID;
 var verifiedUser;
 var statusTemp;
 var enabled;
-
 var random;	
 
 $(document).ready(function(){
@@ -61,7 +60,19 @@ $(document).ready(function(){
 	});
 	
 	$("#btnforgotpsswd").click(function(){
-		forgotPassword();
+		if(validateEmail()){
+			$.get("../server/get-email-account.php",
+                        	{
+                        		emailAddress:$('#emailforgot').val()
+                        	},function(data,status){
+        			if(JSON.parse(data)){
+                                	forgotPassword();
+                                	alert("You will receive a new password to the email in the system. You will need to change this password when login in again the first time.");
+                        	}else{
+                                	alert("This account does not exist.");
+                        	}	
+			});
+		}
 	});
 	
 	$("#btnchangepassword").click(function(){
@@ -569,7 +580,6 @@ function session(){
 }
 
 function forgotPassword(){
-	if(validateEmail()==true){
 	$.post("../server/forgot-password.php",
 			{
 				emailAddress : $('#emailforgot').val(),
@@ -582,8 +592,8 @@ function forgotPassword(){
 				}else{
 					console.log('Error on forgot password!!');
 				}
-		});
-	}
+	});
+
 }
 
 function changePassword(email,password){

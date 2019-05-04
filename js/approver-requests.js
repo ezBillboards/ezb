@@ -215,9 +215,8 @@ function getRequests(startStr, endStr){
 			"</div>" +
 			"</div>" +
 			"</a>";
-
 			var requestImages = "<div class=\"item " + i + "image " + ((i == 0) ? "active":"") + "\">" +
-			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;background-color:white;\">" +
+			"<img src=\"" + requests[i].artworkURL + "\" alt=\"" + requests[i].artworkName + "\" style=\"width:100%;height:" + $("#request-image").height() + "px;background-color:white;\">" +
 			"</div>";
 			$("#request-queue").append(request);
 			$("#request-images").append(requestImages);	
