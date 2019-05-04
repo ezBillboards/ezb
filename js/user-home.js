@@ -67,15 +67,16 @@ $(document).ready(function(){
 	$("#btnchangepassword").click(function(){
 		console.log('btnchangepassword clicked!!');
 		var password = document.getElementById('passwordlogin').value;
+		var email = document.getElementById('emaillogin').value;
 		console.log('before entering function');
 		if($('#passwordchange').val() == ""){
 		alert('Parameters cannot be empty');
 		return;
 		}		
-	
+
 	if(validatePassword($('#passwordchange').val())==true){
 		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-			changePassword(password);
+			changePassword(email,password);
                 }
                 else{
                         alert('Password values not the same');
@@ -585,9 +586,10 @@ function forgotPassword(){
 	}
 }
 
-function changePassword(password){
-        console.log('After entering function');
+function changePassword(email,password){
+	console.log('After entering function');
 	console.log(password);
+	console.log(email);
 	console.log($('#passwordchange').val());
 	console.log($('#confirm_passwordchange').val());
 
@@ -605,15 +607,23 @@ function changePassword(password){
 					console.log(data);
 					$('#changePasswordModal').modal('hide');
 					removeCookies();
-					location.reload();
 					console.log(status);
 				}else{
 					console.log('Error changing password!!');
 				}
 			});
 		}
-		
+	$('#loginModal').modal('hide');
+	AutoLogin(email,$('#passwordchange').val());
 }
+
+
+function AutoLogin(email,password){
+        console.log(email);
+	console.log(password);
+	Login(email,password);
+}
+
 
 function generatePassword() {
     var length = 8,
