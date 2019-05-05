@@ -580,20 +580,21 @@ function session(){
 }
 
 function forgotPassword(){
-	$.post("../server/forgot-password.php",
-			{
-				emailAddress : $('#emailforgot').val(),
-				tempPassword: generatePassword()
-			},function(data,status){
-				if(status === "success"){
-					console.log(data);
-					$('#forgotPasswordModal').modal('hide');
+	if(validateEmail()==true){
+		$.post("../server/forgot-password.php",
+		{
+			emailAddress : $('#emailforgot').val(),
+			tempPassword: generatePassword()
+		},function(data,status){
+			if(data == "Email address doesn't exist"){
+				alert("Email address doesn't exist");
+			}else{
+				console.log(data);
+				$('#forgotPasswordModal').modal('hide');
 				console.log(status);
-				}else{
-					console.log('Error on forgot password!!');
-				}
-	});
-
+			}
+		});
+	}
 }
 
 function changePassword(email,password){
