@@ -407,7 +407,7 @@ function VerifyRole(){
 		if (verifiedUser == 0 && statusTemp == 0){
 			console.log('USER NOT VERIFIED!');
 			random = Math.floor((Math.random() * 900000) + 1);
-			sessionStorage.setItem('verificationCode', encrypt(random));
+			sessionStorage.setItem('verificationCode', encrypt(random.toString()));
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
 			//document.getElementById("verifyEmailModal").reset();
