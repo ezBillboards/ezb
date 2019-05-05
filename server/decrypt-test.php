@@ -22,11 +22,11 @@ function cryptoJsAesDecrypt($passphrase, $jsonString){
         $dx = md5($dx.$passphrase.$salt, true);
         $salted .= $dx;
     }
-    $key = substr($salted, 0, 32);
-    $iv  = substr($salted, 32,16);
+    echo $key = substr($salted, 0, 32);
+    echo $iv  = substr($salted, 32,16);
     try {
-        $salt = hex2bin($salt);
-        $iv  = hex2bin($iv);
+        echo $salt = hex2bin($salt);
+        echo $iv  = hex2bin($iv);
     } catch(Exception $e) { return null; }
     $ct = base64_decode($jsonString);
     $concatedPassphrase = $passphrase.$salt;
