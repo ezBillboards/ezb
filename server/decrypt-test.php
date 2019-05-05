@@ -15,11 +15,20 @@
 */
 function cryptoJsAesDecrypt($passphrase, $jsonString){
     $jsondata = json_decode($jsonString, true);
+	$salt = openssl_random_pseudo_bytes(8);
+    $salted = '';
+    $dx = '';
+    while (strlen($salted) < 48) {
+        $dx = md5($dx.$passphrase.$salt, true);
+        $salted .= $dx;
+    }
+    $key = substr($salted, 0, 32);
+    $iv  = substr($salted, 32,16);
     try {
-        $salt = hex2bin($jsondata["s"]);
-        $iv  = hex2bin($jsondata["iv"]);
+        $salt = hex2bin($salt);
+        $iv  = hex2bin($iv);
     } catch(Exception $e) { return null; }
-    $ct = base64_decode($jsondata["ct"]);
+    $ct = base64_decode($jsonString);
     $concatedPassphrase = $passphrase.$salt;
     $md5 = array();
     $md5[0] = md5($concatedPassphrase, true);
