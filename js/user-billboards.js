@@ -10,6 +10,11 @@ var index;
 
 $(document).ready(function(){
 
+/*******************************************
+*Search bar takes the billboards and performs
+*toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#search").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#billboards tr").filter(function() {
@@ -19,12 +24,18 @@ $(document).ready(function(){
 
   var start = moment();  
   getBillboards();
+  $('[data-toggle="tooltip"]').tooltip({html: true});
 
+/*************************
+*Billboards info Getter
+*Looks for the current
+*billboard information
+*for the user	
+*************************/
   $("table").on("click", "tr .information", function(){
   	var billboardID = $(this).attr("id");
 	$.get("../server/user-billboardInfo.php", {id: billboardID}, function(data, status){
   		var info = JSON.parse(data);
-		console.log("Info: " + data);
 		$("#info-header").text(info.name);
   		$("#info-image").attr("src",info.img);
   		$("#info-image").attr("alt",info.name);
@@ -57,15 +68,26 @@ $(document).ready(function(){
 	});
   });
   
+/*************************
+*Select package that
+*the user may want
+*************************/
+
   $("table").on("click", "tr.clickable-package", function(){
 	if($(this).attr("class").includes("open")) {
 		if(currentSelectedPackage != null) currentSelectedPackage.removeClass("selected-package");
 		currentSelectedPackage = $(this);
-		console.log(currentSelectedPackage);
 		$(this).addClass("selected-package");
 	}
   });
 
+/*************************
+*Date picker
+*Billboard package Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
   $("table").on("click", "tr .request-action", function(){
 	$('#reportrange').data('daterangepicker').setStartDate(moment());
 	$('#reportrange').data('daterangepicker').setEndDate(moment());
@@ -73,6 +95,33 @@ $(document).ready(function(){
 	currentBillboardID = billboards[index].id;
 	$("#request-modal-header").text(billboards[index].name);
 	$("#request-image-header").attr("src", billboards[index].img);
+	
+	var tooltipMessage = "The minimum resolution accepted in this billboard is " + billboards[index].minWidth + "X" + billboards[index].minHeight + ".<br>";
+	
+	var rawExtensions = billboards[index].extensions.split(":");
+        var extensions = "";
+	var i;
+        for(i = 0; i < rawExtensions.length; i++){
+	        extensions += rawExtensions[i];
+                if(i < rawExtensions.length - 1){
+        	        extensions += ", ";
+                }
+        }
+
+	tooltipMessage += "The available extensions are " + extensions + ".<br>";
+	
+	var rawRatios = billboards[index].ratios.split(",");
+        var ratios = "";
+        for(i = 0; i < rawRatios.length; i++){
+                ratios += rawRatios[i];
+                if(i < rawRatios.length - 1){
+                        ratios += ", ";
+                }
+        }
+	
+	tooltipMessage += "The available ratios are " + ratios + ".<br>";
+	tooltipMessage += "The filename of the image can only contain numbers and letters.";
+	$("#upload-image-tooltip").attr("title",tooltipMessage).tooltip('fixTitle');
 	$("#upload-image").val("");
 	files = null;
 	img = null;
@@ -92,7 +141,7 @@ $(document).ready(function(){
                 packages = JSON.parse(data);
                 var package = "";
                 for (var i = 0; i < packages.length; i++) {
-                        package += "<tr id=\"" + i + "\" class=\"clickable-package " + ((packages[i].availability) ? "open" : "") + "\">" +
+                        package += "<tr id=\"" + i + "\" class=\"clickable-package " + ((packages[i].availability) ? "open clickable" : "closed not-clickable") + "\">" +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
                                 packages[i].duration + " Day(s)" +
                         "</td>" +
@@ -109,22 +158,23 @@ $(document).ready(function(){
         });
   });
 
+/****************************
+*Makes request for the 
+*current billboard with
+*the specific parameters the
+*user selected
+*****************************/
   $("#request-btn").click(function(){
      if(sessionStorage.getItem('ID') != null){
 	if(currentSelectedPackage != null && $("#upload-image").val() != ""){
-	   console.log(index);
-	   console.log(img.width + " >= ? " + billboards[index].minWidth);
-           console.log(img.height + " >= ? " + billboards[index].minHeight);
-           console.log(files.type.substring(6) + " == ? " + billboards[index].extensions);
-           console.log(getAspectRatio(img.width, img.height) + " == ? " + billboards[index].ratios);
-	   console.log(decrypt(sessionStorage.getItem('ID')));
-	   var fileNameREGEX = /^(\d|\w)+$/;
-	   if(fileNameREGEX.test(files.name.split(".")[0]) &&
-		img.width >= billboards[index].minWidth &&
-		img.height >= billboards[index].minHeight &&
-		billboards[index].extensions.indexOf(files.type.substring(6)) != -1 &&
-		billboards[index].ratios.indexOf(getAspectRatio(img.width, img.height)) != -1)
-		{
+           var fileNameREGEX = /^(\d|\w)+$/;
+	   var isCorrectFileName = fileNameREGEX.test(files.name.split(".")[0]);
+	   var isMinWidth = img.width >= billboards[index].minWidth;
+	   var isMinHeight = img.height >= billboards[index].minHeight;
+	   var isAvailableExtension = billboards[index].extensions.indexOf(files.type.substring(6)) != -1;
+           var isAvailableRatio = billboards[index].ratios.indexOf(getAspectRatio(img.width, img.height)) != -1;
+
+	   if(isCorrectFileName && isMinWidth && isMinHeight && isAvailableExtension && isAvailableRatio){
 		fd.append('billboardID', parseInt(currentBillboardID));
 		fd.append('userID', decrypt(sessionStorage.getItem('ID')));
 		fd.append('userEmail',decrypt( sessionStorage.getItem('email')));
@@ -147,22 +197,30 @@ $(document).ready(function(){
             		contentType: false,
             		processData: false,
             		success: function(response){
-	                    	console.log(response);
+	                    	alert("Request has been successfully created.");
             		}
 		});
 		$("#requestModal").modal("hide");
 	  } else {
-	  	alert("The image doesn't meet the requirements of this billboard.");
+		var message = "";
+		if(!isCorrectFileName) message += "Image filename can only contain numbers and letters.\r\n";
+		if(!isMinWidth) message += "Image doesn't have the minimum width.\r\n";
+		if(!isMinHeight) message += "Image doesn't have the minimum height.\r\n";
+		if(!isAvailableExtension) message += "Image doesn't have the available extensions.\r\n";
+		if(!isAvailableRatio) message += "Image doesn't have the available ratios.\r\n";
+	  	alert(message);
 	  }
 	} else {
 		alert("Make sure to pick all fields.");
 	}
      } else {
-	//alert("You must be logged in to make a request.");
 	$("#loginModal").modal("show");	
      }
   });
-  
+
+/**************************
+*Takes Image and uploads it
+***************************/ 
   $("#upload-image").bind('change', function() {
         files = this.files[0];
         fd.append('upload-image',files);
@@ -179,7 +237,10 @@ $(document).ready(function(){
         
     	};    
   });
-  
+
+/************
+*Date picker
+************/
   $('#reportrange').daterangepicker({
 	startDate: start,
 	minDate: start,
@@ -190,6 +251,15 @@ $(document).ready(function(){
 
 });
 
+
+/*******************************************
+*Update New Dates
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+* 
+* @param {string} start
+********************************************/
 function updateDate(start) {
 	$('#reportrange span').html(start.format('MMMM D, YYYY'));
 	startingDate = start.format('YYYY-MM-DD');
@@ -218,10 +288,15 @@ function updateDate(start) {
         });
 }
 
+/*************************
+*Billboards Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getBillboards(){
 	$.get("../server/user-billboards.php", function(data, status){
 		billboards = JSON.parse(data);
-		console.log(billboards);
 		var billboard = "";
 		for (var i = 0; i < billboards.length; i++) {
 			billboard += "<tr>" +
@@ -232,8 +307,8 @@ function getBillboards(){
 				"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 			"</td>" +
 			"<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-				"<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p style=\"font-size: 14px;\"><b><i>Information</b></i></p></span>" +
-				"<span id=\"" + i + "\" class=\"glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p style=\"font-size: 14px;\"><b><i>Request</b></i></p></span>" +
+				"<span id=\"" + billboards[i].id + "\" class=\"clickable glyphicon glyphicon-info-sign actions information\" data-toggle=\"modal\" data-target=\"#infoModal1\"><br><p style=\"font-size: 14px;\"><b><i>Information</b></i></p></span>" +
+				"<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-shopping-cart actions request-action\" data-toggle=\"modal\" data-target=\"#requestModal\"><br><p style=\"font-size: 14px;\"><b><i>Request</b></i></p></span>" +
 			"</td>" +
 			"</tr>";
 		}
@@ -242,6 +317,12 @@ function getBillboards(){
 	});
 }
 
+/*************************
+*Ratio Getter
+*
+* @param {number} width
+* @param {number} width
+*************************/
 function getAspectRatio(width, height){
 	var remainder;
 	var a = width;

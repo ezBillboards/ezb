@@ -2,9 +2,13 @@ $(document).ready(function(){
 	session();
 	
 	$("#profile-email").text(sessionStorage.getItem('email'));
-	
+
+/******************
+*Log out
+*from roll and
+*send to home.html
+******************/	
 	$("#btnlogout").click(function(){
-		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
@@ -12,6 +16,10 @@ $(document).ready(function(){
 	});
 });
 
+/*******************
+*Determine Session
+*depending on the ID
+********************/
 function session(){
 	if (sessionStorage.getItem('ID') != null){
 		if(sessionStorage.getItem('role') != 1){

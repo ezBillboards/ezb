@@ -1,10 +1,12 @@
 
-
 $(document).ready(function(){
 	//setTimeout(session,500);
 	
-	
-	
+/******************
+*Log out
+*from roll and
+*send to home.html
+******************/	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
@@ -14,9 +16,12 @@ $(document).ready(function(){
 	});
 });
 
-function session(){
-	
-	
+
+/*******************
+*Determine Session
+*depending on the ID
+********************/
+function session(){	
 	if (sessionStorage.getItem('ID') != null){
 		if(decrypt(sessionStorage.getItem('role')) != 2){
 			if(decrypt(sessionStorage.getItem('role')) == 1){

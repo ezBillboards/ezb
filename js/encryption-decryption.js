@@ -4,17 +4,25 @@ var iterations;
 var psswd;
 
 $(document).ready(function(){
+
+/********************************************
+*Get parameters for encription
+********************************************/
 	$.get("../server/get-security.php", function(data, status){
 			var security = JSON.parse(data);
 			keySize = security.KEYSIZE;
 			ivSize = security.IVSIZE;
 			iterations = security.ITERATIONS;
 			psswd = security.KEY;
-			console.log("Read Security");
 			session();
     });
 });
 
+/******************************
+*Encrypt message from parameter
+*
+* @param {String} msg
+******************************/
 function encrypt (msg) {
   var salt = CryptoJS.lib.WordArray.random(128/8);
   
@@ -38,6 +46,12 @@ function encrypt (msg) {
   return transitmessage;
 }
 
+
+/******************************
+*Decrypt message from parameter
+*
+* @param {String} transitmessage
+******************************/
 function decrypt (transitmessage) {
 	if(transitmessage == "" ){
 		return "";

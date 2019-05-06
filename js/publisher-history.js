@@ -6,11 +6,20 @@ $(document).ready(function(){
 	
 	getHistory();
 	
+
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 
+/**********************************************
+*Search bar takes the history value and performs
+*toLowerCase method and looks
+*for the result on the DB
+***********************************************/
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#history tr").filter(function() {
@@ -19,6 +28,13 @@ $(document).ready(function(){
 	});
 });
 
+
+/*************************
+*History Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getHistory(){
 	$.get("../server/publisher-history.php",function(data,status){
 		requests = JSON.parse(data);

@@ -4,6 +4,13 @@ var index;
 var indexUserId;
 
 $(document).ready(function(){
+/***************************************
+*Check which role is the HTML looking for
+*Administrator = 0
+*Approver = 1
+*Publisher = 2
+*User = 3
+****************************************/
     $(".nav-tabs a").click(function(){
       $(this).tab('show');
       if($(this).text() == "Users"){
@@ -21,11 +28,21 @@ $(document).ready(function(){
       }
     });
 
+
+/**************
+*Get EZB logos
+***************/
     $.get("../server/get-image-path.php", function(data, status){
 	$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
     	$("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
     });
 
+
+/*******************************************
+*Search bar takes the user name and performs
+*toLowerCase method and looks
+*for the result on the DB
+********************************************/
     $("#searchUsers").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#user-accounts tr").filter(function() {
@@ -33,6 +50,11 @@ $(document).ready(function(){
     	});
     });
 
+/***********************************************
+*Search bar takes the Approver name and performs
+*toLowerCase method and looks
+*for the result on the DB
+************************************************/
     $("#searchApprovers").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#approver-accounts tr").filter(function() {
@@ -40,6 +62,11 @@ $(document).ready(function(){
         });
     });
 
+/**************************************************
+*Search bar takes the Publisher name and performs
+*toLowerCase method and looks
+*for the result on the DB
+**************************************************/
     $("#searchPublishers").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#publisher-accounts tr").filter(function() {
@@ -47,6 +74,11 @@ $(document).ready(function(){
         });
     });
 
+/*****************************************************
+*Search bar takes the Administrator name and performs
+*toLowerCase method and looks
+*for the result on the DB
+******************************************************/
     $("#searchAdministrators").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("tbody#administrator-accounts tr").filter(function() {
@@ -54,6 +86,11 @@ $(document).ready(function(){
         });
     });
 
+/********************************************
+*Validates the inputs to register
+*If false, alert with an error will appear
+*else, it will be posted to the DB
+********************************************/
     $("#add-account").click(function(){
 	if(validate() == true){
 	$.post("../server/administrator-add-account.php",
@@ -93,6 +130,11 @@ $(document).ready(function(){
       }
     });
 
+/**************************
+*Takes id from DB and 
+*deletes the current roll 
+*in the front end
+**************************/
     $("table").on("click", "tr .delete-account", function(){    	
 	indexUserId = $(this).attr("id");
 	console.log("Roll id = " + indexUserId);
@@ -100,6 +142,11 @@ $(document).ready(function(){
 
     });
 
+/**************************
+*Takes id from DB and
+*edits the current roll
+*in the db and front end
+**************************/
     $("table").on("click", "tr .edit-account", function(){
         index = $(this).attr("id");
 	$("#firstNameEdit").val(decrypt(accounts[index].firstName)),
@@ -110,6 +157,12 @@ $(document).ready(function(){
 	$("#roleEdit").prop('selectedIndex', currentRole);
     });
    
+/***************************************************
+*Validates new editions
+*If false, alert will show saying there as an error
+*else it will encript all parameters
+*and send it to the DB
+****************************************************/
     $("#update-account").click(function(){
 	if(validateEdit()==true){
     	$.post("../server/administrator-update-account.php",
@@ -142,6 +195,12 @@ $(document).ready(function(){
     });
 });
 
+/*************************************
+*Takes Id checks its roll
+*depending on which roll it is
+*it will delete it from the front end
+*and disables the user on the DB
+*************************************/
 function cancelRoll(){
 	$.post("../server/administrator-delete-account.php",
 	{
@@ -167,7 +226,12 @@ function cancelRoll(){
       	});
 }
 
-  
+/*************************
+*User Roll Getter
+*Takes JSON from de DB
+*And appends information 
+* as an HTMLto the view
+*************************/
 function getUserAccounts(){
 	$.get("../server/administrator-user-accounts.php", 
 			function(data,status){
@@ -207,6 +271,12 @@ function getUserAccounts(){
         });
 }
 
+/*************************
+*Approver Roll Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getApproverAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:2}, function(data,status){
                 accounts = JSON.parse(data);
@@ -244,6 +314,13 @@ function getApproverAccounts(){
 }
 
 
+/*************************
+*Validates parameters that
+*wil be edited with Regex
+*for the current roll
+*
+* @returns {Boolean}
+*************************/
 function validateEdit(){
  var firstName = document.getElementById('firstNameEdit').value;
  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
@@ -307,6 +384,13 @@ return true;
 
 
 
+/*************************
+*Validates parameters that
+*wil be register with Regex
+*for the current roll
+*
+* @returns {Boolean}
+*************************/
 function validate(){
  var firstName = document.getElementById('firstName').value;
  var firstNameRGEX = /^[a-zA-Z ]{2,30}$/;
@@ -317,7 +401,7 @@ function validate(){
  var lastNameResult = lastNameRGEX.test(lastName);
 
  var email = document.getElementById('email').value;
- var emailRGEX = /^(.+)@(.+)$/;
+ var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  var emailResult = emailRGEX.test(email);
 
  var password = document.getElementById('tempPass').value;
@@ -331,7 +415,7 @@ function validate(){
  var mPhoneResult = mPhoneRGEX.test(mPhone);
 
  var office = document.getElementById('office').value;
- var officeRGEX = /^[a-zA-Z0-9._-]{1,6}$/
+ var officeRGEX = /^$|^[A-Z]{1,2}-[ ]?[0-9]\d{2}$/
  var officeResult = officeRGEX.test(office);
 
 
@@ -391,6 +475,13 @@ return true;
 }
 
 
+
+/*************************
+*Publisher Roll Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getPublisherAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:3}, function(data,status){
                 accounts = JSON.parse(data);
@@ -430,6 +521,12 @@ function getPublisherAccounts(){
 
 
 
+/*************************
+*Administrator Roll Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getAdministratorAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:4}, function(data,status){
                 accounts = JSON.parse(data);

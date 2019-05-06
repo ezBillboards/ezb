@@ -2,12 +2,20 @@ var requests;
 var currentRequestIndex;
 
 $(document).ready(function(){
-
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 
+
+/*******************************************
+*Search bar takes the email and performs
+*toLowerCase method and looks
+*for the result on the DB
+********************************************/
     $("#mySearchEmail").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("tbody tr .emailCol").filter(function() {
@@ -15,7 +23,11 @@ $(document).ready(function(){
 		});
 	}); 
 
-
+/*******************************************
+*Search bar takes the action and performs
+*toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#mySearchAction").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
                 $("tbody tr .actionCol").filter(function() {
@@ -23,11 +35,19 @@ $(document).ready(function(){
                 });
         });
 
+/*******************************************
+*Calender intervals
+*start and end values are taken from
+*the date picker
+********************************************/
 	$(function() {
 
     		var start = moment().startOf('month');
     		var end = moment().endOf('month');
 
+/*******************************************
+*Update New Dates
+********************************************/
     		function updateDate(start, end) {
 			var startStr = start.format('MMMM D, YYYY');
 			var endStr = end.format('MMMM D, YYYY');
@@ -35,6 +55,9 @@ $(document).ready(function(){
 			getLogs(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
     		}
 
+/*******************************************
+*Date Picker
+********************************************/
     		$('#reportrange').daterangepicker({
         		startDate: start,
         		endDate: end,
@@ -57,6 +80,12 @@ $(document).ready(function(){
 });
 
 
+/*************************
+*Logs Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getLogs(startStr, endStr){
 	$("#logs").empty();
 	$.get("../server/administrator-logs.php",

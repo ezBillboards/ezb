@@ -1,9 +1,16 @@
 $(document).ready(function(){
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 
+/****************************
+*Get all information
+*fron the DB involving settings
+*******************************/
 	$.get("../server/administrator-read-config.php",function(data, status){
 		var settings = JSON.parse(data);
 		console.log(settings);
@@ -26,9 +33,16 @@ $(document).ready(function(){
                 $("#terms").val(settings.TERMS);
 	});
 
+/****************************
+*Post information to the DB
+*****************************/
 	$(".save-config").click(function(){
 		var configCategory = $(this).attr("id");
 		if(configCategory == "db"){
+
+/****************************
+*Post Database Configuration
+*****************************/
 			if(validateDatabaseConfiguration()==true){
 			$.post("../server/administrator-save-config.php",
                         {
@@ -48,6 +62,10 @@ $(document).ready(function(){
 			);
 			}
 		} else if(configCategory == "mail"){
+
+/****************************
+*Post Mail Server Configuration
+*****************************/
 			if(validateMailServerConfiguration()==true){
 			$.post("../server/administrator-save-config.php",
                         {
@@ -65,6 +83,10 @@ $(document).ready(function(){
 			);
 			}
 		} else if(configCategory == "backup"){
+
+/****************************
+*Post Backup Path Configuration
+*****************************/
 			if(validateBackupPathConfiguration()==true){
 			$.post("../server/administrator-save-config.php",
                         {
@@ -81,6 +103,10 @@ $(document).ready(function(){
 			);
 			}
 		} else if(configCategory == "image"){
+
+/****************************
+*Post Image Server Configuration
+*****************************/
 			if(validateImagePathConfiguration() == true){
 			$.post("../server/administrator-save-config.php",
                         {
@@ -99,6 +125,9 @@ $(document).ready(function(){
 		}
 	});
 	
+/****************************
+*Post Contact information
+*****************************/
 	$("#save-contact").click(function(){
 		if(validateContactInfoConfiguration() == true){
                 $.post("../server/administrator-contact-settings.php",
@@ -124,6 +153,9 @@ $(document).ready(function(){
 		}
         });
 
+/****************************
+*Post About information
+*****************************/
 	$("#save-about").click(function(){
                 $.post("../server/administrator-about-settings.php",
                         {
@@ -139,6 +171,9 @@ $(document).ready(function(){
 		);
         });
 
+/**************************************
+*Post Terms and Agreement information
+**************************************/
 	$("#save-terms").click(function(){
                 $.post("../server/administrator-terms-settings.php",
                         {
@@ -155,6 +190,12 @@ $(document).ready(function(){
         });
 });
 
+
+/*******************************
+*Validate database configuration
+*
+** @return {Boolean}
+*******************************/
 function validateDatabaseConfiguration(){
  var server = document.getElementById('server').value;
  var serverRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.:,])*$/;
@@ -212,6 +253,12 @@ return true;
 }
 
 
+/****************************
+*Validate Mail Server
+*
+*
+* @return {Boolean} 
+*****************************/
 function validateMailServerConfiguration(){
  var ip = document.getElementById('ip').value;
  var ipRGEX = /\W*(localhost)\W*|((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/;
@@ -243,6 +290,12 @@ return true;
 }
 
 
+/****************************
+*Validate Backup Path
+*
+*
+* @return {Boolean}
+*****************************/
 function validateBackupPathConfiguration(){
  var backup = document.getElementById('backup').value;
  var backupRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
@@ -263,6 +316,12 @@ return true;
 
 
 
+/****************************
+*Validate Image Path
+*
+*
+* @return {Boolean}
+*****************************/
 function validateImagePathConfiguration(){
  var image = document.getElementById('image').value;
  var imageRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
@@ -280,6 +339,12 @@ return true;
 }
 
 
+/****************************
+*Validate Contact Info
+*
+*
+* @return {Boolean}
+*****************************/
 function validateContactInfoConfiguration(){
  var office = document.getElementById('office').value;
  var officeRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.,:])*$/;
@@ -359,11 +424,6 @@ if (errors.length > 0) {
         alert(errors.join("\n"));
         return false;
     }
-
-
-
-
-
 
 return true;
 }

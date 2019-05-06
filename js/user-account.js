@@ -1,11 +1,13 @@
 $(document).ready(function(){
-	
+
+/**************
+*Sleep Setter
+***************/	
 	setTimeout(function(){
 		$.get("../server/user-account.php",
 		{id:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
         	var info = JSON.parse(data);
-                console.log(info);
                 $("#firstName").val(decrypt(info.firstName));
                 $("#lastName").val(decrypt(info.lastName));
                 $("#email").val(info.email);
@@ -25,6 +27,10 @@ $(document).ready(function(){
 	},150);
 	
 
+/**************
+*Change password
+*Post new password
+***************/
 	$("#changePasswd").click(function(){
 	    if(validatePassword()==true){
 			$.post("../server/user-account-changePasswd.php",
@@ -36,16 +42,19 @@ $(document).ready(function(){
 				function(data, status){
 				if(status === "success"){
 					alert(data);
-					console.log(status);
 				} else{
 					alert(data);
-					console.log(status);
 				}
 			});
 		 
 		}
 	});		
 	
+
+/*****************
+*Saves Contact
+*information on DB
+******************/
 	$("#save").click(function(){
 
         if (validateContactInfo()==true){
@@ -72,10 +81,8 @@ $(document).ready(function(){
                         function(data, status){
                         if(status === "success"){
                                alert(data);
-                               console.log(status);
                         } else{
                                alert(data);
-         	               console.log(status);
                 	}
 	            	
                    
@@ -84,15 +91,16 @@ $(document).ready(function(){
 	 
 	});
 
+/*****************
+*Validate Password
+*
+*
+*@return {Boolean}
+******************/
 function validatePassword(){
  var oldpassword = document.getElementById('oldPasswd').value;
  var newpassword = document.getElementById('newPasswd').value;
  var cpassword = document.getElementById('confirmPasswd').value;
-
- console.log('Old Password = '+ oldpassword);
- console.log('New Password = '+ newpassword);
- console.log('Confirm Password = '+ cpassword);
-
 
 if(oldpassword == ""){
 alert('Old password is empty');
@@ -146,6 +154,13 @@ return true;
 
 }
 
+
+/****************************
+*Validate Contact Information
+*
+*
+* @return {Boolean}
+******************************/
 function validateContactInfo(){
   var firstName = document.getElementById('firstName').value;
   var firstNameRGEX = /^[a-zA-Z]{2,30}$/;
@@ -154,7 +169,7 @@ function validateContactInfo(){
   var lastNameRGEX = /^[a-zA-Z]{2,30}$/;
   var lastNameResult = firstNameRGEX.test(lastName);
   var email = document.getElementById('email').value;
-  var emailRGEX = /^(.+)@(.+)$/;
+  var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   var emailResult = emailRGEX.test(email);
   var mPhoneNumber = document.getElementById('mobilePhone').value;
   var mPhoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
@@ -166,14 +181,17 @@ function validateContactInfo(){
   var companyRGEX = /^$|[a-zA-Z0-9]/;
   var companyResult = companyRGEX.test(company);
   var addressOne = document.getElementById('address1').value;
-  var addressOneRGEX = /^$|^[a-zA-Z0-9 ]{2,30}$/;
+  var addressOneRGEX = /^$|^[a-zA-Z0-9 #-.]{2,30}$/;
   var addressOneResult = addressOneRGEX.test(addressOne);
   var addressTwo = document.getElementById('address2').value;
-  var addressTwoRGEX = /^$|^[a-zA-Z0-9 ]{2,30}$/;
+  var addressTwoRGEX = /^$|^[a-zA-Z0-9 #-.]{2,30}$/;
   var addressTwoResult = addressTwoRGEX.test(addressTwo);
   var state = document.getElementById('state').value.toUpperCase();;
   var stateRGEX = /^$|\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AS|DC|FM|GU|MH|MP|PW|PR|VI)\b/;
   var stateResult = stateRGEX.test(state);
+  var city = document.getElementById('city').value;
+  var cityRGEX = /^$|^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/
+  var cityResult = cityRGEX.test(city);
   var zip = document.getElementById('zip').value;
   var zipRGEX = /^$|^\d{5}$|^\d{5}-\d{4}$/;
   var zipResult = zipRGEX.test(zip);
@@ -181,32 +199,14 @@ function validateContactInfo(){
   var urlRGEX = /^$|^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   var urlResult = urlRGEX.test(url);
   var twitter = document.getElementById('twitter').value;
-  var twitterRGEX = /^$|(?:http:\/\/)?(?:www\.)?twitter\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/;
+  var twitterRGEX = /^$|(?:(?:http|https):\/\/)?(?:www\.)?twitter\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/;
   var twitterResult = twitterRGEX.test(twitter);
   var fb = document.getElementById('facebook').value;
   var fbRGEX = /^$|(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/;
   var fbResult = fbRGEX.test(fb);
   var instagram = document.getElementById('instagram').value;
-  var instagramRGEX = /^$||(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/;
+  var instagramRGEX = /^$|(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/;
   var instagramResult = instagramRGEX.test(instagram);
-
-
-  console.log('First Name = '+ firstName);
-  console.log('Last Name = '+ lastName);
-  console.log('Email = '+ email);
-  console.log('Mobile Phone = '+ mPhoneNumber);
-  console.log('Work Phone = '+ wPhoneNumber);
-  console.log('Company = ' + company);
-  console.log('Address 1 = '+ addressOne);
-  console.log('Address 2 = '+ addressTwo);
-  console.log('State  = '+ state);
-  console.log('Zip  = '+ zip);
-  console.log('URL  = '+ url);
-  console.log('Facebook  = '+ fb);
-  console.log('Twitter  = '+ twitter);
-  console.log('Instagram  = '+ instagram);
-
-
 
   if(firstNameResult == false)
 	{
@@ -254,6 +254,11 @@ function validateContactInfo(){
   if(addressTwoResult == false)
         {
         alert('Please enter a valid Address 2');
+        return false;
+        }
+  if(cityResult == false)
+        {
+        alert('Please enter a valid City');
         return false;
         }
   if(stateResult == false)

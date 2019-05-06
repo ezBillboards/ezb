@@ -6,12 +6,21 @@ var currentRequestID;
 $(document).ready(function(){
 	
 	getPaidRequests();
-	
+
+/**************
+*Get EZB logos
+***************/	
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 
+
+/*******************************************
+*Search bar takes the paid-request and performs
+*toLowerCase method and looks
+*for the result on the DB
+********************************************/
 	$("#mySearch").on("keyup", function() {
 		var value = $(this).val().toLowerCase();
 		$("#paid-requests tr").filter(function() {
@@ -21,6 +30,13 @@ $(document).ready(function(){
 });
 
   
+/*************************
+*Paid Request Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTML to the view
+*************************/
+
 function getPaidRequests(){
 	$.get("../server/publisher-paid-requests.php",function(data,status){
 		requests = JSON.parse(data);
@@ -70,6 +86,12 @@ function getPaidRequests(){
 	});
 }
 
+/*************************
+*Post current id
+* for the publsidh request
+*
+*@param {string} item
+*************************/
 function publishRequest(item){
 	currentRequestID = $(item).attr("id");
 	console.log(currentRequestID);
@@ -79,13 +101,12 @@ function publishRequest(item){
 		publisherID:decrypt(sessionStorage.getItem('ID')),
 		publisherEmail:decrypt(sessionStorage.getItem('email'))
 	},
-		function(data, status){
-			if(status === "success"){
-				location.reload();
-			} else {
-				alert("Error publishing request!!");
-			}
-			console.log(data);
-			console.log(status);
-		});
+	function(data, status){
+		if(status === "success"){
+			alert("Request has been published.");
+		} else {
+			alert("Error trying to publish request.");
+		}
+		getPaidRequests();
+	});
 }

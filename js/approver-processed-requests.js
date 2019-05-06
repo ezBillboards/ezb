@@ -110,8 +110,8 @@ function getApprovedRequests(){
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"clickable glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"cancelling(this)\" class=\"clickable glyphicon glyphicon-remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#approved-requests").append(request);
@@ -154,7 +154,7 @@ function getDeniedRequests(){
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"clickable glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#denied-requests").append(request);
@@ -197,7 +197,7 @@ function getCancelledRequests(){
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"viewProfile(this)\" class=\"clickable glyphicon glyphicon-user\" data-toggle=\"modal\" data-target=\"#myModal\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Profile</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#cancelled-requests").append(request);
@@ -216,17 +216,16 @@ function viewProfile(item){
 	currentRequestID = $(item).attr("id");
 	$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
 		var profile = JSON.parse(data);
-		$("#profile-name").text(decrypt(profile.firstName) + " " + decrypt(profile.lastName));
-		$("#profile-email-modal").text(profile.email);
-		$("#profile-mobile").text(decrypt(profile.mobile));
-		$("#profile-work").text(decrypt(profile.work));
-		$("#profile-company").text(decrypt(profile.company));
-		$("#profile-address").text(decrypt(profile.address1) + " " + decrypt(profile.address2) + " " + decrypt(profile.city) + ", " + decrypt(profile.state) + " " + decrypt(profile.zipcode));
-		$("#profile-url").text(decrypt(profile.url));
-		$("#profile-facebook").attr("href",decrypt(profile.facebookURL));
-		$("#profile-instagram").attr("href",decrypt(profile.instagramURL));
-		$("#profile-twitter").attr("href",decrypt(profile.twitterURL));
-		console.log(profile);
+                        $("#profile-name").text((decrypt(profile.firstName) != "" && decrypt(profile.firstName) != null) ? decrypt(profile.firstName) + " " + decrypt(profile.lastName) : "N/A");
+                        $("#profile-email-modal").text((profile.email != "" && profile.email != null) ? profile.email : "N/A");
+                        $("#profile-mobile").text((decrypt(profile.mobile) != "" && decrypt(profile.mobile) != null) ? decrypt(profile.mobile) : "N/A");
+                        $("#profile-work").text((decrypt(profile.work) != "" && decrypt(profile.work) != null) ? decrypt(profile.work) : "N/A");
+                        $("#profile-company").text((decrypt(profile.company) != "" && decrypt(profile.company) != null) ? decrypt(profile.company) : "N/A");
+                        $("#profile-address").text(((decrypt(profile.address1) == "" && decrypt(profile.address2) == "" && decrypt(profile.city) == "" && decrypt(profile.state) == "" && decrypt(profile.zipcode) == "") || (decrypt(profile.address1) == null && decrypt(profile.address2) == null && decrypt(profile.city) == null && decrypt(profile.state) == null && decrypt(profile.zipcode) == null)) ? decrypt(profile.address1) + " " + decrypt(profile.address2) + " " + decrypt(profile.city) + " " + decrypt(profile.state) + " " + decrypt(profile.zipcode) : "N/A");
+                        $("#profile-url").text((decrypt(profile.url) != "" && decrypt(profile.url) != null) ? decrypt(profile.url) : "N/A");
+                        $("#profile-facebook").attr("href",decrypt(profile.facebookURL));
+                        $("#profile-instagram").attr("href",decrypt(profile.instagramURL));
+                        $("#profile-twitter").attr("href",decrypt(profile.twitterURL));
 	});
 }
 

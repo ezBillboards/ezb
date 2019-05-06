@@ -4,7 +4,11 @@ $(document).ready(function(){
 	//setTimeout(session,5);
 	
 	
-	
+/******************
+*Log out 
+*from roll and
+*send to home.html
+******************/	
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
@@ -14,6 +18,11 @@ $(document).ready(function(){
 	});
 });
 
+
+/*******************
+*Determine Session
+*depending on the ID
+********************/
 function session(){
 	console.log("Reading session variables");
 	

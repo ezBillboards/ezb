@@ -1,11 +1,19 @@
 getBackups();
 
 $(document).ready(function(){
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
         });
 
+/**************************************************
+*Validates the zipfile name
+*Post the information to the DB
+*and show that the new back up file has been added
+***************************************************/
 	$("#backup").click(function(){
 		if(validate()==true){
 		$.post("../server/administrator-backups.php",{filename:$("#filename").val()}, function(data,status){
@@ -16,6 +24,10 @@ $(document).ready(function(){
         	});	    
 	     }
 	});
+
+/**************************************************
+*Restores information on the DB and images
+***************************************************/
 	$("#restore").click(function(){
 		    $.post("../server/administrator-restore.php",
 			{filename:files[$("#backup-files").prop("selectedIndex")]},
@@ -27,6 +39,12 @@ $(document).ready(function(){
 
 });
 
+/************************
+*Backup Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+************************/
 function getBackups(){
 	$.get("../server/administrator-backup-files.php",function(data,status){
 		console.log(data);
@@ -41,6 +59,13 @@ function getBackups(){
 };
 
 
+/*************************
+*Validates parameters that
+*wil be entered with Regex
+*for the backup
+*
+* @return {Boolean}
+*************************/
 function validate(){
  var fileName = document.getElementById('filename').value;
  var fileNameRGEX = /\W*(.zip)\W*/;
