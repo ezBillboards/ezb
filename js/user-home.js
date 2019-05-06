@@ -59,8 +59,6 @@ $(document).ready(function(){
 	$("#btnregister").click(function(){
 		if(validateRegister()==true){
 			random = Math.floor((Math.random() * 900000) + 1);
-			console.log(random);
-			console.log($('#emailreg').val());
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#lastnamereg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
 	});
@@ -83,7 +81,6 @@ $(document).ready(function(){
 *Restores session back home
 **************************/
 	$("#closeVerModal").click(function(){
-		console.log('closeVerModal clicked!!');
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
@@ -156,7 +153,6 @@ $(document).ready(function(){
 *Logout button 
 **************/
 	$("#btnlogout").click(function(){
-		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
@@ -173,12 +169,9 @@ $(document).ready(function(){
 **********************************/
 function validateLogin(){  
  var email = document.getElementById('emaillogin').value;
- var emailRGEX = /^(.+)@(.+)$/;
+ var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  var emailResult = emailRGEX.test(email);
  var password = document.getElementById('passwordlogin').value;
-
-console.log('Email = '+ email);
-console.log('Password = '+password);
 
 if(emailResult == false){
 	alert('Please enter a valid Email');
@@ -207,7 +200,6 @@ return true;
 **********************************/
 function validatePassword(password){
 errors = [];
-console.log(password);
     if (password.length < 8) {
         errors.push("Your password must be at least 8 characters");
     }
@@ -239,10 +231,9 @@ return true;
 function validateEmail(){
 
  var email = document.getElementById('emailforgot').value;
- var emailRGEX = /^(.+)@(.+)$/;
+ var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  var emailResult = emailRGEX.test(email);
 
-console.log(email);
 if(emailResult == false){
         alert('Please enter a valid Email');
 	return false;
@@ -340,25 +331,11 @@ function validateRegister(){
  var lastNameResult = lastNameRGEX.test(lastName);
 
  var email = document.getElementById('emailreg').value;
- var emailRGEX = /^(.+)@(.+)$/;
+ var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  var emailResult = emailRGEX.test(email);
 
  var password = document.getElementById('passwordreg').value;
  var cpassword = document.getElementById('confirm_passwordreg').value;
-
-
-console.log('First Name = '+ firstName);
-
-console.log('Last Name = '+ lastName);
-
-console.log('Phone Number = '+ phoneNumber);
-
-console.log('Email = '+ email);
-
-console.log('Password = '+ password);
-
-console.log('Confirm Password = '+ cpassword);
-
 
 errors = [];
 
@@ -435,9 +412,7 @@ function termsCall() {
 *@param {string} random_IN
 **********************************/
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
-	console.log('Register function');
 	role = 1;
-	console.log(role);
 	if(validateRegister() == true){
 	$.post("../server/user-registration.php",
 			{
@@ -473,7 +448,7 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					$('#registerModal').modal('hide');
 					$('#verifyEmailModal').modal('show');
 				}else{
-					console.log('Error registering user!!');
+					//Error
 				}
 		});
 	}
@@ -604,10 +579,9 @@ function sendVerificationCode(){
 			},function(data,status){
 				
 				if(status === "success"){
-					console.log(data);
-				console.log(status);
+					//Success
 				}else{
-					console.log('Error on user verification!!');
+					//Error
 				}
 		});
 	},100);
@@ -630,10 +604,8 @@ function resendVerificationCode(){
 				
 				if(status === "success"){
 					alert("New verification code sent.");
-					console.log(data);
-				console.log(status);
 				}else{
-					console.log('Error on user verification!!');
+					//Error
 				}
 		});
 }
@@ -651,10 +623,9 @@ function VerifyEmail(){
 					sessionStorage.setItem('ID', encrypt(profile_ID));
 					sessionStorage.setItem('role', encrypt(role.toString()));
 					$('#verifyEmailModal').modal('hide');
-					console.log(profile_ID);
 					session();
 				}else{
-					console.log('Error on user verification!!');
+					//Error
 				}
 		});
 }
@@ -679,7 +650,6 @@ function session(){
 					window.location.href = "../administrator/settings.html";
 				}
 			}
-			console.log('session exists!!!');
 			document.getElementById("getStartedLog").style.display = "none";
 			document.getElementById("getStartedReg").style.display = "none";
 			if(document.getElementById("getStartedMes") != null){
@@ -695,7 +665,6 @@ function session(){
                                 window.location.href = "home.html";
                         }
 
-			console.log('session doesn\'t exists!!!');
 			document.getElementById("getStartedLog").style.display = "inline";
 			document.getElementById("getStartedReg").style.display = "inline";
 			if(document.getElementById("getStartedMes") != null){
@@ -720,9 +689,7 @@ function forgotPassword(){
 			if(data == "Email address doesn't exist"){
 				alert("Email address doesn't exist");
 			}else{
-				console.log(data);
 				$('#forgotPasswordModal').modal('hide');
-				console.log(status);
 			}
 		});
 	}
@@ -734,12 +701,6 @@ function forgotPassword(){
 *temp password cannot be the same
 **********************************/
 function changePassword(email,password){
-	console.log('After entering function');
-	console.log(password);
-	console.log(email);
-	console.log($('#passwordchange').val());
-	console.log($('#confirm_passwordchange').val());
-
 		if(password == $('#confirm_passwordchange').val()){
             		alert('Temporary password and new password cant be the same');
        			return;
@@ -751,15 +712,13 @@ function changePassword(email,password){
 				newPassword: $('#passwordchange').val()
 	        	},function(data,status){
 				if(status === "success"){
-					console.log(data);
 					$('#changePasswordModal').modal('hide');
 					removeCookies();
-					console.log(status);
 					$('#loginModal').modal('hide');
 					Login(email,$('#passwordchange').val());
 
 				}else{
-					console.log('Error changing password!!');
+					//Error
 				}
 			});
 		}
