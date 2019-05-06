@@ -416,7 +416,7 @@ $('#btnupdatebillboard').click(function(){
 								errNumber = true;
 							}
 							if(i % 3 == 2){
-								if(this.value > $("#addcycle").val()){
+								if(this.value > $("#cycle").val()){
 									errCycle = true;
 								}
 							}
@@ -473,7 +473,7 @@ $('#btnupdatebillboard').click(function(){
 								errNumber = true;
 							}
 							if(i % 3 == 2){
-								if(this.value > $("#addcycle").val()){
+								if(this.value > $("#cycle").val()){
 									errCycle = true;
 								}
 							}
