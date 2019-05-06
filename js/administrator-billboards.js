@@ -8,6 +8,8 @@ var path;
 var img;
 var imgedit;
 var fd = new FormData();
+var billboardID;
+var currenttr;
 
 var tab = 'Add';
 
@@ -810,8 +812,12 @@ $('#btnupdatebillboard').click(function(){
 *front end
 ****************************/
 	$("table").on("click", "tr .deleteBillboard", function(){
-		var billboardID = $(this).closest('span').attr("id");
-		var tr = $(this).closest('tr');
+		billboardID = $(this).closest('span').attr("id");
+		currenttr = $(this).closest('tr');
+		$("#myModal").modal("show");
+	});
+	
+	$("#deletebillboardmodal").click(function(){
 		$.post("../server/administrator-delete-billboard.php",
 			{
 				id:billboardID,
@@ -823,7 +829,6 @@ $('#btnupdatebillboard').click(function(){
 				}
 		});		
 	});
-
 /***************************
 *Delete package from
 *front end
