@@ -75,7 +75,6 @@ $(document).ready(function(){
 *fron the front end
 ****************************/
 	$("table").on("click", "tr .remove", function(){
-		$("#myModal").modal("show");
 		 $(this).closest('tr').remove();
 	});
 	
