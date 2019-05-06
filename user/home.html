@@ -18,7 +18,7 @@
 	<link id="tab-logo" rel="icon" href="">
 </head>
 <body>
-
+<!----------Navbar------------>
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
@@ -30,7 +30,7 @@
         <li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
         <li><a class="navbar-text-color" href="about-us.html">About</a></li>
         <li><a class="navbar-text-color" href="contact.html">Contact</a></li>
-        <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+        <li id="getStartedLog"><a class="navbar-text-color clickable" data-toggle="modal" data-target="#loginModal">Log in</a></li>
         <li id="getStartedReg"><button id="btn-register" type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
         <li class="dropdown">
             <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
@@ -49,6 +49,7 @@
  </div>
 </nav>
 
+<!----------Background home image------------>
 <img id="home-billboard" src="" alt="BackgroundHome">
 <div class="centered jumbotron">
         <h3 class="text-center" style="color:white;">EZBillboards</h3>
@@ -58,12 +59,17 @@
 		<button id= "getStartedMes" type="button" class="btn home-btn" data-toggle="modal" data-target="#registerModal">Get Started Now</button>
 	</div>
 </div>
+
+<!----------Purpose of Web app Text------------>
 <div style="margin-left: 12%;margin-right: 12%;">
 	<h2><strong style = "font-size:48px;color:black;">Support Our Students</strong></h2>
 	<h4 style="margin-top: 15px;">Every time you purchase one of out payment plans, our students benefit from this transaction. Help future engineers, accountants, biologists, psycologists, etc. of our country fulfill their dreams.</h4>
 	<h4><button type="button" class="btn home-btn"  onclick=" window.open('https://www.uprm.edu/portada/','_blank')">Learn More</button></h4>
 </div>
 	<br>
+
+
+<!----------All areas that help Text------------>
 	<div class="row">
    		<div class="well col-lg-3 text-center home-wells" style="margin-left: 9%;">
      			<div> <span class="glyphicon glyphicon-usd home-icon"></span></div>
@@ -85,6 +91,7 @@
 	</div>
 	<br>
 
+<!----------Links for other websites related------------>
 <div class="row footer-border">
   <div class="col-lg-6" id="related">
         <h2><strong style="margin-left:0;">Related links</strong></h2>
@@ -123,6 +130,8 @@
         <br>
   </div>
   <br><br><br><br>
+
+<!----------Social Media Links----------->
   <div class="col-lg-6 text-center">
         <h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
         <div class="row" style="margin-left:23%;">
@@ -147,18 +156,18 @@
           <div class="col-lg-12" >
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="emaillogin" type="email" class="form-control" name="email" placeholder="email">
+            <input id="emaillogin" type="email" class="form-control" name="email" placeholder="Email">
           </div>
          <br>
          <div class="input-group">
            <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-           <input id="passwordlogin" type="password" class="form-control" name="password" placeholder="password">
+           <input id="passwordlogin" type="password" class="form-control" name="password" placeholder="Password">
          </div>
          <br>
-         <div style="text-align:center;"><label class="container text-center">Remember me <input style="margin: 0 auto"type="checkbox" id = "remember"><span class="checkmark"></span></label>
+         <div style="text-align:center;"><label class="container text-center">Remember me <input class="clickable" style="margin: 0 auto;" type="checkbox" id = "remember"><span class="checkmark"></span></label>
 	</div>
-	<div class="text-center">Don't have an account yet?<p class="navbar-text-color text-center" style = "color:#2196f3" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
-        <a href ="#"  data-toggle="modal" data-target="#forgotPasswordModal" data-dismiss="modal"> <p class="navbar-text-color text-center" style = "color:#2196f3">Forgot Password</p><a>
+	<div class="text-center">Don't have an account yet?<p class="text-center clickable" style = "color:#1588C7" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
+        <p class="text-center clickable" data-toggle="modal" data-target="#forgotPasswordModal" data-dismiss="modal" style = "color:#1588C7">Forgot Password</p>
         <div style="text-align:center;"><button type="button" id="btnlogin" class="btn home-btn position-center" sytle="margin: 0 auto">Login</button></div>
 	</div>
         </div>
@@ -181,7 +190,7 @@
         You will need to change this password when login in again the first time.</p>
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="emailforgot" type="email" class="form-control" name="email" placeholder="email">
+            <input id="emailforgot" type="email" class="form-control" name="email" placeholder="Email">
           </div>
       </div>
       <div class="modal-footer align">
@@ -193,64 +202,55 @@
 </div>
 
 <!-- Change Password Modal -->
-<div class="modal fade" id="changePasswordModal" role="dialog">
+<div class="modal fade centered-modal" id="changePasswordModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Change password</h4>
+        <h3 class="modal-title text-center" style="text-align:center;color:black;">Change password</h3>
       </div>
       <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
         <div class="input-group">
-			<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-			<input id="passwordchange" type="password" class="form-control" name="password" placeholder="Password">
-		</div>
-		<br>
-		<div class="input-group">
-			<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-			<input id="confirm_passwordchange" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
-		</div>
-		<br> 
+		<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+		<input id="passwordchange" type="password" class="form-control" name="password" placeholder="Password">
+	</div>
+	<br>
+	<div class="input-group">
+		<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+		<input id="confirm_passwordchange" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+	</div>
       </div>
-      </div>
-      <div class="modal-footer">
-        <button id="btnchangepassword" type="button" class="send btn btn-default">Send</button>
+      <div class="modal-footer" style="text-align:center;">
+        <button id="btnchangepassword" type="button" class="send btn home-btn">Send</button>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- Verify Email Modal -->
-<div class="modal fade" id="verifyEmailModal" role="dialog">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" id="closeVerModal" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title text-center">Email Verification</h3>
-        <p>In the following minutes you will receive an email with a code.</br>
-		Please, insert the code in the following input field.</p>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
-          <div class="input-group">
+<div class="modal fade centered-modal" id="verifyEmailModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button id="closeVerModal" type="button" class="close terms-close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" style = "color:black;text-align:center;">Email Verification</h3>
+        </div>
+        <div class="modal-body">
+	  <p style = "color:black;">You will receive an email with a code.</p>
+          <p style = "color:black;">Please, insert the code in the following input field.</p>
+	  <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="verificationCode" onfocus="this.value=''" type="text" class="form-control" name="verCode" placeholder="Insert code here...">
+            <input id="verificationCode" type="text" class="form-control" name="verCode" placeholder="Insert code here...">
           </div>
-      </div>
-      </div>
-      <div class="modal-footer" style="text-align:center;">
-		<button id="btnresend" type="button" class="send btn btn-default">Resend Code</button>
-        <button id="btnverify" type="button" class="send btn btn-default">Verify</button>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+	    <button id="btnresend" type="button" class="send btn home-btn">Resend Code</button>
+            <button id="btnverify" type="button" class="send btn home-btn">Verify</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-
 
 
 <!-- Register Modal -->
@@ -261,41 +261,52 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3 class="modal-title text-center" style="color:black;">Register</h3>
       </div>
+
+      <!----------First Name Input------------>
       <div class="modal-body">
           <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
               <input id="firstnamereg" type="text" class="form-control" name="firstname" placeholder="First Name" value="">
           </div>
           <br>
+           <!----------Last Name Input------------>
            <div class="input-group">
              <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
              <input id="lastnamereg" type="text" class="form-control" name="lastname" placeholder="Last Name">
            </div>
            <br>
-          <div class="input-group">
+
+         <!----------Email Input------------>
+         <div class="input-group">
            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
            <input id="emailreg" type="email" class="form-control" name="email" placeholder="Email">
          </div>
         <br>
-        <div class="input-group">
+
+       <!----------Phone Input------------>
+       <div class="input-group">
          <span class="input-group-addon"><i class="glyphicon glyphicon-phone" style = "font-size:15px;"></i></span>
          <input id="phonereg" type="text" class="form-control" name="phone" placeholder="Mobile Number">
        </div>
       <br>
+
+      <!----------Password Input------------>
       <div class="input-group">
         <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
         <input id="passwordreg" type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <br>
+
+      <!----------Confirm Input------------>
       <div class="input-group">
         <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
         <input id="confirm_passwordreg" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
       </div>
       <br>
-      <input type="checkbox" id="terms"><span class="checkmark"></span> I accept your <a data-toggle="modal" data-target="#termsModal" onclick = "termsCall()">Terms and Policy Privacy</a>
+      <input class="clickable" type="checkbox" id="terms"><span class="checkmark"></span> I accept your <a class="clickable" data-toggle="modal" data-target="#termsModal" onclick = "termsCall()" style="text-decoration:none">Terms and Policy Privacy</a>
 	<div class="text-center">
 		<p>Already have an account?</p>
-		<p class="termsBtn" style="color: #1588C7;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
+		<p class="termsBtn clickable" style="color: #1588C7;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
 	</div>
       </div>
       <div class="modal-footer align">
@@ -309,27 +320,21 @@
 <!-- Terms Modal -->
   <div class="modal fade centered-modal" id="termsModal" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close terms-close">&times;</button>
+          <button type="button" class="close terms-close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style = "color:black;">Terms & Privacy Policy</h4>
         </div>
         <div class="modal-body">
 	  <p id="termsInfo"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn home-btn terms-close">Close</button>
+          <button type="button" class="btn home-btn terms-close" data-dismiss="modal">Close</button>
         </div>
       </div>
-
     </div>
   </div>
-
-
-
-
 </body>
 </html>
 
