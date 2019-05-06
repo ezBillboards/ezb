@@ -16,10 +16,13 @@ $(document).ready(function(){
 ***************************************************/
 	$("#backup").click(function(){
 		if(validate()==true){
-		$.post("../server/administrator-backups.php",{filename:$("#filename").val()}, function(data,status){
-	                console.log(data);
-			getBackups();
-			alert("Added new backup file");
+		$.post("../server/administrator-backups.php",
+		{filename:$("#filename").val(),
+			email: decrypt(sessionStorage.getItem('email'))},
+			function(data,status){
+				console.log(data);
+				getBackups();
+				alert("Added new backup file");
 			   
         	});	    
 	     }
@@ -30,7 +33,8 @@ $(document).ready(function(){
 ***************************************************/
 	$("#restore").click(function(){
 		    $.post("../server/administrator-restore.php",
-			{filename:files[$("#backup-files").prop("selectedIndex")]},
+			{filename:files[$("#backup-files").prop("selectedIndex")],
+			email: decrypt(sessionStorage.getItem('email'))},
 			function(data, status){
                         console.log(data);
                 });

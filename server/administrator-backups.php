@@ -7,19 +7,18 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         exit;
 } else{
 
-require_once('./logger.php');
-
 /*************************
 *Post information from
 *administrator backup to
 *the DB
 *************************/
+require_once('./logger.php');
 $filename = $_POST['filename'];
 $backupDir = $config['BACKUP_PATH'];
 $imageDir = $config['IMAGE_PATH'];
 $backup = $backupDir . $filename;
 $zip = new ZipArchive();
-
+$email = $_POST['email'];
 
 /*************************
 *Creates ZIP
@@ -79,5 +78,6 @@ $zip->close();
 
 system("rm " . $backupDir . "ezb-dump.sql", $retval);
 if($retval != 0){echo "ERROR deleting dump.";}
+else{logger($email, "SYSTEM BACKUP", "Administrator " . $email . " has created a backup of the system, file name:  " . $filename);}
 }
 ?>
