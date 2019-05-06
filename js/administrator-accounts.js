@@ -109,8 +109,6 @@ $(document).ready(function(){
 		if($("#role").val() == 0) roleStr = "Administrator";
 		else if($("#role").val() == 1) roleStr = "Approver";
 		else roleStr = "Publisher";
-		console.log($("#role").val());
-		console.log(roleStr);
  
       		if(status == "success"){
 			alert('Added the new ' + roleStr);
@@ -137,7 +135,6 @@ $(document).ready(function(){
 **************************/
     $("table").on("click", "tr .delete-account", function(){    	
 	indexUserId = $(this).attr("id");
-	console.log("Roll id = " + indexUserId);
 	$("#myModal").modal("show");
 
     });
@@ -236,7 +233,6 @@ function getUserAccounts(){
 	$.get("../server/administrator-user-accounts.php", 
 			function(data,status){
 			accounts = JSON.parse(data);
-                console.log(accounts);
                 $("#user-accounts").empty();
                 var account = "";
                 for(var i = 0; i < accounts.length; i++){
@@ -263,8 +259,8 @@ function getUserAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</b></i></p></span>" +
-						"</td>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</b></i></p></span>" +
+			"</td>" +
                         "</tr>";
                 }
                 $("#user-accounts").append(account);
@@ -280,7 +276,6 @@ function getUserAccounts(){
 function getApproverAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:2}, function(data,status){
                 accounts = JSON.parse(data);
-                console.log(accounts);
                 $("#approver-accounts").empty();
                 var account = "";
                 for(var i = 0; i < accounts.length; i++){
@@ -303,8 +298,8 @@ function getApproverAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</b></i></p></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</b></i></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 
@@ -343,15 +338,6 @@ function validateEdit(){
  var officeResult = officeRGEX.test(office);
 
 
-console.log('First Name = '+ firstName);
-
-console.log('Last Name = '+ lastName);
-
-console.log('Phone Number = '+ wPhone);
-
-console.log('Mobile Number = '+ mPhone);
-
-console.log('Office = '+office);
 
 errors = [];
 
@@ -419,19 +405,6 @@ function validate(){
  var officeResult = officeRGEX.test(office);
 
 
-console.log('First Name = '+ firstName);
-
-console.log('Last Name = '+ lastName);
-
-console.log('Email = '+ email);
-
-console.log('Phone Number = '+ wPhone);
-
-console.log('Mobile Number = '+ mPhone);
-
-console.log('Temp Password = '+ password);
-
-console.log('Office = '+office);
 
 errors = [];
 
@@ -485,7 +458,6 @@ return true;
 function getPublisherAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:3}, function(data,status){
                 accounts = JSON.parse(data);
-                console.log(accounts);
                 $("#publisher-accounts").empty();
                 var account = "";
                 for(var i = 0; i < accounts.length; i++){
@@ -508,8 +480,8 @@ function getPublisherAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 
@@ -530,7 +502,6 @@ function getPublisherAccounts(){
 function getAdministratorAccounts(){
         $.get("../server/administrator-non-user-accounts.php",{id:4}, function(data,status){
                 accounts = JSON.parse(data);
-                console.log(accounts);
                 $("#administrator-accounts").empty();
                 var account = "";
                 for(var i = 0; i < accounts.length; i++){
@@ -553,8 +524,8 @@ function getAdministratorAccounts(){
                         "</p>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
-                                "<span id=\"" + i + "\" class=\"glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-pencil edit-account\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</i></b></p></span>" +
+                                "<span id=\"" + i + "\" class=\"clickable glyphicon glyphicon-trash delete-account\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
                         "</td>" +
                         "</tr>";
 

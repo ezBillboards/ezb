@@ -20,7 +20,6 @@ $(document).ready(function(){
 		{filename:$("#filename").val(),
 			email: decrypt(sessionStorage.getItem('email'))},
 			function(data,status){
-				console.log(data);
 				getBackups();
 				$("#filename").val("");
 				alert("Added new backup file");
@@ -37,7 +36,7 @@ $(document).ready(function(){
 			{filename:files[$("#backup-files").prop("selectedIndex")],
 			email: decrypt(sessionStorage.getItem('email'))},
 			function(data, status){
-                        console.log(data);
+			alert("Restore backup file");
                 });
         });
 
@@ -52,7 +51,6 @@ $(document).ready(function(){
 ************************/
 function getBackups(){
 	$.get("../server/administrator-backup-files.php",function(data,status){
-		console.log(data);
 		files = JSON.parse(data);
 		var options = "";
 		$("#backup-files").empty();
@@ -76,7 +74,6 @@ function validate(){
  var fileNameRGEX = /\W*(.zip)\W*/;
  var fileNameResult = fileNameRGEX.test(fileName);
 
- console.log('Back up File Name = '+ fileName);
 
 if(fileNameResult == false)
 {

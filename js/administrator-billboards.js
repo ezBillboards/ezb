@@ -18,10 +18,6 @@ $(document).ready(function(){
 	$(".nav-tabs a").click(function(){
 		$(this).tab('show');
 		tab = $(this).text();
-		if(tab === 'Add')
-			console.log('add');
-		else if(tab === 'Edit')
-			console.log('Edit');
 	});
 
 /**************
@@ -39,7 +35,6 @@ $(document).ready(function(){
 *Creates package
 *****************/
 	$('#btnaddpackage').click(function(){
-		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
 		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
@@ -54,7 +49,6 @@ $(document).ready(function(){
 *Creates regulation
 *******************/
 	$('#btnaddregulation').click(function(){
-		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
@@ -67,7 +61,6 @@ $(document).ready(function(){
 *Creates rejections
 *******************/
 	$('#btnaddrejection').click(function(){
-		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
@@ -92,7 +85,6 @@ $(document).ready(function(){
 ****************************/
 
 	$('#btnnewbillboard').click(function(){
-		//console.log('btnnewbillboard clicked!');
 		var emptyPack = false;
 		var emptyReg = false;
 		var emptyRej = false;
@@ -126,25 +118,20 @@ $(document).ready(function(){
 					if (i % 3 == 0){
 						var price = this.value.split(".");
 						var strPrice = this.value.toString();
-						console.log(price);
 						if(this.value.toString().charAt(0) == "."){
 							if(price[0].length > 2){
-								console.log('char at 0');
 								errPrice = true;
 							}
 						}else{
 							if(price.length == 2){
 								if(price[1].length > 2){
-									console.log('Decimal > 2');
 									errPrice = true;
 								}
 								else if(price[0].length > 12){
-									console.log('Integer > 12');
 									errPrice = true;
 								}
 							}else if(price.length == 1){
 								if(price[0].length > 12){
-									console.log('Integer > 12');
 									errPrice = true;
 								}
 							}else{
@@ -155,7 +142,6 @@ $(document).ready(function(){
 						var intValue = this.value.split(".");
 						if(this.value - Math.floor(this.value) != 0){
 							errNumber = true;
-							//console.log("Not an integer");
 						}else if(!this.value){
 							errNumber = true;
 						}
@@ -329,7 +315,6 @@ $(document).ready(function(){
 *fron the DB
 ****************************/
 $('#btnupdatebillboard').click(function(){
-		//console.log('btnupdatebillboard clicked!');
 		var emptyPack = false;
 		var emptyReg = false;
 		var emptyRej = false;
@@ -367,25 +352,20 @@ $('#btnupdatebillboard').click(function(){
 						if (i % 3 == 0){
 							var price = this.value.split(".");
 							var strPrice = this.value.toString();
-							console.log(price);
 							if(this.value.toString().charAt(0) == "."){
 								if(price[0].length > 2){
-									console.log('char at 0');
 									errPrice = true;
 								}
 							}else{
 								if(price.length == 2){
 									if(price[1].length > 2){
-										console.log('Decimal > 2');
 										errPrice = true;
 									}
 									else if(price[0].length > 12){
-										console.log('Integer > 12');
 										errPrice = true;
 									}
 								}else if(price.length == 1){
 									if(price[0].length > 12){
-										console.log('Integer > 12');
 										errPrice = true;
 									}
 								}else{
@@ -396,7 +376,6 @@ $('#btnupdatebillboard').click(function(){
 							var intValue = this.value.split(".");
 							if(this.value - Math.floor(this.value) != 0){
 								errNumber = true;
-								//console.log("Not an integer");
 							}else if(!this.value){
 								errNumber = true;
 							}
@@ -424,25 +403,20 @@ $('#btnupdatebillboard').click(function(){
 						if (i % 3 == 0){
 							var price = this.value.split(".");
 							var strPrice = this.value.toString();
-							console.log(price);
 							if(this.value.toString().charAt(0) == "."){
 								if(price[0].length > 2){
-									console.log('char at 0');
 									errPrice = true;
 								}
 							}else{
 								if(price.length == 2){
 									if(price[1].length > 2){
-										console.log('Decimal > 2');
 										errPrice = true;
 									}
 									else if(price[0].length > 12){
-										console.log('Integer > 12');
 										errPrice = true;
 									}
 								}else if(price.length == 1){
 									if(price[0].length > 12){
-										console.log('Integer > 12');
 										errPrice = true;
 									}
 								}else{
@@ -453,7 +427,6 @@ $('#btnupdatebillboard').click(function(){
 							var intValue = this.value.split(".");
 							if(this.value - Math.floor(this.value) != 0){
 								errNumber = true;
-								//console.log("Not an integer");
 							}else if(!this.value){
 								errNumber = true;
 							}
@@ -534,10 +507,6 @@ $('#btnupdatebillboard').click(function(){
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
 		
-		console.log($("#max-hei").val());
-		console.log($("#min-hei").val());
-		console.log($("#max-wid").val());
-		console.log($("#min-wid").val());
 		if(validateEditBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#width").val()){
@@ -656,7 +625,6 @@ $('#btnupdatebillboard').click(function(){
 ****************************/
 	$("#billboard-img").change(function(){
 	        readURL(this);
-        	console.log(this.id);
 	});
 
 /***************************
@@ -664,7 +632,6 @@ $('#btnupdatebillboard').click(function(){
 ****************************/	
 	$("#billboard-edit-img").change(function(){
 	        readURL(this);
-        	console.log(this.id);
 	});
 	
 /*******************
@@ -678,7 +645,6 @@ $('#btnupdatebillboard').click(function(){
 		$.get("../server/administrator-billboardInfo.php", 
 			{id: billboardInfo_ID},
 			function(data, status){
-			console.log(data);
 			var info = JSON.parse(data);
 			$("#editBillboardname").attr('value',info.name);
 			$("#billboard-edit-img-tag").attr('src',path + info.img);
@@ -705,18 +671,14 @@ $('#btnupdatebillboard').click(function(){
 ***************/		
 		setTimeout(function() {
 			$.each($("input[name='edit-image-ratio']"), function(){
-				console.log($(this).val());
 				var x = $.inArray(String($(this).val()), editratio);
-				console.log(x);
 				if(x != -1){
 					$(this).prop('checked', true);
 				}
 			});
 		
 			$.each($("input[name='edit-image-extensions']"), function(){            
-				console.log($(this).val());
 				var x = $.inArray(String($(this).val()), editextension);
-				console.log(x);
 				if(x != -1){
 					$(this).prop('checked', true);
 				}
@@ -730,9 +692,8 @@ $('#btnupdatebillboard').click(function(){
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardInfo_ID}, 
 			function(data, status){
-			console.log(data);
 			if(data == "No results"){
-				console.log('No pacakages found!!');
+
 			}else{
 				packages = JSON.parse(data);
                 var package = "";
@@ -759,9 +720,7 @@ $('#btnupdatebillboard').click(function(){
 		$.get("../server/administrator-billboard-regulations.php", 
 			{id: billboardInfo_ID}, 
 			function(data, status){
-			console.log(data);
 			if(data == "No results"){
-				console.log('No regulations found!!');
 			}else{
 				regulations = JSON.parse(data);
                 var regulation = "";
@@ -785,9 +744,7 @@ $('#btnupdatebillboard').click(function(){
 		$.get("../server/administrator-billboard-rejections.php", 
 			{id: billboardInfo_ID}, 
 			function(data, status){
-			console.log(data);
 			if(data == "No results"){
-				console.log('No rejections found!!');
 			}else{
 				rejections = JSON.parse(data);
                 var rejection = "";
@@ -812,7 +769,6 @@ $('#btnupdatebillboard').click(function(){
 ****************************/
 
 	$('#btneditpackage').click(function(){
-		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
 		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
@@ -829,7 +785,6 @@ $('#btnupdatebillboard').click(function(){
 ****************************/
 	
 	$('#btneditregulation').click(function(){
-		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
@@ -843,7 +798,6 @@ $('#btnupdatebillboard').click(function(){
 *taking info from the DB
 ****************************/
 	$('#btneditrejection').click(function(){
-		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
 		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
@@ -857,9 +811,7 @@ $('#btnupdatebillboard').click(function(){
 *front end
 ****************************/
 	$("table").on("click", "tr .deleteBillboard", function(){
-		console.log('deleteBillboard clicked');
 		var billboardID = $(this).closest('span').attr("id");
-		console.log(billboardID);
 		var tr = $(this).closest('tr');
 		$.post("../server/administrator-delete-billboard.php",
 			{
@@ -867,11 +819,8 @@ $('#btnupdatebillboard').click(function(){
 				email:decrypt(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
-					console.log(data);
-					console.log(status);
 					tr.remove();
 				}else{
-					console.log('Error deleting billboard!!');
 				}
 		});		
 	});
@@ -888,10 +837,8 @@ $('#btnupdatebillboard').click(function(){
 				id:packageID
 			},function(data,status){
 				if(status === "success"){
-					console.log(status);
 					tr.remove();
 				}else{
-					console.log('Error deleting pacakge!!');
 				}
 		});
 	});
@@ -908,10 +855,8 @@ $('#btnupdatebillboard').click(function(){
 				id:regulationID
 			},function(data,status){
 				if(status === "success"){
-					console.log(status);
 					tr.remove();
 				}else{
-					console.log('Error deleting regulation!!');
 				}
 		});
 	});
@@ -929,10 +874,8 @@ $('#btnupdatebillboard').click(function(){
 				id:rejectionID
 			},function(data,status){
 				if(status === "success"){
-					console.log(status);
 					tr.remove();
 				}else{
-					console.log('Error deleting rejection!!');
 				}
 		});
 	});
@@ -1001,10 +944,6 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	var readTime = $("#addreadtime").val();
 	var totalTime = 60*cycle;
 	var slots = totalTime/readTime;
-	console.log(totalTime);
-	console.log(slots);
-	console.log(extension_in);
-	console.log(ratio_in);
 	fd.append('name',$("#addBillboardname").val());
 	fd.append('description',$("#adddescription").val());
 	fd.append('width',$("#addwidth").val());
@@ -1040,7 +979,6 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 		contentType: false,
 		processData: false,
 		success: function(response){
-			console.log(response);
 			alert("Billboard created successfully");
 			location.reload();
 		}
@@ -1060,16 +998,13 @@ function validateBillboard(){
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#addBillboardname").val() == ""){
-		console.log("Missing billboard name!");
 	}
 	else{
 		billboardName = false;
 		billboardName = billboardRGEX.test($("#addBillboardname").val());
 		billboardDescription = billboardRGEX.test($("#adddescription").val());
-		console.log("Billboard name found");
 	}
 	
-	console.log( billboardName || billboardDescription);
 	return billboardName || billboardDescription;
 }
 
@@ -1085,16 +1020,13 @@ function validateEditBillboard(){
 	var billboardDescription = true;
 	var billboardRGEX = /[^A-Za-z0-9\s@&#]/;
 	if ($("#editBillboardname").val() == ""){
-		console.log("Missing billboard name!");
 	}
 	else{
 		billboardName = false;
 		billboardName = billboardRGEX.test($("#editBillboardname").val());
 		billboardDescription = billboardRGEX.test($("#editdescription").val());
-		console.log("Billboard name found");
 	}
 	
-	console.log( billboardName || billboardDescription);
 	return billboardName || billboardDescription;
 }
 
@@ -1105,7 +1037,6 @@ function validateEditBillboard(){
 ****************************/
 function updateBillboard(packages_in,regulations_in,rejections_in,existingpackages_in,existingregulations_in,existingrejections_in,ratio_in,extension_in){
 	if(files != null){
-		console.log('changed image');
 		fd.append('fileName',files.name.split(".")[0]);
 		fd.append('extension',files.type.substring(6));
 	}
@@ -1142,7 +1073,6 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 		contentType: false,
 		processData: false,
 		success: function(response){
-			console.log(response);
 			alert("Billboard updated successfully");
 		}
 	});
