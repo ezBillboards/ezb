@@ -599,15 +599,15 @@ $('#btnupdatebillboard').click(function(){
 			alert("Impressions has to be an integer");
 		}else if(!$("#traffic").val()){
 			alert("Insert traffic");
-		}else if($("#addtraffic").val() <=0){
+		}else if($("#traffic").val() <=0){
 			alert("Traffic can't be equal or less than zero");
-		}else if($("#addtraffic").val() - Math.floor($("#addtraffic").val()) != 0){
+		}else if($("#traffic").val() - Math.floor($("#traffic").val()) != 0){
 			alert("Traffic has to be an integer");
-		}else if(!$("#tolerance").val()){
+		}else if(!$("#imageTolerance").val()){
 			alert("Insert image tolerance");
-		}else if($("#tolerance").val() <=0){
+		}else if($("#imageTolerance").val() <=0){
 			alert("Tolerance can't be equal or less than zero");
-		}else if($("#tolerance").val() - Math.floor($("#tolerance").val()) != 0){
+		}else if($("#imageTolerance").val() - Math.floor($("#imageTolerance").val()) != 0){
 			alert("Tolerance has to be an integer");
 		}else if(!$("#cycle").val()){
 			alert("Insert billboard cycle");
@@ -701,8 +701,6 @@ $('#btnupdatebillboard').click(function(){
 			$("#cycle").attr('value',info.cycle);
 			editextension = info.imageExtension.split(":");
 			editratio = info.imageRatio.split(",");
-			console.log(editextension);
-			console.log(editratio);
 		});	
 
 /***************
