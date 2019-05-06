@@ -320,7 +320,7 @@ $(document).ready(function(){
 		}else if(rejections.length == 0){
 			alert("Add at least one Rejection");
 		}else if(emptyPack){
-			alert("Fill out all package fields!");
+			alert("Fill out all package fields or verify numeric values");
 		}else if(errZero){
 			alert("Duration, cycle and price cannot be less or equal to zero");
 		}else if(errNumber){
@@ -376,6 +376,8 @@ $('#btnupdatebillboard').click(function(){
 						emptyPack = true;
 					}else if(this.value <= 0){
 						errZero = true;
+					}else if(!this.value){
+						errPrice = true;
 					}else{
 						if (i % 3 == 0){
 							var price = this.value.split(".");
@@ -407,12 +409,11 @@ $('#btnupdatebillboard').click(function(){
 							}
 						}else{
 							var intValue = this.value.split(".");
-							if(this.value.toString().charAt(0) == "."){
+							if(this.value - Math.floor(this.value) != 0){
 								errNumber = true;
-								console.log("Not an integer");
-							}else if(intValue.length > 1){
+								//console.log("Not an integer");
+							}else if(!this.value){
 								errNumber = true;
-								console.log("Not an integer");
 							}
 							if(i % 3 == 2){
 								if(this.value > $("#addcycle").val()){
@@ -428,6 +429,58 @@ $('#btnupdatebillboard').click(function(){
 			}else{
 				existingpackages.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
+					if(this.value == ""){
+						emptyPack = true;
+					}else if(this.value <= 0){
+						errZero = true;
+					}else if(!this.value){
+						errPrice = true;
+					}else{
+						if (i % 3 == 0){
+							var price = this.value.split(".");
+							var strPrice = this.value.toString();
+							console.log(price);
+							if(this.value.toString().charAt(0) == "."){
+								if(price[0].length > 2){
+									console.log('char at 0');
+									errPrice = true;
+								}
+							}else{
+								if(price.length == 2){
+									if(price[1].length > 2){
+										console.log('Decimal > 2');
+										errPrice = true;
+									}
+									else if(price[0].length > 12){
+										console.log('Integer > 12');
+										errPrice = true;
+									}
+								}else if(price.length == 1){
+									if(price[0].length > 12){
+										console.log('Integer > 12');
+										errPrice = true;
+									}
+								}else{
+									errPrice = true;
+								}
+							}
+						}else{
+							var intValue = this.value.split(".");
+							if(this.value - Math.floor(this.value) != 0){
+								errNumber = true;
+								//console.log("Not an integer");
+							}else if(!this.value){
+								errNumber = true;
+							}
+							if(i % 3 == 2){
+								if(this.value > $("#addcycle").val()){
+									errCycle = true;
+								}
+							}
+						}
+
+					}
+					i = i + 1;
 					existingpackages.push(this.value);
 				});
 			}
@@ -459,12 +512,20 @@ $('#btnupdatebillboard').click(function(){
 		$("#edit-rejection tr").each(function() {
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
-					rejections.push(this.value);
+					if(this.value == ""){
+					emptyReg = true;
+					}else{
+						rejections.push(this.value);
+					}
 				});
 			}else{
 				existingrejections.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
-					existingrejections.push(this.value);
+					if(this.value == ""){
+					emptyReg = true;
+					}else{
+						existingrejections.push(this.value);
+					}
 				});
 			}
 		});
@@ -484,30 +545,82 @@ $('#btnupdatebillboard').click(function(){
 			alert('Missing billboard information');
 		}else if(!$("#width").val()){
 			alert("Insert billboard width");
+		}else if($("#width").val() <=0){
+			alert("Width can't be equal or less than zero");
+		}else if($("#width").val() - Math.floor($("#width").val()) != 0){
+			alert("Width has to be an integer");
 		}else if(!$("#height").val()){
 			alert("Insert billboard height");
+		}else if($("#height").val() <=0){
+			alert("height can't be equal or less than zero");
+		}else if($("#height").val() - Math.floor($("#height").val()) != 0){
+			alert("Height has to be an integer");
 		}else if(!$("#min-wid").val()){
 			alert("Insert image minimum width");
+		}else if($("#min-wid").val() <=0){
+			alert("Minimum width can't be equal or less than zero");
+		}else if($("#min-wid").val() - Math.floor($("#min-wid").val()) != 0){
+			alert("Minimum width has to be an integer");
 		}else if(!$("#min-hei").val()){
 			alert("Insert image minimum height");
+		}else if($("#min-hei").val() <=0){
+			alert("Minimum height can't be equal or less than zero");
+		}else if($("#min-hei").val() - Math.floor($("#min-hei").val()) != 0){
+			alert("Minimum height has to be an integer");
 		}else if(!$("#max-wid").val()){
 			alert("Insert image maximum width");
+		}else if($("#max-wid").val() <=0){
+			alert("Maximum width can't be equal or less than zero");
+		}else if($("#max-wid").val() - Math.floor($("#max-wid").val()) != 0){
+			alert("Maximum width has to be an integer");
 		}else if(!$("#max-hei").val()){
 			alert("Insert image maximum height");
+		}else if($("#max-hei").val() <=0){
+			alert("Maximum height can't be equal or less than zero");
+		}else if($("#max-hei").val() - Math.floor($("#addmaxheight").val()) != 0){
+			alert("Maximum height has to be an integer");
+		}else if($("#max-hei").val() < $("#min-hei").val()){
+			alert("Maximum height can't be less than minimum heigth ");
+		}else if($("#max-wid").val() < $("#min-wid").val()){
+			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#latitude").val()){
 			alert("Insert billboard latitude");
+		}else if($("#latitude").val() <=0){
+			alert("Latitude can't be equal or less than zero");
 		}else if(!$("#longitude").val()){
 			alert("Insert billboard longitude");
+		}else if($("#longitude").val() <=0){
+			alert("Longitude can't be equal or less than zero");
 		}else if(!$("#impressions").val()){
 			alert("Insert billboard impressions");
+		}else if($("#impressions").val() <=0){
+			alert("Impressions can't be equal or less than zero");
+		}else if($("#impressions").val() - Math.floor($("#impressions").val()) != 0){
+			alert("Impressions has to be an integer");
 		}else if(!$("#traffic").val()){
 			alert("Insert traffic");
+		}else if($("#addtraffic").val() <=0){
+			alert("Traffic can't be equal or less than zero");
+		}else if($("#addtraffic").val() - Math.floor($("#addtraffic").val()) != 0){
+			alert("Traffic has to be an integer");
 		}else if(!$("#tolerance").val()){
 			alert("Insert image tolerance");
+		}else if($("#tolerance").val() <=0){
+			alert("Tolerance can't be equal or less than zero");
+		}else if($("#tolerance").val() - Math.floor($("#tolerance").val()) != 0){
+			alert("Tolerance has to be an integer");
 		}else if(!$("#cycle").val()){
 			alert("Insert billboard cycle");
+		}else if($("#cycle").val() <=0){
+			alert("Cycle can't be equal or less than zero");
+		}else if($("#cycle").val() - Math.floor($("#cycle").val()) != 0){
+			alert("Cycle has to be an integer");
 		}else if(!$("#read-time").val()){
 			alert("Insert billboard read time");
+		}else if($("#read-time").val() <=0){
+			alert("Read time can't be equal or less than zero");
+		}else if($("#read-time").val() - Math.floor($("#read-time").val()) != 0){
+			alert("Read time has to be an integer");
 		}else if(extensions.length == 0){
 			alert("Add at least one extension");
 		}else if(ratios.length == 0){
