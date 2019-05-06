@@ -41,16 +41,11 @@ $(document).ready(function(){
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
-		"<td><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
-		"<td><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
-		"<td><input id=\"Price\" type=\"number\" step=\"0.01\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Price\" type=\"number\" step=\"0.01\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#add-package").append(newPackage);
 	});
@@ -61,14 +56,9 @@ $(document).ready(function(){
 	$('#btnaddregulation').click(function(){
 		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
-		"<td><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#add-regulation").append(newRegulation);
 	});
@@ -79,14 +69,9 @@ $(document).ready(function(){
 	$('#btnaddrejection').click(function(){
 		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
-		"<td><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#add-rejection").append(newRejection);
 	});
@@ -753,16 +738,11 @@ $('#btnupdatebillboard').click(function(){
                 var package = "";
                 for (var i = 0; i < packages.length; i++) {
 					package += "<tr id=\"" + packages[i].id + "\">" +
-					"<td><input id=\"duration\" value =\""+packages[i].duration + "\" type=\"number\" class=\"form-control\" name=\"duration\"></td>" +
-					"<td><input id=\"frequency\" value =\""+packages[i].frequency +"\" type=\"number\" class=\"form-control\" name=\"frequency\"></td>" +
-					"<td><input id=\"price\" value =\""+packages[i].price +"\" type=\"number\" class=\"form-control\" name=\"Price\"></td>" +
-					"<td>" +
-					"<div class=\"column\">" +
-					"<div class=\"row\">" +
-					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deletepackage\"><br></span></a>" +
-					"</div>" +
-					"</div>" +
+					"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"duration\" value =\""+packages[i].duration + "\" type=\"number\" class=\"form-control\" name=\"duration\"></td>" +
+					"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"frequency\" value =\""+packages[i].frequency +"\" type=\"number\" class=\"form-control\" name=\"frequency\"></td>" +
+					"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"price\" value =\""+packages[i].price +"\" type=\"number\" class=\"form-control\" name=\"Price\"></td>" +
+					"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
+					"<span class=\"clickable glyphicon glyphicon-trash actions deletepackage\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 					"</td>";
                 }
 				$("#edit-package").empty();
@@ -787,14 +767,9 @@ $('#btnupdatebillboard').click(function(){
                 var regulation = "";
                 for (var i = 0; i < regulations.length; i++) {
 					regulation +=  "<tr id=\"" + regulations[i].id + "\">" +
-					"<td><input id=\"Regulation\" value =\"" + regulations[i].regulation + "\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
-					"<td>" +
-					"<div class=\"column\">" +
-					"<div class=\"row\">" +
-					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deleteregulation\"><br></span></a>" +
-					"</div>" +
-					"</div>" +
+					"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Regulation\" value =\"" + regulations[i].regulation + "\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+					"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+					"<span class=\"clickable glyphicon glyphicon-trash actions deleteregulation\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 					"</td>";
                 }
 				$("#edit-regulation").empty();
@@ -818,14 +793,9 @@ $('#btnupdatebillboard').click(function(){
                 var rejection = "";
                 for (var i = 0; i < rejections.length; i++) {
 					rejection += "<tr id=\"" + rejections[i].id + "\">" +
-					"<td><input id=\"Rejection\" value =\"" + rejections[i].rejection + "\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
-					"<td>" +
-					"<div class=\"column\">" +
-					"<div class=\"row\">" +
-					"<div class=\"col-lg-6\">" +
-					"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions deleterejection\"><br></span></a>" +
-					"</div>" +
-					"</div>" +
+					"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Rejection\" value =\"" + rejections[i].rejection + "\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+					"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+					"<span class=\"clickable glyphicon glyphicon-trash actions deleterejection\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 					"</td>";
                	}
 				$("#edit-rejection").empty();
@@ -844,16 +814,11 @@ $('#btnupdatebillboard').click(function(){
 	$('#btneditpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
-		"<td><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
-		"<td><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
-		"<td><input id=\"Price\" type=\"number\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Duration\" type=\"number\" class=\"form-control\" name=\"Duration\" placeholder=\"Duration\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Frequency\" type=\"number\" class=\"form-control\" name=\"Frequency\" placeholder=\"Frequency\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\"><input id=\"Price\" type=\"number\" class=\"form-control\" name=\"Price\" placeholder=\"Price\"></td>" +
+		"<td class=\"text-center\" style=\"width: 25%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#edit-package").append(newPackage);
 	});
@@ -866,14 +831,9 @@ $('#btnupdatebillboard').click(function(){
 	$('#btneditregulation').click(function(){
 		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
-		"<td><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Regulation\" type=\"text\" class=\"form-control\" name=\"Regulation\" placeholder=\"Regulation Description\"></td>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#edit-regulation").append(newRegulation);
 	});
@@ -885,14 +845,9 @@ $('#btnupdatebillboard').click(function(){
 	$('#btneditrejection').click(function(){
 		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
-		"<td><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
-		"<td>" +
-		"<div class=\"column\">" +
-		"<div class=\"row\">" +
-		"<div class=\"col-lg-6\">" +
-		"<a href=\"#\"><span class=\"glyphicon glyphicon-trash actions remove\"><br></span></a>" +
-		"</div>" +
-		"</div>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\"><input id=\"Rejection\" type=\"text\" class=\"form-control\" name=\"Rejection\" placeholder=\"Rejection Description\"></td>" +
+		"<td class=\"text-center\" style=\"width: 50%;text-align: center;vertical-align: middle;\">" +
+		"<span class=\"clickable glyphicon glyphicon-trash actions remove\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 		"</td>";
 		$("#edit-rejection").append(newRejection);
 	});
@@ -908,7 +863,8 @@ $('#btnupdatebillboard').click(function(){
 		var tr = $(this).closest('tr');
 		$.post("../server/administrator-delete-billboard.php",
 			{
-				id:billboardID
+				id:billboardID,
+				email:decrypt(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
 					console.log(data);
@@ -1002,8 +958,8 @@ function getBillboards(){
 				"<h4>" + billboards[i].name + "</h4><h5>" + billboards[i].description + "</h5>" +
 			"</td>" +
 			"<td class=\"text-center\" style=\"vertical-align: middle;width: 33.33%;\">" +
-			 "<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-pencil information\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</b></i></p></span>" +
-                         "<span id=\"" + billboards[i].id + "\" class=\"glyphicon glyphicon-trash deleteBillboard\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
+			 "<span id=\"" + billboards[i].id + "\" class=\"clickable glyphicon glyphicon-pencil information\" data-toggle=\"modal\" data-target=\"#EditModal\" style=\"font-size: 35px;padding-right:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Edit</b></i></p></span>" +
+                         "<span id=\"" + billboards[i].id + "\" class=\"clickable glyphicon glyphicon-trash deleteBillboard\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Delete</i></b></p></span>" +
 			"</td>" +
 			"</tr>";
 		}
@@ -1074,6 +1030,8 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 	fd.append('packages',JSON.stringify(packages_in));
 	fd.append('regulations',JSON.stringify(regulations_in));
 	fd.append('rejections',JSON.stringify(rejections_in));
+	fd.append('email',decrypt(sessionStorage.getItem('email')));
+	
 	$.ajax({
 		url:"../server/administrator-add-billboard.php",
 		type: 'POST',
@@ -1175,6 +1133,7 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 	fd.append('cycle',$("#cycle").val());
 	fd.append('imageRatio',ratio_in);
 	fd.append('imageExtension',extension_in);
+	fd.append('email',decrypt(sessionStorage.getItem('email')));
 	$.ajax({
 		url:"../server/administrator-update-billboard.php",
 		type: 'POST',
