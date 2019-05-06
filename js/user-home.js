@@ -48,6 +48,11 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#btn-login").click(function(){
+		$('#emaillogin').val() = "";
+		$('#passwordlogin').val() = "";
+		$('#verificationCode').val() = "";
+	});
 /*********************
 *Register button activate
 **********************/
@@ -70,6 +75,7 @@ $(document).ready(function(){
 		$('#phonereg').val() = "";
 		$('#passwordreg').val() = "";
 		$('#confirm_passwordreg').val() = "";
+		$('#verificationCode').val() = "";
 		$('#terms').prop('checked', false);
 	});
 	
