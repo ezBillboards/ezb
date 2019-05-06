@@ -94,7 +94,6 @@ function getPaidRequests(){
 *************************/
 function publishRequest(item){
 	currentRequestID = $(item).attr("id");
-	console.log(currentRequestID);
 	$.post("../server/publisher-publish-request.php",
 	{
 		id:currentRequestID,
