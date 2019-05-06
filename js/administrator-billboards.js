@@ -135,6 +135,8 @@ $(document).ready(function(){
 					//i = i +1;
 				}else if(this.value <= 0){
 					errZero = true;
+				}else if(!this.value){
+					errPrice = true;
 				}else{
 					if (i % 3 == 0){
 						var price = this.value.split(".");
@@ -166,12 +168,11 @@ $(document).ready(function(){
 						}
 					}else{
 						var intValue = this.value.split(".");
-						if(this.value.toString().charAt(0) == "."){
+						if(this.value - Math.floor(this.value) != 0){
 							errNumber = true;
-							console.log("Not an integer");
-						}else if(intValue.length > 1){
+							//console.log("Not an integer");
+						}else if(!this.value){
 							errNumber = true;
-							console.log("Not an integer");
 						}
 						if(i % 3 == 2){
 							if(this.value > $("#addcycle").val()){
