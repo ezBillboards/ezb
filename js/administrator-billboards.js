@@ -1184,6 +1184,7 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 		processData: false,
 		success: function(response){
 			console.log(response);
+			alert("Billboard updated successfully");
 		}
 	});
 }
