@@ -17,6 +17,9 @@ var random;
 $(document).ready(function(){
 	//setTimeout(session,500);
 
+/**************************
+*Contact information Getter
+***************************/
 	$.get("../server/user-contact.php", function(data, status){
 		var info = JSON.parse(data);
 		$("#footer-physical").text(info.physical);
@@ -25,22 +28,29 @@ $(document).ready(function(){
 		$("#footer-extension").text(info.extension);
         });
 
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
                 $("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
                 $("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
                 $("#home-billboard").attr("src", data + "img/ezb/BackgroundHome.jpg");		
         });	
 	
+/*********************
+*Login button activate
+**********************/
 	$("#btnlogin").click(function(){
-		if(validateLogin() ==true){	
-		console.log('btnlogin clicked!!');
-		email = $('#emaillogin').val();
-		//password = $('#passwordlogin').val();
-		Login(email,$('#passwordlogin').val());
-		//setTimeout(VerifyRole,500);
+		if(validateLogin() == true){	
+			email = $('#emaillogin').val();
+			password = $('#passwordlogin').val();
+			Login(email, password);
 		}
 	});
-	
+
+/*********************
+*Register button activate
+**********************/
 	$("#btnregister").click(function(){
 		console.log('btnregister clicked!!');
 		if(validateRegister()==true){
@@ -50,7 +60,10 @@ $(document).ready(function(){
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#lastnamereg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
 	});
-	
+
+/**************************
+*Restores session back home
+**************************/
 	$("#closeVerModal").click(function(){
 		console.log('closeVerModal clicked!!');
 		sessionStorage.removeItem('ID');
@@ -59,6 +72,11 @@ $(document).ready(function(){
 		session();
 	});
 	
+/*************************
+*Forgot password Getter
+*then performces forgot 
+*password function
+*************************/
 	$("#btnforgotpsswd").click(function(){
 		if(validateEmail()){
 			$.get("../server/get-email-account.php",
@@ -67,35 +85,38 @@ $(document).ready(function(){
                         	},function(data,status){
         			if(JSON.parse(data)){
                                 	forgotPassword();
-                                	alert("You will receive a new password to the email in the system. You will need to change this password when login in again the first time.");
+                                	alert("Temporary password has been sent.");
                         	}else{
                                 	alert("This account does not exist.");
                         	}	
 			});
 		}
 	});
-	
+
+/*************************
+*Change password button
+*************************/	
 	$("#btnchangepassword").click(function(){
-		console.log('btnchangepassword clicked!!');
 		var password = document.getElementById('passwordlogin').value;
 		var email = document.getElementById('emaillogin').value;
-		console.log('before entering function');
 		if($('#passwordchange').val() == ""){
-		alert('Parameters cannot be empty');
-		return;
+			alert('Parameters cannot be empty');
+			return;
 		}		
 
-	if(validatePassword($('#passwordchange').val())==true){
-		if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
-			changePassword(email,password);
-                }
-                else{
-                        alert('Password values not the same');
-                }
-	}
-
+		if(validatePassword($('#passwordchange').val()) == true){
+			if($('#passwordchange').val() == $('#confirm_passwordchange').val()){
+				changePassword(email,password);
+                	}
+                	else{
+                        	alert('Password values not the same');
+                	}
+		}
 	});
 	
+/*************************
+*Verify email button
+*************************/
 	$("#btnverify").click(function(){
 		if( $('#verificationCode').val() == decrypt(sessionStorage.getItem('verificationCode'))){
 			VerifyEmail();	
@@ -104,14 +125,18 @@ $(document).ready(function(){
 			alert('Verification code incorrect');
 		}
 	});
-	
+
+/*************************
+*Resent Verification Code
+*************************/	
 	$("#btnresend").click(function(){
 		resendVerificationCode();
 	});
 
 
-
-	
+/*************
+*Logout button 
+**************/
 	$("#btnlogout").click(function(){
 		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
@@ -122,6 +147,12 @@ $(document).ready(function(){
 	});
 });
 
+
+/**********************************
+*Validates Login with REGEX
+*
+*@return {Boolean}
+**********************************/
 function validateLogin(){  
  var email = document.getElementById('emaillogin').value;
  var emailRGEX = /^(.+)@(.+)$/;
@@ -149,6 +180,13 @@ return true;
 }
 
 
+
+
+/**********************************
+*Validates password with REGEX
+*
+*@return {Boolean}
+**********************************/
 function validatePassword(password){
 errors = [];
 console.log(password);
@@ -174,6 +212,12 @@ return true;
 }
 
 
+
+/**********************************
+*Validates Email with REGEX
+*
+*@return {Boolean}
+**********************************/
 function validateEmail(){
 
  var email = document.getElementById('emailforgot').value;
@@ -191,7 +235,14 @@ return true;
 
 
 
-
+/**********************************
+*Set cookies with name, value and
+*expirational days
+*
+*@param {string} cname
+*@param {string} cvalue
+*@param {string} exdays
+**********************************/
 function setCookie(cname,cvalue,exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -199,6 +250,11 @@ function setCookie(cname,cvalue,exdays) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+
+/**********************************
+*Removes cookies changing the date
+* to a previous one
+**********************************/
  function removeCookies() {
             var res = document.cookie;
             var multiple = res.split(";");
@@ -208,6 +264,13 @@ function setCookie(cname,cvalue,exdays) {
             }
  }
 
+
+/**********************************
+*Search for cookie with name as
+* a parameter
+*
+*@param {string} cname
+**********************************/
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -224,6 +287,9 @@ function getCookie(cname) {
   return "";
 }
 
+/**********************************
+*Checks for cookies and checkbox
+**********************************/
 function checkCookie() {
   var email = getCookie("email");
   var password = getCookie("password");
@@ -236,6 +302,12 @@ function checkCookie() {
 	}
 }
 
+/**********************************
+*Validates Register with REGEX
+*
+*
+*@return {Boolean}
+**********************************/
 function validateRegister(){
  var phoneNumber = document.getElementById('phonereg').value;
  var phoneRGEX = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
@@ -323,13 +395,27 @@ return true;
 
 }
 
+/**********************************
+*Get terms and policies from DB
+**********************************/
 function termsCall() {
- console.log('enter Terms function');
                 $.get("../server/user-terms.php", function(data, status){
-                $("#termsInfo").text(data);
+                $("#termsInfo").html(data);
 	});
 }
 
+
+/**********************************
+*Register with parameters received
+*and post it on the DB
+*
+*@param {string} email_IN
+*@param {string} firstName_IN
+*@param {string} lastName_IN
+*@param {string} mobilePhone_IN
+*@param {string} password_IN
+*@param {string} random_IN
+**********************************/
 function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,random_IN){
 	console.log('Register function');
 	role = 1;
@@ -361,7 +447,6 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 					if(data != ""){
 						profile_ID = data;
 					}
-					console.log(typeof role.toString());
 					sessionStorage.setItem('role', encrypt(role.toString()));
 					sessionStorage.setItem('email', encrypt(email_IN));
 					sessionStorage.setItem('verificationCode', encrypt(random_IN.toString()));
@@ -376,16 +461,24 @@ function Register(email_IN,firstName_IN,lastName_IN,mobilePhone_IN,password_IN,r
 	}
 }
 
+/**********************************
+*Login in with expected parameters,
+*compare with DB credentials
+*
+*@param {string} email_IN
+*@param {string} password_IN
+**********************************/
 function Login(email_IN,password_IN){
 	$.get("../server/user-credentials.php",
-		{emailAddress: email_IN,
-		psswd: password_IN},
+		{
+			emailAddress: email_IN,
+			psswd: password_IN
+		},
 		function(data, status){
 			if(data == 'No results'){
 				alert('Incorrect credentials!');
 			}
 			else{
-				console.log(data);
 				credentials = JSON.parse(data);
 				profile_ID = credentials[0].id;
 				role = credentials[0].roleID;
@@ -395,37 +488,32 @@ function Login(email_IN,password_IN){
 				sessionStorage.setItem('email', encrypt(email_IN));
 				setTimeout(VerifyRole,500);
 			}
-		});
+		}
+	);
 
 }
 
+/**********************************
+*Verifies Roll for the current user
+**********************************/
 function VerifyRole(){
 	if(enabled == 0){
 		alert('Account was deleted!');
 	}
 	else if(role == 1){
 		if (verifiedUser == 0 && statusTemp == 0){
-			console.log('USER NOT VERIFIED!');
 			random = Math.floor((Math.random() * 900000) + 1);
 			sessionStorage.setItem('verificationCode', encrypt(random.toString()));
 			sendVerificationCode();
 			$('#loginModal').modal('hide');
-			//document.getElementById("verifyEmailModal").reset();
 			$('#verifyEmailModal').modal('show');
-		
-		
 		}else if(verifiedUser == 0 && statusTemp == 1){
-			//$('#loginModal').modal('hide');
-			//document.getElementById("changePasswordModal").reset();
+			$('#loginModal').modal('hide');
 			$('#changePasswordModal').modal('show');
 		}
-		
 		else if(verifiedUser == 1 && statusTemp == 1){
-			//$('#loginModal').modal('hide');
-			//document.getElementById("changePasswordModal").reset();
+			$('#loginModal').modal('hide');
 			$('#changePasswordModal').modal('show');
-		
-		
 		}else{
 			//SESSION VARIABLES
 			sessionStorage.setItem('ID', encrypt(profile_ID));
@@ -439,13 +527,12 @@ function VerifyRole(){
 			}
 			document.getElementById("profileDropdown").style.display = "inline";
 			document.getElementById("profileEmail").style.display = "inline";
-			//document.getElementById("userProfile").style.display = "inline";
-			console.log('USER VERIFIED!')
 			session();
 			$('#loginModal').modal('hide');
 		}
 	}else if(role == 2){
 		if(statusTemp == 1){
+			$('#loginModal').modal('hide');
 			$('#changePasswordModal').modal('show');
 		}
 		else{	
@@ -454,11 +541,11 @@ function VerifyRole(){
 			sessionStorage.setItem('role', encrypt(role));
 			//IF APPROVER FOUND --->> APPROVER VIEW
 			window.location.href = "../approver/requests.html";
-			//console.log('APPROVER FOUND');
 		}
 	}
 	else if(role == 3){
 		if(statusTemp == 1){
+			$('#loginModal').modal('hide');
 			$('#changePasswordModal').modal('show');
 		}
 		else{	
@@ -471,6 +558,7 @@ function VerifyRole(){
 	}
 	else if(role == 4){
 		if(statusTemp == 1){
+			$('#loginModal').modal('hide');
 			$('#changePasswordModal').modal('show');
 		}
 		else{	
@@ -478,12 +566,17 @@ function VerifyRole(){
 			sessionStorage.setItem('ID', encrypt(profile_ID));
 			sessionStorage.setItem('role', encrypt(role));
 			//IF ADMIN FOUND --->> ADMIN VIEW
-			console.log('ADMIN FOUND');
 			window.location.href = "../administrator/settings.html";
 		}	
 	}
 }
 
+
+/**********************************
+*Creates random code
+*post it on the DB
+* send it to user
+**********************************/
 function sendVerificationCode(){
 	setTimeout(function(){
 		$.post("../server/mail-verification-code.php",
@@ -502,6 +595,12 @@ function sendVerificationCode(){
 	},100);
 }
 
+/**********************************
+*resends random code
+*post it on the DB
+* send it to user
+**********************************/
+
 function resendVerificationCode(){
 	random = Math.floor((Math.random() * 900000) + 1);
 	sessionStorage.setItem('verificationCode', encrypt(random.toString()));
@@ -512,6 +611,7 @@ function resendVerificationCode(){
 			},function(data,status){
 				
 				if(status === "success"){
+					alert("New verification code sent.");
 					console.log(data);
 				console.log(status);
 				}else{
@@ -520,6 +620,10 @@ function resendVerificationCode(){
 		});
 }
 
+/**********************************
+*Sends decripted email
+*verifies if email is correct on php
+**********************************/
 function VerifyEmail(){
 	$.post("../server/user-verified.php",
 			{
@@ -537,6 +641,11 @@ function VerifyEmail(){
 		});
 }
 
+/**********************************
+*takes elements by 
+*Id and depending on the results,
+*the session will be determined
+**********************************/
 function session(){
 		checkCookie();
 		if (sessionStorage.getItem('ID') !== null){
@@ -579,6 +688,10 @@ function session(){
 		}
 }
 
+/**********************************
+*Post new password and 
+*checks if email exist
+**********************************/
 function forgotPassword(){
 	if(validateEmail()==true){
 		$.post("../server/forgot-password.php",
@@ -597,6 +710,11 @@ function forgotPassword(){
 	}
 }
 
+/**********************************
+*Post new password and also 
+*verifies new password and 
+*temp password cannot be the same
+**********************************/
 function changePassword(email,password){
 	console.log('After entering function');
 	console.log(password);
@@ -619,23 +737,21 @@ function changePassword(email,password){
 					$('#changePasswordModal').modal('hide');
 					removeCookies();
 					console.log(status);
+					$('#loginModal').modal('hide');
+					Login(email,$('#passwordchange').val());
+
 				}else{
 					console.log('Error changing password!!');
 				}
 			});
 		}
-	$('#loginModal').modal('hide');
-	AutoLogin(email,$('#passwordchange').val());
 }
 
 
-function AutoLogin(email,password){
-        console.log(email);
-	console.log(password);
-	Login(email,password);
-}
 
-
+/**********************************
+*Generate random Password
+**********************************/
 function generatePassword() {
     var length = 8,
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
