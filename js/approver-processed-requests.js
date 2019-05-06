@@ -4,11 +4,21 @@ var tab = 'Approved';
 var currentRequestIndex;
 var currentRequestID;
 
+
+/**************
+*Sleep Setter
+***************/
 setTimeout(function(){
 	getApprovedRequests();
 },100);
 
 
+/***************************************
+*Check which Request is the HTML looking for
+*Approved
+*Denied
+*Cancelled
+****************************************/
 $(document).ready(function(){
   $(".nav-tabs a").click(function(){
     $(this).tab('show');
@@ -21,11 +31,19 @@ $(document).ready(function(){
 		getCancelledRequests();
   });
 
+/**************
+*Get EZB logos
+***************/
   $.get("../server/get-image-path.php", function(data, status){
 	$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
   	$("#ezb-logo").attr("src", data + "img/ezb/EZBillboardsLogo.png");
   });
   
+/**************************************************
+*Search bar takes the approved artwork and performs
+*toLowerCase method and looks
+*for the result on the DB
+***************************************************/
   $("#searchApproved").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#approved-requests tr").filter(function() {
@@ -33,6 +51,11 @@ $(document).ready(function(){
     });
   });
 
+/**************************************************
+*Search bar takes the denied artwork and performs
+*toLowerCase method and looks
+*for the result on the DB
+***************************************************/
   $("#searchDenied").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#denied-requests tr").filter(function() {
@@ -40,6 +63,11 @@ $(document).ready(function(){
     });
   });
 
+/**************************************************
+*Search bar takes the cancelled artwork and performs
+*toLowerCase method and looks
+*for the result on the DB
+***************************************************/
   $("#searchCancelled").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#cancelled-requests tr").filter(function() {
@@ -49,6 +77,13 @@ $(document).ready(function(){
   
 });
 
+
+/*************************
+*Approved Request Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTML to the view
+*************************/
 function getApprovedRequests(){
 	$.get("../server/approver-approved-requests.php",function(data,status){
 		requests = JSON.parse(data);
@@ -85,6 +120,12 @@ function getApprovedRequests(){
 	});
 }
 
+/*************************
+*Denied Request Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTML to the view
+*************************/
 function getDeniedRequests(){
 		$.get("../server/approver-denied-requests.php",function(data,status){
 		requests = JSON.parse(data);
@@ -109,7 +150,7 @@ function getDeniedRequests(){
 			"</p>" +
 			"<p><b>Denied By: </b>" + decrypt(requests[i].approverFirstName) + " " + decrypt(requests[i].approverLastName) +
 			"</p>" +
-			"<p><b>Comments: </b>" + requests[i].comments +
+			"<p><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
@@ -122,6 +163,12 @@ function getDeniedRequests(){
 	});
 }
 
+/*************************
+*Cancelled Request Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTML to the view
+*************************/
 function getCancelledRequests(){
 		$.get("../server/approver-cancelled-requests.php",function(data,status){
 		requests = JSON.parse(data);
@@ -146,7 +193,7 @@ function getCancelledRequests(){
 			"</p>" +
 			"<p><b>Cancelled By: </b>" + decrypt(requests[i].cancelFirstName) + " " + decrypt(requests[i].cancelLastName) +
 			"</p>" +
-			"<p><b>Comments: </b>" + requests[i].comments +
+			"<p><b>Comments: </b>" + ((requests[i].comments != "" && requests[i].comments != null) ? requests[i].comments : "No comments") +
 			"</p>" +
 			"</td> " +
 			"<td class=\"text-center\" style=\"text-align: center;vertical-align: middle;\">" +
@@ -159,6 +206,12 @@ function getCancelledRequests(){
 	});
 } 
 
+
+/*************************
+*Get profile infomation
+*receive by the parameter
+*on the function
+*************************/
 function viewProfile(item){
 	currentRequestID = $(item).attr("id");
 	$.get("../server/approver-view-client-profile.php", {id:currentRequestID}, function(data, status){
@@ -177,7 +230,13 @@ function viewProfile(item){
 	});
 }
 
-
+/****************************
+*Delete request  infomation
+*receive by the item parameter
+*on the function
+*
+*@param {string}
+****************************/
 function cancelling(item){
         currentRequestID = $(item).attr("id");
         console.log('this is the id');
@@ -187,6 +246,11 @@ function cancelling(item){
 
 
 
+
+/************************************************
+*Funtion that will delete it from the front end
+*and disables the request on the DB
+************************************************/
 function cancelRequest(){
 	console.log(currentRequestID);
 	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:decrypt(sessionStorage.getItem('ID'))},
