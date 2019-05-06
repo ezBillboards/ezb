@@ -49,9 +49,9 @@ $(document).ready(function(){
 	});
 
 	$("#btn-login").click(function(){
-		$('#emaillogin').val() = "";
-		$('#passwordlogin').val() = "";
-		$('#verificationCode').val() = "";
+		$('#emaillogin').val("");
+		$('#passwordlogin').val("");
+		$('#verificationCode').val("");
 	});
 /*********************
 *Register button activate
@@ -67,13 +67,13 @@ $(document).ready(function(){
 *Register button navbar
 **********************/
 	$("#btn-register").click(function(){
-		$('#firstnamereg').val() = "";
-		$('#lastnamereg').val() = "";
-		$('#emailreg').val() = "";
-		$('#phonereg').val() = "";
-		$('#passwordreg').val() = "";
-		$('#confirm_passwordreg').val() = "";
-		$('#verificationCode').val() = "";
+		$('#firstnamereg').val("");
+		$('#lastnamereg').val("");
+		$('#emailreg').val("");
+		$('#phonereg').val("");
+		$('#passwordreg').val("");
+		$('#confirm_passwordreg').val("");
+		$('#verificationCode').val("");
 		$('#terms').prop('checked', false);
 	});
 	
