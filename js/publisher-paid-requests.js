@@ -77,7 +77,7 @@ function getPaidRequests(){
 			"<a style=\"color:#2D2D2D;\" href= \"" + requests[i].artworkURL+"\" download =\"" + requests[i].artworkName + "\".\"" + requests[i].extension + "\">" +
 			"<span class=\"glyphicon glyphicon-cloud-download\" style=\"font-size: 35px;padding-right:5%;\"><br><p style=\"font-size: 14px;\"><b><i>Download</b></i></p></span>" +
 			"</a>" +
-			"<span id =\"" + requests[i].id +"\" onclick=\"publishRequest(this)\" class=\"glyphicon glyphicon-ok\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Publish</b></i></p></span>" +
+			"<span id =\"" + requests[i].id +"\" onclick=\"publishRequest(this)\" class=\"clickable glyphicon glyphicon-ok\" style=\"font-size: 35px;padding-left:5%;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Publish</b></i></p></span>" +
 			"</td> " +
 			"</tr>";
 			$("#paid-requests").append(request);
@@ -104,9 +104,10 @@ function publishRequest(item){
 	function(data, status){
 		if(status === "success"){
 			alert("Request has been published.");
+			getPaidRequests();
 		} else {
 			alert("Error trying to publish request.");
+			getPaidRequests();
 		}
-		getPaidRequests();
 	});
 }
