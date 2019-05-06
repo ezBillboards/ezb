@@ -6,7 +6,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
-
+require_once('./logger.php');
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -24,12 +24,13 @@ if($conn === false){
 **************************************/
 $userID = $_POST['userID'];
 $newPassword = $_POST['newPassword'];
+$emailAddress = $_POST['emailAddress'];
 $sql = "CALL putPassword($userID, '$newPassword')";
 
 if (mysqli_query($conn, $sql)) {
-		echo "Record updated successfully";
+		logger($emailAddress, "CHANGE PASSWORD", $emailAddress . " has changed his password successfully");
 } else {
-		echo "Error updating record: " . mysqli_error($conn);
+		logger($emailAddress, "CHANGE PASSWORD", $emailAddress . " error changing his password");
 }
 mysqli_close($conn);
 }

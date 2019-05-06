@@ -49,9 +49,11 @@ $(document).ready(function(){
 	});
 
 	$("#btn-login").click(function(){
-		$('#emaillogin').val("");
-		$('#passwordlogin').val("");
-		$('#verificationCode').val("");
+		if(! $('#remember').prop('checked')){
+			$('#emaillogin').val("");
+			$('#passwordlogin').val("");
+			$('#verificationCode').val("");
+		}
 	});
 /*********************
 *Register button activate
@@ -709,6 +711,7 @@ function changePassword(email,password){
 		$.post("../server/change-password.php",
 			{
 				userID : profile_ID,
+				emailAddress:email,
 				newPassword: $('#passwordchange').val()
 	        	},function(data,status){
 				if(status === "success"){
