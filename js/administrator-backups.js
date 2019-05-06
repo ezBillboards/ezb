@@ -22,6 +22,7 @@ $(document).ready(function(){
 			function(data,status){
 				console.log(data);
 				getBackups();
+				$("#filename").val("");
 				alert("Added new backup file");
 			   
         	});	    
