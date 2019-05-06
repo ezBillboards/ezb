@@ -2,6 +2,11 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -13,6 +18,12 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Post package information from
+*from the front end to the DB
+*that does not delete account
+*just deactives it
+**************************************/
 $id = $_POST['id'];
 
 $sql = "CALL deletePackage($id)";
@@ -24,4 +35,5 @@ if (mysqli_query($conn, $sql)) {
 	echo "Error updating record: " . mysqli_error($conn);
 }
 mysqli_close($conn);
+}
 ?>

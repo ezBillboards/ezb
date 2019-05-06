@@ -1,12 +1,21 @@
 <?php
 
-require_once('./logger.php');
-
 $config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
+require_once('./logger.php');
 
 $category = $_POST['category'];
 $adminEmail = $_POST['adminEmail'];
 
+/*************************************
+*Post information regarding:
+*mail,server,db and other info
+**************************************/
 if($category == "db"){	
 	$server = $_POST['server'];
 	$username = $_POST['username'];
@@ -116,6 +125,6 @@ if($result){
 } else{
 	logger($adminEmail,"ERROR UPDATE " . strtoupper($category) . " " . strtoupper($additionalInfo), "Error trying writing config file.");
 }
-
+}
 ?>
 

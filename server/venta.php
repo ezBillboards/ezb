@@ -49,14 +49,7 @@ $prod = 'RECA0343';
 $request->clientFirstName = $firstName;
 $request->clientLastName= $lastName;
 $request->email= $email;
-/*
-$request->addr1= "Urb Paseos Dorados";
-$request->addr2= "";
-$request->city= "Cayey";
-$request->zipcode= "00736";
-$request->telephone= "9394883023";
-*/
-$request->quantity = 10;//$price; // 10 Cents for testing purposes.
+$request->quantity = $price*100;
 $request->create($prod);
 $response = $clientPG->sendRequest($request);
 $transactionID = $response->transactionID;

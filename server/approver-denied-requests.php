@@ -2,6 +2,11 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -13,6 +18,11 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+
+/*************************************
+*Get information from the denied
+*request from the DB
+**************************************/
 $sql = "CALL getProcessedRequest(3)";
 $result = mysqli_query($conn,$sql);
 $requests = array();
@@ -45,5 +55,5 @@ if (mysqli_num_rows($result) > 0) {
 mysqli_close($conn);
 
 echo json_encode($requests);
-
+}
 ?>

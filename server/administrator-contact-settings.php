@@ -1,8 +1,13 @@
 <?php
 
-require_once('./logger.php');
-
 $config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
+require_once('./logger.php');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
@@ -15,6 +20,19 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Post contact intformation from
+*from the front to the DB
+*office
+*postal
+*physical
+*phone
+*extension
+*directPhone
+*fax
+*email
+*adminEmail
+**************************************/
 $office = $_POST['office'];
 $postal = $_POST['postal'];
 $physical = $_POST['physical'];
@@ -34,6 +52,6 @@ if (mysqli_query($conn, $sql)) {
 }
 
 mysqli_close($conn);
-
+}
 ?>
 

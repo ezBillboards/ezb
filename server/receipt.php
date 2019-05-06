@@ -18,7 +18,9 @@ if($conn === false){
 
 $id = $_GET['id'];
 
-// Leer info desde el db.
+/*************************************
+*Read info from DB.
+**************************************/
 $sql = "CALL getCheckoutInformation('$id')";
 $result = mysqli_query($conn, $sql);
 
@@ -59,7 +61,10 @@ if ($result) {
 
         mysqli_close($conn);
 
-	//Enviar email al usuario
+	
+/******************
+*Send email to User
+*******************/
         $mail = new PHPMailer;
 
         $mail->isSMTP();
@@ -93,7 +98,7 @@ if ($result) {
 	$message .= 'Transaction Type: ' . $type . '<br>';
 	$message .= 'Name: ' . $payerFirstName . " " . $payerLastName . '<br>';
 	$message .= 'Email: ' . $email . '<br>';
-	$message .= 'Price Paid: ' . $price . '<br>';	
+	$message .= 'Price Paid: $' . $price . '<br>';	
 
 	$mail->Body    = $message;
 	$mail->ClearAllRecipients();
@@ -112,7 +117,7 @@ if ($result) {
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
+<!--HTML Email Receipt generator with css styling-->
 <html>
 
 <head>
@@ -208,7 +213,7 @@ if ($result) {
                                                                                                 </p>
 												<p><b>Price Paid</b>: 
 													<?php
-														print $price;
+														print "$" . $price;
 													?>
 												</p>
 											</div>

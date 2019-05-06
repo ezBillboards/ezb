@@ -2,6 +2,11 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -13,6 +18,10 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Get about information from DB 
+*and send it to the front end
+**************************************/
 $sql = "CALL getSettings()";
 $result = mysqli_query($conn,$sql);
 
@@ -25,4 +34,5 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 mysqli_close($conn);
+}
 ?>

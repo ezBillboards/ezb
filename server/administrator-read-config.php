@@ -2,6 +2,11 @@
 
 $settings = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $settings['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $settings['DB_SERVER']);
 define('DB_USERNAME', $settings['DB_USERNAME']);
 define('DB_PASSWORD', $settings['DB_PASSWORD']);
@@ -16,6 +21,11 @@ if($conn === false){
 $sql = "CALL getContact()";
 $result = mysqli_query($conn,$sql);
 
+/*************************************
+*Get contact information
+*regarding the Administrator, Approver 
+*or publisher
+**************************************/
 if (mysqli_num_rows($result) > 0) {
 	$row = mysqli_fetch_assoc($result);
         $settings['OFFICE'] = $row['officeHours'];
@@ -52,5 +62,5 @@ if (mysqli_num_rows($result) > 0) {
 mysqli_close($conn);
 
 echo json_encode($settings);
-
+}
 ?>

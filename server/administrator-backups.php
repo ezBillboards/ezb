@@ -1,14 +1,33 @@
 <?php
 
 $config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 require_once('./logger.php');
 
+/*************************
+*Post information from
+*administrator backup to
+*the DB
+*************************/
 $filename = $_POST['filename'];
 $backupDir = $config['BACKUP_PATH'];
 $imageDir = $config['IMAGE_PATH'];
 $backup = $backupDir . $filename;
 $zip = new ZipArchive();
 
+
+/*************************
+*Creates ZIP
+*makes a msqldump
+*saves info on zip
+*create images
+*erase dump on DB
+*************************/
 if($zip->open($backup, ZipArchive::CREATE)){
 	
 	system("mysqldump -u root --password=ezb ezbillboards > " . $backupDir . "ezb-dump.sql", $retval);
@@ -60,5 +79,5 @@ $zip->close();
 
 system("rm " . $backupDir . "ezb-dump.sql", $retval);
 if($retval != 0){echo "ERROR deleting dump.";}
-
+}
 ?>

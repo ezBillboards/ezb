@@ -2,6 +2,11 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -13,6 +18,10 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Post account information from
+*from the front end to the DB
+**************************************/
 $userID = $_POST['userID'];
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
@@ -41,5 +50,5 @@ if (mysqli_query($conn, $sql)) {
 }
 
 mysqli_close($conn);
-
+}
 ?>

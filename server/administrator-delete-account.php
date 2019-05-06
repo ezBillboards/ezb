@@ -1,8 +1,13 @@
 <?php
 
-require_once('./logger.php');
-
 $config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
+require_once('./logger.php');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
@@ -15,6 +20,13 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+
+/*************************************
+*Post account information from
+*from the front end to the DB
+*that does not delete account
+*just deactives it
+**************************************/
 $id = $_POST['id'];
 $userEmail = $_POST['userEmail'];
 $adminEmail = $_POST['adminEmail'];
@@ -28,5 +40,5 @@ if (mysqli_query($conn, $sql)) {
 }
 
 mysqli_close($conn);
-
+}
 ?>

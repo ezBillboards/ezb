@@ -21,6 +21,12 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
     		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
 
+
+/*************************
+*Post information from
+*administrato add account
+*to the DB
+*************************/
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
 	$email = $_POST['email'];
@@ -32,12 +38,20 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
 	$adminEmail = $_POST['adminEmail'];
 
 	$roleStr;
+
+/********************
+*Check for roll
+********************/
 	if($role == 0) $roleStr = "Administrator";
 	else if($role == 1) $roleStr = "Approver";
 	else $roleStr = "Publisher";
 
 	$sql = "CALL postAccountAdmin('$firstName','$lastName','$email','$tempPass','$workPhone','$mobilePhone','$office','$roleStr')";
 
+/*************************
+*Email send to new user
+*including roll and password
+*************************/
 	if (mysqli_query($conn, $sql)) {
 		logger($adminEmail, "CREATE " . strtoupper($roleStr). " ACCOUNT", "An ". $roleStr . " with email " . $email . " has been created");
 		$mail = new PHPMailer;

@@ -1,9 +1,14 @@
 <?php
-if(strpos($_SERVER['HTTP_REFERER'],"ezb.uprm.edu") == false){
-	header('HTTP/1.1 403 Forbidden');
-	exit;
+
+/*************************************
+*Get security parameters from config
+**************************************/
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
 } else{
-	$config = parse_ini_file('../../../config.ini');
 	$security['KEY'] = $config['KEY'];
 	$security['KEYSIZE'] = $config['KEYSIZE'];
 	$security['IVSIZE'] = $config['IVSIZE'];

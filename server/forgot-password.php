@@ -1,15 +1,25 @@
 <?php
 
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
-
-$config = parse_ini_file('../../../config.ini');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
 define('DB_NAME', $config['DB_NAME']);
 
+/*************************************
+*Post email and temporary password
+*send an email telling which password
+*is the temporary one
+**************************************/
 $emailAddress = $_POST['emailAddress'];
 $tempPassword = $_POST['tempPassword'];
 
@@ -47,5 +57,5 @@ if (mysqli_query($conn, $sql)) {
 		}
 mysqli_close($conn);
 
-
+}
 ?>

@@ -2,6 +2,11 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -13,6 +18,13 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Get id from
+*DB to send it to the front
+*end with the corresponding
+*id
+*rejection
+**************************************/
 $id = $_GET['id'];
 $Rejections = array();
 
@@ -30,4 +42,5 @@ if (mysqli_num_rows($result) > 0) {
     echo "No results";
 }
 mysqli_close($conn);
+}
 ?>

@@ -13,6 +13,9 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Remove accounts not verified from DB
+**************************************/
 $sql = "CALL deleteUnverifiedAccounts()";
 
 if (mysqli_query($conn, $sql)) {
@@ -21,5 +24,4 @@ if (mysqli_query($conn, $sql)) {
 		echo "Error updating record: " . mysqli_error($conn);
 }
 mysqli_close($conn);
-
 ?>

@@ -2,13 +2,24 @@
 
 $config = parse_ini_file('../../../config.ini');
 
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
 define('DB_NAME', $config['DB_NAME']);
 
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
+
+
+/*************************************
+*Post information about billboard
+*description for the user knowledge
+*on the DB
+**************************************/ 
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -49,6 +60,9 @@ if (mysqli_query($conn, $sql)) {
 }
 mysqli_close($conn);
 
+/*************************************
+*Upload image from the DB
+**************************************/
 if($fileName){
 	/* Getting file name */
 	$filename = $_FILES['uploadimage']['name'];
@@ -95,7 +109,10 @@ if($fileName){
 
 }
 
-//Update existing packages
+
+/*************************************
+*Update existing packages
+**************************************/
 echo " " . $existingpackages . " ";
 for ($x = 0; $x < count($existingpackages); $x=$x+4) {
 	$packageid = $existingpackages[$x];
@@ -206,5 +223,5 @@ for ($x = 0; $x < count($rejections); $x++) {
 	}
 	mysqli_close($conn);
 }
-
+}
 ?>

@@ -1,10 +1,15 @@
 <?php
 
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 require_once('./logger.php');
-
-$config = parse_ini_file('../../../config.ini');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
@@ -17,6 +22,10 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Post information from the DB
+*about the user request
+**************************************/
 $userID = $_POST['userID'];
 $userEmail = $_POST['userEmail'];
 $billboardID = $_POST['billboardID'];
@@ -67,6 +76,9 @@ if ($result) {
 
 	mysqli_close($conn);
 
+/*************************************
+*Send email of request
+**************************************/
 	$mail = new PHPMailer;
 
     	$mail->isSMTP();
@@ -118,5 +130,5 @@ $uploadOk = 1;
       echo 0;
    }
 //}
-
+}
 ?>

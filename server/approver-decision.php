@@ -1,9 +1,14 @@
 <?php
 
+$config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
-
-$config = parse_ini_file('../../../config.ini');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
@@ -16,6 +21,10 @@ if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
+/*************************************
+*Post approver ID, status and comment
+*regarding the image request
+**************************************/
 $id = $_POST['id'];
 $approverID = $_POST['approverID'];
 $status = $_POST['status'];
@@ -43,6 +52,11 @@ if (mysqli_query($conn, $sql)) {
     		echo "No results";
 	}
 
+
+/*************************************
+*Send email notifying status on 
+*image approved or denied
+**************************************/
 	mysqli_close($conn);
 
 	$mail = new PHPMailer;
@@ -71,5 +85,5 @@ if (mysqli_query($conn, $sql)) {
     	echo "Error updating record: " . mysqli_error($conn);
 	mysqli_close($conn);
 }
-
+}
 ?>

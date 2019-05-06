@@ -1,5 +1,13 @@
 <?php
 
+/*************************************
+*Log function that saves an action made
+*by a roll on the web app
+*
+* @param {string} email
+* @param {string} action
+* @param {string} detailAction
+**************************************/
 function logger($email, $action, $detailAction) {
 	$config = parse_ini_file('../../../config.ini');
 

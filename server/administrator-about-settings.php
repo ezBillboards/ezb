@@ -19,6 +19,11 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
     		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
 
+/*************************
+*Post information from 
+*administrato settings to
+*the DB
+*************************/
 	$about = $_POST['about'];
 	$adminEmail = $_POST['adminEmail'];
 

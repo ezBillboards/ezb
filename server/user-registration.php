@@ -1,8 +1,13 @@
 <?php
 
-require_once('./logger.php');
-
 $config = parse_ini_file('../../../config.ini');
+
+if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
+        header('HTTP/1.1 403 Forbidden');
+        exit;
+} else{
+
+require_once('./logger.php');
 
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
@@ -14,7 +19,11 @@ $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-	
+
+/*************************************
+*Post user information to the DB
+*from registration
+**************************************/	
 $email = $_POST['email'];
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
@@ -62,5 +71,5 @@ if (mysqli_query($conn, $sql)) {
 	logger($email,"ERROR IN DB","Error while trying to register new user account");
 	mysqli_close($conn);
 }
-
+}
 ?>

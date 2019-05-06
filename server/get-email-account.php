@@ -11,24 +11,29 @@ define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
 define('DB_NAME', $config['DB_NAME']);
- 
-$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
+$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+ 
 if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
 /*************************************
-*Post request ID to DB
+*Get email account from DB
 **************************************/
-$requestID = $_POST['requestID'];
-$sql = "CALL putPaidRequest($requestID)";
-
-if (mysqli_query($conn, $sql)) {
-		echo "Record updated successfully";
-} else {
-		echo "Error updating record: " . mysqli_error($conn);
-}
-mysqli_close($conn);
+$email = $_GET['emailAddress'];
+	$sql = "CALL getAccounts(1);";
+	$result = mysqli_query($conn,$sql);
+	$emailExist = false;
+	if (mysqli_num_rows($result) > 0) {
+    		while($row = mysqli_fetch_assoc($result)) {
+        		if($email == $row['emailAddress']){
+			$emailExist = true;
+			}
+    		}
+	}
+	
+	mysqli_close($conn);
+	echo json_encode($emailExist);
 }
 ?>
