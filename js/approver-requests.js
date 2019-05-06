@@ -218,7 +218,6 @@ function getRequests(startStr, endStr){
 			end: endStr
 		}, 
 		function(data, status){
-		console.log(data);
 		requests = JSON.parse(data);
 		currentRequestIndex = 0;
 		getRegulations();
@@ -265,7 +264,6 @@ function getRequests(startStr, endStr){
 		$("#image-extension").html("<b>Item Type: </b>" + requests[0].extension + " File");
 		$("#image-size").html("<b>Size: </b>" + decimals(requests[0].size/1048576,3) + " MB");
 
-		console.log(requests);
 	});
 }
 
@@ -288,7 +286,6 @@ function getRegulations(){
 		}
 		$("#regulations").empty();
 		$("#regulations").append(regulation);
-		console.log(regulations);
 	});
 }
 
@@ -307,7 +304,6 @@ function getRejections(){
 		}
 		$("#rejections").empty();
 		$("#rejections").append(rejection);
-		console.log(rejections);
 	});
 }
 
