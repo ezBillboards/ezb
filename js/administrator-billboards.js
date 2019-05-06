@@ -541,6 +541,10 @@ $('#btnupdatebillboard').click(function(){
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
 		
+		console.log($("#max-hei").val());
+		console.log($("#min-hei").val());
+		console.log($("#max-wid").val());
+		console.log($("#min-wid").val());
 		if(validateEditBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#width").val()){
