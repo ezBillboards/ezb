@@ -6,7 +6,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
-
+require_once('./logger.php');
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
@@ -48,9 +48,9 @@ if (mysqli_query($conn, $sql)) {
     			echo "Record updated successfully";
 				//Send email
 				if (!$mail->send()) {
-					echo "Mailer Error: " . $mail->ErrorInfo;
+					logger($emailAddress, "FORGOT PASSWORD", "Error sending temporary password: " . $mail->ErrorInfo);
 				} else {
-					echo "Message sent!";
+					logger($emailAddress, "CHANGE PASSWORD", "Temporary password has been sent to " . $emailAddress );
 				}
 		} else {
     			echo "Error updating record: " . mysqli_error($conn);
