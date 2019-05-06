@@ -406,7 +406,10 @@ function getPublishedRequests(){
 *and disables the request on the DB
 ************************************************/
 function cancelRequest(){
-	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:decrypt(sessionStorage.getItem('ID'))},
+	$.post("../server/approver-cancel-request.php",
+	{id:currentRequestID,
+	cancelId:decrypt(sessionStorage.getItem('ID')),
+	emailAddress:decrypt(sessionStorage.getItem('email'))},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
