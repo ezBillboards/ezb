@@ -4,6 +4,7 @@ require_once('./ckPGClient.php');
 require_once('./ckparser.class');
 require_once('./cksocketstream.class');
 require_once('./id.php');
+require_once('./logger.php');
 
 // XML lo envia el banco.
 $xml = $_POST['xml'];
@@ -41,10 +42,12 @@ if($conn === false){
 if($errorno == 0) {
 	// Envía a página de recibo.
 	$sql = "CALL putCheckoutSuccess('$transactionID','$firstName','$lastName','$email','$tandem','$type')";
+	logger($email, "PAYMENT TRANSACTION","User with email: ". $email . " has completed transaction ID: " . $transactionID);
 	$url = "https://ezb.uprm.edu/ezb/server/receipt.php?id=$transactionID";
 } else {
 	// Envía a página de error.
 	$sql = "CALL putCheckoutError('$transactionID','$errorno','$error')";
+	logger($email, "PAYMENT TRANSACTION", "User with email: ". $email . " had an error on transaction ID: " . $transactionID . " with error number: " . $errorno);
 	$url = 'https://ezb.uprm.edu/ezb/server/onerror.php?error=' .urlencode($errorno);
 }
 

@@ -5,6 +5,7 @@ require_once('./cksocketstream.class');
 require_once('./ckPGClient.php');
 require_once('./id.php');
 require_once('./logger.php');
+require_once('./logger.php');
 
 // Crea un request para el banco.
 $request = new ckPurchaseRequest($authid);
@@ -78,7 +79,7 @@ if($conn === false){
 $sql = "CALL postCheckout('$transactionID','$firstName','$lastName','$email',$requestID, $packageID, $price)";
 
 if (mysqli_query($conn, $sql)) {
-    echo "Record updated successfully";
+    logger($email, "PAYMENT TRANSACTION", $email . " has initiated a transaction for request ID: " . $requestID . " and transaction ID: " . $transactionID);
 } else {
     echo "Error updating record: " . mysqli_error($conn);
 	exit;
