@@ -13,7 +13,7 @@ hr {
 }
 
 .navbar-text-color {
-	color: #03A9F4 !important;
+	color: #1588C7 !important;
 }
 
 .navbar-border {
@@ -43,8 +43,6 @@ li>a:hover {
 }
 
 .profile-modal-body {
-	color: white;
-	background-color: #607D8B;
 	padding-top: 0.5% !important;
 }
 
@@ -64,13 +62,11 @@ li>a:hover {
 }
 
 .profile-modal-body-headers {
-	color: white;
-	font-size: 22px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
 .profile-modal-body-info {
-	color: white;
 	font-size: 16px;
 }
 
@@ -100,14 +96,14 @@ li>a:hover {
 }
 
 th {
-        background-color: #607D8B;
+        background-color: #1F589E;
 	width: 25%;
 	text-align: center;
         color: white;
 }
 
 .tabs-text-color {
-    color: #03A9F4 !important;
+    color: #1588C7 !important;
 }
 
 .centered-modal.in {
@@ -116,5 +112,14 @@ th {
 
 .centered-modal .modal-dialog {
     margin: auto;
+}
+
+.ezb-btn{
+        color: white;
+        background-color: #1588C7;
+}
+
+.clickable:hover{
+        cursor: pointer;
 }
 

@@ -13,7 +13,7 @@ hr {
 }
 
 .navbar-text-color {
-	color: #03A9F4 !important;
+	color: #1588C7 !important;
 }
 
 .navbar-border {
@@ -51,6 +51,7 @@ hr {
 .request-queue-images {
 	width: 100px;
 	height: 69px;
+	background-color:white;
 }
 
 .profile-button {
@@ -64,7 +65,6 @@ hr {
 }
 
 .profile-modal-body {
-	background-color: #607D8B;
 	padding-top: 0.5% !important;
 }
 
@@ -86,12 +86,10 @@ hr {
 .profile-modal-body-headers {
 	font-size: 16px;
 	font-weight: bold;
-	color: white;
 }
 
 .profile-modal-body-info {
 	font-size: 16px;
-	color: white;
 }
 
 .profile-modal-facebook {
@@ -138,12 +136,7 @@ li>a:hover {
 
 .approver-btns{
 	color: white !important;
-	background-color: #607D8B !important;
-}
-
-.active{
-        background-color: #607D8B !important;
-	border-color: #607D8B !important;
+	background-color: #1F589E !important;
 }
 
 .centered-modal.in {
@@ -152,5 +145,29 @@ li>a:hover {
 
 .centered-modal .modal-dialog {
     margin: auto;
+}
+
+.ezb-btn{
+        color: white;
+        background-color: #1588C7;
+}
+
+.ezb-btn:hover{
+        color:white;
+        background-color:#1588C7;
+}
+
+.activated{
+	border: none !important;
+        color: white !important;
+        background-color: #1F589E !important;
+}
+
+.clickable:hover{
+        cursor: pointer;
+}
+
+.clickable:hover{
+        cursor: pointer;
 }
 

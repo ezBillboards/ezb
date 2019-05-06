@@ -138,3 +138,7 @@ th{
     margin: auto;
 }
 
+.clickable:hover{
+        cursor: pointer;
+}
+

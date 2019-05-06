@@ -20,6 +20,7 @@
 	<link id="tab-logo" rel="icon" href="">
 </head>
 <body>
+<!----------Navbar------------>
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
@@ -34,7 +35,7 @@
         <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
         <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
         <li class="dropdown">
-            <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
+            <a id="profileDropdown" class="clickable dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user profile-dropdown"></span>
                 <span class="caret"></span>
             </a>
@@ -52,6 +53,8 @@
 
 <h1 id="requests-header" class="text-center">Requests</h1>
 <br>
+
+<!----------Nav-tabs Options------------>
 <div style="margin-left: 12%;margin-right: 12%;">
   <ul class="nav nav-tabs nav-justified">
     <li class="active"><a class="navbar-text-color" href="#Pending">Pending</a></li>
@@ -65,11 +68,15 @@
   <div class="tab-content">
     <div id="Pending" class="tab-pane fade in active">
 	<br>
+
+<!----------Search Bar------------>
 	<div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input id="pendingSearch" type="text" class="form-control" name="search" placeholder="Search">
     	</div>
 	<br>
+
+<!----------Billboards Table------------>
           <div class="table-responsive">
           <table class="table">
                 <thead>
@@ -80,12 +87,15 @@
 			<th class="text-center" style="width: 25%;">Action</th>
                   </tr>
                 </thead>
-                <tbody id = "pending-requests">
 
+<!----------Pending request that reads from the DB------------>
+                <tbody id = "pending-requests">
                 </tbody>
           </table>
           </div>
     </div>
+
+<!----------Approved Option------------>
     <div id="Approved" class="tab-pane fade">
 	<br>
         <div class="input-group">
@@ -102,11 +112,14 @@
                         <th class="text-center" style="width: 25%;">Actions</th>
                   </tr>
                 </thead>
+<!----------Approved request that reads from the DB------------>
                 <tbody id = "approved-requests">
 
                 </tbody>
           </table>
     </div>
+
+<!----------Denied Option------------>
     <div id="Denied" class="tab-pane fade">
 	<br>
         <div class="input-group">
@@ -123,12 +136,16 @@
                         <th class="text-center" style="width: 33.33%;">Request Information</th>
                   </tr>
                 </thead>
+
+<!----------Denied request that reads from the DB------------>
                 <tbody id = "denied-requests">
 
                 </tbody>
           </table>
           </div>
     </div>
+
+<!----------Cancelled Option------------>
     <div id="Cancelled" class="tab-pane fade">
 	<br>
         <div class="input-group">
@@ -145,12 +162,15 @@
                         <th class="text-center" style="width: 33.33%;">Request Information</th>
                   </tr>
                 </thead>
+<!----------Cancelled request that reads from the DB------------>
                 <tbody id = "cancelled-requests">
 
                 </tbody>
           </table>
           </div>
     </div>
+
+<!----------Paid Option------------>
     <div id="Paid" class="tab-pane fade">
 	<br>
         <div class="input-group">
@@ -167,12 +187,16 @@
                         <th class="text-center" style="width: 33.33%;">Request Information</th>
                   </tr>
                 </thead>
+
+<!----------Paid request that reads from the DB------------>
                 <tbody id = "paid-requests">
 
                 </tbody>
           </table>
           </div>
     </div>
+
+<!----------Publish Option------------>
     <div id="Published" class="tab-pane fade">
 	<br>
         <div class="input-group">
@@ -190,6 +214,8 @@
                         <th class="text-center" style="width: 25%;">Status</th>
                   </tr>
                 </thead>
+
+<!----------Published request that reads from the DB------------>
                 <tbody id = "published-requests">
 
                 </tbody>
@@ -198,6 +224,9 @@
     </div>
 </div>
 </div>
+
+
+<!----------Links for other websites related------------>
 <div class="row footer-border">
   <div class="col-lg-6" id="related">
         <h2><strong style="margin-left:0;">Related links</strong></h2>
@@ -236,6 +265,8 @@
         <br>
   </div>
   <br><br><br><br>
+
+<!----------Social Media Links------------>
   <div class="col-lg-6 text-center">
         <h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
         <div class="row" style="margin-left:23%;">

@@ -19,6 +19,7 @@
 </head>
 <body>
 
+<!----------Navbar------------>
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
@@ -33,7 +34,7 @@
         <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
         <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
         <li class="dropdown">
-            <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
+            <a id="profileDropdown" class="clickable dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user profile-dropdown"></span>
                 <span class="caret"></span>
             </a>
@@ -56,94 +57,135 @@
 	<div class="row">
 		<div class="col-lg-6 text-center">
 			<h4>Contact Information</h4>
+		
+			<!----------First Name Input------------>
 			<div class="input-group">
 		        	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
           			<input id="firstName" type="text" class="form-control" name="firstName" placeholder="First Name">
         		</div>
 			<br>
+
+			<!----------Last Name Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
           			<input id="lastName" type="text" class="form-control" name="lastName" placeholder="Last Name">
         		</div>
 			<br>
+			
+			<!----------Email Input------------>
 			<div class="input-group">
           			<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
           			<input id="email" type="text" class="form-control" name="email" placeholder="Email" disabled>
         		</div>
 			<br>
+
+			<!----------Mobile Phone Input------------>
 			<div class="input-group">
         			<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
         			<input id="mobilePhone" type="text" class="form-control" name="mobilePhone" placeholder="Mobile Phone">
       			</div>
 			<br>
+
+			<!----------Work Phone Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
         			<input id="workPhone" type="text" class="form-control" name="workPhone" placeholder="Work Phone">
       			</div>
 			<br>
+
+			<!----------Company Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class='fas'>&#xf1ad;</i></span>
          			<input id="company" type="text" class="form-control" name="company" placeholder="Company">
        			</div>
 			<br>
+
+                        <!----------Address1 Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
          			<input id="address1" type="text" class="form-control" name="address1" placeholder="Address #1">
        			</div>
 			<br>
+
+                        <!----------Address2 Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
           			<input id="address2" type="text" class="form-control" name="address2" placeholder="Address #2">
         		</div>
 			<br>
+
+                        <!----------City Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
             			<input id="city" type="text" class="form-control" name="city" placeholder="City">
           		</div>
 			<br>
+
+                        <!----------State Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
            			<input id="state" type="text" class="form-control" name="state" placeholder="State">
          		</div>
 			<br>
+			
+                        <!----------Zip Input------------>
 			<div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
             			<input id="zip" type="text" class="form-control" name="zip" placeholder="Zip">
           		</div>
 		</div>
+
+
+                <!----------Social Media------------>
 		<div class="col-lg-6 text-center">
                         <h4>Social Networks</h4>
+
+                        <!----------Url Input------------>
 			<div class="input-group">
         			<span class="input-group-addon"><i class='fas fa-globe'></i></span>
         			<input id="url" type="text" class="form-control" name="url" placeholder="Company URL">
       			</div>
 			<br>
+
+                        <!----------Facebook Input------------>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-facebook-square"></i></span>
       				<input id="facebook" type="text" class="form-control" name="facebook" placeholder="Facebook">
     			</div>
 			<br>
+
+			<!----------Twitter Input------------>
 			<div class="input-group">
       				<span class="input-group-addon"><i class="fa fa-twitter"></i></span>
       				<input id="twitter" type="text" class="form-control" name="twitter" placeholder="Twitter">
     			</div>
 			<br>
+			
+			<!----------Instagram Input------------>
 			<div class="input-group">
       				<span class="input-group-addon"><i class="fa fa-instagram"></i>  </span>
       				<input id="instagram" type="text" class="form-control" name="instagram" placeholder="Instagram">
     			</div>
 			<br>
+
+			<!----------Password------------>
 			<h4>Password</h4>
+
+			<!----------Old Password Input------------>
                         <div class="input-group">
                                 <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
                                 <input id="oldPasswd" type="password" class="form-control" name="old_password" placeholder="Old Password">
                         </div>
                         <br>
+
+			<!----------New Password Input------------>
                         <div class="input-group">
                                 <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
                                 <input id="newPasswd" type="password" class="form-control" name="new_password" placeholder="New Password">
                         </div>
                         <br>
+		
+			<!---------- Confirm Password Input------------>
                         <div class="input-group">
                                 <span class="input-group-addon">  <i class="fa fa-asterisk"></i></span>
                                 <input id="confirmPasswd" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
@@ -163,6 +205,7 @@
 
 <br><br>
 
+<!----------Links for other websites related------------>
 <div class="row footer-border">
   <div class="col-lg-6" id="related">
         <h2><strong style="margin-left:0;">Related links</strong></h2>
@@ -201,6 +244,8 @@
         <br>
   </div>
   <br><br><br><br>
+
+<!----------Social Media Links------------>
   <div class="col-lg-6 text-center">
         <h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
         <div class="row" style="margin-left:23%;">
@@ -212,7 +257,7 @@
   </div>
 </div>
 
-<!-- Login Modal -->
+<!-------------- Login Modal ------------------>
   <div class="modal fade centered-modal" id="loginModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">

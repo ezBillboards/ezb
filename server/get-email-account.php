@@ -22,7 +22,7 @@ if($conn === false){
 *Get email account from DB
 **************************************/
 $email = $_GET['emailAddress'];
-	$sql = "CALL getAccounts(1);";
+	$sql = "CALL getEmails();";
 	$result = mysqli_query($conn,$sql);
 	$emailExist = false;
 	if (mysqli_num_rows($result) > 0) {

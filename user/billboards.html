@@ -23,6 +23,8 @@
 	<link id="tab-logo" rel="icon" href="">
 </head>
 <body>
+
+<!----------- Navbar ------------->
 <nav class="navbar navbar-default navbar-border navbar-height">
    <div class="container-fluid">
      <div class="collapse navbar-collapse" id="myNavbar">
@@ -34,10 +36,10 @@
         <li><a class="navbar-text-color" href="billboards.html">Billboard</a></li>
         <li><a class="navbar-text-color" href="about-us.html">About</a></li>
         <li><a class="navbar-text-color" href="contact.html">Contact</a></li>
-        <li id="getStartedLog"><a class="navbar-text-color" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+        <li id="getStartedLog"><a class="navbar-text-color clickable" data-toggle="modal" data-target="#loginModal">Log in</a></li>
         <li id="getStartedReg"><button id="btn-register" #type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
         <li class="dropdown">
-            <a id="profileDropdown" class="dropdown-toggle" data-toggle="dropdown">
+            <a id="profileDropdown" class="clickable dropdown-toggle" data-toggle="dropdown">
                 <span class="glyphicon glyphicon-user profile-dropdown"></span>
                 <span class="caret"></span>
             </a>
@@ -55,9 +57,14 @@
 
  <h1 id="billboards-header" class="text-center">Billboards</h1>
  <br>
+
+<!-----------Text Information ------------->
 <div style="margin-left: 12%;margin-right: 12%;">
  <div class="text-center">Take advantage of our billboards! By renting our billboards you will be funding our students and will be helping them achieve their goals. Be part of this exciting initiative and rent your billboard now!</div>
 <br>
+
+
+<!----------- Search bar ------------->
 <div class="row">
 	<div class="col-lg-11 input-group form-group" style="margin:auto;">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
@@ -65,6 +72,8 @@
 	</div>
 </div>
 <br>
+
+<!----------- Billboard table ------------->
 <div class="table-responsive">
    <table class="table">
      <thead>
@@ -74,6 +83,7 @@
          <th class="text-center billboard-table-headers">Actions</th>
        </tr>
      </thead>
+<!----------- Billboards List ------------->
      <tbody id="billboards">
 
      </tbody>
@@ -81,6 +91,8 @@
 </div>
 </div>
 
+
+<!----------Links for other websites related------------>
 <div class="row footer-border">
   <div class="col-lg-6" id="related">
         <h2><strong style="margin-left:0;">Related links</strong></h2>
@@ -119,6 +131,8 @@
         <br>
   </div>
   <br><br><br><br>
+
+<!----------Social Media Links------------>
   <div class="col-lg-6 text-center">
         <h2 style="font-size: 42px;"><strong style="margin-left:0;">Visit Us</strong></h2>
         <div class="row" style="margin-left:23%;">
@@ -130,13 +144,13 @@
   </div>
 </div>
 
-<!-- Info Modal -->
+<!------------------- Info Modal -------------------->
 <div class="modal fade" id="infoModal1" role="dialog">
  <div class="modal-dialog modal-lg">
    <div class="modal-content">
      <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal">&times;</button>
-       <h1 id="info-header" class="modal-title"></h1>
+       <h3 id="info-header" class="modal-title"></h3>
      </div>
      <div class="modal-body">
        <img id="info-image" src="" class="background img-responsive" alt="">
@@ -191,61 +205,84 @@
      </table>
    </div>
    <div class="modal-footer">
-     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+     <button type="button" class="btn home-btn" data-dismiss="modal">Close</button>
    </div>
  </div>
 </div>
 </div>
 
-  <!-- Request Modal -->
+  <!-------------------- Request Modal ------------------>
   <div class="modal fade" id="requestModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 id="request-modal-header" class="modal-title"></h4>
+          <h3 id="request-modal-header" class="modal-title"></h3>
         </div>
         <div class="modal-body">
 		<img id="request-image-header" src="" class="img-responsive" alt="">
 		<br>
-		<h5><span class="badge">1</span> Choose advertisement starting date: </h5>
+
+		<!----------Select Date------------>
+		<div class="row">
+			<div class="col-lg-6">
+				<h5><span class="badge">1</span> Choose advertisement starting date: </h5>
+			</div>
+			<div class="col-lg-6" style="text-align: right;">
+				<a style="text-decoration:none;color:#2D2D2D" data-toggle="tooltip" data-placement="bottom" title="The available dates to select are from the current date to three months ahead."><span class="glyphicon glyphicon-info-sign" style="font-size:24px;"></span></a>
+			</div>
+		</div>
                 <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                         <i class="fa fa-calendar"></i>&nbsp;
                         <span></span> <i class="fa fa-caret-down"></i>
                 </div>
 		<br>
-		<h5><span class="badge">2</span> Choose advertisement frequency and duration: </h5>
+		
+		<!----------Select Frecuency Table------------>
+		<div class="row">
+                        <div class="col-lg-6">
+                                <h5><span class="badge">2</span> Choose advertisement frequency and duration: </h5>
+                        </div>
+                        <div class="col-lg-6" style="text-align: right;">
+                                <a style="text-decoration:none;color:#2D2D2D" data-toggle="tooltip" data-placement="bottom" title="Select a package that determines the duration of the request, the displays per cycle and the price."><span class="glyphicon glyphicon-info-sign" style="font-size:24px;"></span></a>
+                        </div>
+                </div>
 		<table class="table">
     			<thead>
       				<tr>
-        				<th class="text-center" style="width: 33.33%;">Duration</th>
-        				<th class="text-center" style="width: 33.33%;">Frequency</th>
-        				<th class="text-center" style="width: 33.33%;">Price</th>
+        				<th class="text-center billboard-table-headers" style="width: 33.33%;">Duration</th>
+        				<th class="text-center billboard-table-headers" style="width: 33.33%;">Frequency</th>
+        				<th class="text-center billboard-table-headers" style="width: 33.33%;">Price</th>
       				</tr>
     			</thead>
     			<tbody id="billboard-packages">
 		        </tbody>
   		</table>
 		<br>
+	
+		<!----------Image Upload------------>
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<h5><span class="badge">3</span> Upload Image: </h5>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<input type="file" name="upload-image" id="upload-image" accept=".jpg, .jpeg, .png">
 			</div>
+			<div class="col-lg-4" style="text-align: right;">
+				<a id="upload-image-tooltip" style="text-decoration:none;color:#2D2D2D;" data-toggle="tooltip" data-placement="top" title=""><span class="glyphicon glyphicon-info-sign" style="font-size:24px;"></span></a>
+                        </div>
 		</div>
 	</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	  <button id="request-btn" type="button" class="btn btn-success">Request</button>
+          <button type="button" class="btn home-btn" data-dismiss="modal">Close</button>
+	  <button id="request-btn" type="button" class="btn home-btn">Request</button>
         </div>
       </div>
     </div>
   </div>
 
 <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" role="dialog">
+  <div class="modal fade centered-modal" id="loginModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -257,48 +294,44 @@
           <div class="col-lg-12" >
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="emaillogin" type="email" class="form-control" name="email" placeholder="email">
+            <input id="emaillogin" type="email" class="form-control" name="email" placeholder="Email">
           </div>
          <br>
          <div class="input-group">
            <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-           <input id="passwordlogin" type="password" class="form-control" name="password" placeholder="password">
+           <input id="passwordlogin" type="password" class="form-control" name="password" placeholder="Password">
          </div>
          <br>
-         <div style="text-align:center;"><label class="container text-center">Remember me <input style="margin: 0 auto"type="checkbox" id = "remember"><span class="checkmark"></span></label>
-	</div>
-	<div class="text-center">Don't have an account yet?<p class="text-primary text-center" style = "color:#2196f3" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
-        <a href ="#"  data-toggle="modal" data-target="#forgotPasswordModal"> <p class="text-primary text-center" style = "color:#2196f3">Forgot Password</p><a>
-        <div style="text-align:center;"><button type="button" id="btnlogin" class="btn btn-info position-center" sytle="margin: 0 auto">Login</button></div>
-	</div>
+         <div style="text-align:center;"><label class="container text-center">Remember me <input class="clickable" style="margin: 0 auto;" type="checkbox" id = "remember"><span class="checkmark"></span></label>
+        </div>
+        <div class="text-center">Don't have an account yet?<p class="text-center clickable" style = "color:#1588C7" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register here</p></div>
+        <p class="text-center clickable" data-toggle="modal" data-target="#forgotPasswordModal" data-dismiss="modal" style = "color:#1588C7">Forgot Password</p>
+        <div style="text-align:center;"><button type="button" id="btnlogin" class="btn home-btn position-center" sytle="margin: 0 auto">Login</button></div>
+        </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- Forgot Password Modal -->
-<div class="modal fade" id="forgotPasswordModal" role="dialog">
+<div class="modal fade centered-modal" id="forgotPasswordModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Forgot password</h4>
-        <p>You will receive a new password to the email specified.
-        You will need to change this password when login in again the first time.</p>
+        <h3 class="modal-title text-center" style="color:black;">Forgot password</h3>
       </div>
       <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
+        <p style="color:black;">You will receive a new password to the email specified.
+        You will need to change this password when login in again the first time.</p>
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="emailforgot" type="email" class="form-control" name="email" placeholder="email">
+            <input id="emailforgot" type="email" class="form-control" name="email" placeholder="Email">
           </div>
       </div>
-      </div>
-      <div class="modal-footer">
-        <button id="btnforgotpsswd" type="button" class="send btn btn-default">Send</button>
+      <div class="modal-footer align">
+        <button  type="button" id = "btnforgotpsswd" class="btn home-btn" data-dismiss="modal">Send</button>
       </div>
     </div>
   </div>
@@ -306,144 +339,137 @@
 </div>
 
 <!-- Change Password Modal -->
-<div class="modal fade" id="changePasswordModal" role="dialog">
+<div class="modal fade centered-modal" id="changePasswordModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Change password</h4>
+        <h3 class="modal-title text-center" style="text-align:center;color:black;">Change password</h3>
       </div>
       <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
         <div class="input-group">
-			<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-			<input id="passwordchange" type="password" class="form-control" name="password" placeholder="Password">
-		</div>
-		<br>
-		<div class="input-group">
-			<span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
-			<input id="confirm_passwordchange" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
-		</div>
-		<br> 
+                <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+                <input id="passwordchange" type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <br>
+        <div class="input-group">
+                <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
+                <input id="confirm_passwordchange" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+        </div>
       </div>
-      </div>
-      <div class="modal-footer">
-        <button id="btnchangepassword" type="button" class="send btn btn-default">Send</button>
+      <div class="modal-footer" style="text-align:center;">
+        <button id="btnchangepassword" type="button" class="send btn home-btn">Send</button>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- Verify Email Modal -->
-<div class="modal fade" id="verifyEmailModal" role="dialog">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" id="closeVerModal" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title text-center">Email Verification</h3>
-        <p>In the following minutes you will receibe an email with a code.</br>
-		Please, insert the code in the following input field.</p>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        <div class="col-lg-12" >
+<div class="modal fade centered-modal" id="verifyEmailModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button id="closeVerModal" type="button" class="close terms-close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" style = "color:black;text-align:center;">Email Verification</h3>
+        </div>
+        <div class="modal-body">
+          <p style = "color:black;">You will receive an email with a code.</p>
+          <p style = "color:black;">Please, insert the code in the following input field.</p>
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input id="verificationCode" onfocus="this.value=''" type="text" class="form-control" name="verCode" placeholder="Insert code here...">
+            <input id="verificationCode" type="text" class="form-control" name="verCode" placeholder="Insert code here...">
           </div>
-      </div>
-      </div>
-      <div class="modal-footer" style="text-align:center;">
-		<button id="btnresend" type="button" class="send btn btn-default">Resend Code</button>
-        <button id="btnverify" type="button" class="send btn btn-default">Verify</button>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button id="btnresend" type="button" class="send btn home-btn">Resend Code</button>
+            <button id="btnverify" type="button" class="send btn home-btn">Verify</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-
-
 
 <!-- Register Modal -->
-<div class="modal fade" id="registerModal" role="dialog">
+<div class="modal fade centered-modal" id="registerModal" role="dialog">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Register</h4>
+        <h3 class="modal-title text-center" style="color:black;">Register</h3>
       </div>
+
+      <!----------First Name Input------------>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-12" >
           <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="firstnamereg" 
-			type="text" 
-			class="form-control" 
-			name="firstname" 
-			placeholder="First Name"
-        		value="">
+              <input id="firstnamereg" type="text" class="form-control" name="firstname" placeholder="First Name" value="">
           </div>
           <br>
+           <!----------Last Name Input------------>
            <div class="input-group">
              <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
              <input id="lastnamereg" type="text" class="form-control" name="lastname" placeholder="Last Name">
            </div>
            <br>
-          <div class="input-group">
+
+         <!----------Email Input------------>
+         <div class="input-group">
            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
            <input id="emailreg" type="email" class="form-control" name="email" placeholder="Email">
          </div>
         <br>
-        <div class="input-group">
+
+       <!----------Phone Input------------>
+       <div class="input-group">
          <span class="input-group-addon"><i class="glyphicon glyphicon-phone" style = "font-size:15px;"></i></span>
          <input id="phonereg" type="text" class="form-control" name="phone" placeholder="Mobile Number">
        </div>
       <br>
+
+      <!----------Password Input------------>
       <div class="input-group">
         <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
         <input id="passwordreg" type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <br>
+
+      <!----------Confirm Input------------>
       <div class="input-group">
         <span class="input-group-addon"><i class='fa fa-asterisk'></i></span>
         <input id="confirm_passwordreg" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
       </div>
       <br>
-      <label class="Checkcontainer"><input type="checkbox"id = "terms"><span class="checkmark"></span>I accept your</div><p class="text-primary" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#termsModal" onclick = "termsCall()">Terms and Policy Privacy</p></label>
-<div style = "padding-left:20px;">Already have an account?</div><p class="text-primary termsBtn" style = "color:#2196f3; padding-left:20px;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p></div>
+      <input class="clickable" type="checkbox" id="terms"><span class="checkmark"></span> I accept your <a class="clickable" data-toggle="modal" data-target="#termsModal" onclick = "termsCall()" style="text-decoration:none">Terms and Policy Privacy</a>
+        <div class="text-center">
+                <p>Already have an account?</p>
+                <p class="termsBtn clickable" style="color: #1588C7;" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login in here</p>
+        </div>
       </div>
-      <div class="modal-footer center">
-      <button id="btnregister" type="button" class="btn btn-default register">Register</button>
+      <div class="modal-footer align">
+        <button id="btnregister" type="button" class="btn home-btn register">Register</button>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- Terms Modal -->
-  <div class="modal fade" id="termsModal" role="dialog">
+  <div class="modal fade centered-modal" id="termsModal" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close terms-close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" style = "color:black;">Terms & Privacy Policy</h4>
         </div>
         <div class="modal-body">
-        <p id="termsInfo"></p>
+          <p id="termsInfo"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+          <button type="button" class="btn home-btn terms-close" data-dismiss="modal">Close</button>
         </div>
       </div>
-
     </div>
   </div>
-
 
 </body>
 </html>

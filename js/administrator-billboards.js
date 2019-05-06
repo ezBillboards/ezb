@@ -824,8 +824,10 @@ $('#btnupdatebillboard').click(function(){
 				email:decrypt(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
-					tr.remove();
+					currenttr.remove();
+					$("#myModal").modal("hide");
 				}else{
+					$("#myModal").modal("hide");
 				}
 		});		
 	});

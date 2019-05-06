@@ -40,6 +40,8 @@
 	</div>
 </nav>
 
+
+<!----------Process Request view------------>
 <h1 id="processed-requests-header" class="text-center">Processed Requests</h1>
 <br>
 <div class="container">
@@ -52,14 +54,19 @@
   <div class="tab-content">
     <div id="Approved" class="tab-pane fade in active">
 	<div class="row">
+
+
+<!----------Search Bar------------>
                 <div class="col-lg-11 input-group" style="margin:auto;">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         <input id="searchApproved" type="text" class="form-control" name="search" placeholder="Search">
                 </div>
         </div>
+
+<!----------Approved Table------------>
         <br>
 	<div class="table-responsive">          
-	  <table class="table table-striped">
+	  <table class="table">
 		<thead>
 		  <tr>
 			<th>Image</th>
@@ -75,6 +82,8 @@
 	  </table>
 	  </div>
     </div>
+
+<!----------Denied Table------------>
     <div id="Denied" class="tab-pane fade">
       <div class="row">
                 <div class="col-lg-11 input-group" style="margin:auto;">
@@ -84,7 +93,7 @@
       </div>
       <br>
       <div class="table-responsive">          
-	  <table class="table table-striped">
+	  <table class="table">
 		<thead>
 		  <tr>
 			<th>Image</th>
@@ -100,6 +109,8 @@
 	  </table>
 	  </div>
     </div>
+
+<!----------Cancelled Table------------>
     <div id="Cancelled" class="tab-pane fade">
        <div class="row">
                 <div class="col-lg-11 input-group" style="margin:auto;">
@@ -109,7 +120,7 @@
        </div>
        <br>
        <div class="table-responsive">          
-	  <table class="table table-striped">
+	  <table class="table">
 		<thead>
 		  <tr>
 			<th>Image</th>
@@ -126,8 +137,10 @@
     </div>
   </div>	
 </div>
-	 <!-- Modal -->
-  <div class="modal fade centered-modal" id="myModal" role="dialog">
+
+
+<!----------- Modal ------------->
+<div class="modal fade centered-modal" id="myModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -135,16 +148,18 @@
             <div class="col-lg-1">
               <span class="glyphicon glyphicon-user profile-modal-user"></span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-7">
               <h3 id="profile-name" class="modal-title"></h3>
             </div>
-            <div class="col-lg-7">
-              <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
+            <div class="col-lg-5">
+		<button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove profile-modal-remove"></span></button>
             </div>
           </div>
         </div>
+
+<!--------------------------- Information from Contact ------------------------------->
         <div class="modal-body text-center profile-modal-body">
-          <h3 style="font-size: 24px;font-weight: bold;">Contact Information</h3>
+          <h3>Contact Information</h3>
           <div class="row">
             <div class="col-lg-6">
               <h4 class="profile-modal-body-headers">Email</h4>
@@ -164,6 +179,7 @@
             </div>
           </div>
         </div>
+<!----------Links for other websites related------------>
         <div class="modal-footer">
           <div class="row profile-modal-footer">
             <div class="col-lg-1">
@@ -176,17 +192,18 @@
               <a id="profile-twitter" class=" profile-modal-twitter"><i class="fa fa-twitter"></i></a>
             </div>
             <div class="col-lg-9 text-right">
-              <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+              <button type="button" class="btn ezb-btn" data-dismiss="modal">OK</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
-<!-- Cancel pendind request Modal -->
-  <div class="modal fade" id="cancelModal" role="dialog">
+<!--------- Cancel pending request modal ------------->
+  <div class="modal fade centered-modal" id="cancelModal" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -199,8 +216,8 @@
           <h5>Once you cancel, you can't redo your request.</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" onclick = "cancelRequest()">Yes</button>
-          <button type="button" class="btn btn-secondary"  data-dismiss="modal">No</button>
+          <button type="button" class="btn ezb-btn" onclick = "cancelRequest()">Yes</button>
+          <button type="button" class="btn ezb-btn"  data-dismiss="modal">No</button>
         </div>
       </div>
 

@@ -63,14 +63,14 @@
 }
 
 #billboard-img-tag{
-	width: 100%;
-	display:block;
+    display:block;
     margin:auto;
 }
 
 .billboard-table-headers{
         background-color: #1F589E;
         color: white;
+	text-align: center;
 }
 
 .centered-modal.in {
@@ -80,3 +80,18 @@
 .centered-modal .modal-dialog {
     margin: auto;
 }
+
+.clickable:hover{
+        cursor: pointer;
+}
+
+.ezb-btn{
+        color: white;
+        background-color: #1588C7;
+}
+
+.ezb-btn:hover{
+        color:white;
+        background-color:#1588C7;
+}
+
