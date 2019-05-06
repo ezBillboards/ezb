@@ -111,12 +111,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccounts`(
 	IN `role_ID_IN` BIGINT
 
 
+
+
+
+
 )
 BEGIN
 	#Parameters: role_ID
 	#Selects all users from a specific role
 	#User must be enabled
-	select * from tblusers
+	select user_ID,office,CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress,
+	firstName,lastName, mobilePhone,workPhone,companyName,companyURL,address1,address2,city,state,zipcode from tblusers
 	where role_ID = role_ID_IN and enabled = 1;
 END//
 DELIMITER ;
@@ -210,9 +215,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getCheckoutInformation`(
 
 
 
+
 )
 BEGIN
-	Select request_ID,payerEmail,payerFirstName,payerLastName,transactionType,tandem,price,
+	Select request_ID,CAST(AES_DECRYPT(payerEmail, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as payerEmail,CAST(AES_DECRYPT(payerFirstName, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as payerFirstName,
+	CAST(AES_DECRYPT(payerLastName, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as payerLastName,transactionType,tandem,price,
 	DATE_FORMAT(timestamp_trans, "%M %e, %Y") as paymentDate from tblcheckout
 	where transaction_ID = transaction_ID_IN;
 END//
@@ -224,6 +231,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getContact`()
 BEGIN
 	#Contact information of administration
 	select * from tblcontact;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure ezbillboards.getEmails
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getEmails`()
+BEGIN
+	Select CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress
+	from tblusers; 
 END//
 DELIMITER ;
 
@@ -246,12 +262,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getLoginUser`(
 
 
 
+
 )
 BEGIN
 	#Parameter: emailAddress_IN
 	#Verify if the email exists
 	Select user_ID, role_ID,verified, statusTemp,enabled from tblusers
-	where emailAddress = emailAddress_IN and (psswd = MD5(psswd_IN) OR tempPsswd = MD5(psswd_IN));
+	where CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) = emailAddress_IN and (psswd = MD5(psswd_IN) OR tempPsswd = MD5(psswd_IN));
 END//
 DELIMITER ;
 
@@ -285,6 +302,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getPackages`(
 
 
 
+
 )
 BEGIN
 	#Parameter: Billboard_ID, Date
@@ -294,7 +312,7 @@ BEGIN
 	#of each package that is enabled
 	Select *,
 	CASE
-		WHEN count(schedule_ID) = duration and displayPerCycle <= remainingSlots then TRUE
+		WHEN count(schedule_ID) = duration and displayPerCycle <= min(remainingSlots) then TRUE
 		ELSE FALSE
 	END as availability
 	 from 
@@ -496,9 +514,10 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequestEmail`(
 	IN `request_ID_IN` BIGINT
+
 )
 BEGIN
-	Select tblusers.emailAddress from tbladrequest
+	Select CAST(AES_DECRYPT(tblusers.emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress from tbladrequest
 	join tblusers on tbladrequest.user_ID = tblusers.user_ID
 	where tbladrequest.request_ID = request_ID_IN;
 END//
@@ -509,10 +528,11 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequestInformation`(
 	IN `request_ID_IN` BIGINT
 
+
 )
     COMMENT 'Request payment'
 BEGIN
-	select firstName,lastName,emailAddress,address1,address2,city,zipcode,mobilePhone,tblpackage.package_ID,tbladrequest.price from tbladrequest
+	select firstName,lastName,CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress,address1,address2,city,zipcode,mobilePhone,tblpackage.package_ID,tbladrequest.price from tbladrequest
 	join tblusers on tblusers.user_ID = tbladrequest.user_ID
 	join tblpackage on tblpackage.package_ID = tbladrequest.package_ID
 	where tbladrequest.request_ID = request_ID_IN;
@@ -535,11 +555,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserAccount`(
 
 
 
+
 )
 BEGIN
 	#Parameter: User ID
 	#Returns the user information
-	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName,office, 
+	SELECT firstName, lastName, CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress, mobilePhone, workPhone,companyName,office, 
 	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
 	FROM tblusers WHERE user_ID = user_ID_IN;
 END//
@@ -548,14 +569,16 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.getUserID
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID`(
-	IN `emailAddress_IN` VARCHAR(100)
+	IN `emailAddress_IN` VARCHAR(150)
+
+
 
 )
 BEGIN
 	#Parameter: emailAddress
 	#Returns the user ID of that specific email
 	Select user_ID from tblusers
-	where emailAddress = emailAddress_IN;
+	where CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -568,11 +591,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserInfo`(
 
 
 
+
 )
 BEGIN
 	#Parameter: request id
 	#Returns the user info of that specific request
-	SELECT firstName, lastName, emailAddress, mobilePhone, workPhone,companyName, 
+	SELECT firstName, lastName, CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) as emailAddress, mobilePhone, workPhone,companyName, 
 	companyURL,facebookURL,instagramURL,twitterURL, address1,address2,city,state,zipcode 
 	FROM tblusers join tbladrequest
 	on tblusers.user_ID = tbladrequest.user_ID
@@ -712,14 +736,17 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.postAccountAdmin
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postAccountAdmin`(
-	IN `firstName_IN` VARCHAR(100),
-	IN `lastName_IN` VARCHAR(100),
-	IN `emailAddress_IN` VARCHAR(100),
+	IN `firstName_IN` VARCHAR(300),
+	IN `lastName_IN` VARCHAR(300),
+	IN `emailAddress_IN` VARCHAR(300),
 	IN `psswd_IN` VARCHAR(255),
-	IN `workPhone_IN` VARCHAR(100),
-	IN `mobilePhone_IN` VARCHAR(100),
-	IN `office_IN` VARCHAR(100),
+	IN `workPhone_IN` VARCHAR(300),
+	IN `mobilePhone_IN` VARCHAR(300),
+	IN `office_IN` VARCHAR(300),
 	IN `role_IN` VARCHAR(50)
+
+
+
 
 )
 BEGIN
@@ -728,13 +755,13 @@ BEGIN
 	#With temp password
 	IF role_IN = 'Administrator' THEN
 		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempPsswd,role_ID,verified,statusTemp)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),4,1,1);
+		values (AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'), firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),4,1,1);
 	ELSEIF role_IN = 'Publisher' THEN
 		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office, tempPsswd,role_ID,verified,statusTemp)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),3,1,1);
+		values (AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'), firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),3,1,1);
 	ELSE
 		insert into tblusers(emailAddress,firstName,lastName,workPhone,mobilePhone,office,tempPsswd,role_ID,verified,statusTemp)
-		values (emailAddress_IN, firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),2,1,1);
+		values (AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'), firstName_IN, lastName_IN, workPhone_IN, mobilePhone_IN,office_IN,MD5(psswd_IN),2,1,1);
 	END IF; 
 END//
 DELIMITER ;
@@ -751,22 +778,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 	IN `duration_IN` INT,
 	IN `displayPerCycle_IN` SMALLINT,
 	IN `price_IN` DECIMAL(12,2),
-	IN `startDate_IN` DATE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-,
+	IN `startDate_IN` DATE,
 	IN `artworkName_IN` VARCHAR(100),
 	IN `extension_IN` VARCHAR(10),
 	IN `width_IN` INT,
@@ -776,6 +788,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postAdRequest`(
 
 ,
 	IN `ratio_IN` VARCHAR(50)
+
 
 
 
@@ -835,7 +848,7 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.postBillboard
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
-	IN `billboardName_IN` VARCHAR(50),
+	IN `billboardName_IN` VARCHAR(200),
 	IN `billboardDescription_IN` VARCHAR(1000),
 	IN `billboardImageURL_IN` VARCHAR(100),
 	IN `width_IN` INT,
@@ -854,6 +867,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postBillboard`(
 	IN `slots_IN` INT,
 	IN `imageRatio_IN` VARCHAR(500),
 	IN `imageExtension_IN` VARCHAR(500)
+
 
 
 
@@ -879,7 +893,7 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postCheckout`(
 	IN `transaction_ID_IN` VARCHAR(50),
-	IN `firstName_IN` VARCHAR(100),
+	IN `firstName_IN` VARCHAR(255),
 	IN `lastName_IN` VARCHAR(255),
 	IN `emailAddress_IN` VARCHAR(255),
 	IN `request_ID_IN` BIGINT,
@@ -890,10 +904,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `postCheckout`(
 
 
 
+
+
 )
 BEGIN
 	insert into tblcheckout(transaction_ID,firstName,lastName,emailAddress,request_ID,package_ID,price,timestamp_trans,checkoutstatus)
-	values(transaction_ID_IN,firstName_IN,lastName_IN,emailAddress_IN,request_ID_IN,package_ID_IN,price_IN,current_timestamp(),0);
+	values(transaction_ID_IN,AES_ENCRYPT(firstName_IN,'hhrjo40OH0XXHZ9ygwQ9'),AES_ENCRYPT(lastName_IN,'hhrjo40OH0XXHZ9ygwQ9'),AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'),request_ID_IN,package_ID_IN,price_IN,current_timestamp(),0);
 END//
 DELIMITER ;
 
@@ -929,9 +945,10 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postPackage`(
 	IN `billboard_ID_IN` BIGINT,
-	IN `displayPerCycle_IN` SMALLINT,
 	IN `duration_IN` INT,
+	IN `displayPerCycle_IN` SMALLINT,
 	IN `price_IN` DECIMAL(10,2)
+
 
 
 
@@ -996,22 +1013,24 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.postUser
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postUser`(
-	IN `emailAddress_IN` VARCHAR(100),
-	IN `firstName_IN` VARCHAR(100),
-	IN `lastName_IN` VARCHAR(100),
-	IN `mobilePhone_IN` VARCHAR(100),
-	IN `workPhone_IN` VARCHAR(100),
-	IN `companyName_IN` VARCHAR(100),
-	IN `companyURL_IN` VARCHAR(100),
-	IN `facebookURL_IN` VARCHAR(100),
-	IN `instagramURL_IN` VARCHAR(100),
-	IN `twitterURL_IN` VARCHAR(100),
-	IN `address1_IN` VARCHAR(200),
-	IN `address2_in` VARCHAR(200),
-	IN `city_IN` VARCHAR(100),
-	IN `state_IN` VARCHAR(100),
-	IN `zipCode_IN` VARCHAR(100),
+	IN `emailAddress_IN` VARCHAR(300),
+	IN `firstName_IN` VARCHAR(300),
+	IN `lastName_IN` VARCHAR(300),
+	IN `mobilePhone_IN` VARCHAR(300),
+	IN `workPhone_IN` VARCHAR(300),
+	IN `companyName_IN` VARCHAR(300),
+	IN `companyURL_IN` VARCHAR(300),
+	IN `facebookURL_IN` VARCHAR(300),
+	IN `instagramURL_IN` VARCHAR(300),
+	IN `twitterURL_IN` VARCHAR(300),
+	IN `address1_IN` VARCHAR(300),
+	IN `address2_in` VARCHAR(300),
+	IN `city_IN` VARCHAR(300),
+	IN `state_IN` VARCHAR(300),
+	IN `zipCode_IN` VARCHAR(300),
 	IN `psswd_IN` VARCHAR(255)
+
+
 
 
 
@@ -1032,7 +1051,7 @@ BEGIN
 	insert into tblusers(role_ID,emailAddress,firstName,lastName,mobilePhone,
 	workPhone,companyName, companyURL,facebookURL, instagramURL,twitterURL,
 	address1,address2,city,state,zipCode,psswd,signupDate,lastLoginDate) 
-	values (1,emailAddress_IN,firstName_IN,lastName_IN,mobilePhone_IN,
+	values (1,AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'),firstName_IN,lastName_IN,mobilePhone_IN,
 	workPhone_IN,companyName_IN,companyURL_IN,facebookURL_IN,instagramURL_IN,twitterURL_IN,
 	address1_IN,address2_in,city_IN,state_IN,zipCode_IN,MD5(psswd_IN),current_timestamp(),current_timestamp());
 END//
@@ -1056,18 +1075,18 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 	IN `user_ID_IN` BIGINT,
-	IN `firstName_IN` VARCHAR(100),
-	IN `lastName_IN` VARCHAR(100),
-	IN `emailAddress_IN` VARCHAR(100),
-	IN `mobilePhone_IN` VARCHAR(100),
-	IN `workPhone_IN` VARCHAR(100),
-	IN `companyName_IN` VARCHAR(100),
-	IN `office_IN` VARCHAR(100),
-	IN `address1_IN` VARCHAR(100),
-	IN `address2_IN` VARCHAR(100),
-	IN `state_IN` VARCHAR(100),
-	IN `city_IN` VARCHAR(100),
-	IN `zipcode_IN` VARCHAR(100),
+	IN `firstName_IN` VARCHAR(300),
+	IN `lastName_IN` VARCHAR(300),
+	IN `emailAddress_IN` VARCHAR(300),
+	IN `mobilePhone_IN` VARCHAR(300),
+	IN `workPhone_IN` VARCHAR(300),
+	IN `companyName_IN` VARCHAR(300),
+	IN `office_IN` VARCHAR(300),
+	IN `address1_IN` VARCHAR(300),
+	IN `address2_IN` VARCHAR(300),
+	IN `state_IN` VARCHAR(300),
+	IN `city_IN` VARCHAR(300),
+	IN `zipcode_IN` VARCHAR(300),
 	IN `companyURL_IN` VARCHAR(400),
 	IN `fb_IN` VARCHAR(400),
 	IN `tw_IN` VARCHAR(400),
@@ -1077,11 +1096,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccount`(
 
 
 
+
+
 )
 BEGIN
 	#Update USERS account information
 	update tblusers
-	set firstName = firstName_IN,lastName = lastName_IN,emailAddress = emailAddress_IN,mobilePhone = mobilePhone_IN,workPhone = workPhone_IN,
+	set firstName = firstName_IN,lastName = lastName_IN,emailAddress = AES_ENCRYPT(emailAddress_IN,'hhrjo40OH0XXHZ9ygwQ9'),mobilePhone = mobilePhone_IN,workPhone = workPhone_IN,
 	companyName = companyName_IN,office = office_IN, companyURL = companyURL_IN, Address1 = address1_IN,Address2 = address2_IN, city = city_IN, state = state_IN, zipcode = zipcode_IN,
 	 facebookURL = fb_IN, instagramURL = inst_IN, twitterURL = tw_IN 
 	where user_ID = user_ID_IN;
@@ -1092,12 +1113,13 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putAccountAdmin`(
 	IN `user_ID_IN` BIGINT,
-	IN `firstName_IN` VARCHAR(100),
-	IN `lastName_IN` VARCHAR(100),
-	IN `workPhone_IN` VARCHAR(100),
-	IN `mobilePhone_IN` VARCHAR(100),
-	IN `office_IN` VARCHAR(100),
+	IN `firstName_IN` VARCHAR(300),
+	IN `lastName_IN` VARCHAR(300),
+	IN `workPhone_IN` VARCHAR(300),
+	IN `mobilePhone_IN` VARCHAR(300),
+	IN `office_IN` VARCHAR(300),
 	IN `role_IN` VARCHAR(50)
+
 
 
 )
@@ -1127,8 +1149,8 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
 	IN `billboard_ID_IN` BIGINT
 ,
-	IN `billboardName_IN` VARCHAR(50),
-	IN `billboardDesc_IN` VARCHAR(50),
+	IN `billboardName_IN` VARCHAR(200),
+	IN `billboardDesc_IN` VARCHAR(1000),
 	IN `width_IN` INT,
 	IN `height_IN` INT,
 	IN `latitude_IN` DOUBLE,
@@ -1147,6 +1169,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putBillboardInfo`(
 ,
 	IN `imageRatio_IN` VARCHAR(100),
 	IN `imageExtension_IN` VARCHAR(100)
+
 )
 BEGIN
 	#Update billboard information
@@ -1250,12 +1273,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `putCheckoutSuccess`(
 
 
 
+
 )
 BEGIN
 	DECLARE requestID BIGINT;
 	
 	update tblcheckout
-	set payerFirstName = firstName_IN, payerLastName = lastName_IN,payerEmail = email_IN,
+	set payerFirstName = AES_ENCRYPT(firstName_IN,'hhrjo40OH0XXHZ9ygwQ9'), payerLastName = AES_ENCRYPT(lastName_IN,'hhrjo40OH0XXHZ9ygwQ9'),payerEmail = AES_ENCRYPT(email_IN,'hhrjo40OH0XXHZ9ygwQ9'),
 	tandem = tandem_IN, transactionType = type_IN, timestamp_response = current_timestamp(),checkoutstatus=2
 	where transaction_ID = transaction_ID_IN;
 	
@@ -1324,9 +1348,10 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPackage`(
 	IN `package_ID_IN` BIGINT,
-	IN `displayPerCycle_IN` SMALLINT,
 	IN `duration_IN` INT,
+	IN `displayPerCycle_IN` SMALLINT,
 	IN `price_IN` DECIMAL(12,2)
+
 
 
 )
@@ -1358,7 +1383,8 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putPassword`(
 	IN `user_ID_IN` BIGINT,
-	IN `psswd_IN` VARCHAR(100)
+	IN `psswd_IN` VARCHAR(255)
+
 
 
 
@@ -1444,8 +1470,12 @@ DELIMITER ;
 -- Dumping structure for procedure ezbillboards.putTempPsswd
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putTempPsswd`(
-	IN `emailAddress_IN` VARCHAR(100),
+	IN `emailAddress_IN` VARCHAR(300),
 	IN `tempPsswd_IN` VARCHAR(10)
+
+
+
+
 
 
 
@@ -1457,7 +1487,7 @@ BEGIN
 	#set temp password
 	update tblusers
 	set tempPsswd = MD5(tempPsswd_IN), statusTemp = 1, psswd = null
-	where emailAddress = emailAddress_IN;
+	where CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -1481,13 +1511,15 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `putVerified`(
 	IN `emailAddress_IN` VARCHAR(100)
 
+
+
 )
 BEGIN
 	#Update user account
 	#Set email as verified
 	 update tblusers
 	 set verified = 1
-	 where emailAddress = emailAddress_IN;
+	 where CAST(AES_DECRYPT(emailAddress, 'hhrjo40OH0XXHZ9ygwQ9') AS CHAR(200)) = emailAddress_IN;
 END//
 DELIMITER ;
 
@@ -1571,7 +1603,7 @@ CREATE TABLE IF NOT EXISTS `tblbillboardregulation` (
 -- Dumping structure for table ezbillboards.tblbillboards
 CREATE TABLE IF NOT EXISTS `tblbillboards` (
   `billboard_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `billboardName` varchar(50) NOT NULL,
+  `billboardName` varchar(200) NOT NULL,
   `billboardDescription` varchar(255) DEFAULT NULL,
   `billboardImage_URL` varchar(500) DEFAULT NULL,
   `width` int(11) NOT NULL,
@@ -1734,29 +1766,29 @@ CREATE TABLE IF NOT EXISTS `tblsettings` (
 -- Dumping data for table ezbillboards.tblsettings: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblsettings` DISABLE KEYS */;
 INSERT INTO `tblsettings` (`sett_ID`, `about`, `terms`) VALUES
-	(1, 'The University Campus of Mayagüez of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of.\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether at the undergraduate or graduate level, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our north and growth standard.\r\nAs  Chancellor of this  majestic University, the ” Colegio de Mayagüez”, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. Therefore, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayagüez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and best professionals, who contribute to its growth as a country.\r\nI trust that, with your support, all the efforts we are working on will strengthen our present and empower our future.\r\n\r\nProf. Wilma Santiago Gabrielini, M.Arch.\r\nInterim Chancellor', 'Accept Terms&Aggrements');
+	(1, '\r\nThe Mayaguez University Campus of the University of Puerto Rico has a long tradition of academic excellence. Our history is based on the commitment of our students, educators, researchers and employees, who have given their best to build the quality of which we are so proud of the school.\r\n<br>\r\nIn current times, there are many and, particularly, more complicated challenges that we face, so our greatest strength as an institution, should be the communion with our mission to continue providing the educational excellence that distinguishes us. Forging students, whether undergraduate or graduate, oriented to research, holistic approach and entrepreneurship, and capable of contributing to the social, cultural and economic development of our country and the universe, continues as our northern and growing banner .\r\n<br>\r\nAs Acting Chancellor of this unmistakably majestic University, the ever Colegio de Mayaguez, I work to build stronger ties with the industry and with our surrounding community that will lead us to strengthen our knowledge and duties, especially for our students. For this reason, I invite you to join the initiatives that, during this journey of vision and sustainability, we will be sharing with you and that will be focused on solidifying our leading position in higher education in Puerto Rico, the Caribbean and the world.\r\n<br>\r\nFor my part, I feel especially proud to lead the roads of the University Campus of Mayaguez in these moments of great challenges, in which we will have the opportunity to become the heart and soul that makes our island emerge and the dowry with more and better professionals, who contribute to its growth as a country.\r\n<br>\r\nI trust that, with your support, all the efforts that we are working on, strengthen our present and empower our future.\r\n<br><br>\r\n \r\n\r\nProf. Wilma Santiago Gabrielini, M.Arq.\r\n<br><br>\r\nActing Chancellor\r\n<br>', 'Thanks for using our products and services including ezb.uprm.edu and any of its subdomains (Services). The Services are provided by EZBillboards.\r\n<br>\r\n<br>\r\nBy using our Services from time to time, it is presumed that you have read through these Terms and Conditions and failure to do so shall be a complete bar on any and all claims in law or equity that you bring against EZBillboards for any reason whatsoever - please read them carefully. Your acceptance of these Terms and Conditions (this Agreement) is an electronically binding agreement upon you and such acceptance shall have the same legal force and effect as if you had physically signed such Agreement. You agree to the admissibility of computer records and electronic evidence in any dispute under this Agreement. If you do not accept these Terms and Conditions, please do not register for or participate in using the Services offered by and through EZBillboards.\r\n<br><br>\r\nAs used in this Agreement, you or User means both (a) the individual now registering as a user of the Services or an existing user of the Services now agreeing to this Agreement, as the case may be, and (b) if applicable, the company or other business or governmental entity specified by you upon registration (any such entity, your Company). You and your Company, if any, are jointly and severally liable for your obligations under this Agreement.\r\n<br><br>\r\nOur Services are diverse, so sometimes additional terms or product requirements may apply. Some EZBillboards Services such as Board Owner Enrollment and Listing Agreement may have additional or other terms that we provide to you when you use these and other Services. Additional terms will be available with the relevant Services, and those additional terms become part of your agreement with us if you use those Services. If you do not have the authority to enter into payment agreements on behalf of yourself or your company, do not accept these Terms and Conditions.\r\n<br><br>\r\nPrivacy and Your Personal Information\r\nFor information about EZBillboards data protection practices, please read EZBillboards Privacy Policy, which is hereby incorporated into these Terms and Conditions. This Policy explains how EZBillboards treats your personal information when you access the Site and use the Services provided. The Policy may be updated from time to time in our discretion. Changes will be effective upon their being posted to the Site\r\n<br><br>\r\nServices\r\nEZBillboards (ezb.uprm.edu) is an automated on-line selling and buying platform for billboards, media owners and other related products or services.\r\n<br><br>\r\nWe provide a variety options and flexibility to advertisers. Advertisers can buy guaranteed impressions and set up campaigns using the packages and contracting functionality. Real-time bidding allows advertisers to bid for inventory and execute campaigns on demand in real- time. Each buying option, provides functionality previously not available to advertisers.\r\n<br><br>\r\nEZBillboards allows advertisers, media buyers or agencies for themselves or on behalf of their clients or individual users (Buyers) to plan and search for inventory or media inventory, build campaigns, obtain pricing information, create and upload artwork, make payments, execute media buys and monitor campaign effectiveness in real-time.\r\n<br><br>\r\nEZBillboards allows media, billboard, board owners, other media owners or third parties that have exclusive representation rights (Sellers) to list, market and sell their media and inventory on-line. All Sellers who sell media assets and billboard ads will be required to execute a Board Owner Enrollment and Listing Agreement to use EZBillboards Services that lists each partys obligations. EZBillboards may offer additional Services to Buyers and Sellers directly or via third parties that may be subject to additional costs and terms and those additional terms become part of your agreement with us if you use those Services.\r\n<br><br>\r\nBuyers will be responsible for providing certain information required to buy and display advertising using EZBillboards including but not limited to name, address, cell phone, and credit card information. Sellers will be responsible for providing certain information required to list and enable each asset or billboard for EZBillboards Services including but not limited to contact, location, size, pricing, product information, and technical requirements for your billboard or scheduling system.\r\n<br><br>\r\nEZBillboards may provide certain creative services to advertisers and Buyers and help them prepare content for display on Sellers billboards or assets. In certain cases, Sellers will be required to work with EZBillboards to ensure such ads are displayed appropriately. Buyers shall prepare materials in accordance with technical specifications outlined in EZBillboards.\r\n<br><br>\r\nIn addition, Buyers, Sellers or registered users may communicate with other users on EZBillboards or post information requests, text, graphics, pictures and other content on EZBillboards.\r\n<br><br>\r\nEZBillboards is a venue or third party partner for Buyers and Sellers that enables automated sales of advertising inventory and provides other services facilitating transactions between both parties. We provide a payment and collection mechanism for the sale of such Services. We make every effort to qualify Users but we make no representation, and give you no assurance, that:\r\n<br><br>\r\nThe persons using EZBillboards (a) are not misrepresenting their identity, location or authority to enter into contracts, and (b) are of legal age and capacity to enter into contracts.\r\nA Seller enabling Services or items on EZBillboards will be able to or will complete the sale of the service or item or deliver the item or service to the buyer, or that a Buyer is able to or will complete the purchase of an service or item from a Seller.\r\nA Seller has truthfully and accurately described an Item placed on the Site.\r\nAn service or item listed for sale on EZBillboards exists, or is (a) of any particular quality, (b) non-infringing with regard to the intellectual property rights of any person or entity, or (c) that an service or item may be legally sold by the Seller.\r\nThe sale of a service or item complies with any or all applicable legal requirements for the sale of that service or item, including but not limited to statutes, regulations or requirements of any country, state, locality, province, municipality or other government authority or regulatory entity regarding sales, or the sale of any Services or item(s).\r\nBoth Sellers and Buyers represent and warrant that all information given to us (including your name, address and other information associated with your and all information communicated to other users of EZBillboards or the site, whether in a listing or a posting, is true, accurate, up-to-date and not misleading.\r\n<br><br>\r\nFalsely registering as a Buyer and/or gaining access to, using or sharing information not for these purposes is forbidden and will result in suspension or termination from the EZBillboards system by EZBillboards. Buyers who request and receive planning information, RFIs or RFPs and/or place media order or execute media buys do so with the intent to use it solely for their or their clients advertising purposes. If approved for access to the planning and buying service, you agree that upon requesting and receiving media proposals that any further communication, negotiation or agreement regarding those proposals obtained through the service will be continued through the EZBillboards system. In the event that agreement to purchase or order the listings in the proposals is reached, you agree to place the order through the EZBillboards system.\r\n<br><br>\r\nWe have the right, but not the obligation, to monitor, edit, refuse to post or remove any listing or posting from EZBillboards, in our discretion. Notwithstanding this right, we are not responsible for the content of listings or postings posted by Buyers, Sellers, and Users. Monitoring of postings and listings by us is not intended to verify the accuracy of the information contained therein and should not be relied upon by you for any purpose.\r\n<br><br>\r\nEZBillboards does not guarantee the price, terms, product, availability or services offered or provided by any third party until it is agreed to electronically. EZBillboards is not legally responsible for, and does not warrant, represent or guarantee any goods, services, information, or otherwise provided by third parties. If you should have a dispute with a third party, EZBillboards is in no way legally responsible for any claims in law or equity, demands or actual, consequential, incidental, nominal, special or punitive damages of any type, whether known or unknown, suspected or unsuspected, disclosed or undisclosed, arising out of or in any way connected with such claim, demand or dispute.\r\n<br><br>\r\nUsing Our Services\r\nYou must follow any policies made available to you within the Services.\r\n<br><br>\r\nIf EZBillboards suspects you of misusing our Services or terms or policies, taking any actions that we perceive could adversely affect EZBillboards business or violating any laws or regulations, we may suspend or stop providing our Services to you and your company.\r\n<br><br>\r\nUsing our Services does not give you ownership of any intellectual property rights in our Services or the content you access. You may not use content from our Services unless you obtain permission from its owner or are otherwise permitted by law. These terms do not grant you the right to use, remove or alter any branding or logos used in our Services.\r\n<br><br>\r\nOur Services display some content that is not EZBillboards. This content is the sole responsibility of the entity that makes it available. We review content to determine whether it is acceptable, readable, appropriate, or violates our policies, and we may remove or refuse to display content that we reasonably believe is inappropriate or violates our policies or the law. In addition, we will review content restrictions provided by board or media owners. In most cases, where we deny content EZBillboards alerts the Buyer via email.\r\n<br><br>\r\nEZBillboards may send you service announcements, administrative messages, and other information to improve user experience and users may opt out of some of those communications.\r\n<br><br>\r\nSome of our Services are available on mobile devices. Do not use such Services in a way that distracts you and prevents you from obeying driving or safety laws.\r\n<br><br>\r\nEZBillboards and other EZBillboards.com names and logos and all related product and service names, design marks and slogans used on EZBillboards are the trademarks or service marks of EZBillboards LLC or its affiliates. All other marks are the property of their respective companies. No trademark or service mark license is granted in connection with the materials contained on the Site. Access to the Site does not authorize anyone to use any name, logo or mark in any manner.\r\n<br><br>\r\nYou may not use meta tags or other hidden text utilizing EZBillboards name or trademarks without the express prior written consent of EZBillboards.com.\r\n<br><br>\r\nYour EZBillboards Account\r\nYou may need a EZBillboards Account in order to use some of our Services. You may create your own EZBillboards Account, or your EZBillboards Account may be assigned to you by an administrator, such as your employer or educational institution. If you are using a EZBillboards Account assigned to you by an administrator, different or additional terms may apply and your administrator may be able to access or disable your account.\r\n<br><br>');
 /*!40000 ALTER TABLE `tblsettings` ENABLE KEYS */;
 
 -- Dumping structure for table ezbillboards.tblusers
 CREATE TABLE IF NOT EXISTS `tblusers` (
   `user_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `emailAddress` varchar(100) NOT NULL,
+  `emailAddress` varchar(300) NOT NULL,
   `role_ID` int(11) DEFAULT NULL,
-  `office` varchar(100) DEFAULT NULL,
-  `firstName` varchar(100) NOT NULL,
-  `lastName` varchar(100) NOT NULL,
-  `mobilePhone` varchar(100) DEFAULT NULL,
-  `workPhone` varchar(100) DEFAULT NULL,
-  `companyName` varchar(100) DEFAULT NULL,
+  `office` varchar(300) DEFAULT NULL,
+  `firstName` varchar(300) NOT NULL,
+  `lastName` varchar(300) NOT NULL,
+  `mobilePhone` varchar(300) DEFAULT NULL,
+  `workPhone` varchar(300) DEFAULT NULL,
+  `companyName` varchar(300) DEFAULT NULL,
   `companyURL` varchar(400) DEFAULT NULL,
   `facebookURL` varchar(400) DEFAULT NULL,
   `instagramURL` varchar(400) DEFAULT NULL,
   `twitterURL` varchar(400) DEFAULT NULL,
-  `address1` varchar(200) DEFAULT NULL,
-  `address2` varchar(200) DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `state` varchar(100) DEFAULT NULL,
-  `zipcode` varchar(100) DEFAULT NULL,
+  `address1` varchar(300) DEFAULT NULL,
+  `address2` varchar(300) DEFAULT NULL,
+  `city` varchar(300) DEFAULT NULL,
+  `state` varchar(300) DEFAULT NULL,
+  `zipcode` varchar(300) DEFAULT NULL,
   `psswd` varchar(255) DEFAULT NULL,
   `tempPsswd` varchar(255) DEFAULT NULL,
   `signupDate` datetime NOT NULL,
@@ -1772,7 +1804,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
 -- Dumping data for table ezbillboards.tblusers: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`user_ID`, `emailAddress`, `role_ID`, `office`, `firstName`, `lastName`, `mobilePhone`, `workPhone`, `companyName`, `companyURL`, `facebookURL`, `instagramURL`, `twitterURL`, `address1`, `address2`, `city`, `state`, `zipcode`, `psswd`, `tempPsswd`, `signupDate`, `lastLoginDate`, `verified`, `statusTemp`, `enabled`) VALUES
-	(5, 'ezbillboards19@gmail.com', 4, '26a241b42844ce358d4ce9073808973a0e81917754817ac46a05d260fada8188TABhCSSAlheu5IbTutqdCg==', '4d4a69f20c3a63ef0efe489fea7703d1b21f9eadbcfe55c9acc9cb44a335e3666ht0KGjfiM0z7ySC8J0dgg==', 'a8de3fe583790c03a65f211bff0d3db43d565cc8837ab282a70566321b30a67eAMaKNySrsfZDxCY0GyFf/A==', '4a9f7c38e8f7fc981e710978cf118c73c71f242cefab99cf3513463b4721a93bFm/6/dyHXyH5b/GqQ/Rqkg==', '6adcfa5a5e3691831293ea4cda36bd2d81361e93ed14c76c259ea69304babd98OTB7IpUfFq+Jk39ACzI7DA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
+	(5, 'Ül?îÒ70k›dØÍã¿°‰ý¶è<ìãÕË·üt', 4, '26a241b42844ce358d4ce9073808973a0e81917754817ac46a05d260fada8188TABhCSSAlheu5IbTutqdCg==', '4d4a69f20c3a63ef0efe489fea7703d1b21f9eadbcfe55c9acc9cb44a335e3666ht0KGjfiM0z7ySC8J0dgg==', 'a8de3fe583790c03a65f211bff0d3db43d565cc8837ab282a70566321b30a67eAMaKNySrsfZDxCY0GyFf/A==', '4a9f7c38e8f7fc981e710978cf118c73c71f242cefab99cf3513463b4721a93bFm/6/dyHXyH5b/GqQ/Rqkg==', '6adcfa5a5e3691831293ea4cda36bd2d81361e93ed14c76c259ea69304babd98OTB7IpUfFq+Jk39ACzI7DA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4e31be17e7a92d5c2ff0c7f48a024f25', NULL, '2019-04-16 23:37:45', '2019-04-16 23:37:45', 1, 0, 1);
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 -- Dumping structure for procedure ezbillboards.viewSchedule
