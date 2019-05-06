@@ -144,6 +144,7 @@ $(document).ready(function(){
 		{
 			id:requests[currentRequestIndex].id,
 			approverID: decrypt(sessionStorage.getItem('ID')),
+			email: decrypt(sessionStorage.getItem('email')),
 			status:decision,
 			comments:$("#comment").val()
 		},

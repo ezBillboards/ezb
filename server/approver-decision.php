@@ -6,7 +6,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
-
+require_once('./logger.php');
 date_default_timezone_set('Etc/UTC');
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
@@ -27,6 +27,7 @@ if($conn === false){
 **************************************/
 $id = $_POST['id'];
 $approverID = $_POST['approverID'];
+$email = $_POST['email'];
 $status = $_POST['status'];
 $comments = $_POST['comments'];
 
@@ -35,7 +36,11 @@ $sql = "CALL putStatusApprover($id, $approverID, $status, '$comments')";
 if (mysqli_query($conn, $sql)) {
 	echo "Record updated successfully";
 	mysqli_close($conn);
-	
+	if($status == 2){
+		logger($email, "APPROVED REQUEST", "Approver" . $email . " has approved request ID: " . $id);
+	}else{
+		logger($email, "DENIED REQUEST", "Approver" . $email . " has denied request ID: " . $id);
+	}
 	$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 	if($conn === false){
