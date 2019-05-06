@@ -230,6 +230,8 @@ $(document).ready(function(){
 			alert('Missing billboard information');
 		}else if(!$("#addwidth").val()){
 			alert("Insert billboard width");
+		}else if($("#addwidth").val() <=0){
+			alert("Width can't be equal or less than zero");
 		}else if(!$("#addheight").val()){
 			alert("Insert billboard height");
 		}else if(!$("#addminwidth").val()){
@@ -425,7 +427,7 @@ $('#btnupdatebillboard').click(function(){
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
 		
-		/*if(validateEditBillboard()){
+		if(validateEditBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#width").val()){
 			alert("Insert billboard width");
@@ -480,9 +482,9 @@ $('#btnupdatebillboard').click(function(){
 		}else{
 			alert("Validated information");
 			updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
-		}*/
+		}
 		
-		updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
+		//updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
 	});
 	
 
