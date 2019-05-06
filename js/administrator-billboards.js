@@ -583,9 +583,9 @@ $('#btnupdatebillboard').click(function(){
 			alert("Maximum height can't be equal or less than zero");
 		}else if($("#max-hei").val() - Math.floor($("#max-hei").val()) != 0){
 			alert("Maximum height has to be an integer");
-		}else if($("#max-hei").val() < $("#min-hei").val()){
+		}else if($("#max-hei").val() - $("#min-hei").val() < 0){
 			alert("Maximum height can't be less than minimum height ");
-		}else if($("#max-wid").val() < $("#min-wid").val()){
+		}else if($("#max-wid").val() - $("#min-wid").val() < 0){
 			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#latitude").val()){
 			alert("Insert billboard latitude");
