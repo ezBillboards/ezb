@@ -189,7 +189,10 @@ function cancelling(item){
 
 function cancelRequest(){
 	console.log(currentRequestID);
-	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:decrypt(sessionStorage.getItem('ID'))},
+	$.post("../server/approver-cancel-request.php",
+	{id:currentRequestID,
+	cancelId:decrypt(sessionStorage.getItem('ID')),
+	emailAddress:decrypt(sessionStorage.getItem('email'))},
 		function(data, status){
 			if(status === "success"){
 				location.reload();
