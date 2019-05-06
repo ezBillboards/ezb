@@ -10,7 +10,6 @@ $(document).ready(function(){
 *send to home.html
 ******************/	
 	$("#btnlogout").click(function(){
-		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');
@@ -24,7 +23,6 @@ $(document).ready(function(){
 *depending on the ID
 ********************/
 function session(){
-	console.log("Reading session variables");
 	
 	if (sessionStorage.getItem('ID') != null){
 		sessionID = decrypt(sessionStorage.getItem('role'));

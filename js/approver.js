@@ -8,7 +8,6 @@ $(document).ready(function(){
 *send to home.html
 ******************/	
 	$("#btnlogout").click(function(){
-		console.log('btnlogout clicked!!');
 		sessionStorage.removeItem('ID');
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('role');

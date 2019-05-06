@@ -13,7 +13,6 @@ $(document).ready(function(){
 *******************************/
 	$.get("../server/administrator-read-config.php",function(data, status){
 		var settings = JSON.parse(data);
-		console.log(settings);
 		$("#server").val(settings.DB_SERVER);
                 $("#user").val(settings.DB_USERNAME);
                 $("#database").val(settings.DB_NAME);
@@ -208,10 +207,6 @@ function validateDatabaseConfiguration(){
  var userResult = userRGEX.test(user);
  var password = document.getElementById('password').value;
 
-console.log('Server = '+ server);
-console.log('Database = '+ db);
-console.log('User = '+ user);
-console.log('Password = '+ password);
 
 
 if(password == ""){
@@ -267,8 +262,6 @@ function validateMailServerConfiguration(){
  var portRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9.])*$/;
  var portResult = portRGEX.test(port);
 
-console.log('Ip = '+ ip + ipResult);
-console.log('Port = '+ port);
 
 
 errors = [];
@@ -301,7 +294,6 @@ function validateBackupPathConfiguration(){
  var backupRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
  var backupResult = backupRGEX.test(backup);
 
-console.log('Backup = '+ backup);
 
 errors = [];
 
@@ -327,7 +319,6 @@ function validateImagePathConfiguration(){
  var imageRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
  var imageResult = imageRGEX.test(image);
 
-console.log('Image = '+ image);
 
 if(imageResult == false || image == ""){
         alert('Please enter a valid image path');
@@ -377,19 +368,6 @@ function validateContactInfoConfiguration(){
  var email = document.getElementById('email').value;
  var emailRGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  var emailResult = emailRGEX.test(email);
-
-
-console.log('Office = '+ office);
-console.log('Postal = '+ postal);
-console.log('Physical = '+ physical);
-console.log('Phone = '+ phoneNumber);
-console.log('Extensions = '+ extension);
-console.log('Direct Phone = '+ dphoneNumber);
-console.log('Fax' +fax );
-console.log('Email = '+ email);
-
-
-
 
 
 
