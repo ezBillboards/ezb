@@ -266,7 +266,7 @@ $(document).ready(function(){
 		}else if($("#addmaxheight").val() - Math.floor($("#addmaxheight").val()) != 0){
 			alert("Maximum height has to be an integer");
 		}else if($("#addmaxheight").val() < $("#addminheight").val()){
-			alert("Maximum height can't be less than minimum heigth ");
+			alert("Maximum height can't be less than minimum height ");
 		}else if($("#addmaxwidth").val() < $("#addminwidth").val()){
 			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#addlatitude").val()){
@@ -580,7 +580,7 @@ $('#btnupdatebillboard').click(function(){
 		}else if($("#max-hei").val() - Math.floor($("#max-hei").val()) != 0){
 			alert("Maximum height has to be an integer");
 		}else if($("#max-hei").val() < $("#min-hei").val()){
-			alert("Maximum height can't be less than minimum heigth ");
+			alert("Maximum height can't be less than minimum height ");
 		}else if($("#max-wid").val() < $("#min-wid").val()){
 			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#latitude").val()){
