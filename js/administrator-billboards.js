@@ -234,28 +234,58 @@ $(document).ready(function(){
 			alert("Width can't be equal or less than zero");
 		}else if(!$("#addheight").val()){
 			alert("Insert billboard height");
+		}else if($("#addheight").val() <=0){
+			alert("Height can't be equal or less than zero");
 		}else if(!$("#addminwidth").val()){
 			alert("Insert image minimum width");
+		}else if($("#addminwidth").val() <=0){
+			alert("Minimum width can't be equal or less than zero");
 		}else if(!$("#addminheight").val()){
 			alert("Insert image minimum height");
+		}else if($("#addminheight").val() <=0){
+			alert("Minimum height can't be equal or less than zero");
 		}else if(!$("#addmaxwidth").val()){
 			alert("Insert image maximum width");
+		}else if($("#addmaxwidth").val() <=0){
+			alert("Maximum width can't be equal or less than zero");
 		}else if(!$("#addmaxheight").val()){
 			alert("Insert image maximum height");
+		}else if($("#addmaxheight").val() <=0){
+			alert("Maximum height can't be equal or less than zero");
+		}else if($("#addmaxheight").val() < $("#addminheight").val()){
+			alert("Maximum height can't be less than minimum heigth ");
+		}else if($("#addmaxwidth").val() < $("#addminwidth").val()){
+			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#addlatitude").val()){
 			alert("Insert billboard latitude");
+		}else if($("#addlatitude").val() <=0){
+			alert("Latitude can't be equal or less than zero");
 		}else if(!$("#addlongitude").val()){
 			alert("Insert billboard longitude");
+		}else if($("#addlongitude").val() <=0){
+			alert("Longitude can't be equal or less than zero");
 		}else if(!$("#addimpressions").val()){
 			alert("Insert billboard impressions");
+		}else if($("#addimpressions").val() <=0){
+			alert("Impressions can't be equal or less than zero");
 		}else if(!$("#addtraffic").val()){
 			alert("Insert traffic");
+		}else if($("#addtraffic").val() <=0){
+			alert("Traffic can't be equal or less than zero");
 		}else if(!$("#addtolerance").val()){
 			alert("Insert image tolerance");
+		}else if($("#addtolerance").val() <=0){
+			alert("Tolerance can't be equal or less than zero");
 		}else if(!$("#addcycle").val()){
 			alert("Insert billboard cycle");
+		}else if($("#addcycle").val() <=0){
+			alert("Cycle can't be equal or less than zero");
 		}else if(!$("#addreadtime").val()){
 			alert("Insert billboard read time");
+		}else if($("#addreadtime").val() <=0){
+			alert("Cycle can't be equal or less than zero");
+		}else if($("#addcycle").val()*60 % $("#addreadtime").val() != 0 ){
+			alert("Cycle*60 % ReadTime must be equal to zero");
 		}else if(extensions.length == 0){
 			alert("Add at least one extension");
 		}else if(ratios.length == 0){
