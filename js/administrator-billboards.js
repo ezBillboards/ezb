@@ -369,8 +369,8 @@ $('#btnupdatebillboard').click(function(){
 *fron the DB
 ****************************/
 		$("#edit-package tr").each(function() {
+			var i = 1;
 			if($(this).attr("id") == null){
-				var i = 1;
 				$(this).find('td').find('input').each(function(){
 					if(this.value == ""){
 						emptyPack = true;
