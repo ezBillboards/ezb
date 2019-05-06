@@ -226,6 +226,8 @@ $(document).ready(function(){
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
 		
+		console.log(typeof $("#addwidth").val() );
+		console.log(typeof $("#addheight").val() );
 		if(validateBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#addwidth").val()){
