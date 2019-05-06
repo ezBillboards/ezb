@@ -25,12 +25,13 @@ if($conn === false){
 *just deactives it
 **************************************/
 $id = $_POST['id'];
+$email = $_POST['email'];
 
 $sql = "CALL deleteBillboard($id)";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_query($conn, $sql)) {
-	echo "Billboard removed successfully";
+	logger($email, "DELETE BILLBOARD", "Administrator " . $email . " has deleted billboard ID: " . $id . " from the system");
 } else {
 	echo "Error removing billboard: " . mysqli_error($conn);
 }

@@ -43,6 +43,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
 	$packages = json_decode($_POST['packages']);
 	$regulations = json_decode($_POST['regulations']);
 	$rejections = json_decode($_POST['rejections']);
+	$email = $_POST['email'];
 	$billboardID;
 
 	$sql = "CALL postBillboard('$name','$description','$url',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,$slots,'$imageRatio','$imageExtension')";
@@ -51,7 +52,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
 		while($row = mysqli_fetch_assoc($result)) {
         		$billboardID = $row['ID'];
     		}
-		echo "New billboard created successfully. Last inserted ID is: " . $billboardID . " ";
+		logger($email, "ADD BILLBOARD", "Administrator " . $email . " has created a billboard, billboard ID: " . $billboardID);
 	} else {
 		echo "Error updating record: " . mysqli_error($conn) . " ";
 	}

@@ -50,11 +50,12 @@ $existingrejections = json_decode($_POST['existingrejections']);
 $cycle = $_POST['cycle'];
 $imageRatio = $_POST['imageRatio'];
 $imageExtension = $_POST['imageExtension'];
+$email = $_POST['email'];
 
 print_r($_POST);
 $sql = "CALL putBillboardInfo($id,'$name','$description',$width,$height,$latitude,$longitude,$minwidth,$maxwidth,$minheight,$maxheight,$tolerance,$readtime,$impressions,$traffic,$cycle,'$imageRatio','$imageExtension')";
 if (mysqli_query($conn, $sql)) {
-	echo "Billboard updated successfully";
+	logger($email, "UPDATE BILLBOARD", "Administrator " . $email . " has updated the information of billboard ID: " . $id);
 } else {
 	echo "Error updating record: " . mysqli_error($conn) . " ";
 }
