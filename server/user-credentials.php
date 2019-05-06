@@ -6,7 +6,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
         header('HTTP/1.1 403 Forbidden');
         exit;
 } else{
-
+require_once('./logger.php');
 define('DB_SERVER', $config['DB_SERVER']);
 define('DB_USERNAME', $config['DB_USERNAME']);
 define('DB_PASSWORD', $config['DB_PASSWORD']);
@@ -37,6 +37,7 @@ if (mysqli_num_rows($result) > 0) {
 		$request['enabled'] = $row['enabled'];
 		array_push($requests,$request);
     }
+	logger($emailAddress, "USER LOGIN", "User " . $emailAddress . " has logged in to the system");
 	echo json_encode($requests);
 } else {
     echo "No results";
