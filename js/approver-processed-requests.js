@@ -238,8 +238,6 @@ function viewProfile(item){
 ****************************/
 function cancelling(item){
         currentRequestID = $(item).attr("id");
-        console.log('this is the id');
-	console.log(currentRequestID);
         $("#cancelModal").modal("show");
 }
 
@@ -251,7 +249,6 @@ function cancelling(item){
 *and disables the request on the DB
 ************************************************/
 function cancelRequest(){
-	console.log(currentRequestID);
 	$.post("../server/approver-cancel-request.php",
 	{id:currentRequestID,
 	cancelId:decrypt(sessionStorage.getItem('ID')),
@@ -262,7 +259,5 @@ function cancelRequest(){
 			} else {
 				alert("Error cancelling request!");
 			}
-			console.log(data);
-			console.log(status);
 		});
 }

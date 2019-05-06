@@ -18,9 +18,6 @@ $(document).ready(function(){
 			{id:decrypt(sessionStorage.getItem('ID'))},
 			function(data, status){
 				var info = JSON.parse(data);
-				console.log(info);
-				console.log(decrypt(info.office));
-				console.log(decrypt(info.company));
 				$("#firstName").val(decrypt(info.firstName));
 				$("#lastName").val(decrypt(info.lastName));
 				$("#email").val(info.email);
@@ -51,10 +48,8 @@ $(document).ready(function(){
 				function(data, status){
 				if(status === "success"){
 					alert(data);
-					console.log(status);
 				} else{
 					alert(data);
-					console.log(status);
 				}
 			});
 		 
@@ -94,10 +89,8 @@ $(document).ready(function(){
 			function(data, status){
 				if(status === "success"){
 					alert(data);
-					console.log(status);
 				} else{
 					alert(data);
-					console.log(status);
 				}  
 			});
 	    }
@@ -114,10 +107,6 @@ function validatePassword(){
  var oldpassword = document.getElementById('oldPasswd').value;
  var newpassword = document.getElementById('newPasswd').value;
  var cpassword = document.getElementById('confirmPasswd').value;
-
- console.log('Old Password = '+ oldpassword);
- console.log('New Password = '+ newpassword);
- console.log('Confirm Password = '+ cpassword);
 
 
 if(oldpassword == ""){
@@ -215,17 +204,6 @@ function validateContactInfo(){
   var zipResult = zipRGEX.test(zip);
 
 
-  console.log('First Name = '+ firstName);
-  console.log('Last Name = '+ lastName);
-  console.log('Email = '+ email);
-  console.log('Mobile Phone = '+ mPhoneNumber);
-  console.log('Work Phone = '+ wPhoneNumber);
-  console.log('Company = ' + company);
-  console.log('Address 1 = '+ addressOne);
-  console.log('Address 2 = '+ addressTwo);
-  console.log('City = ' + city);
-  console.log('State = '+ state);
-  console.log('Zip  = '+ zip);
 
 
 
