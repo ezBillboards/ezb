@@ -577,7 +577,7 @@ $('#btnupdatebillboard').click(function(){
 			alert("Insert image maximum height");
 		}else if($("#max-hei").val() <=0){
 			alert("Maximum height can't be equal or less than zero");
-		}else if($("#max-hei").val() - Math.floor($("#addmaxheight").val()) != 0){
+		}else if($("#max-hei").val() - Math.floor($("#max-hei").val()) != 0){
 			alert("Maximum height has to be an integer");
 		}else if($("#max-hei").val() < $("#min-hei").val()){
 			alert("Maximum height can't be less than minimum heigth ");
