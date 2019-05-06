@@ -12,7 +12,9 @@ var fd = new FormData();
 var tab = 'Add';
 
 $(document).ready(function(){
-	
+/*************************
+*Choose add or edit tabs
+*************************/	
 	$(".nav-tabs a").click(function(){
 		$(this).tab('show');
 		tab = $(this).text();
@@ -21,7 +23,10 @@ $(document).ready(function(){
 		else if(tab === 'Edit')
 			console.log('Edit');
 	});
-	
+
+/**************
+*Get EZB logos
+***************/
 	$.get("../server/get-image-path.php", function(data, status){
 		path = data;
 		$("#tab-logo").attr("href", data + "img/ezb/EZBillboardsLeftLogo.png");
@@ -29,7 +34,10 @@ $(document).ready(function(){
         });	
 
 	getBillboards();
-	
+
+/*****************
+*Creates package
+*****************/
 	$('#btnaddpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
@@ -47,6 +55,9 @@ $(document).ready(function(){
 		$("#add-package").append(newPackage);
 	});
 	
+/*******************
+*Creates regulation
+*******************/
 	$('#btnaddregulation').click(function(){
 		console.log('btnaddregulation clicked!');
 		var newRegulation = "<tr>" +
@@ -61,7 +72,10 @@ $(document).ready(function(){
 		"</td>";
 		$("#add-regulation").append(newRegulation);
 	});
-	
+
+/*******************
+*Creates rejections
+*******************/
 	$('#btnaddrejection').click(function(){
 		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
@@ -77,11 +91,21 @@ $(document).ready(function(){
 		$("#add-rejection").append(newRejection);
 	});
 	
+/***************************
+*Deletes current billboard 
+*and closes the modal
+*fron the front end
+****************************/
 	$("table").on("click", "tr .remove", function(){
 		$("#myModal").modal("show");
 		 $(this).closest('tr').remove();
 	});
 	
+/***************************
+*Add new billboard
+*fron the DB
+****************************/
+
 	$('#btnnewbillboard').click(function(){
 		//console.log('btnnewbillboard clicked!');
 		var emptyPack = false;
@@ -99,7 +123,10 @@ $(document).ready(function(){
 		var rejections = [];
 		var extensions = "";
 		var ratios = "";
-		
+/***************************
+*Add new packages
+*fron the DB
+****************************/		
 		$("#add-package tr").each(function() {
 			var i = 1;
 			$(this).find('td').find('input').each(function(){
@@ -159,6 +186,11 @@ $(document).ready(function(){
 			});
 		});
 		
+
+/***************************
+*Add new regulation
+*fron the DB
+****************************/
 		$("#add-regulation tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -168,7 +200,11 @@ $(document).ready(function(){
 				}
 			});
 		});
-		
+
+/***************************
+*Add new rejection
+*fron the DB
+****************************/		
 		$("#add-rejection tr").each(function() {
 			$(this).find('td').find('input').each(function(){
 				if(this.value == ""){
@@ -247,8 +283,12 @@ $(document).ready(function(){
 			newBillboard(packages,regulations,rejections,ratios,extensions);
 		}
 	});
-	
-	$('#btnupdatebillboard').click(function(){
+
+/***************************
+*Update billboard
+*fron the DB
+****************************/
+$('#btnupdatebillboard').click(function(){
 		//console.log('btnupdatebillboard clicked!');
 		var emptyPack = false;
 		var emptyReg = false;
@@ -268,6 +308,11 @@ $(document).ready(function(){
 		var rejections = [];
 		var ratios = "";
 		var extensions = "";
+
+/***************************
+*Edit package information
+*fron the DB
+****************************/
 		$("#edit-package tr").each(function() {
 			if($(this).attr("id") == null){
 				var i = 1;
@@ -332,7 +377,11 @@ $(document).ready(function(){
 				});
 			}
 		});
-		
+	
+/***************************
+*Edit regulation information
+*fron the DB
+****************************/
 		$("#edit-regulation tr").each(function() {
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
@@ -345,7 +394,13 @@ $(document).ready(function(){
 				});
 			}
 		});
+
+
 		
+/***************************
+*Edit rejection information
+*fron the DB
+****************************/
 		$("#edit-rejection tr").each(function() {
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
@@ -430,16 +485,26 @@ $(document).ready(function(){
 		updateBillboard(packages,regulations,rejections,existingpackages,existingregulations,existingrejections,ratios,extensions);
 	});
 	
+
+/***************************
+*Choose image for billboard
+****************************/
 	$("#billboard-img").change(function(){
 	        readURL(this);
         	console.log(this.id);
 	});
-	
+
+/***************************
+*Edit image for billboard
+****************************/	
 	$("#billboard-edit-img").change(function(){
 	        readURL(this);
         	console.log(this.id);
 	});
 	
+/*******************
+*Billboard Getter
+*******************/
 	$("table").on("click", "tr .information", function(){
 		fd = new FormData();
 		var editratio;
@@ -471,7 +536,10 @@ $(document).ready(function(){
 			console.log(editextension);
 			console.log(editratio);
 		});	
-		
+
+/***************
+*Sleep function
+***************/		
 		setTimeout(function() {
 			$.each($("input[name='edit-image-ratio']"), function(){
 				console.log($(this).val());
@@ -492,7 +560,10 @@ $(document).ready(function(){
 			});
 		}, 500);
 
-		
+/***************************
+*HTML package created 
+*taking info from the DB
+****************************/		
 		$.get("../server/administrator-billboard-packages.php", 
 			{id: billboardInfo_ID}, 
 			function(data, status){
@@ -521,7 +592,12 @@ $(document).ready(function(){
 			}
 			
 		});
-		
+
+/***************************
+*HTML regulation created
+*taking info from the DB
+****************************/
+
 		$.get("../server/administrator-billboard-regulations.php", 
 			{id: billboardInfo_ID}, 
 			function(data, status){
@@ -546,7 +622,12 @@ $(document).ready(function(){
 				$("#edit-regulation").empty();
 		        $("#edit-regulation").append(regulation);
 			}
-			
+
+/***************************
+*HTML rejection created
+*taking info from the DB
+****************************/
+	
 		});
 		$.get("../server/administrator-billboard-rejections.php", 
 			{id: billboardInfo_ID}, 
@@ -575,7 +656,13 @@ $(document).ready(function(){
 			
 		});
 	});
-	
+
+
+/***************************
+*HTML package edition
+*taking info from the DB
+****************************/
+
 	$('#btneditpackage').click(function(){
 		console.log('btnaddpackage clicked!');
 		var newPackage = "<tr>" +
@@ -592,6 +679,11 @@ $(document).ready(function(){
 		"</td>";
 		$("#edit-package").append(newPackage);
 	});
+
+/***************************
+*HTML regulation edition
+*taking info from the DB
+****************************/
 	
 	$('#btneditregulation').click(function(){
 		console.log('btnaddregulation clicked!');
@@ -608,6 +700,10 @@ $(document).ready(function(){
 		$("#edit-regulation").append(newRegulation);
 	});
 	
+/***************************
+*HTML rejection edition
+*taking info from the DB
+****************************/
 	$('#btneditrejection').click(function(){
 		console.log('btnaddrejection clicked!');
 		var newRejection = "<tr>" +
@@ -622,7 +718,11 @@ $(document).ready(function(){
 		"</td>";
 		$("#edit-rejection").append(newRejection);
 	});
-		
+
+/***************************
+*Delete Billboard from
+*front end
+****************************/
 	$("table").on("click", "tr .deleteBillboard", function(){
 		console.log('deleteBillboard clicked');
 		var billboardID = $(this).closest('span').attr("id");
@@ -642,7 +742,10 @@ $(document).ready(function(){
 		});		
 	});
 
-	
+/***************************
+*Delete package from
+*front end
+****************************/
 	$("table").on("click", "tr .deletepackage", function(){
 		var packageID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
@@ -658,6 +761,11 @@ $(document).ready(function(){
 				}
 		});
 	});
+
+/***************************
+*Delete Regulation from
+*front end
+****************************/
 	$("table").on("click", "tr .deleteregulation", function(){
 		var regulationID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
@@ -674,6 +782,11 @@ $(document).ready(function(){
 		});
 	});
 	
+
+/***************************
+*Delete Rejection from
+*front end
+****************************/
 	$("table").on("click", "tr .deleterejection", function(){
 		var rejectionID = $(this).closest('tr').attr("id");
 		var tr = $(this).closest('tr');
@@ -691,6 +804,13 @@ $(document).ready(function(){
 	});
 });
 
+
+/*************************
+*Billboards Getter
+*Takes JSON from de DB
+*And appends information
+*as an HTMLto the view
+*************************/
 function getBillboards(){
 	$.get("../server/user-billboards.php", function(data, status){
 		billboards = JSON.parse(data);
@@ -713,7 +833,10 @@ function getBillboards(){
 		$("#billboards").append(billboard);
 	});
 }
-  
+ 
+/*************************
+*Reads file from computer 
+*************************/ 
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -733,6 +856,12 @@ function readURL(input) {
 	}
 }
 
+
+/*********************************
+*Creates new billboard
+*with the package, regulation,
+*rejections, ratio and extencions
+*********************************/
 function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extension_in){
 	var cycle = $("#addcycle").val();
 	var readTime = $("#addreadtime").val();
@@ -783,6 +912,13 @@ function newBillboard(packages_in,regulations_in,rejections_in,ratio_in,extensio
 
 }
 
+
+/*************************
+*Validates Billboards
+*properties
+*
+* @return {Boolean}
+*************************/
 function validateBillboard(){
 	var billboardName = true;
 	var billboardDescription = true;
@@ -798,10 +934,16 @@ function validateBillboard(){
 	}
 	
 	console.log( billboardName || billboardDescription);
-//	return billboardName || billboardDescription;
-	return false;
+	return billboardName || billboardDescription;
 }
 
+
+/***************************
+*Validates new information
+*properties from billboard
+*
+* @return {Boolean}
+****************************/
 function validateEditBillboard(){
 	var billboardName = true;
 	var billboardDescription = true;
@@ -820,10 +962,11 @@ function validateEditBillboard(){
 	return billboardName || billboardDescription;
 }
 
-function cancelRoll(){
-}
 
-
+/***************************
+*Takes new information and
+*updates the billboard
+****************************/
 function updateBillboard(packages_in,regulations_in,rejections_in,existingpackages_in,existingregulations_in,existingrejections_in,ratio_in,extension_in){
 	if(files != null){
 		console.log('changed image');
@@ -867,6 +1010,10 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 	});
 }
 
+/***************************
+*Numbers from spinners 
+*in the front end
+****************************/
 (function ($) {
 $('.spinner .btn:first-of-type').on('click', function() {
   $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
