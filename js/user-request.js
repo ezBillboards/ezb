@@ -6,7 +6,14 @@ var currentRequestID;
 getPendingRequests();
 
 $(document).ready(function(){
-	
+
+/***************************************
+*Checks which tab the user is looking
+*Denied
+*Approved
+*Cancelledr 
+*Publised
+****************************************/	
 	$(".nav-tabs a").click(function(){
 	$(this).tab('show');
 	tab = $(this).text();
@@ -24,6 +31,11 @@ $(document).ready(function(){
 		getPublishedRequests();
 	});
 
+/*******************************************
+*Search bar takes the pending search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#pendingSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#pending-requests tr").filter(function() {
@@ -31,6 +43,11 @@ $(document).ready(function(){
     });
   });
 
+/*******************************************
+*Search bar takes the approved search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#approvedSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#approved-requests tr").filter(function() {
@@ -38,6 +55,11 @@ $(document).ready(function(){
     });
   });
 
+/*******************************************
+*Search bar takes the denied search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#deniedSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#denied-requests tr").filter(function() {
@@ -45,6 +67,11 @@ $(document).ready(function(){
     });
   });
 
+/*******************************************
+*Search bar takes the cancelled search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#cancelledSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#cancelled-requests tr").filter(function() {
@@ -52,6 +79,11 @@ $(document).ready(function(){
     });
   });
 
+/*******************************************
+*Search bar takes the paid search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#paidSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#paid-requests tr").filter(function() {
@@ -59,6 +91,11 @@ $(document).ready(function(){
     });
   });
 
+/*******************************************
+*Search bar takes the published search
+*and performs toLowerCase method and looks
+*for the result on the DB
+********************************************/
   $("#publishedSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("tbody#publishedcss-requests tr").filter(function() {
@@ -68,12 +105,19 @@ $(document).ready(function(){
   
 });
 
+
+
+/*************************
+*Pending request Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getPendingRequests(){
         $("#pending-requests").empty();
 		setTimeout(function(){
 			$.get("../server/user-pending-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
                 requests = JSON.parse(data);
-				console.log(requests);
                 currentRequestIndex = 0;
 				var request = "";
                 for(var i = 0; i < requests.length; i++){
@@ -101,7 +145,7 @@ function getPendingRequests(){
                         "</div>" +
                         "</td> " +
                         "<td class=\"text-center\" style=\"vertical-align: middle;text-align: center;width: 25%;\">" +
-						"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+						"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"clickable glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
                         "</td>" +
                         "</tr>";
                 }
@@ -112,6 +156,12 @@ function getPendingRequests(){
 }
 
 
+/*************************
+*Approved Request Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getApprovedRequests(){
 	$("#approved-requests").empty();
 	$.get("../server/user-approved-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
@@ -158,7 +208,7 @@ function getApprovedRequests(){
 					"</form>" +
 				"</div>" +
 				"<div class=\"col-lg-4\">" +
-					"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
+					"<span id=\"" + requests[i].id + "\" onclick=\"cancelling(this)\" class=\"clickable glyphicon glyphicon-remove\" style=\"font-size: 35px;color:#2D2D2D;\"><br><p style=\"font-size: 14px;\"><b><i>Cancel</b></i></p></span>" +
 				"</div>" +
 			"</div>" +
 			"</td>" +
@@ -168,6 +218,12 @@ function getApprovedRequests(){
 	});
 }
 
+/*************************
+*Denied Request Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getDeniedRequests(){
 		$("#denied-requests").empty();
 		$.get("../server/user-denied-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
@@ -200,6 +256,12 @@ function getDeniedRequests(){
 	});
 }
 
+/*************************
+*Cancelled Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getCancelledRequests(){
 		$("#cancelled-requests").empty();
 		$.get("../server/user-cancelled-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
@@ -236,6 +298,12 @@ function getCancelledRequests(){
 	});
 } 
 
+/*************************
+*Paid Requests Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getPaidRequests(){
                 $("#paid-requests").empty();
                 $.get("../server/user-paid-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
@@ -278,6 +346,12 @@ function getPaidRequests(){
         });
 }
 
+/*************************
+*Published Request Getter
+*Takes JSON from de DB
+*And appends information
+* as an HTMLto the view
+*************************/
 function getPublishedRequests(){
                 $("#published-requests").empty();
                 $.get("../server/user-published-requests.php",{id:decrypt(sessionStorage.getItem('ID'))},function(data,status){
@@ -327,8 +401,11 @@ function getPublishedRequests(){
 }
 
 
+/************************************************
+*Funtion that will delete it from the front end
+*and disables the request on the DB
+************************************************/
 function cancelRequest(){
-	console.log(currentRequestID);
 	$.post("../server/approver-cancel-request.php",{id:currentRequestID,cancelId:decrypt(sessionStorage.getItem('ID'))},
 		function(data, status){
 			if(status === "success"){
@@ -336,21 +413,30 @@ function cancelRequest(){
 			} else {
 				alert("Error cancelling request!");
 			}
-			console.log(data);
-			console.log(status);
 		});
 }
 
+/****************************
+*Delete request  infomation
+*receive by the item parameter
+*on the function
+*
+*@param {string} item
+****************************/
 function cancelling(item){
 	currentRequestID = $(item).attr("id");
-	console.log('User id = ' + currentRequestID);
 	$("#myModal").modal("show");
 }
 
+/************************************************
+*Funtion that will post the current price 
+*for the requested billboard on the PHP
+*
+*@param {string} item
+************************************************/
+
 function payment(item){
         currentRequestID = $(item).attr("id");
-        console.log(currentRequestID);
-        //$.post("../server/venta.php",{requestID:currentRequestID},
         $.post("../server/user-pay-request.php",{requestID:currentRequestID},
                 function(data, status){
                         if(status === "success"){
@@ -358,8 +444,6 @@ function payment(item){
                         } else {
                                 alert("Error payment request!");
                         }
-                        console.log(data);
-                        console.log(status);
         });
 }
 
