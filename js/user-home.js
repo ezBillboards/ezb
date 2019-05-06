@@ -52,7 +52,6 @@ $(document).ready(function(){
 *Register button activate
 **********************/
 	$("#btnregister").click(function(){
-		console.log('btnregister clicked!!');
 		if(validateRegister()==true){
 			random = Math.floor((Math.random() * 900000) + 1);
 			console.log(random);
@@ -60,7 +59,20 @@ $(document).ready(function(){
 			Register($('#emailreg').val(),$('#firstnamereg').val(),$('#lastnamereg').val(),$('#phonereg').val(),$('#passwordreg').val(),random);
 		}
 	});
-
+	
+/*********************
+*Register button navbar
+**********************/
+	$("#btn-register").click(function(){
+		$('#firstnamereg').val() = "";
+		$('#lastnamereg').val() = "";
+		$('#emailreg').val() = "";
+		$('#phonereg').val() = "";
+		$('#passwordreg').val() = "";
+		$('#confirm_passwordreg').val() = "";
+		$('#terms').prop('checked', false);
+	});
+	
 /**************************
 *Restores session back home
 **************************/
