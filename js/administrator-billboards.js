@@ -493,12 +493,20 @@ $('#btnupdatebillboard').click(function(){
 		$("#edit-regulation tr").each(function() {
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
-					regulations.push(this.value);
+					if(this.value == ""){
+						emptyReg = true;
+					}else{
+						regulations.push(this.value);
+					}
 				});
 			}else{
 				existingregulations.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
-					existingregulations.push(this.value);
+					if(this.value == ""){
+						emptyReg = true;
+					}else{
+						existingregulations.push(this.value);
+					}
 				});
 			}
 		});
@@ -513,7 +521,7 @@ $('#btnupdatebillboard').click(function(){
 			if($(this).attr("id") == null){
 				$(this).find('td').find('input').each(function(){
 					if(this.value == ""){
-					emptyReg = true;
+						emptyRej = true;
 					}else{
 						rejections.push(this.value);
 					}
@@ -522,7 +530,7 @@ $('#btnupdatebillboard').click(function(){
 				existingrejections.push(($(this).attr("id")));
 				$(this).find('td').find('input').each(function(){
 					if(this.value == ""){
-					emptyReg = true;
+						emptyRej = true;
 					}else{
 						existingrejections.push(this.value);
 					}
