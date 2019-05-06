@@ -30,9 +30,9 @@ $emailAddress = $_POST['emailAddress'];
 $sql = "CALL putCancelRequest($id, $cancelId)";
 
 if (mysqli_query($conn, $sql)) {
-	logger($emailAddress, "CANCEL REQUEST", $emailAddress . " has cancelled request with ID: " . $ID);
+	logger($emailAddress, "CANCEL REQUEST", $emailAddress . " has cancelled request with ID: " . $id);
 } else {
-    logger($emailAddress, "CANCEL REQUEST", "Error cancelling request with ID: " . $ID);
+    logger($emailAddress, "CANCEL REQUEST", "Error cancelling request with ID: " . $id);
 }
 
 mysqli_close($conn);
