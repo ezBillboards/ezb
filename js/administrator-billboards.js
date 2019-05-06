@@ -225,14 +225,14 @@ $(document).ready(function(){
 		
 		ratios = ratios.substring(0, ratios.length-1);
 		extensions = extensions.substring(0, extensions.length-1);
-		
-		console.log(typeof $("#addwidth").val() );
-		console.log(typeof $("#addheight").val() );
+
 		if(validateBillboard()){
 			alert('Missing billboard information');
 		}else if(!$("#addwidth").val()){
 			alert("Insert billboard width");
 		}else if($("#addwidth").val() <=0){
+			alert("Width can't be equal or less than zero");
+		}else if($("#addwidth").val() - Math.floor($("#addwidth").val()) != 0){
 			alert("Width can't be equal or less than zero");
 		}else if(!$("#addheight").val()){
 			alert("Insert billboard height");
@@ -1043,7 +1043,21 @@ function updateBillboard(packages_in,regulations_in,rejections_in,existingpackag
 		}
 	});
 }
+/***************************
+Verify double numbers
+****************************/
+function isNumeric(val) {
+	var validChars = '0123456789.';
 
+
+	for(var i = 0; i < val.length; i++) {
+		if(validChars.indexOf(val.charAt(i)) == -1)
+			return false;
+	}
+
+
+	return true;
+}
 /***************************
 *Numbers from spinners 
 *in the front end
