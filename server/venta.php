@@ -5,7 +5,6 @@ require_once('./cksocketstream.class');
 require_once('./ckPGClient.php');
 require_once('./id.php');
 require_once('./logger.php');
-require_once('./logger.php');
 
 // Crea un request para el banco.
 $request = new ckPurchaseRequest($authid);
