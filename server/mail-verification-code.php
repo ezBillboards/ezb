@@ -34,7 +34,7 @@ if(strpos($_SERVER['HTTP_REFERER'], $config['SERVER']) == false){
 
 	//Send email
 	if (!$mail->send()) {
-		logger($emailAddress, "VERIFICATION CODE", "Error sending verification code: " . $mail->ErrorInfo;
+		logger($emailAddress, "VERIFICATION CODE", "Error sending verification code: " . $mail->ErrorInfo);
 	} else {
 		logger($emailAddress, "VERIFICATION CODE", "Verification code " . $random . " has been sent to " . $emailAddress );
 	}
