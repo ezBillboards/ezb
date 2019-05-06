@@ -19,6 +19,7 @@ $(document).ready(function(){
 		$.post("../server/administrator-backups.php",{filename:$("#filename").val()}, function(data,status){
 	                console.log(data);
 			getBackups();
+			$("#filename").val("");
 			alert("Added new backup file");
 			   
         	});	    
