@@ -378,7 +378,7 @@ errors = [];
 var temp = password.localeCompare(cpassword);
 
 
-    if(temp ==-1){
+    if(password != cpassword){
 	alert('Password and Confirm Password do not  match');
 	return false;
     }
