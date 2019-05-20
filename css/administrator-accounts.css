@@ -93,3 +93,7 @@ th {
         background-color:#1588C7;
 }
 
+.clickable:hover{
+        cursor: pointer;
+}
+

@@ -111,3 +111,17 @@ border-radius: 20px;
     margin: auto;
 }
 
+.clickable:hover{
+        cursor: pointer;
+}
+
+.home-btn{
+        color: white;
+        background-color: #1588C7;
+}
+
+.home-btn:hover{
+        color:white;
+        background-color:#1588C7;
+}
+

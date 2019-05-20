@@ -237,9 +237,9 @@ $(document).ready(function(){
 			alert("Maximum height can't be equal or less than zero");
 		}else if($("#addmaxheight").val() - Math.floor($("#addmaxheight").val()) != 0){
 			alert("Maximum height has to be an integer");
-		}else if($("#addmaxheight").val() < $("#addminheight").val()){
+		}else if($("#addmaxheight").val() - $("#addminheight").val() < 0){
 			alert("Maximum height can't be less than minimum height ");
-		}else if($("#addmaxwidth").val() < $("#addminwidth").val()){
+		}else if($("#addmaxwidth").val() - $("#addminwidth").val() < 0){
 			alert("Maximum width can't be less than minimum width ");
 		}else if(!$("#addlatitude").val()){
 			alert("Insert billboard latitude");
@@ -824,8 +824,10 @@ $('#btnupdatebillboard').click(function(){
 				email:decrypt(sessionStorage.getItem('email'))
 			},function(data,status){
 				if(status === "success"){
-					tr.remove();
+					currenttr.remove();
+					$("#myModal").modal("hide");
 				}else{
+					$("#myModal").modal("hide");
 				}
 		});		
 	});

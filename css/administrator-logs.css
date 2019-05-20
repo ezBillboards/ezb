@@ -27,7 +27,7 @@
 .editTable{
   text-align: center;
   width: 20%;
-  background-color: #607d8b;
+  background-color: #1F589E;
   color: white;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .navbar-text-color {
-    color: #03A9F4 !important;
+    color: #1588C7 !important;
 }
 
 .column {
@@ -50,3 +50,8 @@
 	font-size: 56px;
         font-weight: bold;
 }
+
+.clickable:hover{
+        cursor: pointer;
+}
+

@@ -71,3 +71,8 @@ border-radius: 20px;
 .headers{
 	color: white;
 }
+
+.clickable:hover{
+        cursor: pointer;
+}
+

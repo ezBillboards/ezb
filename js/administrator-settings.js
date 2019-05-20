@@ -291,14 +291,14 @@ return true;
 *****************************/
 function validateBackupPathConfiguration(){
  var backup = document.getElementById('backup').value;
- var backupRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
+ var backupRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])+[^/]\s?[/]{1}$/;
  var backupResult = backupRGEX.test(backup);
 
 
 errors = [];
 
 if(backupResult == false || backup == ""){
-        alert('Please enter a valid backup path');
+        alert('Please enter a valid backup path. Path must end with /');
         return false;
 	}
 
@@ -316,12 +316,12 @@ return true;
 *****************************/
 function validateImagePathConfiguration(){
  var image = document.getElementById('image').value;
- var imageRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])*$/;
+ var imageRGEX = /^[_A-z0-9]*((-|\s)*[_A-z0-9./])+[^/]\s?[/]{1}$/;
  var imageResult = imageRGEX.test(image);
 
 
 if(imageResult == false || image == ""){
-        alert('Please enter a valid image path');
+        alert('Please enter a valid image path. Path must end with /');
         return false;
         }
 

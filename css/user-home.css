@@ -55,14 +55,13 @@
  	transform: translate(-50%, -50%);
 }
 
-.text-primary:hover{
-	text-decoration: underline;
-	cursor: pointer;
-}
-
 #btn-register{
         color: white;
         background-color: #1588C7;
+}
+
+.clickable:hover{
+	cursor: pointer;
 }
 
 .home-btn{
