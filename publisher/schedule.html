@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
   <script src="../js/encryption-decryption.js"></script>
-  <script src="../js/publisher-paid-requests.js"></script>
+  <script src="../js/publisher-schedule.js"></script>
   <script src="../js/publisher.js"></script>
   <link id="tab-logo" rel="icon" href="">
 </head>
@@ -41,10 +41,15 @@
 	</div>
 </nav>
 
-<h1 id="paid-requests-header" class="text-center">Pending Requests</h1>
+<h1 id="paid-requests-header" class="text-center">Billboard Schedule</h1>
 
 <div class="container">
   <br>
+	<div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+		<i class="fa fa-calendar"></i>&nbsp;
+		<span></span> <i class="fa fa-caret-down"></i>
+	</div>
+	<br>
   <div class="row">
         <div class="col-lg-11 input-group" style="margin:auto;">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
